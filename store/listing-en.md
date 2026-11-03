@@ -35,6 +35,8 @@ back when you review.
 - **Save to your word bank:** one click writes the word and translation to a
   Markdown file you choose by its full path. Duplicates are skipped, so nothing
   gets lost or repeated.
+- **Ready for the next word:** after a successful save the input clears
+  automatically, focus returns to it, and a short confirmation appears.
 - **Interactive YouTube subtitles:** hover a word to pause the video, click it
   to translate, or drag across a phrase to translate the whole phrase.
 - **Floating button on every page:** translate while reading or studying
@@ -52,7 +54,8 @@ back when you review.
 1. Install the extension.
 2. Click the Hassala icon or the floating button.
 3. Type an Arabic or English word and press **Enter**.
-4. Click **Add to Hassala** to save it to your Markdown word bank.
+4. Click **Add to Hassala** to save it to your Markdown word bank. The input
+   clears automatically so you can type the next word.
 
 ### Your word bank file
 

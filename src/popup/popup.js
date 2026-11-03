@@ -48,6 +48,7 @@ let lastQuery = '';
 let copyTimer = 0;
 let sourceCopyTimer = 0;
 let saveTimer = 0;
+let emptyNoticeTimer = 0;
 let fileStatusTimer = 0;
 let pathDefaultPath = '';
 let pathLastFocus = null;
@@ -208,9 +209,11 @@ function resultSize(text) {
   return '';
 }
 
-function clearInput(focus) {
+function clearInput(focus, notice = '') {
   cancelDebounce();
   requestSeq++;
+  clearTimeout(saveTimer);
+  clearTimeout(emptyNoticeTimer);
 
   els.input.value = '';
   els.input.style.height = '';
@@ -221,7 +224,19 @@ function clearInput(focus) {
   els.copySource.title = 'انسخ الكلمة';
   lastResult = '';
   lastQuery = '';
-  showEmpty();
+  showEmpty(notice || EMPTY_MESSAGE);
+
+  if (notice) {
+    emptyNoticeTimer = setTimeout(() => {
+      if (
+        !els.input.value.trim() &&
+        !lastQuery &&
+        els.resultCard.dataset.state === 'empty'
+      ) {
+        els.result.textContent = EMPTY_MESSAGE;
+      }
+    }, 3200);
+  }
 
   if (focus) els.input.focus();
 }
@@ -341,10 +356,11 @@ function setCardState(state) {
   els.resultCard.dataset.state = state;
 }
 
-function showEmpty() {
+function showEmpty(message = EMPTY_MESSAGE) {
+  clearTimeout(emptyNoticeTimer);
   els.resultCard.classList.remove('is-loading');
   setCardState('empty');
-  els.result.textContent = EMPTY_MESSAGE;
+  els.result.textContent = message;
   els.result.dir = 'rtl';
   els.result.dataset.size = '';
   els.result.classList.remove('pop');
@@ -576,6 +592,9 @@ function openOptions() {
 async function saveToHassala() {
   if (!lastResult || !lastQuery || els.saveHassala.disabled) return;
 
+  const query = lastQuery;
+  const translation = lastResult;
+
   clearTimeout(saveTimer);
   els.saveHassala.disabled = true;
   els.saveHassala.classList.remove('is-saved', 'is-error');
@@ -583,27 +602,36 @@ async function saveToHassala() {
 
   const response = await sendMessage({
     type: 'saveToHassala',
-    word: lastQuery,
-    translation: lastResult,
+    word: query,
+    translation,
     mode,
   });
 
   if (response && response.ok) {
-    els.saveHassala.classList.add('is-saved');
-    els.saveLabel.textContent = response.duplicate
-      ? 'موجودة عندك ✓'
-      : 'اتحوشت ✓';
-  } else {
-    els.saveHassala.classList.add('is-error');
-    els.saveLabel.textContent =
-      response && response.code === 'native_missing'
-        ? 'الربط مش مفعّل'
-        : response && response.code === 'invalid_file'
-          ? 'راجع مسار الحصالة'
-          : response && response.code === 'file_missing'
-            ? 'الملف مش موجود'
-            : 'مقدرتش أحوش';
+    const notice = response.duplicate
+      ? 'كانت موجودة عندك ✓ اكتب الكلمة اللي بعدها'
+      : 'اتحوشت ✓ اكتب الكلمة اللي بعدها';
+
+    // Only clear when the field still holds the word that was saved. If the
+    // user has already started the next word, leave their text alone.
+    if (lastQuery === query && els.input.value.trim() === query) {
+      clearInput(true, notice);
+    } else {
+      setFileStatus(notice, 'ok');
+      resetSaveButton();
+    }
+    return;
   }
+
+  els.saveHassala.classList.add('is-error');
+  els.saveLabel.textContent =
+    response && response.code === 'native_missing'
+      ? 'الربط مش مفعّل'
+      : response && response.code === 'invalid_file'
+        ? 'راجع مسار الحصالة'
+        : response && response.code === 'file_missing'
+          ? 'الملف مش موجود'
+          : 'مقدرتش أحوش';
 
   saveTimer = setTimeout(resetSaveButton, 2400);
 }

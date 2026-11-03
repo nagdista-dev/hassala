@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "حصالة — مترجم وحافظ الكلمات",
   "short_name": "حصالة",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "ترجمة فورية عربي ↔ إنجليزي، وحفظ الكلمات في حصالتك للمراجعة، وسبتايتل يوتيوب تفاعلي، وزرار عائم في كل الصفحات.",
   "minimum_chrome_version": "109",
   "content_security_policy": {

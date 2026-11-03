@@ -1456,6 +1456,7 @@
   let requestSeq = 0;
   let debounceTimer = 0;
   let saveTimer = 0;
+  let emptyNoticeTimer = 0;
   let sourceCopyTimer = 0;
   let fileStatusTimer = 0;
   let pathDefaultPath = '';
@@ -2075,6 +2076,41 @@
     debounceTimer = setTimeout(translateNow, DEBOUNCE_MS);
   }
 
+  // Clears the word, translation, and actions so the next word can be typed
+  // straight away. `notice` keeps a short confirmation in the result card
+  // after a save instead of dropping back to the generic empty text.
+  function resetInput({ focus = false, notice = '' } = {}) {
+    cancelDebounce();
+    requestSeq++;
+    clearTimeout(saveTimer);
+    clearTimeout(emptyNoticeTimer);
+
+    els.input.value = '';
+    els.input.style.height = '';
+    els.input.dir = 'rtl';
+    els.clear.hidden = true;
+    els.copySource.hidden = true;
+    els.copySource.classList.remove('copied', 'error');
+    els.copySource.title = 'انسخ الكلمة';
+    lastResult = '';
+    lastQuery = '';
+    setState('empty', notice || EMPTY_TEXT);
+
+    if (notice) {
+      emptyNoticeTimer = setTimeout(() => {
+        if (
+          !els.input.value.trim() &&
+          !lastQuery &&
+          els.resultCard.dataset.state === 'empty'
+        ) {
+          els.result.textContent = EMPTY_TEXT;
+        }
+      }, 3200);
+    }
+
+    if (focus) els.input.focus({ preventScroll: true });
+  }
+
   async function translateNow() {
     if (siteBlocked) return;
 
@@ -2609,33 +2645,47 @@
     if (siteBlocked) return;
     if (!lastResult || !lastQuery || els.save.disabled) return;
 
+    const query = lastQuery;
+    const translation = lastResult;
+
     els.save.disabled = true;
     els.save.classList.remove('ok', 'err');
     els.saveLabel.textContent = 'بيحوش…';
 
     const response = await sendMessage({
       type: 'saveToHassala',
-      word: lastQuery,
-      translation: lastResult,
+      word: query,
+      translation,
       mode,
     });
 
     if (response && response.ok) {
-      els.save.classList.add('ok');
-      els.saveLabel.textContent = response.duplicate
-        ? 'موجودة عندك ✓'
-        : 'اتحوشت ✓';
-    } else {
-      els.save.classList.add('err');
-      els.saveLabel.textContent =
-        response && response.code === 'native_missing'
-          ? 'الربط مش مفعّل'
-          : response && response.code === 'invalid_file'
-            ? 'راجع مسار الحصالة'
-            : response && response.code === 'file_missing'
-              ? 'الملف مش موجود'
-              : 'مقدرتش أحوش';
+      const notice = response.duplicate
+        ? 'كانت موجودة عندك ✓ اكتب الكلمة اللي بعدها'
+        : 'اتحوشت ✓ اكتب الكلمة اللي بعدها';
+
+      // Only clear when the field still holds the word that was saved. If the
+      // user has already started the next word, leave their text alone.
+      if (lastQuery === query && els.input.value.trim() === query) {
+        resetInput({ focus: true, notice });
+      } else {
+        setFileStatus(notice, 'ok');
+        els.save.disabled = false;
+        els.save.classList.remove('ok', 'err');
+        els.saveLabel.textContent = 'أضف للحصالة';
+      }
+      return;
     }
+
+    els.save.classList.add('err');
+    els.saveLabel.textContent =
+      response && response.code === 'native_missing'
+        ? 'الربط مش مفعّل'
+        : response && response.code === 'invalid_file'
+          ? 'راجع مسار الحصالة'
+          : response && response.code === 'file_missing'
+            ? 'الملف مش موجود'
+            : 'مقدرتش أحوش';
 
     clearTimeout(saveTimer);
     saveTimer = setTimeout(() => {
@@ -2742,19 +2792,7 @@
   });
 
   els.clear.addEventListener('click', () => {
-    cancelDebounce();
-    requestSeq++;
-    els.input.value = '';
-    els.input.style.height = '';
-    els.input.dir = 'rtl';
-    els.clear.hidden = true;
-    els.copySource.hidden = true;
-    els.copySource.classList.remove('copied', 'error');
-    els.copySource.title = 'انسخ الكلمة';
-    lastResult = '';
-    lastQuery = '';
-    setState('empty', EMPTY_TEXT);
-    els.input.focus({ preventScroll: true });
+    resetInput({ focus: true });
   });
 
   els.copySource.addEventListener('click', copySourceText);
