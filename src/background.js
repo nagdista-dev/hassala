@@ -166,7 +166,11 @@ async function openTranslator(tab) {
         try {
           await chrome.scripting.executeScript({
             target: { tabId: tab.id },
-            files: ['src/content/site-policy.js', 'src/content/floating.js'],
+            files: [
+              'src/content/keyboard-guard.js',
+              'src/content/site-policy.js',
+              'src/content/floating.js',
+            ],
           });
         } catch {
           // The page may forbid injection.

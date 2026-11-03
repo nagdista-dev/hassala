@@ -19,6 +19,7 @@ flowchart TB
         Page["Web page / YouTube tab"]
         subgraph CS["Content scripts (isolated world)"]
             Policy["site-policy.js<br/>domain + block list"]
+            Guard["keyboard-guard.js<br/>document_start key isolation"]
             Floating["floating.js<br/>closed Shadow DOM UI"]
             YouTube["youtube.js<br/>interactive captions"]
         end
@@ -75,6 +76,7 @@ flowchart TB
 | --- | --- | --- |
 | Service worker | `src/background.js` | الترجمة، fallback، كاش، النطق، الحفظ، التحقق من المرسل، رسائل التبويب |
 | الصندوق العائم | `src/content/floating.js` | واجهة الترجمة، تحديد النص، الزرار العائم، مسار الحفظ، Shadow DOM مغلق |
+| عزل الكيبورد | `src/content/keyboard-guard.js` | حارس بيتحمّل عند `document_start` ويمنع اختصارات الصفحة من رؤية مفاتيح الصندوق |
 | سياسة المواقع | `src/content/site-policy.js` | تطبيع الدومينات، قراءة قائمة التعطيل، أحداث `storage` |
 | يوتيوب | `src/content/youtube.js` | قراءة السبتايتل، عرض سطرين، الوقوف عند المرور، الترجمة عند الضغط |
 | البوب | `src/popup/` | ترجمة سريعة، حفظ، فتح الملف، سجل آخر ٨ كلمات، إظهار/إخفاء الزرار العائم |
@@ -83,6 +85,20 @@ flowchart TB
 | Native host | `native/hassala_writer.py` | كتابة صفوف Markdown، منع التكرار، فحص المسارات، فتح الملف |
 | السكربتات | `scripts/` | فحص المشروع، بناء ZIP، توليد الأيقونات |
 | الاختبارات | `tests/` | اختبار Native Host من غير أي اعتماد خارجي |
+
+**عزل الكيبورد:**
+
+- الصندوق العائم جوه **closed shadow root**، فالصفحة بتشوف أي حدث خارج منه
+  وكأنه جاي من `#aet-floating-root` مش من `textarea`. يوتيوب ومواقع تانية
+  بتعتبر ده «مفيش كتابة» وتشغّل اختصاراتها (Space للفيديو، الأسهم للـ seek).
+- `keyboard-guard.js` بيتحمّل عند `document_start` قبل سكربتات الصفحة،
+  وبيسجّل listener في مرحلة الـ capture على `window`.
+- لما التركيز يكون جوه الصندوق، الحارس بيمنع انتشار `keydown`/`keypress`/
+  `keyup` للصفحة، وبيسلّم `keydown` لـ `floating.js` عشان يتعامل مع
+  `Enter`/`Escape`/مسار الحفظ.
+- الحارس **مش** بينادي `preventDefault` للمفاتيح العادية، فالمتصفح بيكمّل
+  السلوك الطبيعي: كتابة المسافة، حركة الـ caret، التحديد بـ Shift، التنقل
+  بين الكلمات، والـ IME. ده اللي بيخلي الكتابة العربية سليمة.
 
 ---
 

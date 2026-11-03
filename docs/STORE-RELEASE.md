@@ -45,7 +45,7 @@
 
 ### رقم الإصدار
 
-- [ ] `manifest.json` فيه رقم إصدار جديد (مثال: `2.0.1`).
+- [ ] `manifest.json` فيه رقم إصدار جديد (مثال: `2.0.2`).
 - [ ] `src/options/options.html` بيعرض نفس الرقم.
 - [ ] `CHANGELOG.md` فيه مدخل للنسخة.
 - [ ] `docs/ROADMAP.md` محدّث.
@@ -85,8 +85,8 @@ bash scripts/package.sh
 ### فحص الحزمة
 
 ```bash
-unzip -l dist/hassala-2.0.1.zip
-sha256sum dist/hassala-2.0.1.zip
+unzip -l dist/hassala-2.0.2.zip
+sha256sum dist/hassala-2.0.2.zip
 ```
 
 - [ ] سجّل الـ SHA256 في مكان آمن.
@@ -116,7 +116,7 @@ sha256sum dist/hassala-2.0.1.zip
 لو عندك نسخة قديمة مسجلة:
 
 - [ ] ثبّت النسخة القديمة، اختار مسار، واعمل ترجمة.
-- [ ] ثبّت `2.0.1` فوقها (نفس فولدر التحميل أو Reload).
+- [ ] ثبّت `2.0.2` فوقها (نفس فولدر التحميل أو Reload).
 - [ ] اتأكد إن المسار القديم اتنقل لـ `hassalaFile`، وإن الحفظ شغال.
 - [ ] اتأكد إن مفتاح `obsidianFile` اتمسح بعد الترحيل.
 
@@ -238,12 +238,12 @@ https://gist.github.com/nagdista-dev/282cc2ce8fe35c5fb7199f7ffd2cd705
 
 1. GitHub → Settings → Collaborators → Add people.
 2. ابعت له رابط الريبو + `docs/INSTALL.md`.
-3. أو ابعت له `hassala-2.0.1-testers.zip` + تعليمات التثبيت. الحزمة دي فيها
+3. أو ابعت له `hassala-2.0.2-testers.zip` + تعليمات التثبيت. الحزمة دي فيها
    الإضافة والـ Native Host والدليل، فالحفظ بيشتغل من غير دعوة.
 
 ```bash
 bash scripts/package-testers.sh
-# dist/hassala-2.0.1-testers.zip
+# dist/hassala-2.0.2-testers.zip
 ```
 
 ### تنظيف التاريخ

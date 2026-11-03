@@ -2075,14 +2075,6 @@
     debounceTimer = setTimeout(translateNow, DEBOUNCE_MS);
   }
 
-  function onKeydown(event) {
-    if (event.key === 'Enter' && !event.shiftKey) {
-      event.preventDefault();
-      cancelDebounce();
-      translateNow();
-    }
-  }
-
   async function translateNow() {
     if (siteBlocked) return;
 
@@ -2678,7 +2670,6 @@
   /* ---------- Events ---------- */
 
   els.input.addEventListener('input', onInput);
-  els.input.addEventListener('keydown', onKeydown);
   els.input.addEventListener('compositionstart', () => {
     composing = true;
   });
@@ -2687,85 +2678,68 @@
     onInput();
   });
 
-  // Events from inside the panel are retargeted to the shadow host outside
-  // the shadow tree. YouTube checks that target, decides no text field is
-  // focused, and treats the keys as player shortcuts (arrows seek the video).
-  // Keep those keys away from the page while our own fields are focused.
-  function isOurTextField(event) {
-    const path = event.composedPath ? event.composedPath() : [];
-    const target = path[0] || event.target;
-    return target === els.input || target === els.pathInput;
+  // Events from inside the panel are retargeted to the shadow host once they
+  // leave the closed shadow tree. Sites such as YouTube then think no text
+  // field is focused and run their shortcuts (Space toggles playback, arrows
+  // seek, letters like k/j/l jump around the player). The document_start
+  // guard registers before page scripts, so it sees these keys first and
+  // keeps them away from the page. Stopping propagation does not cancel the
+  // browser's default action, so typing, caret movement, selection, undo,
+  // and IME composition all keep their normal behaviour.
+  function activePanelElement() {
+    try {
+      return shadow.activeElement;
+    } catch {
+      return null;
+    }
   }
 
-  // Some pages (YouTube, for example) intercept Space in the capture phase
-  // and stop it from reaching the input. Insert it ourselves and keep the
-  // event away from page shortcuts while the translator is focused.
-  function insertSpace(input) {
-    const max = input.maxLength > 0 ? input.maxLength : Infinity;
-    const start = input.selectionStart ?? input.value.length;
-    const end = input.selectionEnd ?? start;
+  function handlePanelKeydown(event) {
+    if (event.isComposing || event.keyCode === 229) return;
 
-    if (input.value.length >= max || end - start >= max - input.value.length) {
+    const target = activePanelElement();
+    if (!target) return;
+
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      if (!els.pathModal.hidden) closePathModal();
+      else closePanel();
       return;
     }
 
-    input.setRangeText(' ', start, end, 'end');
-    input.dispatchEvent(
-      new InputEvent('input', {
-        bubbles: false,
-        inputType: 'insertText',
-        data: ' ',
-      }),
-    );
-  }
+    if (target === els.input && event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      cancelDebounce();
+      translateNow();
+      return;
+    }
 
-  function handleSpaceCapture(event) {
-    if (event.isComposing || event.keyCode === 229) return;
-    if (!isOurTextField(event)) return;
-    if (event.key !== ' ' && event.code !== 'Space') return;
-
-    event.preventDefault();
-    event.stopPropagation();
-
-    if (event.type === 'keydown') {
-      const target = event.composedPath ? event.composedPath()[0] : event.target;
-      insertSpace(target);
+    if (target === els.pathInput && event.key === 'Enter') {
+      event.preventDefault();
+      savePathFromModal();
     }
   }
 
-  for (const type of ['keydown', 'keypress', 'keyup']) {
-    window.addEventListener(type, handleSpaceCapture, true);
+  const keyboardGuard = globalThis.__AET_KEYBOARD_GUARD__;
+  if (keyboardGuard) {
+    keyboardGuard.mount({
+      host,
+      focused: () => activePanelElement() !== null,
+      onKeyDown: handlePanelKeydown,
+    });
   }
 
-  // Same idea for caret movement: stop the page from seeing arrows/Home/End
-  // but let the browser perform its normal editing action, so selection,
-  // Shift/Ctrl/Alt modifiers and RTL text all keep working untouched.
-  const NAVIGATION_KEYS = new Set([
-    'ArrowLeft',
-    'ArrowRight',
-    'ArrowUp',
-    'ArrowDown',
-    'Left',
-    'Right',
-    'Up',
-    'Down',
-    'Home',
-    'End',
-    'PageUp',
-    'PageDown',
-  ]);
-
-  function handleNavigationCapture(event) {
-    if (event.isComposing || event.keyCode === 229) return;
-    if (!isOurTextField(event)) return;
-    if (!NAVIGATION_KEYS.has(event.key)) return;
-
-    event.stopImmediatePropagation();
-  }
-
-  for (const type of ['keydown', 'keyup']) {
-    window.addEventListener(type, handleNavigationCapture, true);
-  }
+  // Fallback for tabs that were already open when the extension was updated
+  // and therefore loaded the guard after the page's own listeners. The guard
+  // stops the event before it reaches these listeners in the normal path.
+  els.panel.addEventListener('keydown', (event) => {
+    handlePanelKeydown(event);
+    event.stopPropagation();
+  });
+  els.pathModal.addEventListener('keydown', (event) => {
+    handlePanelKeydown(event);
+    event.stopPropagation();
+  });
 
   els.clear.addEventListener('click', () => {
     cancelDebounce();
@@ -2797,35 +2771,14 @@
     sendMessage({ type: 'openOptions' }, 4000);
     closePathModal();
   });
-  els.pathInput.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      savePathFromModal();
-    }
-  });
   els.pathModal.addEventListener('click', (event) => {
     if (event.target.closest('[data-path-close]')) closePathModal();
-  });
-  els.pathModal.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') {
-      event.preventDefault();
-      closePathModal();
-    }
-    event.stopPropagation();
   });
   els.pin.addEventListener('click', togglePanelPin);
   els.settings.addEventListener('click', () => {
     sendMessage({ type: 'openOptions' }, 4000);
   });
   els.close.addEventListener('click', closePanel);
-
-  els.panel.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') {
-      event.preventDefault();
-      closePanel();
-    }
-    event.stopPropagation();
-  });
 
   // Keep page shortcuts and page click handlers away from our UI.
   for (const type of ['pointerdown', 'mousedown', 'click', 'dblclick', 'wheel']) {

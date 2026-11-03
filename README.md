@@ -14,7 +14,7 @@
   <img alt="Manifest V3" src="https://img.shields.io/badge/Manifest-V3-0f766e" />
   <img alt="Chrome / Brave / Edge" src="https://img.shields.io/badge/Chrome-Brave%20%7C%20Edge-4285F4" />
   <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-b8862f" />
-  <img alt="Version" src="https://img.shields.io/badge/version-2.0.1-0f766e" />
+  <img alt="Version" src="https://img.shields.io/badge/version-2.0.2-0f766e" />
 </p>
 
 ---
@@ -87,12 +87,12 @@
 
 فيه نسختين، واختار اللي تناسبك:
 
-- **`hassala-2.0.1-testers.zip`** — الحزمة الكاملة للمختبرين: الإضافة + الـ
+- **`hassala-2.0.2-testers.zip`** — الحزمة الكاملة للمختبرين: الإضافة + الـ
   Native Host + دليل التثبيت. دي المفضلة لأن الحفظ بيشتغل من أول مرة.
-- **`hassala-2.0.1.zip`** — نفس حزمة Chrome Web Store: الإضافة بس. الحفظ فيها
+- **`hassala-2.0.2.zip`** — نفس حزمة Chrome Web Store: الإضافة بس. الحفظ فيها
   محتاج إنك تجيب فولدر `native/` من الريبو الخاص.
 
-1. خُد `hassala-2.0.1-testers.zip` من صاحب المشروع.
+1. خُد `hassala-2.0.2-testers.zip` من صاحب المشروع.
 2. فك الضغط في مكان ثابت على جهازك، مثلًا:
    - Linux/macOS: `~/Hassala`
    - Windows: `%USERPROFILE%\Hassala`
@@ -306,6 +306,7 @@ powershell -ExecutionPolicy Bypass -File native\install.ps1 -Uninstall
 │   ├── background.js          # الترجمة، الصوت، الحفظ، والرسائل
 │   ├── content/
 │   │   ├── floating.js        # الصندوق العائم وترجمة التحديد (Shadow DOM)
+│   │   ├── keyboard-guard.js  # عزل مفاتيح الكتابة عن اختصارات الصفحة
 │   │   ├── site-policy.js     # تطبيع الدومينات والمواقع المتعطلة
 │   │   ├── youtube.js         # السبتايتل التفاعلي
 │   │   └── youtube.css        # إخفاء السبتايتل الأصلي
@@ -350,14 +351,14 @@ bash scripts/check.sh
 
 ```bash
 bash scripts/package.sh
-# dist/hassala-2.0.1.zip
+# dist/hassala-2.0.2.zip
 ```
 
 - بناء حزمة كاملة للمختبرين (الإضافة + Native Host + الدليل):
 
 ```bash
 bash scripts/package-testers.sh
-# dist/hassala-2.0.1-testers.zip
+# dist/hassala-2.0.2-testers.zip
 ```
 
 - اختبارات Native Host لوحدها:

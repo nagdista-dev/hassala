@@ -26,13 +26,13 @@
 ينزّله من غير دعوة. فيه طريقتين للوصول:
 
 1. **دعوة للريبو:** صاحب المشروع يضيفك Collaborator، وبعدها تقدر تعمل Clone.
-2. **ZIP للمختبرين:** صاحب المشروع يبعتلك `hassala-2.0.1-testers.zip` مباشرة.
+2. **ZIP للمختبرين:** صاحب المشروع يبعتلك `hassala-2.0.2-testers.zip` مباشرة.
    دي الحزمة الكاملة: الإضافة + الـ Native Host + الدليل.
 
 المستخدم العادي بعد النشر هياخد الإضافة من Chrome Web Store، ومش محتاج GitHub
 خالص.
 
-> **ملاحظة:** فيه كمان `hassala-2.0.1.zip`، وهي حزمة Chrome Web Store
+> **ملاحظة:** فيه كمان `hassala-2.0.2.zip`، وهي حزمة Chrome Web Store
 > (الإضافة بس). استخدمها لو هترفع على المتجر، أو لو هتجيب الـ Native Host من
 > الريبو بنفسك.
 
@@ -40,7 +40,7 @@
 
 ## 2) التثبيت من ZIP (الطريقة الأسهل للمختبرين)
 
-1. خُد ملف `hassala-2.0.1-testers.zip`.
+1. خُد ملف `hassala-2.0.2-testers.zip`.
 2. فك الضغط في مكان ثابت، مثلًا:
 
    ```text
@@ -58,7 +58,7 @@
    ~/Hassala/docs/INSTALL.md
    ```
 
-   لو لقيت فولدر زيادة جوه `Hassala` (مثل `hassala-2.0.1/`)، خُد الملفات
+   لو لقيت فولدر زيادة جوه `Hassala` (مثل `hassala-2.0.2/`)، خُد الملفات
    اللي جواه وحرّكها لفوق.
 
 4. افتح صفحة الإضافات حسب المتصفح:
@@ -372,7 +372,7 @@ powershell -ExecutionPolicy Bypass -File native\install.ps1 -Uninstall
 
 1. `bash scripts/check.sh`
 2. `bash scripts/package.sh`
-3. ارفع `dist/hassala-2.0.1.zip`.
+3. ارفع `dist/hassala-2.0.2.zip`.
 4. املأ صفحة المتجر من `store/listing-ar.md` و`store/listing-en.md`.
 5. حط رابط سياسة الخصوصية العام.
 6. ارفع لقطات الشاشة.
