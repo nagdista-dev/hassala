@@ -1,14 +1,5 @@
 <p align="center">
-  <img src="src/icons/icon128.png" width="104" alt="Hassala — Arabic word translator and keeper" />
-</p>
-
-<h1 align="center">Hassala</h1>
-
-<p align="center">
-  <strong>Your words won't get lost. They get saved.</strong><br />
-  An Arabic-first Chrome extension that translates Arabic ↔ English, saves every
-  word to a Markdown word bank on your device, and turns YouTube subtitles into
-  an interactive learning surface.
+  <img src="assets/social-preview-en.png" width="100%" alt="Hassala — Arabic-first translator and Markdown word bank" />
 </p>
 
 <p align="center">
