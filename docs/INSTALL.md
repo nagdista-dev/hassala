@@ -26,16 +26,21 @@
 ينزّله من غير دعوة. فيه طريقتين للوصول:
 
 1. **دعوة للريبو:** صاحب المشروع يضيفك Collaborator، وبعدها تقدر تعمل Clone.
-2. **ZIP للمختبرين:** صاحب المشروع يبعتلك `hassala-2.0.1.zip` مباشرة.
+2. **ZIP للمختبرين:** صاحب المشروع يبعتلك `hassala-2.0.1-testers.zip` مباشرة.
+   دي الحزمة الكاملة: الإضافة + الـ Native Host + الدليل.
 
 المستخدم العادي بعد النشر هياخد الإضافة من Chrome Web Store، ومش محتاج GitHub
 خالص.
+
+> **ملاحظة:** فيه كمان `hassala-2.0.1.zip`، وهي حزمة Chrome Web Store
+> (الإضافة بس). استخدمها لو هترفع على المتجر، أو لو هتجيب الـ Native Host من
+> الريبو بنفسك.
 
 ---
 
 ## 2) التثبيت من ZIP (الطريقة الأسهل للمختبرين)
 
-1. خُد ملف `hassala-2.0.1.zip`.
+1. خُد ملف `hassala-2.0.1-testers.zip`.
 2. فك الضغط في مكان ثابت، مثلًا:
 
    ```text
@@ -49,6 +54,8 @@
    ~/Hassala/manifest.json
    ~/Hassala/src/background.js
    ~/Hassala/src/fonts/BalooBhaijaan2-Variable.woff2
+   ~/Hassala/native/install.sh
+   ~/Hassala/docs/INSTALL.md
    ```
 
    لو لقيت فولدر زيادة جوه `Hassala` (مثل `hassala-2.0.1/`)، خُد الملفات
@@ -68,6 +75,8 @@
 7. اختار فولدر `Hassala` اللي فيه `manifest.json` مباشرة.
 8. هتظهر الإضافة. اضغط **Pin** من قائمة البازل 🧩 عشان الأيقونة تفضل في شريط
    الأدوات.
+9. عشان الحفظ يشتغل، كمّل الخطوة اللي بعد كده: **تثبيت Native Host** من نفس
+   فولدر `Hassala`. الحزمة فيها فولدر `native/` جاهز.
 
 > **مهم جدًا:** سيب الفولدر في مكانه. لو نقلته أو غيّرت اسمه، Chrome بيعتبره
 > إضافة جديدة، والـ Extension ID بيتغيّر، والـ Native Host القديم مش هيعرف
@@ -102,7 +111,7 @@ cd hassala
 
 ### 4.1) Linux وmacOS
 
-من جوه فولدر المشروع:
+من جوه فولدر `Hassala` المفكوك (اللي فيه `manifest.json` و`native/`):
 
 ```bash
 bash native/install.sh
@@ -154,7 +163,7 @@ bash native/install.sh --uninstall
 1. افتح صفحة الإضافات (`chrome://extensions` أو `edge://extensions`).
 2. شغّل Developer mode.
 3. انسخ **ID** الإضافة من تحت اسم «حصالة».
-4. من فولدر المشروع، شغّل:
+4. من فولدر `Hassala`، شغّل:
 
    ```powershell
    powershell -ExecutionPolicy Bypass -File native\install.ps1 -ExtensionId <id>

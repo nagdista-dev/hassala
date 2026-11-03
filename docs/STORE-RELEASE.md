@@ -238,7 +238,13 @@ https://gist.github.com/nagdista-dev/282cc2ce8fe35c5fb7199f7ffd2cd705
 
 1. GitHub → Settings → Collaborators → Add people.
 2. ابعت له رابط الريبو + `docs/INSTALL.md`.
-3. أو ابعت له ZIP + تعليمات التثبيت.
+3. أو ابعت له `hassala-2.0.1-testers.zip` + تعليمات التثبيت. الحزمة دي فيها
+   الإضافة والـ Native Host والدليل، فالحفظ بيشتغل من غير دعوة.
+
+```bash
+bash scripts/package-testers.sh
+# dist/hassala-2.0.1-testers.zip
+```
 
 ### تنظيف التاريخ
 

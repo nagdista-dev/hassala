@@ -85,7 +85,14 @@
 
 ### الطريقة 2: من ملف ZIP (للمختبرين)
 
-1. خُد ملف `hassala-2.0.1.zip` من صاحب المشروع.
+فيه نسختين، واختار اللي تناسبك:
+
+- **`hassala-2.0.1-testers.zip`** — الحزمة الكاملة للمختبرين: الإضافة + الـ
+  Native Host + دليل التثبيت. دي المفضلة لأن الحفظ بيشتغل من أول مرة.
+- **`hassala-2.0.1.zip`** — نفس حزمة Chrome Web Store: الإضافة بس. الحفظ فيها
+  محتاج إنك تجيب فولدر `native/` من الريبو الخاص.
+
+1. خُد `hassala-2.0.1-testers.zip` من صاحب المشروع.
 2. فك الضغط في مكان ثابت على جهازك، مثلًا:
    - Linux/macOS: `~/Hassala`
    - Windows: `%USERPROFILE%\Hassala`
@@ -98,6 +105,11 @@
 5. شغّل **Developer mode**.
 6. اضغط **Load unpacked** واختار فولدر `Hassala`.
 7. ثبّت الإضافة بـ **Pin** من قائمة البازل 🧩.
+8. عشان الحفظ يشتغل، من جوه فولدر `Hassala` شغّل:
+   - Linux/macOS: `bash native/install.sh`
+   - Windows: `powershell -ExecutionPolicy Bypass -File native\install.ps1 -ExtensionId <id>`
+
+   وبعدها اعمل **Reload** للإضافة من صفحة الإضافات.
 
 > **مهم:** لو نقلت الفولدر أو غيّرت اسمه بعد التثبيت، الـ Extension ID
 > بيتغيّر. ساعتها لازم تعمل Reload للإضافة وتشغّل `native/install.sh` تاني
@@ -339,6 +351,13 @@ bash scripts/check.sh
 ```bash
 bash scripts/package.sh
 # dist/hassala-2.0.1.zip
+```
+
+- بناء حزمة كاملة للمختبرين (الإضافة + Native Host + الدليل):
+
+```bash
+bash scripts/package-testers.sh
+# dist/hassala-2.0.1-testers.zip
 ```
 
 - اختبارات Native Host لوحدها:
