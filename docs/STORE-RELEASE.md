@@ -32,9 +32,9 @@
 
 - **سياسة الخصوصية (عامة):**
   <https://gist.github.com/nagdista-dev/282cc2ce8fe35c5fb7199f7ffd2cd705>
-- **الريبو:** خاص، ومش بيتحط في صفحة المتجر. المختبرين بس هما اللي بياخدوا
-  دعوة أو ZIP.
-- **الدعم:** تبويب **Support** في صفحة المتجر، أو Issue لو معاك دعوة للريبو.
+- **الريبو:** <https://github.com/nagdista-dev/hassala> — عام ومفتوح المصدر.
+- **الدعم:** تبويب **Support** في صفحة المتجر، أو
+  [GitHub Issues](https://github.com/nagdista-dev/hassala/issues).
 
 > **مهم:** سياسة الخصوصية لازم تفضل متاحة للعامة. لو الـ Gist اتغير، حدّث
 > الرابط في صفحة المتجر وفي `store/listing-*.md`.
@@ -202,7 +202,7 @@ https://gist.github.com/nagdista-dev/282cc2ce8fe35c5fb7199f7ffd2cd705
 - [ ] سجّل الـ Extension ID المنشور.
 - [ ] حدّث `native/install.sh` / `install.ps1` بالـ ID المنشور عند الحاجة.
 - [ ] حدّث `README.md` و`docs/INSTALL.md` برابط المتجر.
-- [ ] أنشئ Release `v<version>` في الريبو الخاص بالـ ZIP وSHA256.
+- [ ] أنشئ Release `v<version>` في الريبو العام بالـ ZIP وSHA256.
 
 ---
 
@@ -223,28 +223,45 @@ https://gist.github.com/nagdista-dev/282cc2ce8fe35c5fb7199f7ffd2cd705
 
 ---
 
-## 6) الريبو الخاص
+## 6) الريبو العام
 
-- الريبو **Private** على GitHub.
-- المختبرين بياخدوا دعوة أو ZIP.
+- الريبو **Public** على GitHub:
+  <https://github.com/nagdista-dev/hassala>.
+- المشروع مفتوح المصدر تحت ترخيص MIT، وأي حد يقدر يفتح Issue أو Pull Request.
+- المختبرين بياخدوا ZIP من صفحة
+  [Releases](https://github.com/nagdista-dev/hassala/releases).
 - ممنوع رفع:
   - `native/config.json` اللي فيه مسار شخصي.
   - `.env` أو مفاتيح أو توكنات.
   - `dist/` أو `TODO.md`.
   - أي لقطة شاشة فيها بيانات شخصية.
-- سياسة الخصوصية العامة في Gist منفصل، ومش بتكشف الكود.
+- سياسة الخصوصية العامة في Gist منفصل، وموجودة كمان في
+  [PRIVACY.md](PRIVACY.md).
 
-### دعوة مختبر
+### طريقة إصدار نسخة جديدة
 
-1. GitHub → Settings → Collaborators → Add people.
-2. ابعت له رابط الريبو + `docs/INSTALL.md`.
-3. أو ابعت له `hassala-2.0.4-testers.zip` + تعليمات التثبيت. الحزمة دي فيها
-   الإضافة والـ Native Host والدليل، فالحفظ بيشتغل من غير دعوة.
+1. اتأكد إن `bash scripts/check.sh` بيعدي.
+2. ابنِ الحزمتين:
 
-```bash
-bash scripts/package-testers.sh
-# dist/hassala-2.0.4-testers.zip
-```
+   ```bash
+   bash scripts/package.sh
+   bash scripts/package-testers.sh
+   ```
+
+3. اعمل tag وارفع التغييرات:
+
+   ```bash
+   git tag v<version>
+   git push origin main --tags
+   ```
+
+4. من GitHub → **Releases** → **Draft a new release**، اختار الـ tag،
+   وارفع `hassala-<version>.zip` و`hassala-<version>-testers.zip` مع ملفات
+   الـ SHA256.
+5. اكتب ملاحظات الإصدار من `CHANGELOG.md`، وحدّث `manifest.json` و
+   `options.html`.
+
+> أي حد عنده رابط الـ Release يقدر ينزّل الحزمة؛ مش محتاج دعوة للريبو.
 
 ### تنظيف التاريخ
 
@@ -280,7 +297,7 @@ git push --force --tags
 - كل إصدار لازم يكون له:
   - مدخل في `CHANGELOG.md`.
   - ZIP جديد.
-  - Release في GitHub (خاص).
+  - Release في GitHub (عام).
   - SHA256.
   - تحديث `manifest.json` و`options.html`.
 

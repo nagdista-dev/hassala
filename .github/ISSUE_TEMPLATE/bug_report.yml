@@ -1,0 +1,125 @@
+name: بلاغ عن مشكلة
+description: حاجة مش شغالة زي المتوقع
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        شكرًا إنك بتساعد! املأ التفاصيل دي عشان نقدر نعيد المشكلة بسرعة.
+        لو المشكلة أمنية، متكتبهاش هنا — استخدم **Security → Report a vulnerability**.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: تأكيدات سريعة
+      options:
+        - label: دورت على Issues موجودة ومفيش مشكلة مكررة.
+          required: true
+        - label: شغّلت `bash scripts/check.sh` أو جربت أحدث إصدار.
+          required: false
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: إيه اللي حصل؟
+      description: وصف مختصر وواضح للمشكلة.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: خطوات إعادة المشكلة
+      placeholder: |
+        1. افتح ...
+        2. اكتب ...
+        3. اضغط ...
+        4. شوف ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: المتوقع
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: اللي حصل فعلاً
+    validations:
+      required: true
+
+  - type: dropdown
+    id: browser
+    attributes:
+      label: المتصفح
+      options:
+        - Chrome
+        - Brave
+        - Edge
+        - Chromium
+        - متصفح تاني (اكتبه تحت)
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: نسخة الإضافة
+      description: من صفحة الإعدادات أو `chrome://extensions`.
+      placeholder: "2.0.4"
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: نظام التشغيل
+      placeholder: "Ubuntu 24.04 / Windows 11 / macOS 15"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: install
+    attributes:
+      label: طريقة التثبيت
+      options:
+        - Load unpacked من السورس
+        - حزمة testers ZIP
+        - Chrome Web Store
+        - مش متأكد
+    validations:
+      required: true
+
+  - type: dropdown
+    id: native-host
+    attributes:
+      label: حالة Native Host
+      description: من صفحة الإعدادات.
+      options:
+        - متصل
+        - مش متصل
+        - مش مثبت
+        - مش متأكد
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: لوجات أو لقطات شاشة
+      description: لو ممكن، حط أخطاء الـ Console أو صورة. اخفي أي بيانات شخصية.
+      render: shell
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: أي تفاصيل إضافية
+    validations:
+      required: false

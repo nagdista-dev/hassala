@@ -110,8 +110,11 @@ Host صغير على جهازك. الـ Host بيكتبهم في ملف Markdown
 
 لأي سؤال أو طلب يتعلق بالخصوصية:
 
-- لو معاك وصول للريبو الخاص، افتح Issue.
+- افتح Issue على GitHub:
+  <https://github.com/nagdista-dev/hassala/issues>.
 - أو استخدم تبويب **Support** في صفحة الإضافة على Chrome Web Store.
+- للإبلاغ عن ثغرة أمنية، استخدم **Security → Report a vulnerability** في
+  GitHub بدل النشر العلني.
 
 ---
 
@@ -203,5 +206,6 @@ documented in the repository.
 
 ## Contact
 
-If you have access to the private repository, open an issue. Otherwise use the
-**Support** tab on the Chrome Web Store listing.
+Open an issue at <https://github.com/nagdista-dev/hassala/issues>, or use the
+**Support** tab on the Chrome Web Store listing. For security reports, use
+**Security → Report a vulnerability** on GitHub instead of a public issue.

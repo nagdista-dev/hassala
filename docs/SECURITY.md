@@ -139,8 +139,11 @@ Native Host (Python, على جهاز المستخدم)
 
 ## 6. الإبلاغ عن مشكلة أمنية
 
-- لو معاك وصول للريبو الخاص، افتح **Issue** بعنوان يبدأ بـ `[security]`.
-- لو GitHub Security Advisories مفعّل، استخدمه.
+- استخدم **Security → Report a vulnerability** في
+  [الريبو](https://github.com/nagdista-dev/hassala/security/advisories/new)
+  (GitHub Security Advisories)، وده المسار المفضّل.
+- لو مش متاح، افتح **Issue** بعنوان يبدأ بـ `[security]` بدون نشر تفاصيل
+  حساسة.
 - من فضلك **متنشرش التفاصيل علنًا** قبل ما يتم إصلاحها.
 - اذكر: نسخة الإضافة، المتصفح، نظام التشغيل، خطوات إعادة المشكلة، والأثر.
 

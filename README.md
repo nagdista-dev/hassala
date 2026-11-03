@@ -15,6 +15,8 @@
   <img alt="Chrome / Brave / Edge" src="https://img.shields.io/badge/Chrome-Brave%20%7C%20Edge-4285F4" />
   <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-b8862f" />
   <img alt="Version" src="https://img.shields.io/badge/version-2.0.4-0f766e" />
+  <a href="https://github.com/nagdista-dev/hassala/actions/workflows/check.yml"><img alt="Check" src="https://github.com/nagdista-dev/hassala/actions/workflows/check.yml/badge.svg" /></a>
+  <a href="https://github.com/nagdista-dev/hassala/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/nagdista-dev/hassala?style=flat" /></a>
 </p>
 
 ---
@@ -73,9 +75,10 @@
 
 ## التثبيت — دليل مفصّل
 
-> **ملاحظة مهمة:** المشروع ده **ريبو خاص (Private)**. يعني مش متاح للتحميل
-> العام من GitHub. لو معاك دعوة للريبو تقدر تنزّله وتشتغل عليه؛ ولو مش معاك،
-> استخدم ZIP اللي بيتشارك مع المختبرين أو نسخة Chrome Web Store بعد النشر.
+> **ملاحظة مهمة:** حصالة **مفتوحة المصدر (Open Source)** على GitHub تحت ترخيص
+> MIT. أي حد يقدر يقرأ الكود، يعمل Fork، أو يساهم. تقدر تنزّل آخر إصدار من
+> [Releases](https://github.com/nagdista-dev/hassala/releases) أو تثبّت من
+> السورس زي ما هو موضح تحت.
 
 ### الطريقة 1: من Chrome Web Store (بعد النشر)
 
@@ -93,9 +96,10 @@
 - **`hassala-2.0.4-testers.zip`** — الحزمة الكاملة للمختبرين: الإضافة + الـ
   Native Host + دليل التثبيت. دي المفضلة لأن الحفظ بيشتغل من أول مرة.
 - **`hassala-2.0.4.zip`** — نفس حزمة Chrome Web Store: الإضافة بس. الحفظ فيها
-  محتاج إنك تجيب فولدر `native/` من الريبو الخاص.
+  محتاج إنك تجيب فولدر `native/` من الريبو.
 
-1. خُد `hassala-2.0.4-testers.zip` من صاحب المشروع.
+1. نزّل `hassala-2.0.4-testers.zip` من
+   [صفحة الإصدارات](https://github.com/nagdista-dev/hassala/releases).
 2. فك الضغط في مكان ثابت على جهازك، مثلًا:
    - Linux/macOS: `~/Hassala`
    - Windows: `%USERPROFILE%\Hassala`
@@ -118,15 +122,15 @@
 > بيتغيّر. ساعتها لازم تعمل Reload للإضافة وتشغّل `native/install.sh` تاني
 > (أو `install.ps1` على Windows).
 
-### الطريقة 3: من السورس (لو معاك دعوة للريبو الخاص)
+### الطريقة 3: من السورس
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/nagdista-dev/hassala.git
 cd hassala
 ```
 
 بعدها اتبع خطوات **Load unpacked** فوق، واختار فولدر `hassala` اللي فيه
-`manifest.json`.
+`manifest.json`. ولو عايز تساهم، اقرا [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ### تفعيل الحفظ في ملف Markdown (Native Host)
 
@@ -308,6 +312,7 @@ powershell -ExecutionPolicy Bypass -File native\install.ps1 -Uninstall
 
 ```text
 .
+├── .github/                   # CI + قوالب Issues وPull Requests
 ├── manifest.json              # Manifest V3
 ├── src/
 │   ├── background.js          # الترجمة، الصوت، الحفظ، والرسائل
@@ -334,6 +339,7 @@ powershell -ExecutionPolicy Bypass -File native\install.ps1 -Uninstall
 ├── tests/                     # اختبارات Native Host
 ├── assets/                    # أيقونة المتجر وصورة Social Preview
 ├── CHANGELOG.md
+├── CODE_OF_CONDUCT.md
 ├── CONTRIBUTING.md
 ├── LICENSE
 └── README.md
@@ -391,9 +397,15 @@ python3 tests/test_native_host.py
 
 ## المساهمة
 
-- الريبو خاص؛ لو معاك دعوة، افتح **Issue** أو **Pull Request**.
-- اقرا [CONTRIBUTING.md](CONTRIBUTING.md) قبل ما تبدأ.
+حصالة مفتوحة المصدر، وأي مساهمة مرحّب بها — كود، ترجمة، تصميم، أو توثيق.
+
+- افتح **Issue** لو لقيت مشكلة أو عندك فكرة جديدة.
+- اعمل **Fork** و**Pull Request** لأي تغيير، واقرا
+  [CONTRIBUTING.md](CONTRIBUTING.md) قبل ما تبدأ.
 - شغّل `bash scripts/check.sh` قبل أي PR.
+- للإبلاغ عن ثغرة أمنية، اتبع [docs/SECURITY.md](docs/SECURITY.md) ومتنشرش
+  التفاصيل علنًا قبل الإصلاح.
+- كل التفاعل في المشروع بيتبع [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
 
 ---
 
@@ -426,7 +438,9 @@ not get lost.
   [docs/PRIVACY.md](docs/PRIVACY.md).
 - **Security:** no remote code, minimal permissions, host restricted to the
   extension ID, Markdown-only writes. See [docs/SECURITY.md](docs/SECURITY.md).
-- **Status:** Chrome Web Store release is being prepared. The repository is
-  private; testers receive a ZIP or an invitation.
+- **Status:** Open source under the MIT license. The Chrome Web Store release is
+  being prepared; testers can use the ZIP from the
+  [releases page](https://github.com/nagdista-dev/hassala/releases).
 
-Contributions and feedback are welcome through the private repository.
+Contributions and feedback are welcome through GitHub issues and pull requests.
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) before you start.

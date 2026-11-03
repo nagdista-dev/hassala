@@ -3,7 +3,7 @@
 #
 # Unlike the store package, this archive includes the native host and the
 # installation guide, so a tester can load the extension and enable saving
-# without access to the private repository.
+# without cloning the repository.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"

@@ -3,9 +3,9 @@
 شكرًا إنك عايز تساعد! حصالة مشروع عربي، وأي مساهمة — كود، ترجمة، تصميم، أو
 توثيق — مرحّب بها.
 
-> **ملاحظة:** الريبو **خاص (Private)**. يعني لازم تكون معاك دعوة كـ
-> Collaborator عشان تقدر تفتح Issue أو تعمل Branch وPull Request. لو مش معاك
-> دعوة، اطلبها من صاحب المشروع.
+> **ملاحظة:** حصالة **مفتوحة المصدر** ومتاحة للجميع على
+> [GitHub](https://github.com/nagdista-dev/hassala). أي حد يقدر يفتح Issue،
+> يعمل Fork، ويبعت Pull Request من غير دعوة.
 
 ---
 
@@ -29,22 +29,29 @@
 
 ### خطوات الشغل
 
-1. اعمل Branch جديد من `main`:
+1. اعمل **Fork** للريبو من GitHub، وبعدها اعمل Clone للـ Fork بتاعك:
+
+   ```bash
+   git clone https://github.com/<your-username>/hassala.git
+   cd hassala
+   ```
+
+2. اعمل Branch جديد من `main`:
 
    ```bash
    git checkout -b feature/my-change
    ```
 
-2. غيّر في نطاق ضيق، وحافظ على أسلوب الكود الموجود.
-3. شغّل الفحص الكامل:
+3. غيّر في نطاق ضيق، وحافظ على أسلوب الكود الموجود.
+4. شغّل الفحص الكامل:
 
    ```bash
    bash scripts/check.sh
    ```
 
-4. لو التغيير بصري، جرّبه في Brave أو Chrome من **Load unpacked** على فولدر
+5. لو التغيير بصري، جرّبه في Brave أو Chrome من **Load unpacked** على فولدر
    المشروع.
-5. ابعت PR وشرح فيه:
+6. ابعت PR وشرح فيه:
    - المشكلة.
    - الحل.
    - إزاي اختبرته.
@@ -134,8 +141,9 @@ unzip -l dist/hassala-<version>.zip
 
 ### مشكلة أمنية
 
-- افتح Issue بعنوان يبدأ بـ `[security]`، أو استخدم GitHub Security
-  Advisories لو مفعّل.
+- استخدم **Security → Report a vulnerability** في GitHub (Security Advisories)
+  للإبلاغ بشكل خاص.
+- لو مش متاح، تواصل مع Maintainer عبر GitHub بدون نشر التفاصيل.
 - **متنشرش التفاصيل علنًا** قبل ما يتم إصلاحها.
 - اذكر: النسخة، المتصفح، نظام التشغيل، خطوات إعادة المشكلة، والأثر.
 

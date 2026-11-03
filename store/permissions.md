@@ -92,7 +92,8 @@ The native host is optional for translation and subtitles. It is required only
 for the “Save to Hassala” feature, which appends to a Markdown file chosen by
 the user. The host source is in `native/hassala_writer.py`; installation
 instructions are in `native/install.sh`, `native/install.ps1`, and
-`docs/INSTALL.md` in the private repository.
+`docs/INSTALL.md` in the public repository:
+<https://github.com/nagdista-dev/hassala>.
 
 Reviewer setup (Linux/macOS):
 

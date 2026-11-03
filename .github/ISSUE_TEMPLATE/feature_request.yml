@@ -1,0 +1,51 @@
+name: اقتراح ميزة
+description: فكرة جديدة أو تحسين لحصالة
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        قبل ما تقترح، شوف [docs/ROADMAP.md](https://github.com/nagdista-dev/hassala/blob/main/docs/ROADMAP.md)
+        يمكن الفكرة موجودة بالفعل.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: تأكيدات سريعة
+      options:
+        - label: دورت على Issues موجودة ومفيش اقتراح مكرر.
+          required: true
+        - label: الاقتراح متوافق مع مبادئ المشروع (خصوصية أولًا، عربي أولًا، بساطة).
+          required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: المشكلة أو الاحتياج
+      description: إيه المشكلة اللي الميزة دي بتحلها؟
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: الحل المقترح
+      description: إيه اللي عايز يحصل بالظبط؟
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: بدائل جربتها
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: سياق إضافي
+      description: لقطات شاشة، أمثلة، أو روابط مفيدة.
+    validations:
+      required: false

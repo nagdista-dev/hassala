@@ -106,7 +106,7 @@
   `docs/STORE-RELEASE.md`.
 - إضافة `scripts/check.sh` و`scripts/check_refs.py` لفحص المشروع قبل أي commit.
 - إضافة `scripts/package-testers.sh` لبناء حزمة مختبرين كاملة تشمل الـ Native
-  Host والدليل، عشان الحفظ يشتغل من غير دعوة للريبو.
+  Host والدليل، عشان الحفظ يشتغل من غير Clone للريبو.
 - إضافة CI في `.github/workflows/check.yml`.
 - إضافة `.gitignore` يمنع رفع `TODO.md` و`dist/` و`__pycache__` والمفاتيح،
   و`native/config.json` المحلي.
