@@ -3,6 +3,18 @@
 كل التغييرات المهمة في حصالة بتتسجل هنا. المشروع بيتبع
 [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### مفتوح المصدر
+
+- الريبو بقى **Public** على GitHub تحت ترخيص MIT، وأي حد يقدر يقرأ الكود أو
+  يعمل Fork ويساهم.
+- تحديث README وCONTRIBUTING ودليل التثبيت بخطوات التحميل من GitHub وReleases
+  بدل خطوات الوصول للريبو الخاص القديمة.
+- إضافة قوالب Issues (bug / feature) وقالب Pull Request.
+- إضافة `CODE_OF_CONDUCT.md` مستوحى من Contributor Covenant 2.1.
+- تحديث مسار الإبلاغ عن المشاكل الأمنية لاستخدام GitHub Security Advisories.
+
 ## [2.0.4] — 2026-11-03
 
 ### انتقال أهدى بعد الحفظ

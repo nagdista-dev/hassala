@@ -261,7 +261,7 @@ https://gist.github.com/nagdista-dev/282cc2ce8fe35c5fb7199f7ffd2cd705
 5. اكتب ملاحظات الإصدار من `CHANGELOG.md`، وحدّث `manifest.json` و
    `options.html`.
 
-> أي حد عنده رابط الـ Release يقدر ينزّل الحزمة؛ مش محتاج دعوة للريبو.
+> أي حد عنده رابط الـ Release يقدر ينزّل الحزمة؛ مش محتاج حساب GitHub.
 
 ### تنظيف التاريخ
 
