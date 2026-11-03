@@ -1,0 +1,1053 @@
+@font-face {
+  font-family: "Baloo Bhaijaan 2";
+  src: url("../fonts/BalooBhaijaan2-Variable.woff2") format("woff2");
+  font-weight: 400 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --bg: #f5e9d2;
+  --bg-accent: #ead4ab;
+  --surface: #fffaf0;
+  --surface-2: #f9f0de;
+  --text: #2c2118;
+  --muted: #7f6b54;
+  --line: #e8d9bf;
+  --line-strong: #d3bb92;
+  --accent: #0f766e;
+  --accent-strong: #0a5d57;
+  --accent-soft: #dff0e8;
+  --accent-text: #0b5f58;
+  --on-accent: #ffffff;
+  --on-gold: #2c2118;
+  --gold: #b8862f;
+  --gold-soft: #f2e2bd;
+  --gold-strong: #8f6420;
+  --terracotta: #b4532a;
+  --danger: #a83a2d;
+  --danger-soft: #f9e5de;
+  --shadow: 0 14px 32px rgba(85, 55, 25, 0.13);
+  --radius: 18px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121a18;
+    --bg-accent: #1b2b27;
+    --surface: #1b2724;
+    --surface-2: #22302c;
+    --text: #f5ecd9;
+    --muted: #b8a88e;
+    --line: #33443e;
+    --line-strong: #4b5f56;
+    --accent: #2dd4bf;
+    --accent-strong: #14b8a6;
+    --accent-soft: #17362f;
+    --accent-text: #9af3e6;
+    --on-accent: #07211d;
+    --on-gold: #2c2118;
+    --gold: #e0b969;
+    --gold-soft: #3a2f1c;
+    --gold-strong: #f0d79a;
+    --terracotta: #e58a5e;
+    --danger: #ff9b8a;
+    --danger-soft: #3a211c;
+    --shadow: 0 18px 38px rgba(0, 0, 0, 0.45);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: var(--line-strong);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold);
+}
+
+body {
+  width: 380px;
+  margin: 0;
+  background:
+    radial-gradient(120% 80% at 100% 0%, rgba(184, 134, 47, 0.16) 0%, transparent 55%),
+    radial-gradient(95% 70% at 0% 100%, rgba(15, 118, 110, 0.1) 0%, transparent 52%),
+    repeating-linear-gradient(45deg, rgba(184, 134, 47, 0.045) 0 1px, transparent 1px 16px),
+    repeating-linear-gradient(-45deg, rgba(184, 134, 47, 0.045) 0 1px, transparent 1px 16px),
+    var(--bg);
+  color: var(--text);
+  font-family: "Baloo Bhaijaan 2", "Noto Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background:
+      radial-gradient(120% 80% at 100% 0%, rgba(224, 185, 105, 0.08) 0%, transparent 55%),
+      radial-gradient(95% 70% at 0% 100%, rgba(45, 212, 191, 0.06) 0%, transparent 52%),
+      repeating-linear-gradient(45deg, rgba(224, 185, 105, 0.028) 0 1px, transparent 1px 16px),
+      repeating-linear-gradient(-45deg, rgba(224, 185, 105, 0.028) 0 1px, transparent 1px 16px),
+      var(--bg);
+  }
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 20;
+  height: 5px;
+  background: linear-gradient(
+    90deg,
+    var(--accent) 0 33%,
+    var(--gold) 33% 66%,
+    var(--terracotta) 66% 100%
+  );
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px 16px 16px;
+}
+
+/* ---------- Header ---------- */
+
+.topbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 12px;
+}
+
+.topbar::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 3px;
+  left: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.55;
+}
+
+.topbar::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 1px;
+  width: 5px;
+  height: 5px;
+  background: var(--gold);
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.logo {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border: 2px solid var(--gold);
+  border-radius: 14px;
+  background: linear-gradient(145deg, var(--accent) 0%, var(--accent-strong) 100%);
+  box-shadow:
+    0 0 0 3px var(--surface),
+    0 0 0 4px var(--gold-soft),
+    0 8px 16px rgba(85, 55, 25, 0.18);
+}
+
+.logo-glyph {
+  color: var(--on-accent);
+  font-family: "Baloo Bhaijaan 2", "Noto Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+  font-size: 25px;
+  font-weight: 700;
+  line-height: 1;
+  transform: translateY(1px);
+}
+
+.logo-badge {
+  position: absolute;
+  left: -5px;
+  bottom: -5px;
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--surface);
+  border-radius: 50%;
+  background: var(--terracotta);
+  color: #fff;
+  font-family: "Baloo Bhaijaan 2", "Noto Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  box-shadow: 0 1px 4px rgba(85, 55, 25, 0.28);
+}
+
+.brand-text h1 {
+  margin: 0;
+  color: var(--text);
+  font-family: "Baloo Bhaijaan 2", "Noto Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.brand-text p {
+  margin: 1px 0 0;
+  color: var(--gold-strong);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+/* ---------- Top sparkle ---------- */
+
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.top-icon {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  background: var(--surface-2);
+  color: var(--gold-strong);
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease,
+    background 0.15s ease,
+    transform 0.12s ease;
+}
+
+.top-icon:hover {
+  border-color: var(--gold);
+  background: var(--gold-soft);
+}
+
+.top-icon:active {
+  transform: scale(0.94);
+}
+
+.top-icon svg {
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+}
+
+.top-spark {
+  color: var(--gold);
+  font-size: 17px;
+  line-height: 1;
+  opacity: 0.85;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+/* ---------- Direction ---------- */
+
+.direction {
+  display: flex;
+  align-items: center;
+  align-self: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 5px 13px;
+  border: 1px solid rgba(184, 134, 47, 0.55);
+  border-radius: 999px;
+  background: linear-gradient(180deg, #f8ebcd 0%, #ecd3a0 100%);
+  color: #5a3c12;
+  font-size: 11.5px;
+  font-weight: 700;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 2px 6px rgba(85, 55, 25, 0.08);
+}
+
+.direction svg {
+  width: 14px;
+  height: 14px;
+  color: #8f6420;
+  opacity: 0.9;
+}
+
+@media (prefers-color-scheme: dark) {
+  .direction {
+    border-color: #5a4724;
+    background: linear-gradient(180deg, #3a2f1c 0%, #2c2416 100%);
+    color: var(--gold-strong);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.06),
+      0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+
+  .direction svg {
+    color: var(--gold);
+  }
+}
+
+/* ---------- Input ---------- */
+
+.field {
+  position: relative;
+  padding: 13px 15px 9px;
+  border: 1.5px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow:
+    var(--shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.field:focus-within {
+  border-color: var(--accent);
+  box-shadow:
+    0 0 0 3px rgba(15, 118, 110, 0.14),
+    var(--shadow);
+}
+
+textarea {
+  display: block;
+  width: 100%;
+  min-height: 60px;
+  max-height: 180px;
+  padding: 0 0 6px 64px;
+  border: 0;
+  outline: 0;
+  resize: none;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+  background: transparent;
+  color: var(--text);
+  font-family: "Baloo Bhaijaan 2", "Noto Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+textarea::placeholder {
+  color: var(--muted);
+  font-size: 15px;
+  font-weight: 500;
+  opacity: 0.75;
+}
+
+.clear-btn {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-2);
+  color: var(--muted);
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.clear-btn.copy-source {
+  left: 40px;
+  color: var(--accent-text);
+}
+
+.clear-btn.copy-source:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent-text);
+}
+
+.clear-btn.copy-source.copied,
+.clear-btn.copy-source.is-error {
+  border-color: transparent;
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.clear-btn.copy-source.is-error {
+  background: var(--danger);
+}
+
+.clear-btn[hidden] {
+  display: none;
+}
+
+.clear-btn svg {
+  width: 12px;
+  height: 12px;
+}
+
+.clear-btn:hover {
+  border-color: var(--gold);
+  background: var(--gold-soft);
+  color: var(--gold-strong);
+}
+
+/* ---------- Result ---------- */
+
+.result-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 108px;
+  padding: 14px 16px;
+  overflow: hidden;
+  border: 1.5px solid var(--line-strong);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.45), transparent 55%),
+    var(--surface);
+  box-shadow:
+    var(--shadow),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+}
+
+@media (prefers-color-scheme: dark) {
+  .result-card {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 55%),
+      var(--surface);
+  }
+}
+
+.result-card::before {
+  content: "✦";
+  position: absolute;
+  bottom: 7px;
+  left: 10px;
+  color: var(--gold);
+  font-size: 10px;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.result-card[data-state="empty"]::before,
+.result-card[data-state="error"]::before {
+  content: none;
+}
+
+.result-card[data-state="empty"] {
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  border-style: dashed;
+  border-color: var(--line-strong);
+  background: transparent;
+  box-shadow: none;
+  text-align: center;
+}
+
+.result-card[data-state="empty"] .card-top {
+  display: none;
+}
+
+.result-card[data-state="error"] {
+  border-color: rgba(168, 58, 45, 0.4);
+  background: var(--danger-soft);
+}
+
+.result-card[data-state="loading"] .card-top {
+  opacity: 0.5;
+}
+
+.result-card.is-loading::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  width: 38%;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--gold);
+  animation: progress 1s ease-in-out infinite;
+}
+
+@keyframes progress {
+  0% {
+    transform: translateX(-110%);
+  }
+  100% {
+    transform: translateX(360%);
+  }
+}
+
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 20px;
+}
+
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.eyebrow {
+  color: var(--gold-strong);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.provider {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+.copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--accent-text);
+  font-size: 10.5px;
+  font-weight: 600;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease,
+    background 0.15s ease;
+}
+
+.copy-btn svg {
+  width: 12px;
+  height: 12px;
+  flex: none;
+}
+
+.copy-btn[hidden] {
+  display: none;
+}
+
+.copy-btn:hover {
+  border-color: var(--gold);
+  background: var(--gold-soft);
+  color: var(--gold-strong);
+}
+
+.copy-btn.copied,
+.copy-btn.is-speaking {
+  border-color: transparent;
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.copy-btn.is-error {
+  border-color: var(--danger);
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+.result-text {
+  margin: 0;
+  color: var(--text);
+  font-family: "Baloo Bhaijaan 2", "Noto Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.6;
+  text-align: start;
+  overflow-wrap: anywhere;
+}
+
+.result-text:lang(en) {
+  font-family: "Baloo Bhaijaan 2", "Noto Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+  font-weight: 700;
+}
+
+.result-text.pop {
+  animation: pop 0.2s ease-out;
+}
+
+.result-text[data-size="long"] {
+  font-size: 22px;
+}
+
+.result-text[data-size="xlong"] {
+  font-size: 18px;
+  line-height: 1.65;
+}
+
+.result-text[data-size="huge"] {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.7;
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.result-card[data-state="empty"] .result-text {
+  max-width: 230px;
+  color: var(--muted);
+  font-family: "Baloo Bhaijaan 2", "Noto Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.8;
+}
+
+.result-card[data-state="error"] .result-text {
+  color: var(--danger);
+  font-family: "Baloo Bhaijaan 2", "Noto Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.7;
+}
+
+.result-card[data-state="loading"] .result-text {
+  color: var(--muted);
+  font-family: "Baloo Bhaijaan 2", "Noto Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+  font-size: 13.5px;
+  font-weight: 500;
+  line-height: 1.7;
+}
+
+/* ---------- Save to Hassala ---------- */
+
+.save-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid var(--gold);
+  border-radius: 13px;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-strong) 100%);
+  color: var(--on-gold);
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow:
+    0 8px 18px rgba(143, 100, 32, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition:
+    filter 0.15s ease,
+    transform 0.12s ease,
+    opacity 0.15s ease,
+    background 0.15s ease;
+}
+
+.save-btn[hidden] {
+  display: none;
+}
+
+.save-btn svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+}
+
+.save-btn:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+
+.save-btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.save-btn:disabled {
+  opacity: 0.65;
+  cursor: progress;
+}
+
+.save-btn.is-saved {
+  border-color: var(--gold);
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%);
+  color: var(--on-accent);
+}
+
+.save-btn.is-error {
+  border-color: transparent;
+  background: var(--danger);
+}
+
+/* ---------- File tools ---------- */
+
+.file-tools {
+  display: flex;
+  gap: 8px;
+}
+
+.file-tool {
+  display: inline-flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 10px;
+  border: 1px dashed var(--line-strong);
+  border-radius: 11px;
+  background: transparent;
+  color: var(--muted);
+  font-family: "Baloo Bhaijaan 2", "Noto Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+  font-size: 11.5px;
+  font-weight: 600;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease,
+    background 0.15s ease,
+    transform 0.12s ease;
+}
+
+.file-tool svg {
+  width: 14px;
+  height: 14px;
+  flex: none;
+}
+
+.file-tool:hover:not(:disabled) {
+  border-color: var(--gold);
+  background: var(--gold-soft);
+  color: var(--gold-strong);
+}
+
+.file-tool:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.file-tool:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.file-status {
+  margin: -1px 2px 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.file-status[hidden] {
+  display: none;
+}
+
+.file-status[data-kind="ok"] {
+  color: var(--accent-text);
+}
+
+.file-status[data-kind="error"] {
+  color: var(--danger);
+}
+
+/* ---------- Path popup ---------- */
+
+.path-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: 14px;
+  /* Keep every click inside the dialog; it must never reach buttons below. */
+  pointer-events: auto;
+}
+
+.path-modal[hidden] {
+  display: none;
+}
+
+.path-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(12, 10, 8, 0.55);
+  backdrop-filter: blur(3px);
+}
+
+.path-card {
+  position: relative;
+  width: 100%;
+  max-height: calc(100vh - 28px);
+  overflow: auto;
+  padding: 15px;
+  border: 1.5px solid var(--gold);
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 45%),
+    var(--surface);
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  color: var(--text);
+}
+
+.path-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.path-head strong {
+  display: block;
+  font-family: "Baloo Bhaijaan 2", "Noto Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.path-head small {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 10.5px;
+}
+
+.path-close {
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--line-strong);
+  border-radius: 9px;
+  background: var(--surface);
+  color: var(--gold-strong);
+  font-size: 17px;
+  line-height: 1;
+}
+
+.path-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.path-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: 11px;
+  background: var(--surface-2);
+  color: var(--text);
+  font-family: "Baloo Bhaijaan 2", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11.5px;
+  direction: ltr;
+}
+
+.path-input:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px var(--gold-soft);
+}
+
+.path-default {
+  margin: 7px 0 0;
+  color: var(--muted);
+  font-size: 10.5px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.path-status {
+  min-height: 18px;
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.path-status[data-kind="ok"] {
+  color: var(--accent-text);
+}
+
+.path-status[data-kind="error"] {
+  color: var(--danger);
+}
+
+.path-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.path-btn {
+  padding: 9px 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: 11px;
+  background: var(--surface);
+  color: var(--accent-text);
+  font-family: "Baloo Bhaijaan 2", "Noto Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+  font-size: 11.5px;
+  font-weight: 700;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease,
+    background 0.15s ease,
+    transform 0.12s ease;
+}
+
+.path-btn:hover:not(:disabled) {
+  border-color: var(--gold);
+  background: var(--gold-soft);
+  color: var(--gold-strong);
+}
+
+.path-btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.path-btn:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.path-btn.primary {
+  border-color: var(--gold);
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-strong) 100%);
+  color: var(--on-gold);
+}
+
+.path-btn.primary:hover:not(:disabled) {
+  filter: brightness(1.08);
+  color: var(--on-gold);
+}
+
+.path-btn.ghost {
+  background: transparent;
+  color: var(--muted);
+}
+
+/* ---------- History ---------- */
+
+.history {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.history[hidden] {
+  display: none;
+}
+
+.history-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip {
+  max-width: 160px;
+  padding: 4px 10px;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 11.5px;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.chip:hover {
+  border-color: var(--gold);
+  background: var(--gold-soft);
+  color: var(--gold-strong);
+}
+
+.link-btn {
+  padding: 2px;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font-size: 10.5px;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.link-btn:hover {
+  color: var(--danger);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

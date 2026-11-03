@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>إعدادات حصالة</title>
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="hero">
+        <div class="brand">
+          <span class="logo" aria-hidden="true">
+            <span class="logo-glyph">ع</span>
+            <span class="logo-badge">A</span>
+          </span>
+          <div class="brand-text">
+            <p class="eyebrow">حصالة</p>
+            <h1>الإعدادات</h1>
+            <p class="subtitle">
+              ظبّط حصالتك: مكان حفظ الكلمات، الزرار العائم، ومكان الصندوق.
+            </p>
+          </div>
+        </div>
+        <span class="hero-spark" aria-hidden="true">✦</span>
+      </header>
+
+      <section class="card" aria-labelledby="hassalaTitle">
+        <div class="card-head">
+          <div class="card-title">
+            <span class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15.5H6.5A2.5 2.5 0 0 0 4 21V5.5Z" />
+                <path d="M4 18.5A2.5 2.5 0 0 1 6.5 16H20" />
+                <path d="M8 7h7M8 10.5h5" />
+              </svg>
+            </span>
+            <div>
+              <h2 id="hassalaTitle">حصالة الكلمات</h2>
+              <p class="card-sub">
+                اختار ملف Markdown بالمسار الكامل، وحصالة هتكتب فيه كل كلمة تحفظها.
+              </p>
+            </div>
+          </div>
+          <span id="connection" class="pill" data-state="idle">بنفحص الربط…</span>
+        </div>
+
+        <label class="field-label" for="notePath">مسار ملف الحصالة</label>
+        <div class="path-row">
+          <input
+            id="notePath"
+            class="path-input"
+            type="text"
+            dir="ltr"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="/home/you/Documents/Hassala Words.md"
+            aria-describedby="pathHint"
+          />
+          <button id="pickFile" class="btn" type="button">اختار ملف</button>
+        </div>
+
+        <p id="pathHint" class="hint">
+          اكتب المسار كامل من الروت، أو اختار ملف موجود من أي مكان على جهازك.
+          الملف لازم يكون موجود؛ حصالة مش بتنشئ ملفات ولا بتكتب في أي ملف تاني.
+        </p>
+
+        <div class="actions">
+          <button id="savePath" class="btn primary" type="button">احفظ المسار</button>
+          <button id="openFile" class="btn" type="button">افتح الملف</button>
+          <button id="useDefault" class="btn" type="button">
+            استخدم الملف الافتراضي
+          </button>
+        </div>
+
+        <p id="hassalaStatus" class="status" role="status" aria-live="polite"></p>
+
+        <div class="preview" aria-live="polite">
+          <span>هيتحفظ في</span>
+          <strong id="filePreview" class="mono" dir="ltr">…</strong>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="fabTitle">
+        <div class="card-head">
+          <div class="card-title">
+            <span class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="4.2" />
+                <path d="M12 3v3M12 18v3M3 12h3M18 12h3" />
+              </svg>
+            </span>
+            <div>
+              <h2 id="fabTitle">الزرار العائم</h2>
+              <p class="card-sub">التحكم في الزرار اللي بيظهر في كل الصفحات.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="switch-row">
+          <label class="switch-copy" for="fabVisible">
+            <strong id="fabLabel">إظهار الزرار العائم</strong>
+            <small>
+              لو خفيته، تقدر ترجّعه بالضغط على أيقونة الإضافة في شريط المتصفح.
+            </small>
+          </label>
+          <label class="switch">
+            <input id="fabVisible" type="checkbox" aria-labelledby="fabLabel" />
+            <span class="track" aria-hidden="true"><span class="thumb"></span></span>
+          </label>
+        </div>
+
+        <p id="fabStatus" class="status" role="status" aria-live="polite"></p>
+      </section>
+
+      <section class="card" aria-labelledby="sitesTitle">
+        <div class="card-head">
+          <div class="card-title">
+            <span class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="8.5" />
+                <path d="m6 18 12-12" />
+              </svg>
+            </span>
+            <div>
+              <h2 id="sitesTitle">تعطيل على مواقع معينة</h2>
+              <p class="card-sub">
+                اختار المواقع اللي مش عايز حصالة تشتغل عليها.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <label class="field-label" for="siteInput">الدومين أو الموقع</label>
+        <div class="path-row">
+          <input
+            id="siteInput"
+            class="path-input"
+            type="text"
+            dir="ltr"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="example.com"
+            aria-describedby="siteHint"
+          />
+          <button id="addSite" class="btn primary" type="button">أضف الموقع</button>
+        </div>
+
+        <p id="siteHint" class="hint">
+          لو أضفت example.com، هيتعطّل على example.com وكل النطاقات الفرعية
+          زي www.example.com. تقدر تلغي التعطيل في أي وقت من هنا.
+        </p>
+
+        <ul id="siteList" class="site-list" aria-label="المواقع المتعطلة"></ul>
+        <p id="siteEmpty" class="hint" hidden>مفيش مواقع متعطلة دلوقتي.</p>
+        <p id="siteStatus" class="status" role="status" aria-live="polite"></p>
+
+        <div class="actions">
+          <button id="clearSites" class="btn ghost" type="button">
+            فعّل على كل المواقع
+          </button>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="positionTitle">
+        <div class="card-head">
+          <div class="card-title">
+            <span class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3v18M3 12h18" />
+                <path d="m8 7 4-4 4 4M8 17l4 4 4-4M7 8l-4 4 4 4M17 8l4 4-4 4" />
+              </svg>
+            </span>
+            <div>
+              <h2 id="positionTitle">مكان الصندوق والزرار</h2>
+              <p class="card-sub">
+                اسحب صندوق الترجمة من راسه عشان تحركه، أو رجّع المكان الافتراضي.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button id="resetPanel" class="btn" type="button">
+            إعادة ضبط مكان الصندوق
+          </button>
+          <button id="resetFab" class="btn ghost" type="button">
+            إعادة ضبط مكان الزرار
+          </button>
+        </div>
+
+        <p id="positionStatus" class="status" role="status" aria-live="polite"></p>
+      </section>
+
+      <footer class="foot">
+        <span>الإصدار <span id="version">2.0.1</span></span>
+        <span class="dot" aria-hidden="true">✦</span>
+        <span>كل حاجة بتتحفظ محليًا على جهازك.</span>
+      </footer>
+    </main>
+
+    <div id="browserModal" class="modal" hidden>
+      <div class="modal-backdrop" data-browser-close></div>
+      <section
+        class="modal-card"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="browserTitle"
+      >
+        <header class="modal-head">
+          <div>
+            <p class="eyebrow">اختيار ملف</p>
+            <h2 id="browserTitle">اختار ملف الحفظ</h2>
+          </div>
+          <button
+            id="browserClose"
+            class="modal-close"
+            type="button"
+            title="إغلاق"
+            aria-label="إغلاق"
+          >
+            ×
+          </button>
+        </header>
+
+        <div class="pathbar">
+          <button
+            id="browserUp"
+            class="path-up"
+            type="button"
+            title="الفولدر الأعلى"
+            aria-label="الفولدر الأعلى"
+          >
+            ↑
+          </button>
+          <span id="browserPath" class="path-value mono" dir="ltr">…</span>
+        </div>
+
+        <label class="hidden-toggle">
+          <input id="browserHidden" type="checkbox" />
+          <span>إظهار المجلدات المخفية</span>
+        </label>
+
+        <div
+          id="browserList"
+          class="browser-list"
+          role="listbox"
+          aria-label="المجلدات والملفات"
+        ></div>
+        <p id="browserEmpty" class="browser-empty" hidden>مفيش ملفات هنا.</p>
+        <p id="browserStatus" class="status" role="status" aria-live="polite"></p>
+
+        <div class="modal-actions">
+          <button id="browserCancel" class="btn" type="button">إلغاء</button>
+        </div>
+      </section>
+    </div>
+
+    <script src="../content/site-policy.js"></script>
+    <script src="options.js"></script>
+  </body>
+</html>

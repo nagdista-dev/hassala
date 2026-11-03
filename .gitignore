@@ -1,0 +1,34 @@
+# Personal notes and local development history
+TODO.md
+
+# Build output
+dist/
+*.zip
+*.crx
+*.pem
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+
+# Node (not required by the extension, but useful for tooling)
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Editors and OS files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Environment / secrets
+.env
+.env.*
+
+# Local native-host config (may contain a personal path)
+native/config.json

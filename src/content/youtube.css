@@ -1,0 +1,5 @@
+/* Hide YouTube's own caption text while our clickable version is showing. */
+.aet-yt-hide-captions .ytp-caption-window-container {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}

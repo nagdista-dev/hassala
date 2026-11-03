@@ -1,0 +1,59 @@
+{
+  "manifest_version": 3,
+  "name": "حصالة — مترجم وحافظ الكلمات",
+  "short_name": "حصالة",
+  "version": "2.0.1",
+  "description": "ترجمة فورية عربي ↔ إنجليزي، وحفظ الكلمات في حصالتك للمراجعة، وسبتايتل يوتيوب تفاعلي، وزرار عائم في كل الصفحات.",
+  "minimum_chrome_version": "109",
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  },
+  "action": {
+    "default_title": "حصالة — مترجم وحافظ الكلمات",
+    "default_icon": {
+      "16": "src/icons/toolbar16.png",
+      "32": "src/icons/toolbar32.png"
+    }
+  },
+  "icons": {
+    "16": "src/icons/icon16.png",
+    "32": "src/icons/icon32.png",
+    "48": "src/icons/icon48.png",
+    "128": "src/icons/icon128.png"
+  },
+  "background": {
+    "service_worker": "src/background.js"
+  },
+  "options_ui": {
+    "page": "src/options/options.html",
+    "open_in_tab": true
+  },
+  "permissions": ["storage", "nativeMessaging", "scripting", "activeTab", "offscreen"],
+  "host_permissions": [
+    "https://clients5.google.com/*",
+    "https://api.mymemory.translated.net/*",
+    "https://translate.googleapis.com/*",
+    "https://translate.google.com/*"
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["src/fonts/BalooBhaijaan2-Variable.woff2"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/content/site-policy.js", "src/content/floating.js"],
+      "run_at": "document_idle",
+      "all_frames": false
+    },
+    {
+      "matches": ["*://youtube.com/*", "*://*.youtube.com/*"],
+      "js": ["src/content/site-policy.js", "src/content/youtube.js"],
+      "css": ["src/content/youtube.css"],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ]
+}
