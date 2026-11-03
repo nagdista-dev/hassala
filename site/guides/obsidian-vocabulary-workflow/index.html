@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Obsidian Vocabulary Workflow for Arabic Learners</title>
+  <meta name="description" content="A practical Obsidian workflow for Arabic ↔ English vocabulary: save translated words with Hassala, keep the table last, review in context, and back up your vault.">
+  <link rel="canonical" href="https://nagdista-dev.github.io/hassala/guides/obsidian-vocabulary-workflow/">
+  <link rel="alternate" hreflang="en" href="https://nagdista-dev.github.io/hassala/guides/obsidian-vocabulary-workflow/">
+  <link rel="alternate" hreflang="ar" href="https://nagdista-dev.github.io/hassala/ar/guides/obsidian-vocabulary-workflow/">
+  <link rel="alternate" hreflang="x-default" href="https://nagdista-dev.github.io/hassala/guides/obsidian-vocabulary-workflow/">
+  <meta name="theme-color" content="#0f6b63">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="author" content="Hassala contributors">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Hassala">
+  <meta property="og:title" content="Obsidian Vocabulary Workflow for Arabic Learners">
+  <meta property="og:description" content="Use one ordinary note as an Arabic ↔ English word bank, then review it without leaving your vault.">
+  <meta property="og:url" content="https://nagdista-dev.github.io/hassala/guides/obsidian-vocabulary-workflow/">
+  <meta property="og:image" content="https://nagdista-dev.github.io/hassala/assets/social-preview-en.png">
+  <meta property="og:image:width" content="1280">
+  <meta property="og:image:height" content="640">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ar_AR">
+  <meta property="article:published_time" content="2026-11-03">
+  <meta property="article:modified_time" content="2026-11-03">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Obsidian Vocabulary Workflow for Arabic Learners">
+  <meta name="twitter:description" content="A word bank that lives in your vault, not in another app.">
+  <meta name="twitter:image" content="https://nagdista-dev.github.io/hassala/assets/social-preview-en.png">
+
+  <link rel="icon" type="image/png" href="../../assets/icon128.png">
+  <link rel="apple-touch-icon" href="../../assets/icon192.png">
+  <link rel="manifest" href="../../site.webmanifest">
+  <link rel="preload" href="../../assets/fonts/BalooBhaijaan2-Variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../assets/style.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "@id": "https://nagdista-dev.github.io/hassala/guides/obsidian-vocabulary-workflow/#article",
+        "headline": "Obsidian Vocabulary Workflow for Arabic Learners",
+        "description": "A practical Obsidian workflow for Arabic ↔ English vocabulary using a local Markdown word bank written by Hassala.",
+        "datePublished": "2026-11-03",
+        "dateModified": "2026-11-03",
+        "inLanguage": "en",
+        "author": {
+          "@type": "Organization",
+          "name": "Hassala contributors",
+          "url": "https://github.com/nagdista-dev/hassala"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Hassala contributors",
+          "url": "https://github.com/nagdista-dev/hassala"
+        },
+        "mainEntityOfPage": "https://nagdista-dev.github.io/hassala/guides/obsidian-vocabulary-workflow/",
+        "image": "https://nagdista-dev.github.io/hassala/assets/social-preview-en.png",
+        "about": {
+          "@type": "SoftwareApplication",
+          "name": "Hassala",
+          "url": "https://nagdista-dev.github.io/hassala/",
+          "applicationCategory": "EducationalApplication",
+          "operatingSystem": "Chrome, Brave, Edge, Chromium"
+        }
+      },
+      {
+        "@type": "HowTo",
+        "@id": "https://nagdista-dev.github.io/hassala/guides/obsidian-vocabulary-workflow/#howto",
+        "name": "Set up an Obsidian vocabulary workflow for Arabic",
+        "description": "Create or choose a note inside your Obsidian vault, point Hassala at it, keep the word table last, and build a short review routine.",
+        "totalTime": "PT12M",
+        "tool": [
+          { "@type": "HowToTool", "name": "Obsidian" },
+          { "@type": "HowToTool", "name": "Hassala" },
+          { "@type": "HowToTool", "name": "Python 3 (for saving)" }
+        ],
+        "step": [
+          {
+            "@type": "HowToStep",
+            "position": 1,
+            "name": "Create a word bank note",
+            "text": "Create an empty Markdown note inside your Obsidian vault, for example Arabic/Word Bank.md.",
+            "url": "https://nagdista-dev.github.io/hassala/guides/obsidian-vocabulary-workflow/#step-1"
+          },
+          {
+            "@type": "HowToStep",
+            "position": 2,
+            "name": "Point Hassala at the note",
+            "text": "Open Hassala Settings, choose the existing .md file, and save. The default file is created automatically; custom files must already exist.",
+            "url": "https://nagdista-dev.github.io/hassala/guides/obsidian-vocabulary-workflow/#step-2"
+          },
+          {
+            "@type": "HowToStep",
+            "position": 3,
+            "name": "Keep the table at the end",
+            "text": "Add headings, sources, or comments above the word table, never below it. Hassala appends new rows to the end of the file.",
+            "url": "https://nagdista-dev.github.io/hassala/guides/obsidian-vocabulary-workflow/#step-3"
+          },
+          {
+            "@type": "HowToStep",
+            "position": 4,
+            "name": "Build a short review routine",
+            "text": "Use Obsidian search for a word or tag, open the note during a daily review, and write one sentence with three saved words.",
+            "url": "https://nagdista-dev.github.io/hassala/guides/obsidian-vocabulary-workflow/#step-4"
+          },
+          {
+            "@type": "HowToStep",
+            "position": 5,
+            "name": "Back up the vault",
+            "text": "Keep the note in your normal backup or sync setup. The file is plain Markdown, so it works with Obsidian Sync, Git, or any file sync.",
+            "url": "https://nagdista-dev.github.io/hassala/guides/obsidian-vocabulary-workflow/#step-5"
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Hassala",
+            "item": "https://nagdista-dev.github.io/hassala/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Obsidian vocabulary workflow",
+            "item": "https://nagdista-dev.github.io/hassala/guides/obsidian-vocabulary-workflow/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://nagdista-dev.github.io/hassala/guides/obsidian-vocabulary-workflow/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Does Hassala have an Obsidian plugin?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Hassala writes a standard Markdown file. Obsidian reads that file like any other note, so no plugin or integration is required."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I use a note that is already in my vault?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Create or choose any existing .md file in the vault from Hassala Settings. The file stays where it is, and Hassala appends rows to it."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Will Hassala overwrite my notes?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Hassala normalizes the word table — header, separator, row numbering, and column order — and may remove old generated title or section lines. It does not rewrite prose outside the table."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I add my own notes below the table?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Avoid it. New rows are appended to the end of the file, so prose below the table would push later rows outside the table. Put notes above the table instead."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does this give me spaced repetition?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Not built in. Hassala saves and deduplicates words. For scheduled review, use an Obsidian plugin, Anki, or a manual routine. CSV and Anki export are on the roadmap."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does it work with Obsidian Sync?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. The word bank is a local Markdown file, so Obsidian Sync, Git, or any file sync tool can carry it. Hassala does not sync anything itself."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../../" aria-label="Hassala home">
+        <img src="../../assets/icon128.png" width="48" height="48" alt="">
+        <span class="brand-text">
+          <strong>Hassala</strong>
+          <span class="brand-sub">Arabic word bank</span>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="../../#features">Features</a>
+        <a href="../../#how-it-works">How it works</a>
+        <a href="../../compare/">Compare</a>
+        <a href="../../#faq">FAQ</a>
+        <a href="https://github.com/nagdista-dev/hassala" rel="noopener">GitHub ↗</a>
+        <a class="lang-switch" href="../../ar/guides/obsidian-vocabulary-workflow/" lang="ar" hreflang="ar">العربية</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section wrap" aria-labelledby="article-title">
+      <div class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="../../">Hassala</a>
+        <span aria-hidden="true">›</span>
+        <a href="../">Guides</a>
+        <span aria-hidden="true">›</span>
+        <span>Obsidian vocabulary workflow</span>
+      </div>
+
+      <div class="article-header">
+        <p class="eyebrow">Guide</p>
+        <h1 id="article-title">An Obsidian vocabulary workflow for Arabic learners</h1>
+        <p class="lead">
+          Use one ordinary note as an Arabic ↔ English word bank, save to it
+          while you read, and review it without leaving your vault. No plugin and
+          no second database.
+        </p>
+        <div class="article-meta">
+          <span>Updated November 3, 2026</span>
+          <span>6 min read</span>
+          <span>Obsidian + any Markdown editor</span>
+        </div>
+      </div>
+
+      <article class="article">
+        <p>
+          Obsidian is good at keeping notes you already wrote. Vocabulary is
+          different: it arrives in small pieces, while you read or watch
+          something, and it is easy to lose. This workflow connects the two.
+          <a href="../../">Hassala</a> saves each translated word or phrase to a
+          Markdown note in your vault; Obsidian gives you search, links, and a
+          place to review.
+        </p>
+
+        <h2>What you need</h2>
+        <ul>
+          <li>Obsidian installed, with a vault you already use (or a new one).</li>
+          <li>
+            Hassala from
+            <a href="https://github.com/nagdista-dev/hassala/releases/latest" rel="noopener">GitHub Releases</a>.
+            The Chrome Web Store release is still being prepared.
+          </li>
+          <li>Python 3 if you want saving to work.</li>
+          <li>No Obsidian plugin is required.</li>
+        </ul>
+
+        <h2 id="step-1">Step 1 — Create a word bank note</h2>
+        <p>
+          Inside your vault, create a note such as:
+        </p>
+        <pre><code>Arabic/Word Bank.md</code></pre>
+        <p>
+          A folder per language or course keeps the vault readable. If you prefer
+          one file for everything, put it at the vault root and name it
+          <code>Word Bank.md</code>.
+        </p>
+        <p>
+          The note can be empty. Hassala adds a table on the first save. If you
+          use the default file instead, Hassala creates it with these tags:
+        </p>
+        <pre><code>---
+tags:
+  - english
+  - vocabulary
+  - hassala
+---</code></pre>
+        <p>
+          That frontmatter is ordinary YAML, so you can edit the tags or add your
+          own properties. A custom note keeps whatever frontmatter it already
+          has.
+        </p>
+
+        <h2 id="step-2">Step 2 — Point Hassala at the note</h2>
+        <ol>
+          <li>Open Hassala Settings.</li>
+          <li>Under the word bank file, choose <strong>Choose file</strong>.</li>
+          <li>Select the existing <code>.md</code> note inside your vault.</li>
+          <li>Save the setting, then translate and save one word to test it.</li>
+        </ol>
+        <p>
+          The default path is <code>~/Documents/Hassala Words.md</code>, which is
+          only inside your vault if your vault happens to be
+          <code>~/Documents</code>. For most people, choosing the note explicitly
+          is the safer option.
+        </p>
+
+        <div class="note">
+          <strong>Custom files must already exist.</strong> Hassala creates only
+          the default file automatically. It will not create a new note at an
+          arbitrary path, and it will not write outside the file you choose.
+        </div>
+
+        <h2 id="step-3">Step 3 — Keep the table at the end</h2>
+        <p>
+          New rows are appended to the end of the file. That means the word table
+          should be the last thing in the note. Add headings, sources, or comments
+          <em>above</em> the table:
+        </p>
+        <pre><code># Arabic word bank
+
+Source: Al Jazeera documentary, November 2026.
+
+| # | English | Arabic |
+| --- | --- | --- |
+| 1 | get used to | يعتاد على |</code></pre>
+        <p>
+          If you write paragraphs below the table, the next saved row lands after
+          those paragraphs — outside the table. Keep the table last and the format
+          stays predictable.
+        </p>
+
+        <h3>What Hassala changes in the file</h3>
+        <ul>
+          <li>It adds the table if the note does not have one.</li>
+          <li>It normalizes the table header, separator, row numbers, and column order.</li>
+          <li>It may remove old generated title or section lines from earlier versions.</li>
+          <li>It does not rewrite prose outside the table.</li>
+        </ul>
+
+        <h2 id="step-4">Step 4 — Build a short review routine</h2>
+        <p>
+          A word bank only helps if you return to it. This routine takes about
+          five minutes:
+        </p>
+        <ol>
+          <li>
+            <strong>Search the vault.</strong> Press <kbd>Ctrl</kbd> +
+            <kbd>Shift</kbd> + <kbd>F</kbd> (<kbd>Cmd</kbd> on macOS) and search
+            for a word you remember meeting. Searching by tag
+            <code>tag:#hassala</code> finds the default word bank note.
+          </li>
+          <li>
+            <strong>Open the note and read ten rows aloud.</strong> Reading aloud
+            exposes words you recognize but cannot pronounce.
+          </li>
+          <li>
+            <strong>Write one sentence with three of them.</strong> Put the
+            sentence in your daily note, and link the word bank:
+            <code>[[Word Bank]]</code>. The link makes the review note part of
+            your graph instead of a dead end.
+          </li>
+          <li>
+            <strong>Add context above the table when it matters.</strong> A source
+            line or a short note about where you heard the word is enough.
+          </li>
+        </ol>
+        <p>
+          Do not try to review the whole table every day. Ten rows is a habit; two
+          hundred rows is a project you will postpone.
+        </p>
+
+        <h3>One file per course or series</h3>
+        <p>
+          If you are working through a course, a playlist, or a book, give it its
+          own note: <code>Arabic/Course A.md</code>. Smaller tables are easier to
+          scan, and the filename tells you where the words came from. You can
+          still search across the whole vault.
+        </p>
+
+        <h2 id="step-5">Step 5 — Back up the vault</h2>
+        <p>
+          The word bank is a plain UTF-8 Markdown file. Use whatever you already
+          trust:
+        </p>
+        <ul>
+          <li><strong>Obsidian Sync</strong> or another sync service.</li>
+          <li><strong>Git</strong>, if your vault is a repository.</li>
+          <li><strong>A manual copy</strong> to another disk.</li>
+        </ul>
+        <p>
+          Hassala has no cloud and no account, so the backup is entirely your
+          choice. That is also why nothing is locked in.
+        </p>
+
+        <h2>What this workflow does not do</h2>
+        <ul>
+          <li><strong>No flashcards or scheduling.</strong> Hassala saves and deduplicates; it does not decide when you review.</li>
+          <li><strong>No Dataview table.</strong> The rows are Markdown table cells, not frontmatter fields, so do not expect Dataview to query them as properties.</li>
+          <li><strong>No automatic Anki export.</strong> CSV and Anki export are on the roadmap; for now, copy rows or convert the table with a script.</li>
+          <li><strong>No page translation.</strong> Hassala translates words, selected text, and YouTube captions, not whole documents.</li>
+        </ul>
+
+        <h2>FAQ</h2>
+        <div class="faq">
+          <details class="faq-item">
+            <summary>Does Hassala have an Obsidian plugin?</summary>
+            <p>
+              No. Hassala writes a standard Markdown file. Obsidian reads that
+              file like any other note, so no plugin or integration is required.
+            </p>
+          </details>
+          <details class="faq-item">
+            <summary>Can I use a note that is already in my vault?</summary>
+            <p>
+              Yes. Create or choose any existing <code>.md</code> file in the
+              vault from Hassala Settings. The file stays where it is, and
+              Hassala appends rows to it.
+            </p>
+          </details>
+          <details class="faq-item">
+            <summary>Will Hassala overwrite my notes?</summary>
+            <p>
+              Hassala normalizes the word table — header, separator, row
+              numbering, and column order — and may remove old generated title or
+              section lines. It does not rewrite prose outside the table.
+            </p>
+          </details>
+          <details class="faq-item">
+            <summary>Can I add my own notes below the table?</summary>
+            <p>
+              Avoid it. New rows are appended to the end of the file, so prose
+              below the table would push later rows outside the table. Put notes
+              above the table instead.
+            </p>
+          </details>
+          <details class="faq-item">
+            <summary>Does this give me spaced repetition?</summary>
+            <p>
+              Not built in. Hassala saves and deduplicates words. For scheduled
+              review, use an Obsidian plugin, Anki, or a manual routine. CSV and
+              Anki export are on the roadmap.
+            </p>
+          </details>
+          <details class="faq-item">
+            <summary>Does it work with Obsidian Sync?</summary>
+            <p>
+              Yes. The word bank is a local Markdown file, so Obsidian Sync, Git,
+              or any file sync tool can carry it. Hassala does not sync anything
+              itself.
+            </p>
+          </details>
+        </div>
+
+        <div class="next-step">
+          <h2>Next step</h2>
+          <p>
+            If you have not installed Hassala yet, the Markdown guide starts from
+            the download and ends with the first saved row.
+          </p>
+          <p><a href="../save-words-to-markdown/">Read the Markdown word bank guide →</a></p>
+        </div>
+      </article>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="cta-band">
+          <h2>Your vault is already the right place.</h2>
+          <p>
+            Install Hassala, choose a note, and save one word. The file stays in
+            your vault, in a format you can read without the extension.
+          </p>
+          <div class="hero-actions">
+            <a class="button" href="https://github.com/nagdista-dev/hassala/releases/latest" rel="noopener">
+              Download Hassala
+            </a>
+            <a class="button ghost-light" href="../">All guides</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <a class="footer-brand" href="../../">
+            <img src="../../assets/icon128.png" width="34" height="34" alt="">
+            Hassala
+          </a>
+          <p>Arabic-first translation and word keeping. Free, open source, and built to last.</p>
+        </div>
+        <div>
+          <h2>Product</h2>
+          <ul>
+            <li><a href="../../#features">Features</a></li>
+            <li><a href="../../#how-it-works">How it works</a></li>
+            <li><a href="../../compare/">Compare</a></li>
+            <li><a href="https://github.com/nagdista-dev/hassala/releases" rel="noopener">Releases</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Resources</h2>
+          <ul>
+            <li><a href="../">All guides</a></li>
+            <li><a href="../save-words-to-markdown/">Save words to Markdown</a></li>
+            <li><a href="../translate-youtube-subtitles/">Translate YouTube subtitles</a></li>
+            <li><a href="https://github.com/nagdista-dev/hassala/blob/main/docs/INSTALL.md" rel="noopener">Install guide</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Community</h2>
+          <ul>
+            <li><a href="https://github.com/nagdista-dev/hassala" rel="noopener">GitHub</a></li>
+            <li><a href="https://github.com/nagdista-dev/hassala/issues" rel="noopener">Issues</a></li>
+            <li><a href="https://github.com/nagdista-dev/hassala/blob/main/CONTRIBUTING.md" rel="noopener">Contributing</a></li>
+            <li><a href="https://github.com/nagdista-dev/hassala/security/policy" rel="noopener">Security</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Hassala contributors. MIT licensed.</p>
+        <p>Not affiliated with Google, YouTube, Obsidian, or Logseq.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

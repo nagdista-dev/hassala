@@ -75,6 +75,8 @@ This means the website alone is not enough. The highest-leverage signals are:
 - Arabic guides hub: <https://nagdista-dev.github.io/hassala/ar/guides/>
 - English YouTube guide: <https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/>
 - Arabic YouTube guide: <https://nagdista-dev.github.io/hassala/ar/guides/translate-youtube-subtitles/>
+- English Obsidian guide: <https://nagdista-dev.github.io/hassala/guides/obsidian-vocabulary-workflow/>
+- Arabic Obsidian guide: <https://nagdista-dev.github.io/hassala/ar/guides/obsidian-vocabulary-workflow/>
 - `llms.txt` and `llms-full.txt` for AI crawlers.
 - `sitemap.xml`, `robots.txt`, canonical URLs, and `hreflang` for English and
   Arabic.
@@ -117,7 +119,7 @@ page or to content worth writing later.
 | --- | --- | --- |
 | English: general | `arabic translator chrome extension` | Home |
 | English: saving words | `chrome extension save words to markdown` | Home |
-| English: Obsidian | `obsidian vocabulary builder chrome extension` | Home |
+| English: Obsidian | `obsidian vocabulary builder chrome extension` | [Obsidian guide](https://nagdista-dev.github.io/hassala/guides/obsidian-vocabulary-workflow/) |
 | English: YouTube | `translate youtube arabic subtitles extension` | [YouTube guide](https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/) |
 | English: comparison | `best arabic translator extension` | Compare |
 | English: workflow | `how to save translated words to markdown` | [Guide](https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/) |
@@ -128,11 +130,9 @@ page or to content worth writing later.
 
 ### Content gaps worth filling next
 
-1. **“Obsidian vocabulary workflow for Arabic learners”** — a workflow article,
-   not a product page.
-2. **“Arabic word bank: what it is and why it helps”** — an educational article
+1. **“Arabic word bank: what it is and why it helps”** — an educational article
    that naturally introduces Hassala.
-3. **Arabic versions** of each new guide, published under `/ar/`.
+2. **Arabic versions** of each new guide, published under `/ar/`.
 
 Publish one substantial page at a time. Thin, repetitive pages do more harm than
 good.
@@ -145,6 +145,9 @@ good.
 - [How to translate YouTube subtitles word by word](https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/)
   — English, with an Arabic counterpart at
   [the Arabic YouTube guide](https://nagdista-dev.github.io/hassala/ar/guides/translate-youtube-subtitles/).
+- [Obsidian vocabulary workflow for Arabic learners](https://nagdista-dev.github.io/hassala/guides/obsidian-vocabulary-workflow/)
+  — English, with an Arabic counterpart at
+  [the Arabic Obsidian guide](https://nagdista-dev.github.io/hassala/ar/guides/obsidian-vocabulary-workflow/).
 
 ---
 

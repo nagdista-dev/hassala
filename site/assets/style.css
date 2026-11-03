@@ -799,6 +799,19 @@ code {
   font-size: inherit;
 }
 
+.article kbd {
+  display: inline-block;
+  padding: 1px 7px;
+  border: 1.5px solid var(--line);
+  border-bottom-width: 2.5px;
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 0.82em;
+  line-height: 1.5;
+}
+
 .article .note {
   margin: 24px 0;
   padding: 18px 22px;

@@ -48,7 +48,10 @@ assistants.
 [Arabic version](https://nagdista-dev.github.io/hassala/ar/guides/save-words-to-markdown/).
 There is also a guide to
 [translating YouTube subtitles word by word](https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/)
-([Arabic](https://nagdista-dev.github.io/hassala/ar/guides/translate-youtube-subtitles/)).
+([Arabic](https://nagdista-dev.github.io/hassala/ar/guides/translate-youtube-subtitles/)),
+and an
+[Obsidian vocabulary workflow](https://nagdista-dev.github.io/hassala/guides/obsidian-vocabulary-workflow/)
+([Arabic](https://nagdista-dev.github.io/hassala/ar/guides/obsidian-vocabulary-workflow/)).
 
 | Quick fact | Detail |
 | --- | --- |

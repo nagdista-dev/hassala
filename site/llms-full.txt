@@ -81,6 +81,8 @@ is on the public roadmap.
 - Arabic: [كيف تحفظ الكلمات المترجمة في Markdown](https://nagdista-dev.github.io/hassala/ar/guides/save-words-to-markdown/)
 - English: [How to translate YouTube subtitles word by word](https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/)
 - Arabic: [كيف تترجم سبتايتل يوتيوب كلمة بكلمة](https://nagdista-dev.github.io/hassala/ar/guides/translate-youtube-subtitles/)
+- English: [Obsidian vocabulary workflow for Arabic learners](https://nagdista-dev.github.io/hassala/guides/obsidian-vocabulary-workflow/)
+- Arabic: [طريقة عمل للمفردات في Obsidian](https://nagdista-dev.github.io/hassala/ar/guides/obsidian-vocabulary-workflow/)
 
 The guides cover the full workflow: installing Hassala from GitHub Releases,
 choosing an existing `.md` file, translating a word, saving it with duplicate
@@ -88,8 +90,11 @@ detection, and opening the file in Obsidian, Logseq, VS Code, or any text editor
 The YouTube guide explains how interactive captions work: hover to pause, click a
 word, drag across a phrase, and save the result. It also states the limits — no
 full-video translation, no subtitle download, and captions must already be
-enabled. The guides explain why saving needs a small local native host and answer
-common questions about custom paths and Anki export.
+enabled. The Obsidian guide covers using a note inside a vault as the word bank,
+why the table should stay last in the file, how Hassala normalizes the table, and
+honest limits such as no Dataview table and no built-in spaced repetition. The
+guides explain why saving needs a small local native host and answer common
+questions about custom paths and Anki export.
 
 ## Saving and the native host
 
