@@ -342,6 +342,7 @@ powershell -ExecutionPolicy Bypass -File native\install.ps1 -Uninstall
 ├── CODE_OF_CONDUCT.md
 ├── CONTRIBUTING.md
 ├── LICENSE
+├── SECURITY.md
 └── README.md
 ```
 
