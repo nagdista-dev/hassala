@@ -122,6 +122,8 @@ def main() -> int:
         return 1
 
     canonical_urls: dict[str, Path] = {}
+    alternates_by_page: dict[str, dict[str, str]] = {}
+    page_langs: dict[str, str] = {}
     for path in html_files:
         text = path.read_text(encoding="utf-8")
         relative = path.relative_to(ROOT)
@@ -142,6 +144,39 @@ def main() -> int:
             if canonical.group(1) in canonical_urls:
                 fail(f"{relative}: duplicate canonical with {canonical_urls[canonical.group(1)]}")
             canonical_urls[canonical.group(1)] = path
+            language = re.search(r'<html[^>]*\blang="([^"]+)"', text)
+            page_langs[canonical.group(1)] = language.group(1) if language else "en"
+            alternates_by_page[canonical.group(1)] = dict(
+                re.findall(
+                    r'<link rel="alternate" hreflang="([^"]+)" href="([^"]+)"',
+                    text,
+                )
+            )
+
+    # hreflang must be reciprocal and point to real pages.
+    for canonical, alternates in alternates_by_page.items():
+        path = canonical_urls[canonical]
+        if not alternates:
+            continue
+        language = page_langs[canonical]
+        if "x-default" not in alternates:
+            fail(f"{path.relative_to(ROOT)}: missing hreflang x-default")
+        if alternates.get(language) != canonical:
+            fail(f"{path.relative_to(ROOT)}: missing self hreflang for {language}")
+        for alternate_language, target in alternates.items():
+            if alternate_language == "x-default":
+                continue
+            if target not in canonical_urls:
+                fail(
+                    f"{path.relative_to(ROOT)}: hreflang {alternate_language} "
+                    f"target is not a known page: {target}"
+                )
+                continue
+            if alternates_by_page[target].get(language) != canonical:
+                fail(
+                    f"{path.relative_to(ROOT)}: hreflang {alternate_language} -> "
+                    f"{target}, but the target does not link back with {language}"
+                )
 
     # Sitemap must describe real pages and include every page with a canonical.
     sitemap_path = SITE / "sitemap.xml"

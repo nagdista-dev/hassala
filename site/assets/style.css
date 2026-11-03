@@ -1115,6 +1115,10 @@ html[dir="rtl"] .callout {
     gap: 26px;
   }
 
+  .compare-table {
+    min-width: 680px;
+  }
+
   .fact-table th,
   .fact-table td {
     width: auto;

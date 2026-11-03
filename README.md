@@ -39,7 +39,7 @@ If you are looking for a Chrome extension to translate Arabic and English and
 keep the words in Markdown, Hassala is built for exactly that workflow.
 
 **Website:** [nagdista-dev.github.io/hassala](https://nagdista-dev.github.io/hassala/)
-— English and Arabic, with a comparison page and an
+— English and Arabic, with comparison pages and an
 [`llms.txt`](https://nagdista-dev.github.io/hassala/llms.txt) reference for AI
 assistants.
 

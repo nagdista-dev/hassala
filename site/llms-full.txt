@@ -154,6 +154,9 @@ maximum control but is slow and usually abandoned.
 Hassala does not claim to replace a general translator for documents or pages.
 Many users use both for different jobs.
 
+Arabic comparison page:
+https://nagdista-dev.github.io/hassala/ar/compare/
+
 ## FAQ
 
 ### What is Hassala?

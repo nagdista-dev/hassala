@@ -68,6 +68,7 @@ This means the website alone is not enough. The highest-leverage signals are:
 - English landing page: <https://nagdista-dev.github.io/hassala/>
 - Arabic landing page: <https://nagdista-dev.github.io/hassala/ar/>
 - Comparison page: <https://nagdista-dev.github.io/hassala/compare/>
+- Arabic comparison page: <https://nagdista-dev.github.io/hassala/ar/compare/>
 - English guide: <https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/>
 - Arabic guide: <https://nagdista-dev.github.io/hassala/ar/guides/save-words-to-markdown/>
 - `llms.txt` and `llms-full.txt` for AI crawlers.
@@ -119,7 +120,7 @@ page or to content worth writing later.
 | Arabic: general | `إضافة ترجمة عربي إنجليزي للكروم` | Arabic home |
 | Arabic: saving | `حفظ الكلمات في ملف ماركداون` | Arabic home |
 | Arabic: YouTube | `ترجمة سبتايتل يوتيوب` | Arabic home |
-| Arabic: comparison | `افضل إضافة ترجمة للكروم` | Arabic home |
+| Arabic: comparison | `افضل إضافة ترجمة للكروم` | [Arabic compare](https://nagdista-dev.github.io/hassala/ar/compare/) |
 
 ### Content gaps worth filling next
 
