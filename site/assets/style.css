@@ -701,6 +701,136 @@ code {
   font-size: 0.82rem;
 }
 
+/* Article / guide */
+.breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  max-width: 840px;
+  margin-inline: auto;
+  margin-bottom: 18px;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.breadcrumbs a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.breadcrumbs a:hover {
+  color: var(--teal);
+  text-decoration: underline;
+}
+
+.article-header {
+  max-width: 840px;
+  margin-inline: auto;
+  margin-bottom: 34px;
+}
+
+.article-header h1 {
+  font-size: clamp(2.1rem, 4.2vw, 3.4rem);
+}
+
+.article-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
+.article {
+  max-width: 840px;
+  margin-inline: auto;
+}
+
+.article h2 {
+  margin-top: 44px;
+  margin-bottom: 12px;
+  font-size: clamp(1.55rem, 2.6vw, 2rem);
+}
+
+.article h3 {
+  margin-top: 28px;
+  margin-bottom: 8px;
+  font-size: 1.18rem;
+}
+
+.article p {
+  margin-bottom: 1rem;
+}
+
+.article ul,
+.article ol {
+  margin: 0 0 1.2rem;
+  padding-inline-start: 26px;
+}
+
+.article li {
+  margin-bottom: 8px;
+}
+
+.article li > ul,
+.article li > ol {
+  margin-top: 8px;
+  margin-bottom: 0;
+}
+
+.article pre {
+  overflow-x: auto;
+  margin: 0 0 1.4rem;
+  padding: 18px 20px;
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  direction: ltr;
+  text-align: left;
+}
+
+.article pre code {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-size: inherit;
+}
+
+.article .note {
+  margin: 24px 0;
+  padding: 18px 22px;
+  border-inline-start: 4px solid var(--gold);
+  border-radius: 14px;
+  border-start-start-radius: 0;
+  border-end-start-radius: 0;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+
+.article .note strong {
+  color: var(--ink);
+}
+
+.article .next-step {
+  margin-top: 40px;
+  padding: 28px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.article .next-step h2 {
+  margin-top: 0;
+}
+
+.article .next-step p:last-child {
+  margin-bottom: 0;
+}
+
 /* Quote / callout */
 .callout {
   align-self: start;

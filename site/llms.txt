@@ -30,6 +30,8 @@
 - [Home (English)](https://nagdista-dev.github.io/hassala/): product overview, features, how it works, comparison, FAQ.
 - [الصفحة العربية](https://nagdista-dev.github.io/hassala/ar/): نظرة عامة بالعربية، المزايا، طريقة العمل، المقارنة، والأسئلة الشائعة.
 - [Comparison](https://nagdista-dev.github.io/hassala/compare/): Hassala vs. a general translator extension vs. manual notes, including honest limitations.
+- [How to save translated words to Markdown](https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/): step-by-step Arabic ↔ English word bank workflow.
+- [دليل حفظ الكلمات في Markdown](https://nagdista-dev.github.io/hassala/ar/guides/save-words-to-markdown/): الدليل العربي خطوة بخطوة.
 - [Installation guide](https://github.com/nagdista-dev/hassala/blob/main/docs/INSTALL.md): install from a release, enable saving, troubleshoot.
 - [Architecture](https://github.com/nagdista-dev/hassala/blob/main/docs/ARCHITECTURE.md): components, data flow, storage, native host protocol.
 - [Privacy policy](https://github.com/nagdista-dev/hassala/blob/main/docs/PRIVACY.md): what is processed and where it goes.

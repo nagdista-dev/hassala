@@ -68,6 +68,8 @@ This means the website alone is not enough. The highest-leverage signals are:
 - English landing page: <https://nagdista-dev.github.io/hassala/>
 - Arabic landing page: <https://nagdista-dev.github.io/hassala/ar/>
 - Comparison page: <https://nagdista-dev.github.io/hassala/compare/>
+- English guide: <https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/>
+- Arabic guide: <https://nagdista-dev.github.io/hassala/ar/guides/save-words-to-markdown/>
 - `llms.txt` and `llms-full.txt` for AI crawlers.
 - `sitemap.xml`, `robots.txt`, canonical URLs, and `hreflang` for English and
   Arabic.
@@ -113,7 +115,7 @@ page or to content worth writing later.
 | English: Obsidian | `obsidian vocabulary builder chrome extension` | Home |
 | English: YouTube | `translate youtube arabic subtitles extension` | Home |
 | English: comparison | `best arabic translator extension` | Compare |
-| English: workflow | `how to save translated words to markdown` | Future guide |
+| English: workflow | `how to save translated words to markdown` | [Guide](https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/) |
 | Arabic: general | `إضافة ترجمة عربي إنجليزي للكروم` | Arabic home |
 | Arabic: saving | `حفظ الكلمات في ملف ماركداون` | Arabic home |
 | Arabic: YouTube | `ترجمة سبتايتل يوتيوب` | Arabic home |
@@ -121,18 +123,22 @@ page or to content worth writing later.
 
 ### Content gaps worth filling next
 
-1. **“How to save translated words to Markdown”** — a step-by-step guide with
-   screenshots. Targets a high-intent how-to query.
-2. **“How to translate YouTube Arabic subtitles word by word”** — a short
+1. **“How to translate YouTube Arabic subtitles word by word”** — a short
    tutorial with a video embed.
-3. **“Obsidian vocabulary workflow for Arabic learners”** — a workflow article,
+2. **“Obsidian vocabulary workflow for Arabic learners”** — a workflow article,
    not a product page.
-4. **“Arabic word bank: what it is and why it helps”** — an educational article
+3. **“Arabic word bank: what it is and why it helps”** — an educational article
    that naturally introduces Hassala.
-5. **An Arabic guide** for each of the above, published under `/ar/`.
+4. **Arabic versions** of each new guide, published under `/ar/`.
 
 Publish one substantial page at a time. Thin, repetitive pages do more harm than
 good.
+
+### Published guides
+
+- [How to save translated words to Markdown](https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/)
+  — English, with an Arabic counterpart at
+  [the Arabic guide](https://nagdista-dev.github.io/hassala/ar/guides/save-words-to-markdown/).
 
 ---
 
@@ -296,15 +302,16 @@ word bank
 - [x] Add structured data, sitemap, `llms.txt`, and `hreflang`.
 - [x] Add the README definition, quick facts, and FAQ.
 - [ ] Submit the sitemap to Google Search Console and Bing Webmaster Tools.
-- [ ] Verify the site and request indexing for the three main pages.
-- [ ] Submit the site to IndexNow (Bing/Yandex).
+- [ ] Verify the site and request indexing for the main pages.
+- [x] Add the IndexNow key file to the site.
+- [ ] Submit the site URLs to IndexNow (Bing/Yandex) after deployment.
 
 ### Week 2 — Directories
 
 - [ ] Create or update the AlternativeTo listing.
 - [ ] Create a SaaSHub listing.
 - [ ] Add Hassala to one relevant awesome list.
-- [ ] Publish one how-to article on the site.
+- [x] Publish one how-to article on the site (English and Arabic).
 
 ### Week 3 — Community
 
@@ -375,7 +382,7 @@ If you only do five things:
 - [ ] Publish the Chrome Web Store listing when ready.
 - [ ] Submit the sitemap to Google and Bing.
 - [ ] Get listed in one well-known directory and one awesome list.
-- [ ] Publish one genuinely useful how-to article.
+- [x] Publish one genuinely useful how-to article.
 - [ ] Ask real users for honest reviews.
 
 Everything else compounds from there.

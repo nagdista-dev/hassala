@@ -73,6 +73,17 @@ is on the public roadmap.
    selected Markdown file. Duplicates are skipped.
 3. Review: open the same Markdown file in any editor. No export step.
 
+## Guides
+
+- English: [How to save translated words to Markdown](https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/)
+- Arabic: [كيف تحفظ الكلمات المترجمة في Markdown](https://nagdista-dev.github.io/hassala/ar/guides/save-words-to-markdown/)
+
+The guides cover the full workflow: installing Hassala from GitHub Releases,
+choosing an existing `.md` file, translating a word, saving it with duplicate
+detection, and opening the file in Obsidian, Logseq, VS Code, or any text editor.
+They also explain why saving needs a small local native host and answer common
+questions about custom paths and Anki export.
+
 ## Saving and the native host
 
 Browsers do not allow extensions to write arbitrary files. Hassala uses a small

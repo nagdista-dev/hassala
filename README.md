@@ -43,6 +43,10 @@ keep the words in Markdown, Hassala is built for exactly that workflow.
 [`llms.txt`](https://nagdista-dev.github.io/hassala/llms.txt) reference for AI
 assistants.
 
+**Guide:** [How to save translated words to Markdown](https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/)
+— the full workflow from install to Obsidian, with an
+[Arabic version](https://nagdista-dev.github.io/hassala/ar/guides/save-words-to-markdown/).
+
 | Quick fact | Detail |
 | --- | --- |
 | **Type** | Manifest V3 extension for Chrome, Brave, Edge, and Chromium |
