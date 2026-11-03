@@ -55,4 +55,22 @@
     <xhtml:link rel="alternate" hreflang="ar" href="https://nagdista-dev.github.io/hassala/ar/guides/save-words-to-markdown/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/"/>
   </url>
+  <url>
+    <loc>https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://nagdista-dev.github.io/hassala/ar/guides/translate-youtube-subtitles/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/"/>
+  </url>
+  <url>
+    <loc>https://nagdista-dev.github.io/hassala/ar/guides/translate-youtube-subtitles/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://nagdista-dev.github.io/hassala/ar/guides/translate-youtube-subtitles/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/"/>
+  </url>
 </urlset>

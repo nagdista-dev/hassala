@@ -77,12 +77,17 @@ is on the public roadmap.
 
 - English: [How to save translated words to Markdown](https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/)
 - Arabic: [كيف تحفظ الكلمات المترجمة في Markdown](https://nagdista-dev.github.io/hassala/ar/guides/save-words-to-markdown/)
+- English: [How to translate YouTube subtitles word by word](https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/)
+- Arabic: [كيف تترجم سبتايتل يوتيوب كلمة بكلمة](https://nagdista-dev.github.io/hassala/ar/guides/translate-youtube-subtitles/)
 
 The guides cover the full workflow: installing Hassala from GitHub Releases,
 choosing an existing `.md` file, translating a word, saving it with duplicate
 detection, and opening the file in Obsidian, Logseq, VS Code, or any text editor.
-They also explain why saving needs a small local native host and answer common
-questions about custom paths and Anki export.
+The YouTube guide explains how interactive captions work: hover to pause, click a
+word, drag across a phrase, and save the result. It also states the limits — no
+full-video translation, no subtitle download, and captions must already be
+enabled. The guides explain why saving needs a small local native host and answer
+common questions about custom paths and Anki export.
 
 ## Saving and the native host
 

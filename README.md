@@ -46,6 +46,9 @@ assistants.
 **Guide:** [How to save translated words to Markdown](https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/)
 — the full workflow from install to Obsidian, with an
 [Arabic version](https://nagdista-dev.github.io/hassala/ar/guides/save-words-to-markdown/).
+There is also a guide to
+[translating YouTube subtitles word by word](https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/)
+([Arabic](https://nagdista-dev.github.io/hassala/ar/guides/translate-youtube-subtitles/)).
 
 | Quick fact | Detail |
 | --- | --- |
