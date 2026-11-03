@@ -1,0 +1,688 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>حصالة — ترجمة عربي ↔ إنجليزي وحفظ الكلمات</title>
+  <meta name="description" content="حصالة إضافة كروم مجانية ومفتوحة المصدر تترجم عربي ↔ إنجليزي، وتحفظ كل كلمة في ملف Markdown على جهازك، وتجعل سبتايتل يوتيوب تفاعليًا. بدون حساب وبدون تتبع.">
+  <link rel="canonical" href="https://nagdista-dev.github.io/hassala/ar/">
+  <link rel="alternate" hreflang="en" href="https://nagdista-dev.github.io/hassala/">
+  <link rel="alternate" hreflang="ar" href="https://nagdista-dev.github.io/hassala/ar/">
+  <link rel="alternate" hreflang="x-default" href="https://nagdista-dev.github.io/hassala/">
+  <meta name="theme-color" content="#0f6b63">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="author" content="Hassala contributors">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="حصالة — Hassala">
+  <meta property="og:title" content="حصالة — إضافة ترجمة عربي ↔ إنجليزي وحفظ الكلمات">
+  <meta property="og:description" content="ترجم عربي ↔ إنجليزي، واحفظ كل كلمة في ملف Markdown على جهازك، وحوّل سبتايتل يوتيوب إلى درس مفردات. مجانية، مفتوحة المصدر، وبدون حساب.">
+  <meta property="og:url" content="https://nagdista-dev.github.io/hassala/ar/">
+  <meta property="og:image" content="https://nagdista-dev.github.io/hassala/assets/social-preview-en.png">
+  <meta property="og:image:width" content="1280">
+  <meta property="og:image:height" content="640">
+  <meta property="og:image:alt" content="حصالة — مترجم عربي وحافظ كلمات">
+  <meta property="og:locale" content="ar_AR">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="حصالة — إضافة ترجمة عربي ↔ إنجليزي وحفظ الكلمات">
+  <meta name="twitter:description" content="ترجم عربي ↔ إنجليزي، واحفظ كل كلمة في ملف Markdown، واجعل سبتايتل يوتيوب تفاعليًا. مجانية ومفتوحة المصدر.">
+  <meta name="twitter:image" content="https://nagdista-dev.github.io/hassala/assets/social-preview-en.png">
+
+  <link rel="icon" type="image/png" href="../assets/icon128.png">
+  <link rel="apple-touch-icon" href="../assets/icon192.png">
+  <link rel="manifest" href="../site.webmanifest">
+  <link rel="preload" href="../assets/fonts/BalooBhaijaan2-Variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/style.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://nagdista-dev.github.io/hassala/#app",
+        "name": "حصالة",
+        "alternateName": ["Hassala", "Hassala Arabic Word Translator"],
+        "applicationCategory": "EducationalApplication",
+        "applicationSubCategory": "Language Learning",
+        "operatingSystem": "Chrome, Brave, Edge, Chromium",
+        "description": "حصالة إضافة كروم مجانية ومفتوحة المصدر تترجم بين العربية والإنجليزية، وتحفظ الكلمات في ملف Markdown محلي، وتجعل سبتايتل يوتيوب تفاعليًا.",
+        "url": "https://nagdista-dev.github.io/hassala/ar/",
+        "downloadUrl": "https://github.com/nagdista-dev/hassala/releases/latest",
+        "codeRepository": "https://github.com/nagdista-dev/hassala",
+        "license": "https://opensource.org/licenses/MIT",
+        "inLanguage": ["ar", "en"],
+        "isAccessibleForFree": true,
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "ترجمة فورية عربي ↔ إنجليزي",
+          "حفظ الكلمات في ملف Markdown محلي",
+          "منع تكرار الكلمات",
+          "سبتايتل يوتيوب تفاعلي",
+          "مترجم عائم على أي صفحة",
+          "نطق ونسخ",
+          "بدون حساب وبدون تتبع"
+        ],
+        "screenshot": "https://nagdista-dev.github.io/hassala/assets/social-preview-en.png",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Hassala contributors",
+          "url": "https://github.com/nagdista-dev/hassala"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://nagdista-dev.github.io/hassala/#website",
+        "name": "حصالة",
+        "url": "https://nagdista-dev.github.io/hassala/",
+        "inLanguage": ["ar", "en"],
+        "about": { "@id": "https://nagdista-dev.github.io/hassala/#app" }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://nagdista-dev.github.io/hassala/ar/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "ما هي حصالة؟",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "حصالة إضافة كروم مجانية ومفتوحة المصدر للترجمة بين العربية والإنجليزية وحفظ المفردات. تترجم الكلمات والعبارات، وتكتب كل كلمة وترجمتها في ملف Markdown على جهازك، وتجعل سبتايتل يوتيوب تفاعليًا. لا تحتاج إلى حساب."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "هل حصالة مجانية؟",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "نعم. حصالة مجانية ومفتوحة المصدر تحت ترخيص MIT. لا يوجد اشتراك ولا حساب ولا نسخة مدفوعة."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "هل تعمل حصالة على كروم وبريف وإيدج؟",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "نعم. حصالة إضافة Manifest V3 تعمل على كروم وبريف وإيدج وكروميوم على Linux وmacOS وWindows."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "هل يمكن حفظ الكلمات في Obsidian؟",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "نعم. تحفظ حصالة الكلمات في ملف Markdown عادي في المسار الذي تختاره، ويمكنك فتحه في Obsidian أو Logseq أو Typora أو VS Code أو أي محرر Markdown. الملف لا يحتاج أن يكون داخل مكتبة Obsidian."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "هل أحتاج إلى حساب لاستخدام حصالة؟",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "لا. حصالة بدون حسابات وبدون تسجيل دخول وبدون تحليلات وبدون تتبع. الإعدادات وآخر الكلمات تُخزَّن محليًا في المتصفح."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "هل تعمل حصالة على يوتيوب؟",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "نعم. عند تفعيل الترجمة، تستبدل حصالة طبقة السبتايتل الأصلية بسبتايتل تفاعلي. مرّر المؤشر على كلمة لإيقاف الفيديو، أو اضغط على كلمة لترجمتها، أو اسحب على عبارة لترجمة العبارة كاملة."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "هل يحتاج حفظ الكلمات إلى Native Host؟",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "نعم. المتصفحات لا تسمح للإضافات بالكتابة في أي ملف، لذلك تستخدم حصالة برنامج Native Host محليًا صغيرًا لإضافة الصفوف إلى ملف Markdown. يُثبَّت مرة واحدة، ويعمل محليًا، ولا يقبل الرسائل إلا من حصالة. الترجمة والسبتايتل والمترجم العائم تعمل بدونه."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "هل حصالة متاحة على Chrome Web Store؟",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "ليس بعد. نشر المتجر قيد التحضير. يمكنك تثبيت حصالة الآن من صفحة الإصدارات العامة على GitHub باستخدام حزمة المختبرين وLoad unpacked."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "ما اللغات التي تدعمها حصالة؟",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "تترجم حصالة بين العربية والإنجليزية. الواجهة عربية أولًا مع دعم كامل للاتجاه من اليمين إلى اليسار، والتوثيق متاح بالإنجليزية."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">انتقل إلى المحتوى</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="./" aria-label="حصالة — الصفحة الرئيسية">
+        <img src="../assets/icon128.png" width="48" height="48" alt="">
+        <span class="brand-text">
+          <strong>حصالة</strong>
+          <span class="brand-sub">بنك كلماتك</span>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="التنقل الرئيسي">
+        <a href="#features">المزايا</a>
+        <a href="#how-it-works">كيف تعمل</a>
+        <a href="#compare">المقارنة</a>
+        <a href="#faq">الأسئلة</a>
+        <a href="https://github.com/nagdista-dev/hassala" rel="noopener">GitHub ↗</a>
+        <a class="lang-switch" href="../" lang="en" hreflang="en">English</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <div>
+        <p class="eyebrow">مجانية · مفتوحة المصدر · عربية أولًا</p>
+        <h1 id="hero-title">عربي ↔ إنجليزي.<br>وكل كلمة محفوظة.</h1>
+        <p class="lead">
+          حصالة إضافة كروم تترجم الكلمات والعبارات، وتحفظها في
+          <strong>بنك كلمات Markdown على جهازك</strong>، وتجعل سبتايتل يوتيوب
+          درس مفردات تفاعليًا. بدون حساب. بدون تتبع. وكلماتك تبقى ملكك.
+        </p>
+        <div class="hero-actions">
+          <a class="button" href="https://github.com/nagdista-dev/hassala/releases/latest" rel="noopener">
+            حمّل من GitHub
+          </a>
+          <a class="button secondary" href="#how-it-works">كيف تعمل؟</a>
+        </div>
+        <p class="hero-note">مجانية ومفتوحة المصدر (MIT) · كروم، بريف، إيدج، كروميوم</p>
+        <ul class="trust-row">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>
+            بدون حساب
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>
+            ملف Markdown محلي
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>
+            بدون تحليلات
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>
+            ترخيص MIT
+          </li>
+        </ul>
+      </div>
+
+      <div class="demo" aria-label="مثال على كلمة مترجمة ومحفوظة في ملف Markdown">
+        <div class="demo-card">
+          <div class="demo-head">
+            <img src="../assets/icon128.png" width="30" height="30" alt="">
+            حصالة
+            <span class="demo-badge">AR ⇄ EN</span>
+          </div>
+          <p class="demo-label">اكتب كلمة</p>
+          <div class="demo-word" lang="ar">كلمة</div>
+          <p class="demo-label">الترجمة</p>
+          <div class="demo-translation ltr" lang="en" dir="ltr">word</div>
+          <div class="demo-actions">
+            <span class="demo-save">أضف للحصالة</span>
+            <span class="demo-copy">اسمع</span>
+            <span class="demo-copy">انسخ</span>
+          </div>
+          <div class="demo-file">
+            <strong>محفوظة في بنك كلماتك</strong>
+            <code>~/Documents/Hassala Words.md</code>
+          </div>
+        </div>
+        <p class="demo-caption">مثال على الناتج. واجهة الإضافة عربية أولًا.</p>
+      </div>
+    </section>
+
+    <section class="section tint" aria-labelledby="definition-title">
+      <div class="wrap">
+        <div class="grid grid-2">
+          <div class="callout">
+            <p id="definition-title">
+              <strong>حصالة إضافة كروم مجانية ومفتوحة المصدر للترجمة بين العربية
+              والإنجليزية وحفظ المفردات.</strong> تكتب كل كلمة وترجمتها في ملف
+              Markdown محلي، لتفتحه لاحقًا في Obsidian أو Logseq أو VS Code أو أي
+              محرر نصوص.
+            </p>
+          </div>
+          <div>
+            <table class="fact-table">
+              <caption class="sr-only">حصالة في لمحة</caption>
+              <tbody>
+                <tr><th scope="row">النوع</th><td>إضافة كروم (Manifest V3)</td></tr>
+                <tr><th scope="row">اللغات</th><td>عربي ↔ إنجليزي</td></tr>
+                <tr><th scope="row">الحفظ في</th><td>ملف Markdown (<code>.md</code>) محلي تختاره</td></tr>
+                <tr><th scope="row">الحساب</th><td>غير مطلوب</td></tr>
+                <tr><th scope="row">السعر</th><td>مجاني</td></tr>
+                <tr><th scope="row">الترخيص</th><td>MIT (مفتوح المصدر)</td></tr>
+                <tr><th scope="row">المتصفحات</th><td>كروم، بريف، إيدج، كروميوم</td></tr>
+                <tr><th scope="row">الأنظمة</th><td>Linux، macOS، Windows</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="features" aria-labelledby="features-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">المزايا</p>
+          <h2 id="features-title">مترجم يتذكر ما تعلمته</h2>
+          <p>
+            معظم المترجمات تساعدك في اللحظة ثم تنسى الكلمة عند إغلاق التبويب.
+            حصالة تحتفظ بها — في ملف تملكه، وفي التطبيق الذي تستخدمه أصلًا.
+          </p>
+        </div>
+
+        <div class="grid grid-3">
+          <article class="card">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 5h9M8.5 5v2c0 3.5-2 6.5-5 8"/><path d="M6 10.5c1.2 2 3 3.5 5 4.5"/><path d="m13 20 4-10 4 10"/><path d="M14.5 16h5"/></svg>
+            </span>
+            <h3>ترجمة فورية</h3>
+            <p>
+              اكتب الكلمة وتظهر الترجمة بعد توقف قصير، أو اضغط Enter. اتجاه
+              الترجمة يتحدد تلقائيًا، ويمكن ترجمة النص المحدد من أي صفحة.
+            </p>
+          </article>
+
+          <article class="card">
+            <span class="icon rust" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 3h10l4 4v14H5z"/><path d="M15 3v4h4"/><path d="M8 13h8M8 17h5"/></svg>
+            </span>
+            <h3>حفظ بضغطة واحدة</h3>
+            <p>
+              أضف الكلمة والترجمة إلى ملف Markdown بضغطة. حصالة تتخطى التكرار،
+              فلن يظهر الزوج نفسه مرتين.
+            </p>
+          </article>
+
+          <article class="card">
+            <span class="icon gold" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10 9 5 3-5 3z"/></svg>
+            </span>
+            <h3>سبتايتل يوتيوب تفاعلي</h3>
+            <p>
+              مرّر المؤشر على كلمة في السبتايتل لإيقاف الفيديو، واضغط عليها
+              لترجمتها، أو اسحب على عبارة لترجمة العبارة كاملة دون مغادرة
+              المشغل.
+            </p>
+          </article>
+
+          <article class="card">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z"/><path d="M4 5.5v16"/><path d="M8 7h8M8 11h6"/></svg>
+            </span>
+            <h3>ملفك وتطبيقك</h3>
+            <p>
+              اختر أي ملف <code>.md</code> موجود. افتحه لاحقًا في Obsidian أو
+              Logseq أو Typora أو VS Code أو محرر نصوص عادي. بدون خطوة تصدير
+              وبدون قيود.
+            </p>
+          </article>
+
+          <article class="card">
+            <span class="icon rust" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 3 4.5 6v5c0 4.5 3 8.5 7.5 10 4.5-1.5 7.5-5.5 7.5-10V6z"/><path d="m9 12 2 2 4-4"/></svg>
+            </span>
+            <h3>الخصوصية أولًا</h3>
+            <p>
+              بدون حسابات، بدون تحليلات، بدون إعلانات، وبدون بيع بيانات.
+              الإعدادات وآخر الكلمات تبقى في تخزين المتصفح المحلي، والكلمات
+              المحفوظة تبقى في ملفك.
+            </p>
+          </article>
+
+          <article class="card">
+            <span class="icon gold" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 12h4l2-5 4 10 2-5h4"/><path d="M4 4h16v16H4z"/></svg>
+            </span>
+            <h3>مصممة للمذاكرة اليومية</h3>
+            <p>
+              نطق، وأزرار نسخ، وصندوق قابل للسحب، وتعطيل على مواقع معينة،
+              وزر عائم في كل صفحة — تفاصيل صغيرة تحافظ على سرعة العمل.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section tint" id="how-it-works" aria-labelledby="how-title">
+      <div class="wrap">
+        <div class="section-head center">
+          <p class="eyebrow">كيف تعمل</p>
+          <h2 id="how-title">ثلاث خطوات، وبنك كلمات يكبر</h2>
+          <p>الترجمة والحفظ في المكان نفسه، فلا ينقطع تركيزك أثناء القراءة.</p>
+        </div>
+
+        <ol class="steps">
+          <li class="step">
+            <h3>ترجم</h3>
+            <p>
+              اضغط أيقونة الإضافة، أو استخدم الزر العائم، أو حدد نصًا في أي
+              صفحة. اكتب بالعربية أو الإنجليزية — الاتجاه يتحدد تلقائيًا.
+            </p>
+          </li>
+          <li class="step">
+            <h3>احفظ</h3>
+            <p>
+              اضغط <strong>أضف للحصالة</strong>. تُضاف الكلمة والترجمة إلى ملف
+              Markdown، ويُتخطى التكرار، ويتفرغ المربع للكلمة التالية.
+            </p>
+          </li>
+          <li class="step">
+            <h3>راجع</h3>
+            <p>
+              افتح الملف نفسه في تطبيق Markdown وقتما تشاء. الكلمات موجودة
+              بالفعل — بدون تصدير وبدون نسخ ولصق وبدون قاعدة بيانات منفصلة.
+            </p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" id="compare" aria-labelledby="compare-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">لماذا بنك كلمات؟</p>
+          <h2 id="compare-title">ترجم مرة. راجع لاحقًا.</h2>
+          <p>
+            المترجم العام مصمم لبحث واحد. حصالة مصممة للكلمة التي تريد تذكّرها
+            غدًا.
+          </p>
+        </div>
+
+        <div class="table-scroll">
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th scope="col">طريقة العمل</th>
+                <th scope="col">حصالة</th>
+                <th scope="col">مترجم عام</th>
+                <th scope="col">نسخ ولصق يدوي</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>ترجمة فورية عربي ↔ إنجليزي</td>
+                <td class="yes">نعم</td>
+                <td class="yes">نعم</td>
+                <td class="varies">لا</td>
+              </tr>
+              <tr>
+                <td>حفظ الكلمة والترجمة بضغطة</td>
+                <td class="yes">نعم</td>
+                <td class="varies">يختلف</td>
+                <td class="varies">يدوي</td>
+              </tr>
+              <tr>
+                <td>منع التكرار</td>
+                <td class="yes">نعم</td>
+                <td class="varies">نادرًا</td>
+                <td class="varies">لا</td>
+              </tr>
+              <tr>
+                <td>ملف Markdown محلي تملكه</td>
+                <td class="yes">نعم</td>
+                <td class="varies">يختلف</td>
+                <td class="varies">يدوي</td>
+              </tr>
+              <tr>
+                <td>سبتايتل يوتيوب تفاعلي على مستوى الكلمة</td>
+                <td class="yes">نعم</td>
+                <td class="varies">نادرًا</td>
+                <td class="varies">لا</td>
+              </tr>
+              <tr>
+                <td>حساب مطلوب</td>
+                <td class="yes">لا</td>
+                <td class="varies">يختلف</td>
+                <td class="yes">لا</td>
+              </tr>
+              <tr>
+                <td>مفتوح المصدر</td>
+                <td class="yes">نعم (MIT)</td>
+                <td class="varies">يختلف</td>
+                <td class="yes">—</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">
+          تختلف المترجمات العامة حسب المنتج. هذا الجدول يصف طرق العمل الشائعة،
+          وليس منتجًا بعينه. آخر مراجعة: نوفمبر 2026.
+          <a href="../compare/" hreflang="en" lang="en">Full comparison in English →</a>
+        </p>
+      </div>
+    </section>
+
+    <section class="section tint" aria-labelledby="who-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">لمن؟</p>
+          <h2 id="who-title">لمن يحتفظ بالكلمات</h2>
+        </div>
+        <div class="grid grid-3">
+          <div class="card">
+            <h3>متحدثو العربية الذين يتعلمون الإنجليزية</h3>
+            <p>ابحث عن كلمة في فيديو أو مقال أو مستند، واحتفظ بها في ملف Markdown نفسه الذي تراجعه لاحقًا.</p>
+          </div>
+          <div class="card">
+            <h3>متحدثو الإنجليزية الذين يتعلمون العربية</h3>
+            <p>اقرأ صفحات وسبتايتلات عربية، وترجم الكلمات المحددة، واحفظ الكتابة العربية بجانب معناها.</p>
+          </div>
+          <div class="card">
+            <h3>الطلاب ومدونو الملاحظات</h3>
+            <p>ابنِ قاموسًا شخصيًا في Obsidian أو Logseq أو أي محرر، بدون تطبيق ثانٍ تديره.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq" aria-labelledby="faq-title">
+      <div class="wrap">
+        <div class="section-head center">
+          <p class="eyebrow">الأسئلة الشائعة</p>
+          <h2 id="faq-title">أسئلة بإجابات واضحة</h2>
+          <p>إجابات قصيرة عن أكثر ما يُسأل قبل تثبيت حصالة.</p>
+        </div>
+
+        <div class="faq">
+          <details class="faq-item">
+            <summary>ما هي حصالة؟</summary>
+            <p>
+              حصالة إضافة كروم مجانية ومفتوحة المصدر للترجمة بين العربية
+              والإنجليزية وحفظ المفردات. تترجم الكلمات والعبارات، وتكتب كل كلمة
+              وترجمتها في ملف Markdown على جهازك، وتجعل سبتايتل يوتيوب تفاعليًا.
+              لا تحتاج إلى حساب.
+            </p>
+          </details>
+
+          <details class="faq-item">
+            <summary>هل حصالة مجانية؟</summary>
+            <p>
+              نعم. حصالة مجانية ومفتوحة المصدر تحت ترخيص MIT. لا يوجد اشتراك ولا
+              حساب ولا نسخة مدفوعة.
+            </p>
+          </details>
+
+          <details class="faq-item">
+            <summary>هل تعمل حصالة على كروم وبريف وإيدج؟</summary>
+            <p>
+              نعم. حصالة إضافة Manifest V3 تعمل على كروم وبريف وإيدج وكروميوم
+              على Linux وmacOS وWindows.
+            </p>
+          </details>
+
+          <details class="faq-item">
+            <summary>هل يمكن حفظ الكلمات في Obsidian؟</summary>
+            <p>
+              نعم. تحفظ حصالة الكلمات في ملف Markdown عادي في المسار الذي
+              تختاره، ويمكنك فتحه في Obsidian أو Logseq أو Typora أو VS Code أو
+              أي محرر Markdown. الملف لا يحتاج أن يكون داخل مكتبة Obsidian.
+            </p>
+          </details>
+
+          <details class="faq-item">
+            <summary>هل أحتاج إلى حساب لاستخدام حصالة؟</summary>
+            <p>
+              لا. حصالة بدون حسابات وبدون تسجيل دخول وبدون تحليلات وبدون تتبع.
+              الإعدادات وآخر الكلمات تُخزَّن محليًا في المتصفح.
+            </p>
+          </details>
+
+          <details class="faq-item">
+            <summary>هل تعمل حصالة على يوتيوب؟</summary>
+            <p>
+              نعم. عند تفعيل الترجمة، تستبدل حصالة طبقة السبتايتل الأصلية
+              بسبتايتل تفاعلي. مرّر المؤشر على كلمة لإيقاف الفيديو، أو اضغط على
+              كلمة لترجمتها، أو اسحب على عبارة لترجمة العبارة كاملة.
+            </p>
+          </details>
+
+          <details class="faq-item">
+            <summary>هل يحتاج حفظ الكلمات إلى Native Host؟</summary>
+            <p>
+              نعم. المتصفحات لا تسمح للإضافات بالكتابة في أي ملف، لذلك تستخدم
+              حصالة برنامج Native Host محليًا صغيرًا لإضافة الصفوف إلى ملف
+              Markdown. يُثبَّت مرة واحدة، ويعمل محليًا، ولا يقبل الرسائل إلا من
+              حصالة. الترجمة والسبتايتل والمترجم العائم تعمل بدونه.
+            </p>
+          </details>
+
+          <details class="faq-item">
+            <summary>هل حصالة متاحة على Chrome Web Store؟</summary>
+            <p>
+              ليس بعد. نشر المتجر قيد التحضير. يمكنك تثبيت حصالة الآن من
+              <a href="https://github.com/nagdista-dev/hassala/releases/latest" rel="noopener">صفحة الإصدارات على GitHub</a>
+              باستخدام حزمة المختبرين وLoad unpacked.
+            </p>
+          </details>
+
+          <details class="faq-item">
+            <summary>ما اللغات التي تدعمها حصالة؟</summary>
+            <p>
+              تترجم حصالة بين العربية والإنجليزية. الواجهة عربية أولًا مع دعم
+              كامل للاتجاه من اليمين إلى اليسار، والتوثيق متاح بالإنجليزية.
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section tint" aria-labelledby="privacy-title">
+      <div class="wrap">
+        <div class="grid grid-2">
+          <div>
+            <p class="eyebrow">الخصوصية</p>
+            <h2 id="privacy-title">بدون حساب. بدون تتبع. بدون بيع بيانات.</h2>
+            <p>
+              يُرسَل النص إلى خدمات الترجمة فقط عندما تطلب الترجمة. الكلمات
+              المحفوظة تذهب إلى ملفك، وليس إلى خادم. الإعدادات وآخر الكلمات تبقى
+              في تخزين المتصفح المحلي. حصالة بدون خادم خلفي وبدون تحليلات وبدون
+              إعلانات.
+            </p>
+            <p>
+              <a href="https://github.com/nagdista-dev/hassala/blob/main/docs/PRIVACY.md" rel="noopener">اقرأ سياسة الخصوصية ←</a>
+            </p>
+          </div>
+          <div class="card">
+            <h3>الأمان في لمحة</h3>
+            <p>
+              بدون كود بعيد. صلاحيات محدودة. الـ Native Host يقبل ملفات
+              <code>.md</code> فقط ورسائل من حصالة فقط. واجهة الصفحة تعمل داخل
+              Shadow DOM مغلق. يمكن الإبلاغ عن الثغرات بشكل خاص عبر GitHub
+              Security Advisories.
+            </p>
+            <p style="margin-top: 14px;">
+              <a href="https://github.com/nagdista-dev/hassala/security/policy" rel="noopener">سياسة الأمان ←</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="cta-band">
+          <h2>ابدأ بنك كلماتك اليوم.</h2>
+          <p>
+            حمّل حصالة، وترجم أول كلمة، وافتح ملف Markdown. الكلمة التالية لها
+            مكان جاهز بالفعل.
+          </p>
+          <div class="hero-actions">
+            <a class="button" href="https://github.com/nagdista-dev/hassala/releases/latest" rel="noopener">
+              حمّل أحدث إصدار
+            </a>
+            <a class="button ghost-light" href="https://github.com/nagdista-dev/hassala" rel="noopener">
+              ضع نجمة على GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <a class="footer-brand" href="./">
+            <img src="../assets/icon128.png" width="34" height="34" alt="">
+            حصالة
+          </a>
+          <p>ترجمة عربية أولًا وحفظ للكلمات. مجانية، مفتوحة المصدر، ومبنية لتبقى.</p>
+        </div>
+        <div>
+          <h2>المنتج</h2>
+          <ul>
+            <li><a href="#features">المزايا</a></li>
+            <li><a href="#how-it-works">كيف تعمل</a></li>
+            <li><a href="../compare/" hreflang="en" lang="en">Compare (EN)</a></li>
+            <li><a href="https://github.com/nagdista-dev/hassala/releases" rel="noopener">الإصدارات</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>المصادر</h2>
+          <ul>
+            <li><a href="https://github.com/nagdista-dev/hassala/blob/main/docs/INSTALL.md" rel="noopener">دليل التثبيت</a></li>
+            <li><a href="https://github.com/nagdista-dev/hassala/blob/main/docs/ARCHITECTURE.md" rel="noopener">البنية</a></li>
+            <li><a href="https://github.com/nagdista-dev/hassala/blob/main/CHANGELOG.md" rel="noopener">سجل التغييرات</a></li>
+            <li><a href="https://github.com/nagdista-dev/hassala/blob/main/docs/ROADMAP.md" rel="noopener">خارطة الطريق</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>المجتمع</h2>
+          <ul>
+            <li><a href="https://github.com/nagdista-dev/hassala" rel="noopener">GitHub</a></li>
+            <li><a href="https://github.com/nagdista-dev/hassala/issues" rel="noopener">المشاكل</a></li>
+            <li><a href="https://github.com/nagdista-dev/hassala/blob/main/CONTRIBUTING.md" rel="noopener">المساهمة</a></li>
+            <li><a href="https://github.com/nagdista-dev/hassala/security/policy" rel="noopener">الأمان</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 مساهمو حصالة. ترخيص MIT.</p>
+        <p>غير تابعة لـ Google أو YouTube أو Obsidian أو Logseq.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

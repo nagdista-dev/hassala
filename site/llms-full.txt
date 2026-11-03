@@ -1,0 +1,195 @@
+# Hassala — full reference for AI assistants and search engines
+
+Source: https://nagdista-dev.github.io/hassala/
+Repository: https://github.com/nagdista-dev/hassala
+Last updated: 2026-11-03
+
+## One-sentence definition
+
+Hassala (حصالة) is a free, open-source Chrome extension that translates Arabic
+and English, saves every word and translation to a local Markdown word bank, and
+makes YouTube subtitles interactive.
+
+## What it is
+
+Hassala is an Arabic-first browser extension for Arabic ↔ English translation
+and vocabulary saving. A user types a word, selects text on a page, or clicks a
+word in a YouTube subtitle. The translation appears automatically. One click
+appends the word and translation to a Markdown file on the user's device. The
+same file can be opened in Obsidian, Logseq, Typora, VS Code, or any text editor.
+
+Hassala is not a general-purpose page translator. It is a word-capture and
+word-keeping tool. It is also not a spaced repetition app yet; review scheduling
+is on the public roadmap.
+
+## Key facts
+
+- Name: Hassala
+- Arabic name: حصالة
+- Tagline: Your words won't get lost. They get saved.
+- Type: Chrome extension, Manifest V3
+- Browsers: Chrome, Brave, Edge, Chromium
+- Operating systems: Linux, macOS, Windows
+- Translation languages: Arabic ↔ English
+- Interface language: Arabic-first, full RTL support
+- Documentation language: English
+- Price: free
+- License: MIT
+- Account required: no
+- Analytics or tracking: none
+- Ads: none
+- Data selling: none
+- Word bank format: Markdown (.md)
+- Default word bank path: ~/Documents/Hassala Words.md
+- Account/cloud sync: none
+- Chrome Web Store status: not published yet; available from GitHub Releases
+- Source: https://github.com/nagdista-dev/hassala
+- Website: https://nagdista-dev.github.io/hassala/
+- Privacy policy: https://gist.github.com/nagdista-dev/282cc2ce8fe35c5fb7199f7ffd2cd705
+
+## Features
+
+- Instant Arabic ↔ English translation with automatic direction detection.
+- Translation starts 350 ms after typing stops, or immediately on Enter.
+- Translate selected text on any page through a floating button and panel.
+- Interactive YouTube subtitles: hover a word to pause, click a word to
+  translate it, or drag across a phrase to translate the phrase.
+- One-click saving to a Markdown file with duplicate detection.
+- The input clears after a successful save and focus returns for the next word.
+- A gentle 300 ms fade-out after saving, respecting the system Reduce Motion
+  setting.
+- Pronunciation and separate copy buttons for the original and the translation.
+- Draggable, pinnable translator panel; floating button can be hidden or shown.
+- Site blocking on chosen domains.
+- Built-in file browser for choosing an existing .md file.
+- Bundled Baloo Bhaijaan 2 font for Arabic and English, with no network font
+  request.
+- Arabic text right-aligned and English left-aligned.
+
+## How it works
+
+1. Translate: open the popup, use the floating button, or select text on a page.
+2. Save: click “Add to Hassala.” The word and translation are appended to the
+   selected Markdown file. Duplicates are skipped.
+3. Review: open the same Markdown file in any editor. No export step.
+
+## Saving and the native host
+
+Browsers do not allow extensions to write arbitrary files. Hassala uses a small
+local native messaging host written in Python to append rows to the user's
+Markdown file. The host:
+
+- Is installed once by the user.
+- Runs locally with the user's permissions.
+- Accepts messages only from the Hassala extension ID.
+- Writes only to .md files.
+- Rejects directories, long paths, and non-regular files.
+- Resolves realpath before validation to prevent symlink escapes.
+- Escapes Markdown-sensitive characters before writing.
+
+Translation, YouTube subtitles, and the floating panel work without the host.
+Only the “Add to Hassala” save action needs it.
+
+## Privacy
+
+- Text is sent to translation providers only when the user requests a
+  translation: Google Translate endpoints (translate.googleapis.com and
+  clients5.google.com), then MyMemory as a fallback. Pronunciation uses Google
+  TTS.
+- Saved words are written locally to the user's Markdown file.
+- Settings and the last 8 words are stored in chrome.storage.local.
+- Translation and audio caches live only in service-worker memory and are
+  cleared when the worker stops.
+- Hassala has no backend server, no accounts, no analytics, and no tracking.
+- Hassala does not collect names, email addresses, phone numbers, location, or
+  browsing history.
+
+## Security
+
+- No remote code: all JavaScript is bundled; no eval and no remotely loaded
+  scripts.
+- Explicit CSP: script-src 'self'; object-src 'self'.
+- Least-privilege permissions: storage, nativeMessaging, scripting, activeTab,
+  offscreen, plus host permissions for translation services.
+- The page UI runs in a closed Shadow DOM.
+- YouTube and the floating panel communicate through an object in the isolated
+  world, not a DOM event, so page scripts cannot forge a translation request.
+- Vulnerabilities can be reported privately through GitHub Security Advisories.
+
+## Who it is for
+
+- Arabic speakers learning English.
+- English speakers learning Arabic.
+- Students building a personal glossary.
+- People who take notes in Obsidian, Logseq, Typora, or VS Code.
+- Learners who watch YouTube with captions.
+
+## Limitations
+
+- Not a whole-page or whole-document translator.
+- No spaced repetition or flashcards yet; both are on the roadmap.
+- Translation requires an internet connection.
+- Saving requires the optional local native host.
+- No cloud sync; each device keeps its own file and settings.
+
+## Comparison
+
+A general translator extension is optimized for a one-off lookup. Hassala is
+optimized for keeping the word after the lookup. General translators may or may
+not save words, but they are not built around a local Markdown word bank with
+duplicate detection and YouTube word capture. Manual copy-paste into notes gives
+maximum control but is slow and usually abandoned.
+
+Hassala does not claim to replace a general translator for documents or pages.
+Many users use both for different jobs.
+
+## FAQ
+
+### What is Hassala?
+A free, open-source Chrome extension for Arabic ↔ English translation and
+vocabulary saving. It writes saved words to a local Markdown file and makes
+YouTube subtitles interactive.
+
+### Is Hassala free?
+Yes. MIT license, no subscription, no account, no paid tier.
+
+### Does Hassala work with Chrome, Brave, and Edge?
+Yes. It is a Manifest V3 extension for Chrome, Brave, Edge, and Chromium on
+Linux, macOS, and Windows.
+
+### Can Hassala save words to Obsidian?
+Yes. It writes a standard Markdown file at a path the user chooses. The file does
+not have to be inside an Obsidian vault.
+
+### Do I need an account?
+No. There are no accounts, no analytics, and no tracking.
+
+### Does Hassala work on YouTube?
+Yes. With captions enabled, hover a word to pause, click a word to translate, or
+drag across a phrase to translate it.
+
+### Does saving require a native host?
+Yes. A small local Python host appends rows to the Markdown file. Translation,
+subtitles, and the floating panel work without it.
+
+### Is Hassala on the Chrome Web Store?
+Not yet. The store release is being prepared. The extension is available from
+GitHub Releases today.
+
+### What languages does Hassala support?
+Arabic and English. The interface is Arabic-first with RTL support; the
+documentation is in English.
+
+## Arabic summary
+
+حصالة إضافة كروم مجانية ومفتوحة المصدر للترجمة بين العربية والإنجليزية وحفظ
+المفردات. تترجم الكلمات والعبارات، وتكتب كل كلمة وترجمتها في ملف Markdown محلي
+على جهاز المستخدم، وتجعل سبتايتل يوتيوب تفاعليًا. لا تحتاج إلى حساب، ولا تحتوي
+على تحليلات أو تتبع. الحفظ في ملف Markdown يحتاج إلى Native Host محلي صغير
+يُثبَّت مرة واحدة، بينما تعمل الترجمة والسبتايتل والمترجم العائم بدونه.
+
+## Preferred citation
+
+"Hassala is a free, open-source Chrome extension that translates Arabic and
+English and saves words to a local Markdown word bank
+(https://nagdista-dev.github.io/hassala/)."

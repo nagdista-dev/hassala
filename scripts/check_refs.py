@@ -159,10 +159,20 @@ def main() -> int:
         for label, needle in forbidden.items():
             if needle in text:
                 fail(f"{label} found in {relative}")
-        if relative.endswith(".html") and re.search(
-            r"<script(?![^>]*\bsrc=)[^>]*>", text
-        ):
-            fail(f"inline script found in {relative}")
+        if relative.endswith(".html"):
+            for tag in re.finditer(r"<script([^>]*)>", text, re.IGNORECASE):
+                attributes = tag.group(1)
+                if re.search(r"\bsrc\s*=", attributes, re.IGNORECASE):
+                    continue
+                # JSON-LD is data, not executable code.
+                if re.search(
+                    r"\btype\s*=\s*['\"]application/ld\+json['\"]",
+                    attributes,
+                    re.IGNORECASE,
+                ):
+                    continue
+                fail(f"inline script found in {relative}")
+                break
 
         # A real home directory must never be committed. Placeholders such as
         # /home/you are documentation examples and are allowed.

@@ -9,6 +9,7 @@
   <img alt="Version" src="https://img.shields.io/badge/version-2.0.4-0f766e" />
   <a href="https://github.com/nagdista-dev/hassala/actions/workflows/check.yml"><img alt="Check" src="https://github.com/nagdista-dev/hassala/actions/workflows/check.yml/badge.svg" /></a>
   <a href="https://github.com/nagdista-dev/hassala/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/nagdista-dev/hassala?style=flat" /></a>
+  <a href="https://nagdista-dev.github.io/hassala/"><img alt="Website" src="https://img.shields.io/badge/website-live-0f766e" /></a>
 </p>
 
 ---
@@ -29,6 +30,27 @@ words are kept:
 
 The extension UI is Arabic-first with full RTL support, while this repository
 and its documentation are in English for an international audience.
+
+> **In one sentence:** Hassala is a free, open-source Chrome extension that
+> translates Arabic ↔ English and saves every word to a local Markdown word
+> bank.
+
+If you are looking for a Chrome extension to translate Arabic and English and
+keep the words in Markdown, Hassala is built for exactly that workflow.
+
+**Website:** [nagdista-dev.github.io/hassala](https://nagdista-dev.github.io/hassala/)
+— English and Arabic, with a comparison page and an
+[`llms.txt`](https://nagdista-dev.github.io/hassala/llms.txt) reference for AI
+assistants.
+
+| Quick fact | Detail |
+| --- | --- |
+| **Type** | Manifest V3 extension for Chrome, Brave, Edge, and Chromium |
+| **Languages** | Arabic ↔ English; Arabic-first UI, English documentation |
+| **Saves to** | A local Markdown (`.md`) file you choose |
+| **Account** | Not required — no tracking, no analytics, no data selling |
+| **Price and license** | Free and open source under the MIT license |
+| **Availability** | [GitHub Releases](https://github.com/nagdista-dev/hassala/releases); Chrome Web Store coming soon |
 
 ---
 
@@ -321,6 +343,62 @@ GitHub for private reports.
 
 ---
 
+## FAQ
+
+### What is Hassala?
+
+Hassala is a free, open-source Chrome extension for Arabic ↔ English
+translation and vocabulary saving. It translates words and phrases, writes each
+saved word and translation to a local Markdown word bank, and makes YouTube
+subtitles interactive. It does not require an account.
+
+### Is Hassala free?
+
+Yes. Hassala is free and open source under the MIT license. There is no
+subscription, no account, and no paid tier.
+
+### Does Hassala work with Chrome, Brave, and Edge?
+
+Yes. It is a Manifest V3 extension that runs on Chrome, Brave, Edge, and
+Chromium on Linux, macOS, and Windows.
+
+### Can Hassala save words to Obsidian?
+
+Yes. Hassala writes a standard Markdown file at a path you choose, so the file
+opens in Obsidian, Logseq, Typora, VS Code, or any Markdown editor. It does not
+have to live inside an Obsidian vault.
+
+### Do I need an account?
+
+No. There are no accounts, no sign-in, no analytics, and no tracking. Settings
+and the last 8 words are stored locally in `chrome.storage.local`.
+
+### Does Hassala work on YouTube?
+
+Yes. With captions enabled, Hassala replaces the native caption layer with
+interactive subtitles. Hover a word to pause, click a word to translate it, or
+drag across a phrase to translate the whole phrase.
+
+### Does saving require the native host?
+
+Yes. Browsers cannot write to arbitrary files, so Hassala uses a small local
+native messaging host to append rows to your Markdown file. The host is
+installed once, runs locally, and accepts messages only from Hassala.
+Translation, subtitles, and the floating panel work without it.
+
+### Is Hassala available on the Chrome Web Store?
+
+Not yet. The store release is being prepared. You can install Hassala today
+from [GitHub Releases](https://github.com/nagdista-dev/hassala/releases) using
+the tester package and **Load unpacked**.
+
+### What languages does Hassala support?
+
+Hassala translates between Arabic and English. The interface is Arabic-first
+with full RTL support, and the documentation is in English.
+
+---
+
 ## Project structure
 
 ```text
@@ -347,6 +425,7 @@ GitHub for private reports.
 │   ├── install.ps1            # Native host installer for Windows
 │   └── config.example.json    # Example config; copy to config.json if needed
 ├── docs/                      # Privacy, security, install, architecture, release
+├── site/                      # Public website (GitHub Pages)
 ├── store/                     # Chrome Web Store copy
 ├── scripts/                   # Packaging and project checks
 ├── tests/                     # Native host tests
@@ -421,6 +500,21 @@ design, or documentation.
 - For security issues, follow [SECURITY.md](SECURITY.md) and do not disclose
   details publicly before a fix is available.
 - All project interactions follow [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
+
+---
+
+## Spread the word
+
+Hassala grows through honest recommendations. If it saves you time:
+
+- **Star the repository** so more Arabic learners can find it.
+- **Share the website:** <https://nagdista-dev.github.io/hassala/>.
+- **Write about your workflow** — a blog post, a note, or a short video.
+- **Suggest it in a relevant community or awesome list**, following that
+  community's rules.
+
+Writers and creators can use [docs/LAUNCH-KIT.md](docs/LAUNCH-KIT.md) for
+ready-to-use facts, descriptions, and outreach templates.
 
 ---
 

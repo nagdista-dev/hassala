@@ -39,6 +39,10 @@ echo "== References, security, and privacy =="
 python3 scripts/check_refs.py
 
 echo
+echo "== Public site =="
+python3 scripts/check_site.py
+
+echo
 echo "== Native host end-to-end tests =="
 python3 tests/test_native_host.py
 

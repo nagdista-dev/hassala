@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hassala vs. a General Translator: Arabic Word Bank</title>
+  <meta name="description" content="A practical comparison of Hassala, general translator extensions, and manual copy-paste notes for Arabic ↔ English vocabulary learning. See which workflow fits you.">
+  <link rel="canonical" href="https://nagdista-dev.github.io/hassala/compare/">
+  <meta name="theme-color" content="#0f6b63">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="author" content="Hassala contributors">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Hassala">
+  <meta property="og:title" content="Hassala vs. a General Translator Extension">
+  <meta property="og:description" content="One-off translation or a word bank you review later? A practical comparison for Arabic ↔ English learners.">
+  <meta property="og:url" content="https://nagdista-dev.github.io/hassala/compare/">
+  <meta property="og:image" content="https://nagdista-dev.github.io/hassala/assets/social-preview-en.png">
+  <meta property="og:image:width" content="1280">
+  <meta property="og:image:height" content="640">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Hassala vs. a General Translator Extension">
+  <meta name="twitter:description" content="A practical comparison for Arabic ↔ English learners who want to keep the words they translate.">
+  <meta name="twitter:image" content="https://nagdista-dev.github.io/hassala/assets/social-preview-en.png">
+
+  <link rel="icon" type="image/png" href="../assets/icon128.png">
+  <link rel="apple-touch-icon" href="../assets/icon192.png">
+  <link rel="manifest" href="../site.webmanifest">
+  <link rel="preload" href="../assets/fonts/BalooBhaijaan2-Variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/style.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://nagdista-dev.github.io/hassala/compare/#page",
+        "url": "https://nagdista-dev.github.io/hassala/compare/",
+        "name": "Hassala vs. a General Translator Extension",
+        "description": "A practical comparison of Hassala, general translator extensions, and manual copy-paste notes for Arabic ↔ English vocabulary learning.",
+        "inLanguage": "en",
+        "isPartOf": { "@id": "https://nagdista-dev.github.io/hassala/#website" },
+        "about": { "@id": "https://nagdista-dev.github.io/hassala/#app" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Hassala",
+            "item": "https://nagdista-dev.github.io/hassala/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Compare",
+            "item": "https://nagdista-dev.github.io/hassala/compare/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://nagdista-dev.github.io/hassala/compare/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is Hassala a replacement for Google Translate?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Not exactly. Hassala is built for a different job: translating Arabic and English words and keeping them in a Markdown word bank. A general translator is better for translating whole documents or pages. Many people use both."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is Hassala a flashcard or spaced repetition app?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Hassala captures and stores words; it does not schedule reviews yet. Spaced repetition and flashcards are on the public roadmap. You can open the Markdown file in Anki, Obsidian, or another tool in the meantime."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why save words to Markdown instead of a database?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A Markdown file is readable in any text editor, works with Obsidian, Logseq, and VS Code, and does not lock your vocabulary into a proprietary service. You can back it up, sync it, or edit it by hand."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Hassala work without an internet connection?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Translation requires an internet connection because Hassala sends the requested text to translation providers. Your saved word bank is local, so you can read and edit it offline."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../" aria-label="Hassala home">
+        <img src="../assets/icon128.png" width="48" height="48" alt="">
+        <span class="brand-text">
+          <strong>Hassala</strong>
+          <span class="brand-sub">Arabic word bank</span>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="../#features">Features</a>
+        <a href="../#how-it-works">How it works</a>
+        <a href="./" aria-current="page">Compare</a>
+        <a href="../#faq">FAQ</a>
+        <a href="https://github.com/nagdista-dev/hassala" rel="noopener">GitHub ↗</a>
+        <a class="lang-switch" href="../ar/" lang="ar" hreflang="ar">العربية</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <div>
+        <p class="eyebrow">Comparison</p>
+        <h1 id="hero-title">Hassala vs. a general translator extension</h1>
+        <p class="lead">
+          If you need one translation and then move on, a general translator is
+          the right tool. If you want the words you look up to still be there
+          next week, the workflow matters more than the lookup.
+        </p>
+        <div class="hero-actions">
+          <a class="button" href="https://github.com/nagdista-dev/hassala/releases/latest" rel="noopener">
+            Try Hassala
+          </a>
+          <a class="button secondary" href="../#features">See the features</a>
+        </div>
+        <p class="hero-note">Free · Open source (MIT) · No account</p>
+      </div>
+
+      <div class="demo">
+        <div class="demo-card">
+          <div class="demo-head">
+            <img src="../assets/icon128.png" width="30" height="30" alt="">
+            The short version
+            <span class="demo-badge">TL;DR</span>
+          </div>
+          <p class="demo-label">General translator</p>
+          <div class="demo-word" style="font-size: 1.5rem;">Translate → close tab → forget</div>
+          <p class="demo-label">Hassala</p>
+          <div class="demo-translation" style="font-size: 1.5rem;">Translate → save → review</div>
+          <div class="demo-file">
+            <strong>Same word, different destination</strong>
+            A local Markdown file you can open in Obsidian, Logseq, or any editor.
+          </div>
+        </div>
+        <p class="demo-caption">The difference is what happens after the translation.</p>
+      </div>
+    </section>
+
+    <section class="section tint" aria-labelledby="difference-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">The core difference</p>
+          <h2 id="difference-title">A lookup tool vs. a memory tool</h2>
+          <p>
+            General translator extensions are optimized for the moment of
+            translation. Hassala is optimized for the moment after: keeping the
+            word, finding it again, and reviewing it without maintaining a second
+            app.
+          </p>
+        </div>
+
+        <div class="grid grid-3">
+          <article class="card">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg>
+            </span>
+            <h3>General translator</h3>
+            <p>
+              Best for translating a page, a paragraph, or a one-off word. The
+              result is useful immediately, but it usually disappears when the
+              tab closes.
+            </p>
+          </article>
+          <article class="card">
+            <span class="icon rust" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 3h10l4 4v14H5z"/><path d="M15 3v4h4"/><path d="M8 13h8M8 17h5"/></svg>
+            </span>
+            <h3>Hassala</h3>
+            <p>
+              Best for words you want to remember. It translates in place, saves
+              the pair to Markdown, and skips duplicates so your list stays clean.
+            </p>
+          </article>
+          <article class="card">
+            <span class="icon gold" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h5"/></svg>
+            </span>
+            <h3>Manual notes</h3>
+            <p>
+              Maximum control, minimum speed. Copying every word and translation
+              by hand works, but most people stop after a few days.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="table-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Side by side</p>
+          <h2 id="table-title">What each workflow gives you</h2>
+        </div>
+
+        <div class="table-scroll">
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th scope="col">Capability</th>
+                <th scope="col">Hassala</th>
+                <th scope="col">General translator extension</th>
+                <th scope="col">Manual notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Arabic ↔ English translation</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="varies">No</td></tr>
+              <tr><td>Translate selected text on any page</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="varies">No</td></tr>
+              <tr><td>Floating translator on any page</td><td class="yes">Yes</td><td class="varies">Varies</td><td class="varies">No</td></tr>
+              <tr><td>Save word + translation with one click</td><td class="yes">Yes</td><td class="varies">Varies</td><td class="varies">Manual</td></tr>
+              <tr><td>Duplicate detection</td><td class="yes">Yes</td><td class="varies">Rarely</td><td class="varies">No</td></tr>
+              <tr><td>Local Markdown file you own</td><td class="yes">Yes</td><td class="varies">Varies</td><td class="varies">Manual</td></tr>
+              <tr><td>Works with Obsidian, Logseq, VS Code</td><td class="yes">Yes</td><td class="varies">Rarely</td><td class="yes">Yes</td></tr>
+              <tr><td>Word-level interactive YouTube captions</td><td class="yes">Yes</td><td class="varies">Rarely</td><td class="varies">No</td></tr>
+              <tr><td>Pronunciation</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="varies">No</td></tr>
+              <tr><td>Account required</td><td class="yes">No</td><td class="varies">Varies</td><td class="yes">No</td></tr>
+              <tr><td>Tracking or analytics</td><td class="yes">None</td><td class="varies">Varies</td><td class="yes">None</td></tr>
+              <tr><td>Open source</td><td class="yes">Yes (MIT)</td><td class="varies">Varies</td><td class="yes">—</td></tr>
+              <tr><td>Price</td><td class="yes">Free</td><td class="varies">Free–paid</td><td class="yes">Free</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">
+          General-purpose translator extensions vary by product. This table
+          describes typical workflows, not a specific competitor. Last reviewed
+          November 2026.
+        </p>
+      </div>
+    </section>
+
+    <section class="section tint" aria-labelledby="choose-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Choosing</p>
+          <h2 id="choose-title">Which one should you use?</h2>
+        </div>
+
+        <div class="grid grid-2">
+          <div class="card">
+            <h3>Choose a general translator if…</h3>
+            <p>
+              You mostly translate whole pages or documents, you do not want to
+              keep a vocabulary list, or you already have a study system that
+              handles review for you.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Choose Hassala if…</h3>
+            <p>
+              You look up words while reading or watching videos and want a clean,
+              local list that grows automatically — especially if you already use
+              Obsidian, Logseq, or Markdown notes.
+            </p>
+          </div>
+        </div>
+
+        <div class="callout" style="margin-top: 24px;">
+          <p>
+            You do not have to choose one forever. Use a general translator for
+            documents and Hassala for the words you want to keep.
+          </p>
+          <cite>Most people use both, for different jobs.</cite>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="limits-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Honest limits</p>
+          <h2 id="limits-title">What Hassala does not do</h2>
+          <p>
+            A recommendation is only useful if it is accurate. Hassala is not a
+            full learning platform, and it does not try to be one.
+          </p>
+        </div>
+
+        <div class="grid grid-2">
+          <div class="card">
+            <h3>No spaced repetition yet</h3>
+            <p>
+              Hassala captures words but does not schedule reviews. Spaced
+              repetition, flashcards, and quizzes are on the public roadmap. Until
+              then, open the Markdown file in Anki, Obsidian, or another tool.
+            </p>
+          </div>
+          <div class="card">
+            <h3>No whole-page translation</h3>
+            <p>
+              Hassala focuses on words, selected text, and subtitles — not on
+              translating an entire website. Use a general translator for that.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Translation needs a connection</h3>
+            <p>
+              Text is sent to translation providers only when you request a
+              translation. Your saved word bank stays local and works offline.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Saving needs a small local host</h3>
+            <p>
+              Browsers cannot write to arbitrary files. Hassala uses a local
+              native host, installed once, to append rows to your Markdown file.
+              Translation and subtitles work without it.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section tint" id="faq" aria-labelledby="faq-title">
+      <div class="wrap">
+        <div class="section-head center">
+          <p class="eyebrow">FAQ</p>
+          <h2 id="faq-title">Comparison questions</h2>
+        </div>
+
+        <div class="faq">
+          <details class="faq-item">
+            <summary>Is Hassala a replacement for Google Translate?</summary>
+            <p>
+              Not exactly. Hassala is built for a different job: translating
+              Arabic and English words and keeping them in a Markdown word bank.
+              A general translator is better for translating whole documents or
+              pages. Many people use both.
+            </p>
+          </details>
+          <details class="faq-item">
+            <summary>Is Hassala a flashcard or spaced repetition app?</summary>
+            <p>
+              No. Hassala captures and stores words; it does not schedule reviews
+              yet. Spaced repetition and flashcards are on the public roadmap. You
+              can open the Markdown file in Anki, Obsidian, or another tool in the
+              meantime.
+            </p>
+          </details>
+          <details class="faq-item">
+            <summary>Why save words to Markdown instead of a database?</summary>
+            <p>
+              A Markdown file is readable in any text editor, works with
+              Obsidian, Logseq, and VS Code, and does not lock your vocabulary
+              into a proprietary service. You can back it up, sync it, or edit it
+              by hand.
+            </p>
+          </details>
+          <details class="faq-item">
+            <summary>Does Hassala work without an internet connection?</summary>
+            <p>
+              Translation requires an internet connection because Hassala sends
+              the requested text to translation providers. Your saved word bank
+              is local, so you can read and edit it offline.
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="cta-band">
+          <h2>Keep the next word you look up.</h2>
+          <p>
+            Install Hassala, translate a word, and see where it lands. The file is
+            yours, and it is already in a format you know.
+          </p>
+          <div class="hero-actions">
+            <a class="button" href="https://github.com/nagdista-dev/hassala/releases/latest" rel="noopener">
+              Download Hassala
+            </a>
+            <a class="button ghost-light" href="../">Back to the overview</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <a class="footer-brand" href="../">
+            <img src="../assets/icon128.png" width="34" height="34" alt="">
+            Hassala
+          </a>
+          <p>Arabic-first translation and word keeping. Free, open source, and built to last.</p>
+        </div>
+        <div>
+          <h2>Product</h2>
+          <ul>
+            <li><a href="../#features">Features</a></li>
+            <li><a href="../#how-it-works">How it works</a></li>
+            <li><a href="./">Compare</a></li>
+            <li><a href="https://github.com/nagdista-dev/hassala/releases" rel="noopener">Releases</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Resources</h2>
+          <ul>
+            <li><a href="https://github.com/nagdista-dev/hassala/blob/main/docs/INSTALL.md" rel="noopener">Install guide</a></li>
+            <li><a href="https://github.com/nagdista-dev/hassala/blob/main/docs/ARCHITECTURE.md" rel="noopener">Architecture</a></li>
+            <li><a href="https://github.com/nagdista-dev/hassala/blob/main/CHANGELOG.md" rel="noopener">Changelog</a></li>
+            <li><a href="https://github.com/nagdista-dev/hassala/blob/main/docs/ROADMAP.md" rel="noopener">Roadmap</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Community</h2>
+          <ul>
+            <li><a href="https://github.com/nagdista-dev/hassala" rel="noopener">GitHub</a></li>
+            <li><a href="https://github.com/nagdista-dev/hassala/issues" rel="noopener">Issues</a></li>
+            <li><a href="https://github.com/nagdista-dev/hassala/blob/main/CONTRIBUTING.md" rel="noopener">Contributing</a></li>
+            <li><a href="https://github.com/nagdista-dev/hassala/security/policy" rel="noopener">Security</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Hassala contributors. MIT licensed.</p>
+        <p>Not affiliated with Google, YouTube, Obsidian, or Logseq.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

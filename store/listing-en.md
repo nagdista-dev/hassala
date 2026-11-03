@@ -10,7 +10,7 @@
 
 ## Short description (132 characters max)
 
-Translate Arabic ↔ English instantly, save words to your personal word bank for review, and turn YouTube subtitles interactive.
+Arabic ↔ English translator for Chrome that saves words to a local Markdown word bank. Interactive YouTube subtitles. No account.
 
 ## Suggested category
 
@@ -24,9 +24,24 @@ Translate Arabic ↔ English instantly, save words to your personal word bank fo
 
 **Your words will not get lost. They get saved.**
 
+**In one sentence:** Hassala is a free, open-source Chrome extension that
+translates Arabic ↔ English and saves every word to a Markdown word bank on
+your device.
+
 Hassala is not just another translator. It is your **personal word bank**: it
-translates a word, saves it to a Markdown file on your device, and brings it
-back when you review.
+translates a word, saves it to a Markdown file you can open in Obsidian,
+Logseq, VS Code, or any text editor, and brings it back when you review.
+
+### Why people choose Hassala
+
+- **Translate without breaking flow:** a floating translator on any page, plus
+  selected-text translation and interactive YouTube subtitles.
+- **Keep what you look up:** one click saves the word and translation, and
+  duplicate detection keeps the list clean.
+- **Own the file:** a plain Markdown file on your device, with no account and no
+  proprietary database.
+- **Study anywhere:** open the same file in Obsidian, Logseq, Typora, VS Code,
+  or a printed sheet.
 
 ### What Hassala does
 
@@ -96,8 +111,9 @@ access.
 
 ## Suggested keywords
 
-Arabic translator, English Arabic dictionary, vocabulary, word bank, study,
-YouTube subtitles, Obsidian, Markdown, language learning.
+Arabic translator Chrome extension, translate Arabic to English, Arabic English
+dictionary, save words to Markdown, vocabulary builder, Obsidian vocabulary,
+YouTube Arabic subtitles, language learning, word bank, study tool.
 
 ## Screenshot plan
 
@@ -112,6 +128,7 @@ Sizes: 1280×800 or 640×400.
 
 ## Links
 
+- **Website:** https://nagdista-dev.github.io/hassala/
 - **Source code:** https://github.com/nagdista-dev/hassala
 - **Privacy policy:**
   https://gist.github.com/nagdista-dev/282cc2ce8fe35c5fb7199f7ffd2cd705
