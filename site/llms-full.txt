@@ -75,6 +75,8 @@ is on the public roadmap.
 
 ## Guides
 
+- Guides hub (English): https://nagdista-dev.github.io/hassala/guides/
+- Guides hub (Arabic): https://nagdista-dev.github.io/hassala/ar/guides/
 - English: [How to save translated words to Markdown](https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/)
 - Arabic: [كيف تحفظ الكلمات المترجمة في Markdown](https://nagdista-dev.github.io/hassala/ar/guides/save-words-to-markdown/)
 - English: [How to translate YouTube subtitles word by word](https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/)

@@ -71,6 +71,8 @@ This means the website alone is not enough. The highest-leverage signals are:
 - Arabic comparison page: <https://nagdista-dev.github.io/hassala/ar/compare/>
 - English guide: <https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/>
 - Arabic guide: <https://nagdista-dev.github.io/hassala/ar/guides/save-words-to-markdown/>
+- English guides hub: <https://nagdista-dev.github.io/hassala/guides/>
+- Arabic guides hub: <https://nagdista-dev.github.io/hassala/ar/guides/>
 - English YouTube guide: <https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/>
 - Arabic YouTube guide: <https://nagdista-dev.github.io/hassala/ar/guides/translate-youtube-subtitles/>
 - `llms.txt` and `llms-full.txt` for AI crawlers.
@@ -308,7 +310,7 @@ word bank
 - [ ] Submit the sitemap to Google Search Console and Bing Webmaster Tools.
 - [ ] Verify the site and request indexing for the main pages.
 - [x] Add the IndexNow key file to the site.
-- [ ] Submit the site URLs to IndexNow (Bing/Yandex) after deployment.
+- [x] Submit the site URLs to IndexNow (Bing/Yandex) after deployment.
 
 ### Week 2 — Directories
 

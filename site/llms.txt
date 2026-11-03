@@ -31,6 +31,8 @@
 - [الصفحة العربية](https://nagdista-dev.github.io/hassala/ar/): نظرة عامة بالعربية، المزايا، طريقة العمل، المقارنة، والأسئلة الشائعة.
 - [Comparison](https://nagdista-dev.github.io/hassala/compare/): Hassala vs. a general translator extension vs. manual notes, including honest limitations.
 - [المقارنة بالعربية](https://nagdista-dev.github.io/hassala/ar/compare/): مقارنة بين حصالة والمترجم العام والملاحظات اليدوية.
+- [Guides](https://nagdista-dev.github.io/hassala/guides/): all published walkthroughs in English.
+- [الأدلة](https://nagdista-dev.github.io/hassala/ar/guides/): كل الأدلة المنشورة بالعربية.
 - [How to save translated words to Markdown](https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/): step-by-step Arabic ↔ English word bank workflow.
 - [Translate YouTube subtitles word by word](https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/): click a caption word, drag a phrase, and save it to Markdown.
 - [دليل ترجمة سبتايتل يوتيوب](https://nagdista-dev.github.io/hassala/ar/guides/translate-youtube-subtitles/): الدليل العربي خطوة بخطوة.
