@@ -32,6 +32,7 @@
     /[A-Za-z\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]/;
   const EMPTY_TEXT = 'اكتب كلمة… وهتلاقي معناها هنا.';
   const DEBOUNCE_MS = 350;
+  const CLEAR_ANIMATION_MS = 300;
 
   // The blocklist is shared with youtube.js, the options page, and the
   // background worker. When the current site is blocked the panel is never
@@ -618,6 +619,9 @@
       font-size: 16.5px;
       font-weight: 600;
       line-height: 1.6;
+      transition:
+        opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     textarea::placeholder {
@@ -645,7 +649,8 @@
       transition:
         background 0.15s ease,
         color 0.15s ease,
-        border-color 0.15s ease;
+        border-color 0.15s ease,
+        opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .clear:hover {
@@ -693,6 +698,9 @@
       font-weight: 500;
       line-height: 1.7;
       text-align: start;
+      transition:
+        opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .result[data-state="ready"] {
@@ -767,6 +775,38 @@
     .foot {
       display: flex;
       gap: 8px;
+      transition:
+        opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* A soft save-and-clear beat: the word lifts away, the result and action
+       row sink out, and the field border glows while the confirmation fades
+       in. The actual reset happens after the fade-out, so nothing snaps. */
+    #panel.is-clearing .field {
+      border-color: var(--aet-accent);
+      box-shadow:
+        0 0 0 3px rgba(15, 118, 110, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    }
+
+    #panel.is-clearing textarea {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+
+    #panel.is-clearing .field .clear {
+      opacity: 0;
+    }
+
+    #panel.is-clearing .result {
+      opacity: 0;
+      transform: translateY(6px) scale(0.985);
+    }
+
+    #panel.is-clearing .foot {
+      opacity: 0;
+      transform: translateY(4px);
     }
 
     .save {
@@ -1457,6 +1497,7 @@
   let debounceTimer = 0;
   let saveTimer = 0;
   let emptyNoticeTimer = 0;
+  let clearAnimationTimer = 0;
   let sourceCopyTimer = 0;
   let fileStatusTimer = 0;
   let pathDefaultPath = '';
@@ -2053,6 +2094,7 @@
 
   function onInput() {
     if (composing) return;
+    cancelClearAnimation();
 
     const text = els.input.value;
     els.clear.hidden = !text;
@@ -2079,7 +2121,36 @@
   // Clears the word, translation, and actions so the next word can be typed
   // straight away. `notice` keeps a short confirmation in the result card
   // after a save instead of dropping back to the generic empty text.
+  function cancelClearAnimation() {
+    if (!clearAnimationTimer) return;
+    clearTimeout(clearAnimationTimer);
+    clearAnimationTimer = 0;
+    els.panel.classList.remove('is-clearing');
+  }
+
+  // Lets the old word and result fade away before the real reset, instead of
+  // making the text vanish in a single frame. Typing during the short beat
+  // cancels the animation and keeps whatever the user started writing.
+  function animateResetInput(options) {
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+      resetInput(options);
+      return;
+    }
+
+    clearTimeout(clearAnimationTimer);
+    els.panel.classList.remove('is-clearing');
+    void els.panel.offsetWidth; // restart the transition from a clean state
+    els.panel.classList.add('is-clearing');
+
+    clearAnimationTimer = setTimeout(() => {
+      clearAnimationTimer = 0;
+      els.panel.classList.remove('is-clearing');
+      resetInput(options);
+    }, CLEAR_ANIMATION_MS);
+  }
+
   function resetInput({ focus = false, notice = '' } = {}) {
+    cancelClearAnimation();
     cancelDebounce();
     requestSeq++;
     clearTimeout(saveTimer);
@@ -2667,7 +2738,7 @@
       // Only clear when the field still holds the word that was saved. If the
       // user has already started the next word, leave their text alone.
       if (lastQuery === query && els.input.value.trim() === query) {
-        resetInput({ focus: true, notice });
+        animateResetInput({ focus: true, notice });
       } else {
         setFileStatus(notice, 'ok');
         els.save.disabled = false;

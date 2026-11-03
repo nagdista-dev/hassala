@@ -35,6 +35,7 @@ const LETTER_RE = /[A-Za-z\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\u
 const EMPTY_MESSAGE = 'اكتب كلمة… وهتلاقي معناها هنا.';
 const MAX_HISTORY = 8;
 const DEBOUNCE_MS = 350;
+const CLEAR_ANIMATION_MS = 300;
 
 const storage =
   typeof chrome !== 'undefined' && chrome.storage ? chrome.storage.local : null;
@@ -49,6 +50,7 @@ let copyTimer = 0;
 let sourceCopyTimer = 0;
 let saveTimer = 0;
 let emptyNoticeTimer = 0;
+let clearAnimationTimer = 0;
 let fileStatusTimer = 0;
 let pathDefaultPath = '';
 let pathLastFocus = null;
@@ -157,6 +159,7 @@ function saveMode() {
 
 function onInput() {
   if (composing) return;
+  cancelClearAnimation();
 
   const text = els.input.value;
   els.clear.hidden = !text;
@@ -209,7 +212,35 @@ function resultSize(text) {
   return '';
 }
 
+function cancelClearAnimation() {
+  if (!clearAnimationTimer) return;
+  clearTimeout(clearAnimationTimer);
+  clearAnimationTimer = 0;
+  document.body.classList.remove('is-clearing');
+}
+
+// Lets the old word and result fade away before the real reset. Typing during
+// the short beat cancels the animation and keeps whatever the user typed.
+function animateClearInput(notice) {
+  if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+    clearInput(true, notice);
+    return;
+  }
+
+  clearTimeout(clearAnimationTimer);
+  document.body.classList.remove('is-clearing');
+  void document.body.offsetWidth; // restart the transition from a clean state
+  document.body.classList.add('is-clearing');
+
+  clearAnimationTimer = setTimeout(() => {
+    clearAnimationTimer = 0;
+    document.body.classList.remove('is-clearing');
+    clearInput(true, notice);
+  }, CLEAR_ANIMATION_MS);
+}
+
 function clearInput(focus, notice = '') {
+  cancelClearAnimation();
   cancelDebounce();
   requestSeq++;
   clearTimeout(saveTimer);
@@ -615,7 +646,7 @@ async function saveToHassala() {
     // Only clear when the field still holds the word that was saved. If the
     // user has already started the next word, leave their text alone.
     if (lastQuery === query && els.input.value.trim() === query) {
-      clearInput(true, notice);
+      animateClearInput(notice);
     } else {
       setFileStatus(notice, 'ok');
       resetSaveButton();

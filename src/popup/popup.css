@@ -373,6 +373,9 @@ textarea {
   font-size: 19px;
   font-weight: 600;
   line-height: 1.6;
+  transition:
+    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 textarea::placeholder {
@@ -398,7 +401,8 @@ textarea::placeholder {
   transition:
     background 0.15s ease,
     color 0.15s ease,
-    border-color 0.15s ease;
+    border-color 0.15s ease,
+    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .clear-btn.copy-source {
@@ -456,6 +460,9 @@ textarea::placeholder {
   box-shadow:
     var(--shadow),
     inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+  transition:
+    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -729,6 +736,37 @@ textarea::placeholder {
 .save-btn.is-error {
   border-color: transparent;
   background: var(--danger);
+}
+
+/* A soft save-and-clear beat: the word lifts away, the result and save button
+   sink out, and the field border glows while the confirmation fades in. */
+body.is-clearing .field {
+  border-color: var(--accent);
+  box-shadow:
+    0 0 0 3px rgba(15, 118, 110, 0.14),
+    var(--shadow);
+}
+
+body.is-clearing textarea {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+
+body.is-clearing .field .clear-btn {
+  opacity: 0;
+}
+
+body.is-clearing .result-card {
+  opacity: 0;
+  transform: translateY(6px) scale(0.985);
+}
+
+body.is-clearing .save-btn {
+  opacity: 0;
+  transform: translateY(4px) scale(0.99);
+  transition:
+    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* ---------- File tools ---------- */
