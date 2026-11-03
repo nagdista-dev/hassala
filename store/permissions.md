@@ -117,4 +117,5 @@ https://gist.github.com/nagdista-dev/282cc2ce8fe35c5fb7199f7ffd2cd705
 
 ## Contact
 
-Use the **Support** tab on the Chrome Web Store listing.
+Use the **Support** tab on the Chrome Web Store listing, or open an issue at
+<https://github.com/nagdista-dev/hassala/issues>.

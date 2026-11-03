@@ -1,56 +1,58 @@
-# دليل التثبيت والاستخدام — حصالة
+# Installation and Usage Guide — Hassala
 
-**آخر تحديث:** 3 نوفمبر 2026
+**Last updated:** November 3, 2026
 
-الدليل ده مكتوب خطوة بخطوة لأي حد عايز يثبّت **حصالة** ويستخدمها، سواء كان
-مستخدم عادي، أو مطوّر بيحمّل من GitHub، أو مختبر بياخد ZIP.
+This guide walks you through installing and using **Hassala**, whether you are a
+regular user, a developer installing from GitHub, or a tester using a ZIP
+package.
 
 ---
 
-## 1) قبل ما تبدأ
+## 1. Before you start
 
-### المتطلبات
+### Requirements
 
-- متصفح مبني على Chromium:
-  - Google Chrome 109 أو أحدث
+- A Chromium-based browser:
+  - Google Chrome 109 or newer
   - Brave
   - Microsoft Edge
   - Chromium
-- **Python 3.9+** لو عايز تحفظ الكلمات في ملف Markdown (الـ Native Host).
-- صلاحية كتابة في الفولدر اللي هتحط فيه الإضافة.
+- **Python 3.9+** if you want to save words to a Markdown file (native host).
+- Write permission in the folder where you install the extension.
 
-### من فين تجيب حصالة؟
+### Where to get Hassala
 
-حصالة **مفتوحة المصدر** على GitHub:
-<https://github.com/nagdista-dev/hassala>. فيه تلات طرق للتثبيت:
+Hassala is **open source** on GitHub:
+<https://github.com/nagdista-dev/hassala>. There are three installation paths:
 
-1. **من السورس (GitHub):** للمطوّرين والمساهمين، أو أي حد عايز أحدث نسخة.
-2. **من ZIP:** نزّل `hassala-2.0.4-testers.zip` من صفحة
-   [Releases](https://github.com/nagdista-dev/hassala/releases). دي الحزمة
-   الكاملة: الإضافة + الـ Native Host + الدليل.
-3. **من Chrome Web Store:** بعد النشر، للمستخدم العادي.
+1. **From source (GitHub):** for developers and contributors, or anyone who
+   wants the latest code.
+2. **From a ZIP:** download `hassala-2.0.4-testers.zip` from
+   [Releases](https://github.com/nagdista-dev/hassala/releases). This is the
+   complete package: extension + native host + guide.
+3. **From the Chrome Web Store:** for regular users after the store release.
 
-المستخدم العادي بعد النشر هياخد الإضافة من Chrome Web Store، ومش محتاج GitHub
-خالص.
+Regular users will install from the Chrome Web Store after release and do not
+need GitHub at all.
 
-> **ملاحظة:** فيه كمان `hassala-2.0.4.zip`، وهي حزمة Chrome Web Store
-> (الإضافة بس). استخدمها لو هترفع على المتجر، أو لو هتجيب الـ Native Host من
-> الريبو بنفسك.
+> **Note:** There is also `hassala-2.0.4.zip`, the Chrome Web Store package
+> (extension only). Use it to upload to the store, or if you will get the native
+> host from the repository yourself.
 
 ---
 
-## 2) التثبيت من ZIP (الطريقة الأسهل للمختبرين)
+## 2. Install from ZIP (easiest for testers)
 
-1. نزّل ملف `hassala-2.0.4-testers.zip` من
-   [صفحة الإصدارات](https://github.com/nagdista-dev/hassala/releases).
-2. فك الضغط في مكان ثابت، مثلًا:
+1. Download `hassala-2.0.4-testers.zip` from
+   [Releases](https://github.com/nagdista-dev/hassala/releases).
+2. Extract it to a stable folder, for example:
 
    ```text
    Linux/macOS:  ~/Hassala
    Windows:      %USERPROFILE%\Hassala
    ```
 
-3. اتأكد إن المسار بقى كده:
+3. Make sure the paths look like this:
 
    ```text
    ~/Hassala/manifest.json
@@ -60,135 +62,136 @@
    ~/Hassala/docs/INSTALL.md
    ```
 
-   لو لقيت فولدر زيادة جوه `Hassala` (مثل `hassala-2.0.4/`)، خُد الملفات
-   اللي جواه وحرّكها لفوق.
+   If you see an extra folder inside `Hassala` (for example,
+   `hassala-2.0.4/`), move its contents up one level.
 
-4. افتح صفحة الإضافات حسب المتصفح:
+4. Open the extensions page for your browser:
 
-   | المتصفح | العنوان |
+   | Browser | Address |
    | --- | --- |
    | Chrome | `chrome://extensions` |
    | Brave | `brave://extensions` |
    | Edge | `edge://extensions` |
    | Chromium | `chromium://extensions` |
 
-5. شغّل **Developer mode** من أعلى يمين الصفحة.
-6. اضغط **Load unpacked**.
-7. اختار فولدر `Hassala` اللي فيه `manifest.json` مباشرة.
-8. هتظهر الإضافة. اضغط **Pin** من قائمة البازل 🧩 عشان الأيقونة تفضل في شريط
-   الأدوات.
-9. عشان الحفظ يشتغل، كمّل الخطوة اللي بعد كده: **تثبيت Native Host** من نفس
-   فولدر `Hassala`. الحزمة فيها فولدر `native/` جاهز.
+5. Enable **Developer mode** in the top-right corner.
+6. Click **Load unpacked**.
+7. Select the `Hassala` folder that contains `manifest.json` directly.
+8. The extension appears. Click **Pin** from the puzzle menu 🧩 so the icon stays
+   in the toolbar.
+9. To enable saving, continue with **Install the native host** below. The
+   package includes a ready-to-use `native/` folder.
 
-> **مهم جدًا:** سيب الفولدر في مكانه. لو نقلته أو غيّرت اسمه، Chrome بيعتبره
-> إضافة جديدة، والـ Extension ID بيتغيّر، والـ Native Host القديم مش هيعرف
-> يكلمها.
+> **Important:** keep the folder where it is. If you move or rename it, Chrome
+> treats it as a new extension, the extension ID changes, and the old native
+> host registration will no longer work.
 
 ---
 
-## 3) التثبيت من السورس
+## 3. Install from source
 
 ```bash
 git clone https://github.com/nagdista-dev/hassala.git
 cd hassala
 ```
 
-بعدها:
+Then:
 
-1. افتح صفحة الإضافات.
-2. شغّل Developer mode.
-3. **Load unpacked** واختار فولدر `hassala`.
-4. ثبّت الأيقونة بـ Pin.
+1. Open the extensions page.
+2. Enable Developer mode.
+3. Click **Load unpacked** and select the `hassala` folder.
+4. Pin the extension.
 
-> لو عايز تساهم في الكود، اقرا [CONTRIBUTING.md](../CONTRIBUTING.md) الأول.
-> المشروع مفتوح المصدر تحت ترخيص MIT.
+> If you want to contribute code, read [CONTRIBUTING.md](../CONTRIBUTING.md)
+> first. The project is open source under the MIT license.
 
 ---
 
-## 4) تثبيت Native Host (الحفظ في Markdown)
+## 4. Install the native host (Markdown saving)
 
-الحفظ في ملف Markdown بيحتاج برنامج صغير اسمه **Native Messaging Host**.
-الترجمة والسبتايتل والزرار العائم بيشتغلوا من غيره، لكن **أضف للحصالة** مش
-هيشتغل.
+Saving to a Markdown file requires a small **Native Messaging Host**. The
+translator, subtitles, and floating panel work without it, but **Add to
+Hassala** will not work.
 
-### 4.1) Linux وmacOS
+### 4.1 Linux and macOS
 
-من جوه فولدر `Hassala` المفكوك (اللي فيه `manifest.json` و`native/`):
+From the extracted `Hassala` folder (the one containing `manifest.json` and
+`native/`):
 
 ```bash
 bash native/install.sh
 ```
 
-السكريبت بيعمل الآتي:
+The script:
 
-- يتأكد إن Python موجود.
-- يحسب Extension ID من مسار الفولدر (لو مش متحدد).
-- يسجّل الـ Host في Brave وChrome وChromium وEdge.
-- يمسح أي تسجيلات قديمة من نسخ سابقة.
-- يطبع اسم الـ Host والـ ID والمسار.
+- Checks that Python is available.
+- Computes the extension ID from the folder path if one is not provided.
+- Registers the host for Brave, Chrome, Chromium, and Edge.
+- Removes old registrations from previous versions.
+- Prints the host name, ID, and path.
 
-بعد كده:
+Then:
 
-1. ارجع لصفحة الإضافات.
-2. اضغط **Reload** على حصالة.
-3. افتح الإعدادات وتأكد إن الحالة **متصل**.
+1. Go back to the extensions page.
+2. Click **Reload** on Hassala.
+3. Open Settings and confirm the status is **Connected**.
 
-#### لو عندك نسخة Chrome Web Store
+#### Chrome Web Store build
 
-الـ Extension ID في المتجر ثابت، وبتلاقيه في صفحة الإضافة أو من
-`chrome://extensions`. سجّل الـ Host بالـ ID ده:
+The Chrome Web Store build has a fixed extension ID. You can find it on the
+extension page or at `chrome://extensions`. Register the host with that ID:
 
 ```bash
 HASSALA_EXT_ID=<extension-id> bash native/install.sh
 ```
 
-#### إزالة التسجيل
+#### Unregister
 
 ```bash
 bash native/install.sh --uninstall
 ```
 
-### 4.2) Windows
+### 4.2 Windows
 
-#### المتطلبات
+#### Requirements
 
-- Python 3.9+ من [python.org](https://www.python.org/downloads/windows/).
-- أثناء التثبيت فعّل **Add Python to PATH**.
-- اتأكد من PowerShell:
+- Python 3.9+ from [python.org](https://www.python.org/downloads/windows/).
+- Enable **Add Python to PATH** during installation.
+- Verify PowerShell:
 
   ```powershell
   python --version
   ```
 
-#### الخطوات
+#### Steps
 
-1. افتح صفحة الإضافات (`chrome://extensions` أو `edge://extensions`).
-2. شغّل Developer mode.
-3. انسخ **ID** الإضافة من تحت اسم «حصالة».
-4. من فولدر `Hassala`، شغّل:
+1. Open the extensions page (`chrome://extensions` or `edge://extensions`).
+2. Enable Developer mode.
+3. Copy the **ID** shown below the Hassala card.
+4. From the `Hassala` folder, run:
 
    ```powershell
    powershell -ExecutionPolicy Bypass -File native\install.ps1 -ExtensionId <id>
    ```
 
-5. ارجع لصفحة الإضافات واعمل **Reload**.
-6. افتح الإعدادات وتأكد إن الحالة **متصل**.
+5. Return to the extensions page and click **Reload**.
+6. Open Settings and confirm the status is **Connected**.
 
-#### إزالة التسجيل
+#### Unregister
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File native\install.ps1 -Uninstall
 ```
 
-#### التسجيل اليدوي (لو PowerShell معطّل)
+#### Manual registration (if PowerShell is disabled)
 
-1. اعمل فولدر:
+1. Create this folder:
 
    ```text
    %LOCALAPPDATA%\Hassala
    ```
 
-2. اعمل ملف `com.hassala.writer.json` فيه:
+2. Create `com.hassala.writer.json` with:
 
    ```json
    {
@@ -200,9 +203,9 @@ powershell -ExecutionPolicy Bypass -File native\install.ps1 -Uninstall
    }
    ```
 
-   غيّر `<you>` و`<extension-id>` بالقيم الحقيقية.
+   Replace `<you>` and `<extension-id>` with the real values.
 
-3. سجّل الملف في الريجستري لكل متصفح:
+3. Register the manifest for each browser:
 
    ```bat
    reg add "HKCU\Software\Google\Chrome\NativeMessagingHosts\com.hassala.writer" /ve /t REG_SZ /d "%LOCALAPPDATA%\Hassala\com.hassala.writer.json" /f
@@ -211,67 +214,70 @@ powershell -ExecutionPolicy Bypass -File native\install.ps1 -Uninstall
    reg add "HKCU\Software\Microsoft\Edge\NativeMessagingHosts\com.hassala.writer" /ve /t REG_SZ /d "%LOCALAPPDATA%\Hassala\com.hassala.writer.json" /f
    ```
 
-4. اعمل Reload للإضافة.
+4. Reload the extension.
 
-> **ملاحظة:** الـ Host على Windows بيستخدم `hassala_writer.bat` عشان يشغّل
-> Python. لازم Python يكون في PATH.
-
----
-
-## 5) الاستخدام اليومي
-
-### الترجمة
-
-- **من البوب:** اضغط أيقونة حصالة في شريط الأدوات.
-- **من الصفحة:** اضغط الزرار العائم.
-- **من التحديد:** حدد كلام في أي صفحة، واضغط **ترجمة**.
-- اكتب عربي أو إنجليزي؛ الاتجاه بيتحدد لوحده.
-- **Enter** يترجم فورًا، و**Esc** يقفل الصندوق العائم أو يمسح الكتابة في البوب.
-
-### الحفظ
-
-1. بعد ظهور الترجمة، اضغط **أضف للحصالة**.
-2. بعد الحفظ بنجاح، الكلمة والترجمة بيتلاشوا بحركة هادية، وبعدها المربع
-   بيتفضّى تلقائيًا ورسالة التأكيد بتظهر مكان الترجمة، جاهز للكلمة اللي بعدها.
-3. أول مرة، لو الملف الافتراضي مش موجود، حصالة بتنشئه تلقائيًا.
-4. لو اخترت مسار مخصص، لازم يكون ملف `.md` موجود بالفعل.
-5. التكرار بيتم منعه تلقائيًا.
-
-### فتح الملف وتغيير المسار
-
-- **افتح الملف**: بيفتح الملف الحالي بتطبيق Markdown الافتراضي.
-- **تغيير المسار**: نافذة سريعة فيها المسار الحالي والافتراضي.
-- **الإعدادات**: اختيار ملف من متصفح الملفات، أو كتابة مسار كامل.
-
-### يوتيوب
-
-1. شغّل **CC**.
-2. مرّر الماوس على كلمة → الفيديو يقف.
-3. اضغط كلمة → ترجمة.
-4. اسحب على جملة → ترجمة الجملة.
-
-### الزرار العائم والمواقع
-
-- من البوب: إظهار/إخفاء الزرار العائم.
-- من الإعدادات: تعطيل حصالة على موقع أو دومين كامل.
-- المواقع المتعطلة بترجع لطبيعتها فورًا، وسبتايتل يوتيوب الأصلي بيرجع.
+> **Note:** On Windows the host uses `hassala_writer.bat` to launch Python.
+> Python must be on `PATH`.
 
 ---
 
-## 6) ملف الحصالة
+## 5. Daily usage
 
-### الملف الافتراضي
+### Translation
+
+- **From the popup:** click the Hassala icon in the toolbar.
+- **From the page:** click the floating button.
+- **From a selection:** select text on any page and click **Translate**.
+- Type Arabic or English; the direction is detected automatically.
+- **Enter** translates immediately, and **Esc** closes the floating panel or
+  clears the popup input.
+
+### Saving
+
+1. After the translation appears, click **Add to Hassala**.
+2. After a successful save, the word and translation fade out, the input clears,
+   and a confirmation appears in place of the translation, ready for the next
+   word.
+3. On first use, if the default file does not exist, Hassala creates it
+   automatically.
+4. If you choose a custom path, it must already be an existing `.md` file.
+5. Duplicates are prevented automatically.
+
+### Open the file and change the path
+
+- **Open file:** opens the current file with the default Markdown app.
+- **Change path:** opens a quick dialog with the current and default paths.
+- **Settings:** choose a file with the built-in browser, or type a full path.
+
+### YouTube
+
+1. Turn on **CC**.
+2. Hover a word → the video pauses.
+3. Click a word → translate it.
+4. Drag across a sentence → translate the whole sentence.
+
+### Floating button and sites
+
+- From the popup: show or hide the floating button.
+- From Settings: disable Hassala on a site or an entire domain.
+- Blocked sites take effect immediately, and the native YouTube captions return.
+
+---
+
+## 6. Your word bank file
+
+### Default file
 
 ```text
 ~/Documents/Hassala Words.md
 ```
 
-- بيتعمل تلقائيًا أول حفظ لو مش موجود.
-- لو عايز تغيّره، اختار ملف `.md` موجود من الإعدادات.
-- المسار المخصص لازم يكون موجود؛ ده حماية عشان الإضافة ما تنشئش ملفات في
-  أماكن غلط.
+- It is created automatically on first save if it does not exist.
+- To change it, choose an existing `.md` file from Settings.
+- A custom path must already exist; this prevents the extension from creating
+  files in arbitrary locations.
 
-### شكل الملف
+### File format
 
 ```markdown
 ---
@@ -287,34 +293,34 @@ tags:
 | 2 | book | كتاب |
 ```
 
-- الإنجليزي دايمًا في العمود الأول، والعربي في التاني.
-- الكاونتر بيزيد مع كل صف جديد.
-- التكرار بيتم منعه بنفس زوج الكلمة والترجمة.
-- الرموز الخطيرة في Markdown بتتهرّب، عشان الكلمات اللي فيها `<` أو `|` ما
-  تكسرش الجدول.
+- English is always in the first column and Arabic in the second.
+- The counter increases with every new row.
+- Duplicates are prevented by the word + translation pair.
+- Dangerous Markdown characters are escaped, so words containing `<` or `|` do
+  not break the table.
 
 ---
 
-## 7) التأكد من إن كل حاجة شغالة
+## 7. Verify that everything works
 
-1. **الترجمة:** اكتب `hello` في البوب، لازم تظهر «مرحبًا».
-2. **الحفظ:** اضغط **أضف للحصالة**، لازم تظهر «اتحوشت ✓ اكتب الكلمة اللي
-   بعدها»، والمربع يتفضّى والتركيز يرجع له.
-3. **التكرار:** اكتب `hello` تاني واضغط حفظ، لازم تظهر «كانت موجودة عندك ✓
-   اكتب الكلمة اللي بعدها».
-4. **الملف:** افتح الملف، لازم تلاقي صف `hello`.
-5. **يوتيوب:** شغّل فيديو وCC، وجرّب تضغط كلمة.
-6. **الزرار العائم:** افتح أي صفحة، لازم يظهر الزرار.
+1. **Translation:** type `hello` in the popup; “مرحبًا” should appear.
+2. **Saving:** click **Add to Hassala**; you should see the saved confirmation,
+   the input should clear, and focus should return to it.
+3. **Duplicates:** type `hello` again and save; you should see the duplicate
+   confirmation.
+4. **File:** open the file and check that a `hello` row exists.
+5. **YouTube:** play a video with CC and click a word.
+6. **Floating button:** open any page and check that the button appears.
 
 ---
 
-## 8) إلغاء التثبيت
+## 8. Uninstall
 
-### الإضافة
+### Extension
 
-- من صفحة الإضافات، اضغط **Remove** على حصالة.
+- On the extensions page, click **Remove** on Hassala.
 
-### Native Host
+### Native host
 
 ```bash
 # Linux/macOS
@@ -324,64 +330,65 @@ bash native/install.sh --uninstall
 powershell -ExecutionPolicy Bypass -File native\install.ps1 -Uninstall
 ```
 
-### البيانات
+### Data
 
-- امسح ملف الحصالة من مكانه.
-- امسح بيانات الإضافة من المتصفح لو عايز تمسح الإعدادات والسجل.
-
----
-
-## 9) مشاكل شائعة
-
-### «الربط مش مفعّل»
-
-- الـ Native Host مش متسجل → شغّل `install.sh` / `install.ps1`.
-- Extension ID اتغيّر بعد نقل الفولدر → أعد تسجيل الـ Host.
-- Python مش موجود → ثبّته وأعد التسجيل.
-- محتاج Reload للإضافة بعد التسجيل.
-
-### «الملف مش موجود»
-
-- المسار المخصص مش موجود → اختار ملف `.md` موجود.
-- أو استخدم الملف الافتراضي، وده بيتعمل تلقائيًا.
-
-### «مقدرتش أحوش»
-
-- الملف مش قابل للكتابة → راجع صلاحيات الملف.
-- المسار غلط → افتح الإعدادات وشوف المعاينة.
-- جرّب ملف اختبار في `~/Documents`.
-
-### الترجمة مش شغالة
-
-- اتأكد من الإنترنت.
-- جرّب كلمة تانية.
-- ممكن خدمة الترجمة تكون مش متاحة مؤقتًا؛ جرّب بعد شوية.
-
-### يوتيوب مش تفاعلي
-
-- شغّل CC.
-- اعمل Refresh للصفحة.
-- اتأكد إن يوتيوب مش في قائمة المواقع المتعطلة.
-
-### الزرار العائم مش ظاهر
-
-- من البوب: فعّل «الزرار العائم».
-- من الإعدادات: شوف المواقع المتعطلة.
-- بعض صفحات المتصفح الداخلية (`chrome://`، متجر الإضافات) مش بيشتغل عليها
-  المحتوى لأسباب أمنية.
+- Delete the word bank file from its location.
+- Clear the extension's browser data if you want to remove settings and history.
 
 ---
 
-## 10) للنشر على Chrome Web Store
+## 9. Troubleshooting
 
-قبل النشر:
+### “Connection is not enabled”
+
+- The native host is not registered → run `install.sh` / `install.ps1`.
+- The extension ID changed after moving the folder → re-register the host.
+- Python is missing → install it and register again.
+- Reload the extension after registration.
+
+### “File not found”
+
+- The custom path does not exist → choose an existing `.md` file.
+- Or use the default file, which is created automatically.
+
+### “Could not save”
+
+- The file is not writable → check file permissions.
+- The path is wrong → open Settings and review the preview.
+- Try a test file in `~/Documents`.
+
+### Translation is not working
+
+- Check your internet connection.
+- Try another word.
+- The translation service may be temporarily unavailable; try again later.
+
+### YouTube is not interactive
+
+- Turn on CC.
+- Refresh the page.
+- Make sure YouTube is not in the blocked sites list.
+
+### Floating button is missing
+
+- From the popup: enable the floating button.
+- From Settings: check blocked sites.
+- Some internal browser pages (`chrome://`, the extension store) do not allow
+  content scripts for security reasons.
+
+---
+
+## 10. Publishing to the Chrome Web Store
+
+Before publishing:
 
 1. `bash scripts/check.sh`
 2. `bash scripts/package.sh`
-3. ارفع `dist/hassala-2.0.4.zip`.
-4. املأ صفحة المتجر من `store/listing-ar.md` و`store/listing-en.md`.
-5. حط رابط سياسة الخصوصية العام.
-6. ارفع لقطات الشاشة.
-7. راجع `store/permissions.md` لتبرير كل صلاحية.
+3. Upload `dist/hassala-2.0.4.zip`.
+4. Fill in the store listing from `store/listing-ar.md` and
+   `store/listing-en.md`.
+5. Add the public privacy policy URL.
+6. Upload screenshots.
+7. Review `store/permissions.md` to justify each permission.
 
-التفاصيل في [STORE-RELEASE.md](STORE-RELEASE.md).
+Full details are in [STORE-RELEASE.md](STORE-RELEASE.md).

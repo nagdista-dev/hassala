@@ -1,186 +1,190 @@
-# الأمان — حصالة
+# Security — Hassala
 
-**آخر تحديث:** 3 نوفمبر 2026
+**Last updated:** November 3, 2026
 
-الملف ده بيشرح نموذج التهديد، والضوابط الأمنية، والصلاحيات، وأي حاجة معروفة
-ممكن تكون محدودة. الهدف إن أي حد يستخدم أو يراجع حصالة يعرف بالظبط إيه اللي
-بيحصل.
-
----
-
-## 1. نطاق الحماية
-
-حصالة إضافة Manifest V3 بتشتغل جوه المتصفح. الكود كله جوه الحزمة، ومفيش
-سيرفر خاص بالمشروع. الحفظ في Markdown بيتم عن طريق Native Messaging Host
-على جهاز المستخدم.
-
-**الأصول اللي بنحميها:**
-
-- نص الترجمة اللي المستخدم بيكتبه أو بيحدده.
-- الكلمات المحفوظة وملف الـ Markdown.
-- إعدادات الإضافة (مسار الملف، المواقع المتعطلة، إلخ).
-- جهاز المستخدم وملفاته.
-- سمعة الإضافة ومفاتيح النشر (مفيش مفاتيح في الكود).
+This document explains the threat model, security controls, permissions, and
+known limitations. The goal is to make it clear what Hassala does and where its
+trust boundaries are.
 
 ---
 
-## 2. حدود الثقة
+## 1. Scope
+
+Hassala is a Manifest V3 browser extension. All code is bundled with the
+extension, and the project has no backend server. Markdown saving happens
+through a Native Messaging Host on the user's device.
+
+**Assets we protect:**
+
+- Translation text typed or selected by the user.
+- Saved words and the Markdown word bank.
+- Extension settings (file path, blocked sites, and so on).
+- The user's device and files.
+- The extension's reputation and publishing keys (no keys are stored in code).
+
+---
+
+## 2. Trust boundaries
 
 ```text
-صفحة ويب (غير موثوقة)
+Web page (untrusted)
         │  DOM / selection / YouTube captions
         ▼
-Content Script (isolated world, كود الإضافة)
+Content script (isolated world, extension code)
         │  chrome.runtime.sendMessage
         ▼
-Background Service Worker
+Background service worker
         │  chrome.runtime.sendNativeMessage
         ▼
-Native Host (Python, على جهاز المستخدم)
-        │  كتابة ملف .md
+Native host (Python, on the user's device)
+        │  writes a .md file
         ▼
-ملف Markdown محلي
+Local Markdown file
 ```
 
-- **الصفحة غير موثوقة.** أي بيانات جاية منها (نص تحديد، سبتايتل يوتيوب)
-  بتتعامل كنص، مش كود.
-- **Content Script معزول** عن JavaScript الصفحة. الواجهة بتستخدم Closed Shadow
-  DOM عشان الصفحة ما تقرأش الترجمة أو عناصر الإدخال.
-- **Background** هو الوسيط الوحيد بين الواجهة والـ Native Host.
-- **Native Host** عملية منفصلة، بتتقفل على Extension ID، وبتتحقق من كل مسار.
+- **The page is untrusted.** Any data that comes from it (selected text, YouTube
+  captions) is treated as text, never code.
+- **Content scripts are isolated** from page JavaScript. The UI uses a closed
+  Shadow DOM so the page cannot read the translation or input elements.
+- **The background worker** is the only bridge between the UI and the native
+  host.
+- **The native host** is a separate process, restricted to the extension ID, and
+  validates every path.
 
 ---
 
-## 3. الضوابط الأمنية
+## 3. Security controls
 
-### 3.1 الإضافة
+### 3.1 Extension
 
-- **مفيش كود بعيد:** مفيش تحميل سكربتات من الإنترنت، ومفيش `eval` أو
-  `new Function`.
-- **CSP صريح:** `script-src 'self'; object-src 'self'`.
-- **رسائل محصورة:** `chrome.runtime.onMessage` بيرفض أي رسالة مش من نفس
-  الإضافة (`sender.id !== chrome.runtime.id`).
-- **عرض آمن:** نصوص الترجمة والسبتايتل بتتعرض بـ `textContent`، مش
-  `innerHTML`.
-- **Shadow DOM مغلق:** واجهة الصفحة مش متاحة لـ JavaScript الصفحة.
-- **API داخلي:** يوتيوب بيكلم واجهة الترجمة عن طريق كائن في الـ isolated
-  world، والـ background بيفتح الصندوق عن طريق `chrome.tabs.sendMessage`، مش
-  DOM event تقدر الصفحة تطلقه.
-- **مفيش تتبع:** مفيش analytics أو telemetry أو إعلانات.
+- **No remote code:** no scripts are loaded from the internet, and there is no
+  `eval` or `new Function`.
+- **Explicit CSP:** `script-src 'self'; object-src 'self'`.
+- **Restricted messaging:** `chrome.runtime.onMessage` rejects any message that
+  does not come from this extension (`sender.id !== chrome.runtime.id`).
+- **Safe rendering:** translations and captions are rendered with
+  `textContent`, not `innerHTML`.
+- **Closed Shadow DOM:** the page's JavaScript cannot access the UI.
+- **Internal API:** YouTube talks to the translator through an object in the
+  isolated world, and the background opens the panel through
+  `chrome.tabs.sendMessage`, not a DOM event the page can forge.
+- **No tracking:** no analytics, telemetry, or ads.
 
-### 3.2 الصلاحيات
+### 3.2 Permissions
 
-| الصلاحية | ليه |
+| Permission | Why it is needed |
 | --- | --- |
-| `storage` | حفظ الإعدادات وسجل آخر الكلمات محليًا. |
-| `nativeMessaging` | التواصل مع الـ Host اللي بيكتب ملف الحصالة. |
-| `scripting` | حقن واجهة المترجم لما تدوس على أيقونة الإضافة. |
-| `activeTab` | التعامل مع التاب الحالي عند طلب الترجمة. |
-| `offscreen` | تشغيل النطق الصوتي من غير نافذة. |
-| Host permissions | `clients5.google.com`, `api.mymemory.translated.net`, `translate.googleapis.com`, `translate.google.com` — خدمات الترجمة والنطق بس. |
+| `storage` | Save settings and recent words locally. |
+| `nativeMessaging` | Talk to the host that writes the word bank file. |
+| `scripting` | Inject the translator UI when the toolbar icon is clicked. |
+| `activeTab` | Act on the current tab when a translation is requested. |
+| `offscreen` | Play pronunciation audio without opening a window. |
+| Host permissions | `clients5.google.com`, `api.mymemory.translated.net`, `translate.googleapis.com`, `translate.google.com` — translation and pronunciation services only. |
 
-مفيش `tabs`، مفيش `history`، مفيش `bookmarks`، مفيش `downloads`، ومفيش وصول
-للكاميرا أو الميكروفون.
+There is no `tabs`, `history`, `bookmarks`, or `downloads` permission, and no
+access to the camera or microphone.
 
-### 3.3 Native Host
+### 3.3 Native host
 
-- **`allowed_origins`:** فيه Extension ID واحد بس.
-- **رسائل محدودة:** حد أقصى 1MB للرسالة، و200 حرف لكل حقل.
-- **مسارات محدودة:** أي مسار مخصص لازم يكون:
-  - مطلق.
-  - ينتهي بـ `.md`.
-  - ملف عادي موجود (مش مجلد، مش device).
-  - أقل من 4096 حرف.
-- **الملف الافتراضي فقط** هو اللي ممكن يتعمل تلقائيًا لو مش موجود.
-- **`realpath`:** بيتم حل الـ symlinks قبل التحقق، عشان مسار `.md` ما يشاورش
-  على ملف مش `.md`.
-- **مفيش shell:** فتح الملف بيستخدم `xdg-open`/`open`/`os.startfile` بقائمة
-  arguments، مش shell string.
-- **تهريب Markdown/HTML:** الرموز `&`, `<`, `>`, `|`, `\` بتتهرّب قبل
-  الكتابة، عشان الكلمات ما تشغلش HTML وما تكسرش الجدول.
-- **مفيش شبكة:** الـ Host مش بيعمل أي اتصال شبكي.
+- **`allowed_origins`:** contains exactly one extension ID.
+- **Bounded messages:** maximum 1 MB per message and 200 characters per field.
+- **Bounded paths:** a custom path must be:
+  - Absolute.
+  - End with `.md`.
+  - An existing regular file (not a directory or device).
+  - Shorter than 4096 characters.
+- **Only the default file** may be created automatically if it does not exist.
+- **`realpath`:** symlinks are resolved before validation, so a `.md` path cannot
+  point to a non-Markdown file.
+- **No shell:** opening a file uses `xdg-open` / `open` / `os.startfile` with an
+  argument list, not a shell string.
+- **Markdown/HTML escaping:** `&`, `<`, `>`, `|`, and `\` are escaped before
+  writing, so words cannot execute HTML or break the table.
+- **No network:** the host makes no network connections.
 
-### 3.4 التخزين
+### 3.4 Storage
 
-- الإعدادات والسجل في `chrome.storage.local` (محلي للجهاز/البروفايل).
-- كاش الترجمة والصوت في ذاكرة الـ service worker فقط.
-- ملف الحصالة على القرص، تحت سيطرة المستخدم.
+- Settings and history live in `chrome.storage.local` (per device/profile).
+- Translation and audio caches live only in service-worker memory.
+- The word bank file lives on disk under the user's control.
 
 ---
 
-## 4. البيانات اللي بتخرج من الجهاز
+## 4. Data that leaves the device
 
-نص الترجمة بيتبعت لـ:
+Translation text is sent to:
 
 - `translate.googleapis.com`
 - `clients5.google.com`
 - `api.mymemory.translated.net` (fallback)
 - `translate.google.com` / `translate.googleapis.com` (TTS)
 
-كلها عبر HTTPS. راجع [PRIVACY.md](PRIVACY.md) للتفاصيل. مفيش بيانات تانية
-بتتبعت لأي مكان.
+All connections use HTTPS. See [PRIVACY.md](PRIVACY.md) for details. No other
+data is sent anywhere.
 
 ---
 
-## 5. حدود معروفة
+## 5. Known limitations
 
-- **خدمات الترجمة طرف تالت:** النص بيوصلها حسب سياساتها. حصالة مش بتتحكم في
-  احتفاظها.
-- **جهاز مخترق:** لو جهاز المستخدم فيه malware أو بروفايل متصفح مخترق، مفيش
-  إضافة تقدر تحمي البيانات محليًا.
-- **الـ Native Host ملف محلي:** أي حد عنده وصول لملفات المستخدم يقدر يعدّله.
-  المستخدم لازم يحمي حساب الجهاز.
-- **Markdown viewers:** الإضافة بتهرّب HTML، لكن بعض تطبيقات Markdown ممكن
-  تسمح بـ HTML خام من مصادر تانية. افتح ملفات من مصادر موثوقة.
-- **الترجمة مش تشفير:** متكتبش أسرار أو بيانات حساسة في مترجم أو في ملف
-  كلماتك.
-
----
-
-## 6. الإبلاغ عن مشكلة أمنية
-
-- استخدم **Security → Report a vulnerability** في
-  [الريبو](https://github.com/nagdista-dev/hassala/security/advisories/new)
-  (GitHub Security Advisories)، وده المسار المفضّل.
-- لو مش متاح، افتح **Issue** بعنوان يبدأ بـ `[security]` بدون نشر تفاصيل
-  حساسة.
-- من فضلك **متنشرش التفاصيل علنًا** قبل ما يتم إصلاحها.
-- اذكر: نسخة الإضافة، المتصفح، نظام التشغيل، خطوات إعادة المشكلة، والأثر.
-
-مفيش إيميل شخصي مطلوب أو منشور في المشروع.
+- **Third-party translation services:** text reaches them under their own
+  policies. Hassala does not control their retention.
+- **Compromised device:** if the user's device has malware or a compromised
+  browser profile, no extension can protect local data.
+- **The native host is a local file:** anyone with access to the user's files can
+  modify it. Users must protect their device account.
+- **Markdown viewers:** the extension escapes HTML, but some Markdown apps allow
+  raw HTML from other sources. Open files from trusted sources.
+- **Translation is not encryption:** do not type secrets or sensitive data into
+  a translator or your word bank file.
 
 ---
 
-## 7. فحص المشروع قبل النشر
+## 6. Reporting a security issue
+
+- Use **Security → Report a vulnerability** in the
+  [repository](https://github.com/nagdista-dev/hassala/security/advisories/new)
+  (GitHub Security Advisories). This is the preferred path.
+- If advisories are unavailable, open an issue titled `[security]` without
+  sensitive details.
+- **Do not disclose the details publicly** before a fix is available.
+- Include the extension version, browser, operating system, reproduction steps,
+  and impact.
+
+No personal email is required or published by the project.
+
+---
+
+## 7. Release checks
 
 ```bash
 bash scripts/check.sh
 ```
 
-الفحص بيتأكد من:
+The checks verify:
 
-- صحة JavaScript وPython وJSON وShell.
-- وجود كل ملف مشار إليه في المانيفست والـ HTML.
-- عدم وجود مسارات قديمة أو كود بعيد.
-- عدم وجود اسم شخصي أو مسار بيت في كود الإضافة.
-- اختبارات Native Host (حفظ، تكرار، هجرة، رفض مسارات، `.md` فقط).
+- JavaScript, Python, JSON, and shell syntax.
+- Every file referenced by the manifest and HTML exists.
+- No stale paths or remote code.
+- No personal names or home paths in extension code.
+- Native host tests (save, duplicate, migration, path rejection, `.md` only).
 
-قبل أي إصدار:
+Before any release:
 
 1. `bash scripts/package.sh`
-2. `unzip -l dist/hassala-<version>.zip` — لازم يكون `manifest.json` + `src/`
-   بس.
-3. راجع `store/permissions.md`.
-4. ارفع ZIP على Chrome Web Store.
-5. احتفظ بـ SHA256 للحزمة.
+2. `unzip -l dist/hassala-<version>.zip` — must contain only `manifest.json` and
+   `src/`.
+3. Review `store/permissions.md`.
+4. Upload the ZIP to the Chrome Web Store.
+5. Keep the SHA256 of the package.
 
 ---
 
-## 8. مبادئ المساهمة الأمنية
+## 8. Security contribution rules
 
-- ممنوع إضافة `eval` أو `new Function` أو تحميل كود بعيد.
-- ممنوع إضافة تتبع أو analytics من غير نقاش صريح.
-- أي صلاحية جديدة لازم تتوثق في `store/permissions.md` وفي PRIVACY.
-- أي كتابة ملف جديدة لازم تمر من `resolve_absolute_file` أو `resolve_note`.
-- أي نص جديد من الصفحة لازم يتعرض بـ `textContent`.
-- شغّل `bash scripts/check.sh` قبل أي PR.
+- Do not add `eval`, `new Function`, or remote code loading.
+- Do not add tracking or analytics without an explicit discussion.
+- Any new permission must be documented in `store/permissions.md` and
+  `docs/PRIVACY.md`.
+- Any new file write must go through `resolve_absolute_file` or `resolve_note`.
+- Any new text from a page must be rendered with `textContent`.
+- Run `bash scripts/check.sh` before any PR.

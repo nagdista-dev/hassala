@@ -1,167 +1,180 @@
 # Changelog
 
-كل التغييرات المهمة في حصالة بتتسجل هنا. المشروع بيتبع
+All notable changes to Hassala are documented here. The project follows
 [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
-### مفتوح المصدر
+### Open source
 
-- الريبو بقى **Public** على GitHub تحت ترخيص MIT، وأي حد يقدر يقرأ الكود أو
-  يعمل Fork ويساهم.
-- تحديث README وCONTRIBUTING ودليل التثبيت بخطوات التحميل من GitHub وReleases
-  بدل خطوات الوصول للريبو الخاص القديمة.
-- إضافة قوالب Issues (bug / feature) وقالب Pull Request.
-- إضافة `CODE_OF_CONDUCT.md` مستوحى من Contributor Covenant 2.1.
-- تحديث مسار الإبلاغ عن المشاكل الأمنية لاستخدام GitHub Security Advisories.
+- The repository is now **public** on GitHub under the MIT license. Anyone can
+  read the code, fork it, and contribute.
+- Updated README, CONTRIBUTING, and the installation guide with GitHub and
+  release download steps instead of the old private-repository instructions.
+- Added issue templates (bug / feature) and a pull request template.
+- Added `CODE_OF_CONDUCT.md`, adapted from Contributor Covenant 2.1.
+- Updated security reporting to use GitHub Security Advisories.
 
 ## [2.0.4] — 2026-11-03
 
-### انتقال أهدى بعد الحفظ
+### Calmer save transition
 
-- بعد الحفظ بنجاح، الكلمة والترجمة وزرار الحفظ بيتلاشوا بحركة هادية مدتها
-  ٣٠٠ مللي ثانية بدل ما يختفوا فجأة.
-- الصندوق العائم والبوب بيعرضوا نفس الإحساس: الكلمة بتطلع لفوق، والنتيجة
-  بتغرق لتحت، وإطار المربع بيلمع بلون حصالة أثناء الانتقال.
-- رسالة التأكيد بتظهر بعد اكتمال التلاشي، بنفس النعومة، والتركيز بيرجع لمربع
-  الكتابة.
-- لو بدأت تكتب أثناء الحركة، حصالة بتلغيها فورًا وبتسيب النص الجديد زي ما هو.
-- لو مفعّل «تقليل الحركة» (Reduce Motion) في النظام، التفريغ بيحصل فورًا
-  بدون انتقال.
+- After a successful save, the word, translation, and save button fade out over
+  300 ms instead of disappearing instantly.
+- The floating panel and popup share the same motion: the word rises, the result
+  sinks, and the input border glows with Hassala's accent color during the
+  transition.
+- The confirmation message appears after the fade completes, with the same soft
+  motion, and focus returns to the input.
+- If you start typing during the animation, Hassala cancels it immediately and
+  keeps your new text.
+- When the system “Reduce Motion” setting is enabled, the input clears
+  immediately without a transition.
 
 ## [2.0.3] — 2026-11-03
 
-### تفريغ المربع بعد الحفظ
+### Clear the input after saving
 
-- بعد ما الكلمة تتحفظ بنجاح، الصندوق العائم والبوب بيفرّغوا الكلمة والترجمة
-  تلقائيًا، ويرجّعوا التركيز لمربع الكتابة عشان تكتب الكلمة اللي بعدها على
-  طول.
-- بتظهر رسالة تأكيد قصيرة مكان الترجمة: «اتحوشت ✓ اكتب الكلمة اللي بعدها»،
-  أو «كانت موجودة عندك ✓ اكتب الكلمة اللي بعدها» لو الكلمة مكررة.
-- لو الحفظ فشل، الكتابة والترجمة بتفضل زي ما هي عشان متضيعش.
-- لو بدأت تكتب الكلمة الجديدة قبل ما الحفظ يخلص، حصالة مش بتمسح اللي كتبته.
+- After a word is saved successfully, the floating panel and popup clear the
+  word and translation automatically and return focus to the input so you can
+  type the next word right away.
+- A short confirmation appears in place of the translation: “Saved ✓ Type the
+  next word” or “Already in your word bank ✓ Type the next word” for duplicates.
+- If saving fails, the input and translation stay as they are so nothing is
+  lost.
+- If you start typing the next word before saving finishes, Hassala does not
+  erase what you typed.
 
 ## [2.0.2] — 2026-11-03
 
-### إصلاح لوحة المفاتيح
+### Keyboard fix
 
-- إصلاح مشكلة كانت بتمنع الكتابة براحة جوه الصندوق العائم: **Space** كان
-  بيشغّل/يوقف فيديو يوتيوب، والأسهم كانت بتأثر على الفيديو بدل ما تحرّك
-  المؤشر بين الحروف.
-- إضافة `src/content/keyboard-guard.js` بيتحمّل عند `document_start` قبل
-  سكربتات الصفحة، ويمنع اختصارات الموقع من استقبال أي مفتاح بيتبعت من
-  الصندوق وهو في وضع الكتابة.
-- المسافة بتتكتب طبيعي مرة واحدة، والأسهم بتتحرك بالـ caret مع كل
-  تعديلاتها: `Shift` للتحديد، و`Ctrl`/`Alt` للتنقل بين الكلمات، و`Home`/
-  `End`، والنص العربي RTL.
-- `Enter` لسه بيترجم، و`Shift+Enter` بيعمل سطر جديد، و`Escape` بيقفل
-  الصندوق أو نافذة المسار، و`Tab` بيتنقل عادي.
-- الكتابة بالـ IME (عربي/إنجليزي) شغالة، و`Enter` أثناء تكوين الحروف مش
-  بيعمل ترجمة بالغلط.
-- اختصارات الصفحة ويوتيوب لسه شغالة عادي لما التركيز يطلع بره الصندوق.
+- Fixed an issue that made typing inside the floating panel unreliable:
+  **Space** played or paused the YouTube video, and the arrow keys affected the
+  video instead of moving the caret.
+- Added `src/content/keyboard-guard.js`, loaded at `document_start` before page
+  scripts, so site shortcuts do not receive keys typed in the panel while it is
+  in edit mode.
+- Space types once as expected, and the arrow keys move the caret with all their
+  modifiers: `Shift` for selection, `Ctrl`/`Alt` for word navigation,
+  `Home`/`End`, and RTL Arabic text.
+- `Enter` still translates, `Shift+Enter` inserts a new line, `Escape` closes
+  the panel or the path dialog, and `Tab` moves focus normally.
+- IME input (Arabic/English) works, and `Enter` during composition does not
+  trigger a translation by mistake.
+- Page and YouTube shortcuts still work when focus leaves the panel.
 
 ## [2.0.1] — 2026-11-03
 
-### الهوية والخط
+### Identity and typography
 
-- اعتماد **Baloo Bhaijaan 2** كخط أساسي للعربي والإنجليزي في البوب،
-  والصندوق العائم، والإعدادات، وسبتايتل يوتيوب.
-- تضمين الخط داخل الإضافة (self-hosted) مع ترخيص SIL OFL، بدون أي تحميل من
-  الإنترنت.
-- أيقونة toolbar مبسطة جديدة (16/32) بتباين واضح في شريط الأدوات، مع أيقونة
-  تفصيلية منفصلة لصفحة الإضافات والمتجر.
-- صورة Social Preview جديدة بهوية حصالة.
+- Adopted **Baloo Bhaijaan 2** as the primary font for Arabic and English in
+  the popup, floating panel, settings, and YouTube subtitles.
+- Bundled the font with the extension (self-hosted) under the SIL OFL license,
+  with no network download.
+- Added a simplified toolbar icon (16/32) with clear contrast in the toolbar,
+  plus a separate detailed icon for the extensions page and store.
+- Added a new Social Preview image with Hassala branding.
 
-### التخزين والملف
+### Storage and file handling
 
-- ترحيل مفتاح `obsidianFile` القديم إلى `hassalaFile` في background وpopup
-  وfloating وoptions، مع مسح المفتاح القديم بعد الترحيل.
-- **إنشاء الملف الافتراضي تلقائيًا أول حفظ** لو مش موجود:
+- Migrated the old `obsidianFile` key to `hassalaFile` in background, popup,
+  floating, and options, and removed the old key after migration.
+- **Create the default file automatically on first save** if it does not exist:
   `~/Documents/Hassala Words.md`.
-- المسارات المخصصة لازم تكون ملفات `.md` موجودة بالفعل؛ الإضافة مش بتنشئ
-  ملفات في مسارات مخصصة غلط.
-- إصلاح عرض رقم الإصدار في الإعدادات.
+- Custom paths must already be existing `.md` files; the extension does not
+  create files in arbitrary custom locations.
+- Fixed the version number display in Settings.
 
-### الأمان
+### Security
 
-- التحقق من `sender.id` قبل تنفيذ أي رسالة في background.
-- CSP صريح: `script-src 'self'; object-src 'self'`.
-- تقليل `web_accessible_resources` لملف الخط بس.
-- تحويل واجهة الصفحة إلى **Closed Shadow DOM** عشان الصفحة ما تقرأش الترجمة
-  أو عناصر الإدخال.
-- استبدال DOM event الترجمة بكائن في الـ isolated world بين يوتيوب والصندوق
-  العائم، عشان الصفحة ما تقدرش تطلق حدث ترجمة مزيف.
-- تحصين Native Host:
-  - كتابة/فتح ملفات `.md` موجودة بس.
-  - رفض المسارات الطويلة والمجلدات وnon-regular files.
-  - حل `realpath` قبل التحقق لمنع symlink escapes.
-  - تهريب `&`, `<`, `>`, `|`, `\` قبل الكتابة.
-  - رسائل محدودة الحجم والحقول.
-  - `allowed_origins` فيه Extension ID واحد بس.
+- Validate `sender.id` before executing any message in the background worker.
+- Explicit CSP: `script-src 'self'; object-src 'self'`.
+- Reduced `web_accessible_resources` to the font file only.
+- Moved the page UI into a **closed Shadow DOM** so the page cannot read the
+  translation or input elements.
+- Replaced the translation DOM event with an object in the isolated world
+  between YouTube and the floating panel, so the page cannot fire a fake
+  translation event.
+- Hardened the native host:
+  - Write/open existing `.md` files only.
+  - Reject long paths, directories, and non-regular files.
+  - Resolve `realpath` before validation to prevent symlink escapes.
+  - Escape `&`, `<`, `>`, `|`, and `\` before writing.
+  - Bound message size and field lengths.
+  - Restrict `allowed_origins` to a single extension ID.
 
-### Native Host والتثبيت
+### Native host and installation
 
-- إعادة تسمية الـ Host لـ `com.hassala.writer` والملف لـ
+- Renamed the host to `com.hassala.writer` and the file to
   `native/hassala_writer.py`.
-- `install.sh` جديد: تحقق من صيغة Extension ID، كتابة JSON آمنة، دعم
-  `--uninstall`، وتنظيف التسجيلات القديمة بدون أي اسم شخصي.
-- إضافة `native/install.ps1` و`native/hassala_writer.bat` لدعم Windows.
-- دعم Brave وChrome وChromium وEdge على Linux وmacOS وWindows.
-- اختبارات Native Host كاملة: حفظ، تكرار، هجرة الجدول القديم، تصفح، رفض
-  المسارات، و`.md` فقط.
+- Added a new `install.sh`: extension ID format validation, safe JSON writing,
+  `--uninstall` support, and cleanup of old registrations without any personal
+  name.
+- Added `native/install.ps1` and `native/hassala_writer.bat` for Windows.
+- Added support for Brave, Chrome, Chromium, and Edge on Linux, macOS, and
+  Windows.
+- Added full native host tests: saving, duplicates, old-table migration,
+  browsing, path rejection, and `.md`-only writes.
 
-### التنظيم والتوثيق
+### Organization and documentation
 
-- نقل الكود لـ `src/` مع فصل `content/`, `popup/`, `options/`, `offscreen/`,
-  `icons/`, `fonts/`.
-- نقل التوثيق لـ `docs/`، وإضافة `docs/ARCHITECTURE.md` و
+- Moved the code into `src/` with separate `content/`, `popup/`, `options/`,
+  `offscreen/`, `icons/`, and `fonts/` folders.
+- Moved documentation into `docs/` and added `docs/ARCHITECTURE.md` and
   `docs/STORE-RELEASE.md`.
-- إضافة `scripts/check.sh` و`scripts/check_refs.py` لفحص المشروع قبل أي commit.
-- إضافة `scripts/package-testers.sh` لبناء حزمة مختبرين كاملة تشمل الـ Native
-  Host والدليل، عشان الحفظ يشتغل من غير Clone للريبو.
-- إضافة CI في `.github/workflows/check.yml`.
-- إضافة `.gitignore` يمنع رفع `TODO.md` و`dist/` و`__pycache__` والمفاتيح،
-  و`native/config.json` المحلي.
-- إزالة الاسم الشخصي ومسارات البيت من LICENSE والوثائق.
+- Added `scripts/check.sh` and `scripts/check_refs.py` to check the project
+  before every commit.
+- Added `scripts/package-testers.sh` to build a complete tester package with
+  the native host and guide, so saving works without cloning the repository.
+- Added CI in `.github/workflows/check.yml`.
+- Added `.gitignore` rules for `TODO.md`, `dist/`, `__pycache__`, secrets, and
+  the local `native/config.json`.
+- Removed personal names and home paths from LICENSE and the documentation.
 
 ## [2.0.0] — 2026-11-03
 
-### تغيير العلامة
+### Rebrand
 
-- إعادة تسمية الإضافة لـ **حصالة — مترجم وحافظ الكلمات**.
-- تاجلاين جديد: **كلماتك مش هتتوه… هتتحوش.**
-- تحديث واجهة البوب والصندوق العائم والإعدادات بالاسم الجديد.
-- تحديث مسار الحفظ الافتراضي لـ `~/Documents/Hassala Words.md`.
-- إضافة README وPRIVACY وROADMAP وCONTRIBUTING وLICENSE.
-- إضافة نصوص متجر Chrome (عربي/إنجليزي) وملف تبرير الصلاحيات.
-- دعم تسجيل Native Host على Brave وChrome وChromium وEdge.
-- إضافة سكريبت بناء ZIP للنشر.
+- Renamed the extension to **Hassala — Arabic Word Translator & Keeper**.
+- New tagline: **Your words won't get lost. They get saved.**
+- Updated the popup, floating panel, and settings with the new name.
+- Changed the default save path to `~/Documents/Hassala Words.md`.
+- Added README, PRIVACY, ROADMAP, CONTRIBUTING, and LICENSE.
+- Added Chrome Web Store copy (Arabic/English) and a permission justification
+  file.
+- Added native host registration for Brave, Chrome, Chromium, and Edge.
+- Added a ZIP packaging script for releases.
 
 ## [1.10.0]
 
-- إضافة تعطيل حصالة على مواقع معينة مع دعم النطاقات الفرعية.
-- تحسين رسالة تعطيل الموقع من شريط الإضافة.
+- Added the ability to disable Hassala on selected sites, with subdomain
+  support.
+- Improved the blocked-site message in the toolbar popup.
 
 ## [1.9.4]
 
-- تغليف كتابات التخزين وقراءة `runtime.lastError` بعد إعادة تحميل الإضافة.
+- Wrapped storage writes and read `runtime.lastError` after reloading the
+  extension.
 
 ## [1.9.3]
 
-- جعل كلمات السبتايتل قابلة للتحديد بالماوس وترجمة الجملة المحددة.
+- Made subtitle words selectable with the mouse and added translation for the
+  selected phrase.
 
 ## [1.9.2]
 
-- إصلاح ضغطات نافذة مسار الحفظ في الصندوق العائم.
+- Fixed clicks in the save-path dialog inside the floating panel.
 
 ## [1.9.1]
 
-- إضافة تثبيت الصندوق وحماية أسهم الكيبورد.
+- Added panel pinning and keyboard arrow protection.
 
 ## [1.9.0]
 
-- إعادة بناء حفظ الكلمات على مسار كامل من الروت.
+- Rebuilt word saving around a full path from the root.
 
 ## [1.0.0]
 
-- أول نسخة: ترجمة عربي ↔ إنجليزي، نطق، سبتايتل يوتيوب، وحفظ في Markdown.
+- First release: Arabic ↔ English translation, pronunciation, YouTube
+  subtitles, and Markdown saving.

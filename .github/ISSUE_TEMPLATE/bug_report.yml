@@ -1,76 +1,77 @@
-name: بلاغ عن مشكلة
-description: حاجة مش شغالة زي المتوقع
+name: Bug report
+description: Something is not working as expected
 title: "[Bug]: "
 labels: ["bug"]
 body:
   - type: markdown
     attributes:
       value: |
-        شكرًا إنك بتساعد! املأ التفاصيل دي عشان نقدر نعيد المشكلة بسرعة.
-        لو المشكلة أمنية، متكتبهاش هنا — استخدم **Security → Report a vulnerability**.
+        Thanks for helping! Fill in the details below so we can reproduce the
+        issue quickly. If this is a security issue, do not post it here — use
+        **Security → Report a vulnerability** instead.
 
   - type: checkboxes
     id: checks
     attributes:
-      label: تأكيدات سريعة
+      label: Quick checks
       options:
-        - label: دورت على Issues موجودة ومفيش مشكلة مكررة.
+        - label: I searched existing issues and this is not a duplicate.
           required: true
-        - label: شغّلت `bash scripts/check.sh` أو جربت أحدث إصدار.
+        - label: I ran `bash scripts/check.sh` or tested the latest release.
           required: false
 
   - type: textarea
     id: what-happened
     attributes:
-      label: إيه اللي حصل؟
-      description: وصف مختصر وواضح للمشكلة.
+      label: What happened?
+      description: A clear, short description of the problem.
     validations:
       required: true
 
   - type: textarea
     id: steps
     attributes:
-      label: خطوات إعادة المشكلة
+      label: Steps to reproduce
       placeholder: |
-        1. افتح ...
-        2. اكتب ...
-        3. اضغط ...
-        4. شوف ...
+        1. Open ...
+        2. Type ...
+        3. Click ...
+        4. See ...
     validations:
       required: true
 
   - type: textarea
     id: expected
     attributes:
-      label: المتوقع
+      label: Expected behavior
     validations:
       required: true
 
   - type: textarea
     id: actual
     attributes:
-      label: اللي حصل فعلاً
+      label: Actual behavior
     validations:
       required: true
 
   - type: dropdown
     id: browser
     attributes:
-      label: المتصفح
+      label: Browser
       options:
         - Chrome
         - Brave
         - Edge
         - Chromium
-        - متصفح تاني (اكتبه تحت)
+        - Other (mention it below)
     validations:
       required: true
 
   - type: input
     id: version
     attributes:
-      label: نسخة الإضافة
-      description: من صفحة الإعدادات أو `chrome://extensions`.
+      label: Extension version
+      description: From Settings or `chrome://extensions`.
       placeholder: "2.0.4"
     validations:
       required: true
@@ -78,7 +79,7 @@ body:
   - type: input
     id: os
     attributes:
-      label: نظام التشغيل
+      label: Operating system
       placeholder: "Ubuntu 24.04 / Windows 11 / macOS 15"
     validations:
       required: true
@@ -86,33 +87,33 @@ body:
   - type: dropdown
     id: install
     attributes:
-      label: طريقة التثبيت
+      label: Installation method
       options:
-        - Load unpacked من السورس
-        - حزمة testers ZIP
+        - Load unpacked from source
+        - Testers ZIP package
         - Chrome Web Store
-        - مش متأكد
+        - Not sure
     validations:
       required: true
 
   - type: dropdown
     id: native-host
     attributes:
-      label: حالة Native Host
-      description: من صفحة الإعدادات.
+      label: Native host status
+      description: From Settings.
       options:
-        - متصل
-        - مش متصل
-        - مش مثبت
-        - مش متأكد
+        - Connected
+        - Not connected
+        - Not installed
+        - Not sure
     validations:
       required: true
 
   - type: textarea
     id: logs
     attributes:
-      label: لوجات أو لقطات شاشة
-      description: لو ممكن، حط أخطاء الـ Console أو صورة. اخفي أي بيانات شخصية.
+      label: Logs or screenshots
+      description: If possible, include console errors or a screenshot. Hide any personal data.
       render: shell
     validations:
       required: false
@@ -120,6 +121,6 @@ body:
   - type: textarea
     id: context
     attributes:
-      label: أي تفاصيل إضافية
+      label: Additional context
     validations:
       required: false

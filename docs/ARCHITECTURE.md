@@ -1,17 +1,17 @@
-# معمارية حصالة
+# Hassala Architecture
 
-**آخر تحديث:** 3 نوفمبر 2026
+**Last updated:** November 3, 2026
 
-الملف ده بيشرح إزاي حصالة متقسّمة من جوه: مين بيكلم مين، الرسائل بتمر إزاي،
-وفين البيانات بتتخزن. الكود نفسه مش مربوط بأي framework، وكل ملف ليه مسؤولية
-واحدة واضحة.
+This document explains how Hassala is structured internally: who talks to whom,
+how messages flow, and where data is stored. The code is not tied to any
+framework, and each file has one clear responsibility.
 
 ---
 
-## 1) نظرة سريعة
+## 1. Overview
 
-حصالة إضافة Manifest V3 من غير build step. كل حاجة جوه الحزمة، ومفيش سيرفر
-خاص بالمشروع.
+Hassala is a Manifest V3 extension with no build step. Everything is bundled
+with the extension, and the project has no backend server.
 
 ```mermaid
 flowchart TB
@@ -61,244 +61,252 @@ flowchart TB
     Floating -.->|"toolbar injection"| SW
 ```
 
-**قواعد الاتجاه:**
+**Direction rules:**
 
-- الصفحة ما بتكلمش الـ service worker مباشرة من كود الصفحة؛ الـ content script
-  هو اللي بيكلم، والـ extension APIs مش متاحة لـ JavaScript الصفحة.
-- الـ background هو الوسيط الوحيد للترجمة والحفظ والنطق.
-- الـ native host ما بيكلمش أي حاجة غير الإضافة، وما بيعملش أي اتصال شبكي.
+- Page JavaScript never talks to the service worker directly. The content script
+  makes the call, and extension APIs are not available to page JavaScript.
+- The background worker is the only bridge for translation, saving, and
+  pronunciation.
+- The native host talks only to the extension and makes no network connections.
 
 ---
 
-## 2) المكوّنات ومسؤولياتها
+## 2. Components and responsibilities
 
-| المكوّن | الملف | المسؤولية |
+| Component | File | Responsibility |
 | --- | --- | --- |
-| Service worker | `src/background.js` | الترجمة، fallback، كاش، النطق، الحفظ، التحقق من المرسل، رسائل التبويب |
-| الصندوق العائم | `src/content/floating.js` | واجهة الترجمة، تحديد النص، الزرار العائم، مسار الحفظ، Shadow DOM مغلق |
-| عزل الكيبورد | `src/content/keyboard-guard.js` | حارس بيتحمّل عند `document_start` ويمنع اختصارات الصفحة من رؤية مفاتيح الصندوق |
-| سياسة المواقع | `src/content/site-policy.js` | تطبيع الدومينات، قراءة قائمة التعطيل، أحداث `storage` |
-| يوتيوب | `src/content/youtube.js` | قراءة السبتايتل، عرض سطرين، الوقوف عند المرور، الترجمة عند الضغط |
-| البوب | `src/popup/` | ترجمة سريعة، حفظ، فتح الملف، سجل آخر ٨ كلمات، إظهار/إخفاء الزرار العائم |
-| الإعدادات | `src/options/` | مسار ملف الحصالة، متصفح الملفات، المواقع المتعطلة، الحالة |
-| النطق | `src/offscreen/` | تشغيل الصوت خارج الصفحة |
-| Native host | `native/hassala_writer.py` | كتابة صفوف Markdown، منع التكرار، فحص المسارات، فتح الملف |
-| السكربتات | `scripts/` | فحص المشروع، بناء ZIP، توليد الأيقونات |
-| الاختبارات | `tests/` | اختبار Native Host من غير أي اعتماد خارجي |
+| Service worker | `src/background.js` | Translation, fallback, cache, pronunciation, saving, sender validation, tab messaging |
+| Floating panel | `src/content/floating.js` | Translation UI, selection handling, floating button, save path, closed Shadow DOM |
+| Keyboard guard | `src/content/keyboard-guard.js` | Loaded at `document_start`; keeps page shortcuts from seeing keys typed in the panel |
+| Site policy | `src/content/site-policy.js` | Domain normalization, blocked-site list, `storage` events |
+| YouTube | `src/content/youtube.js` | Caption reading, two-line rendering, hover pause, click-to-translate |
+| Popup | `src/popup/` | Quick translation, save, open file, last 8 words, show/hide floating button |
+| Options | `src/options/` | Word bank path, file browser, blocked sites, status |
+| Pronunciation | `src/offscreen/` | Audio playback outside the page |
+| Native host | `native/hassala_writer.py` | Append Markdown rows, dedupe, path validation, open file |
+| Scripts | `scripts/` | Project checks, ZIP packaging, icon generation |
+| Tests | `tests/` | Native host tests with no external dependencies |
 
-**عزل الكيبورد:**
+**Keyboard isolation:**
 
-- الصندوق العائم جوه **closed shadow root**، فالصفحة بتشوف أي حدث خارج منه
-  وكأنه جاي من `#aet-floating-root` مش من `textarea`. يوتيوب ومواقع تانية
-  بتعتبر ده «مفيش كتابة» وتشغّل اختصاراتها (Space للفيديو، الأسهم للـ seek).
-- `keyboard-guard.js` بيتحمّل عند `document_start` قبل سكربتات الصفحة،
-  وبيسجّل listener في مرحلة الـ capture على `window`.
-- لما التركيز يكون جوه الصندوق، الحارس بيمنع انتشار `keydown`/`keypress`/
-  `keyup` للصفحة، وبيسلّم `keydown` لـ `floating.js` عشان يتعامل مع
-  `Enter`/`Escape`/مسار الحفظ.
-- الحارس **مش** بينادي `preventDefault` للمفاتيح العادية، فالمتصفح بيكمّل
-  السلوك الطبيعي: كتابة المسافة، حركة الـ caret، التحديد بـ Shift، التنقل
-  بين الكلمات، والـ IME. ده اللي بيخلي الكتابة العربية سليمة.
+- The floating panel lives inside a **closed shadow root**, so the page sees
+  events outside it as coming from `#aet-floating-root`, not from a `textarea`.
+  YouTube and other sites treat that as “not typing” and fire their shortcuts
+  (Space for video, arrows for seeking).
+- `keyboard-guard.js` loads at `document_start`, before page scripts, and
+  registers a listener in the capture phase on `window`.
+- While focus is inside the panel, the guard stops `keydown`, `keypress`, and
+  `keyup` from propagating to the page, and forwards `keydown` to `floating.js`
+  for `Enter`, `Escape`, and the save-path dialog.
+- The guard does **not** call `preventDefault` for normal keys, so the browser
+  keeps natural behavior: typing spaces, caret movement, Shift selection,
+  word navigation, and IME composition. This is what keeps Arabic input
+  correct.
 
 ---
 
-## 3) تدفق الترجمة
+## 3. Translation flow
 
 ```mermaid
 sequenceDiagram
     autonumber
-    actor User as المستخدم
+    actor User
     participant UI as Popup / Floating
     participant BG as background.js
     participant G as Google Translate
     participant M as MyMemory
 
-    User->>UI: يكتب كلمة أو يحدد نص
-    UI->>UI: يكتشف الاتجاه + debounce 350ms
+    User->>UI: Type a word or select text
+    UI->>UI: Detect direction + debounce 350ms
     UI->>BG: { type: "translate", text, mode }
-    BG->>BG: ينظّف النص + يحدد المفتاح
-    alt الكاش فيه النتيجة
+    BG->>BG: Normalize text + build cache key
+    alt Cache hit
         BG-->>UI: { ok: true, translation, cached: true }
-    else مفيش كاش
-        BG->>G: طلب ترجمة (endpoint أول)
-        alt Google رجّع نتيجة
-            G-->>BG: ترجمة
-        else Google فشل
-            BG->>G: endpoint تاني
-            alt التاني فشل
-                BG->>M: طلب fallback
-                M-->>BG: ترجمة أو خطأ
+    else Cache miss
+        BG->>G: Translation request (first endpoint)
+        alt Google returns a result
+            G-->>BG: Translation
+        else Google fails
+            BG->>G: Second endpoint
+            alt Second endpoint fails
+                BG->>M: Fallback request
+                M-->>BG: Translation or error
             end
         end
-        BG->>BG: يحفظ في كاش الذاكرة (حد أقصى)
+        BG->>BG: Store in in-memory cache (bounded)
         BG-->>UI: { ok: true, translation }
     end
-    UI-->>User: يعرض الترجمة + أزرار النسخ والنطق والحفظ
+    UI-->>User: Show translation, copy, speak, and save actions
 ```
 
-**ملاحظات:**
+**Notes:**
 
-- الكاش في ذاكرة الـ service worker بس، وبيتمسح لما المتصفح يقفل أو الـ worker
-  يتوقف. مفيش كاش دائم للنص.
-- مفيش مفتاح API، ومفيش حساب. الخدمات العامة هي المصدر.
-- لو كل الخدمات فشلت، الـ background بيرجّع `{ ok: false, code: 'failed' }`
-  والواجهة بتعرض رسالة مفهومة.
+- The cache lives only in service-worker memory and is cleared when the browser
+  closes or the worker stops. There is no persistent text cache.
+- There is no API key and no account. Public services are the source.
+- If every service fails, the background returns
+  `{ ok: false, code: 'failed' }`, and the UI shows a clear message.
 
 ---
 
-## 4) تدفق الحفظ
+## 4. Saving flow
 
 ```mermaid
 sequenceDiagram
     autonumber
-    actor User as المستخدم
+    actor User
     participant UI as Popup / Floating
     participant BG as background.js
     participant H as hassala_writer.py
-    participant F as ملف .md
+    participant F as .md file
 
-    User->>UI: يضغط «أضف للحصالة»
+    User->>UI: Click “Add to Hassala”
     UI->>BG: { type: "saveToHassala", word, translation, mode }
-    BG->>BG: يتحقق من sender.id + ينظّف الحقول
+    BG->>BG: Validate sender.id + sanitize fields
     BG->>H: { type: "append", word, translation, mode, file? }
-    H->>H: يقرأ config.json + يتحقق من المسار
-    alt الملف الافتراضي مش موجود
-        H->>F: ينشئ الملف + الهيدر + tag
-    else مسار مخصص
-        H->>H: لازم يكون ملف .md موجود
+    H->>H: Read config.json + validate path
+    alt Default file does not exist
+        H->>F: Create file + header + tag
+    else Custom path
+        H->>H: Must be an existing .md file
     end
-    H->>F: يقرأ المحتوى + يهرّب الرموز
-    alt نفس الكلمة والترجمة موجودين
+    H->>F: Read content + escape characters
+    alt Same word and translation already exist
         H-->>BG: { ok: true, duplicate: true }
-        BG-->>UI: «كانت موجودة عندك ✓»
-    else جديدة
-        H->>F: يضيف صف بكاونتر جديد
+        BG-->>UI: “Already in your word bank ✓”
+    else New pair
+        H->>F: Append row with a new counter
         H-->>BG: { ok: true, duplicate: false, count }
-        BG-->>UI: «اتحوشت ✓»
+        BG-->>UI: “Saved ✓”
     end
-    UI->>UI: يفضّي المربع + يرجّع التركيز للكتابة
+    UI->>UI: Clear input + restore focus
 ```
 
-**الضمانات:**
+**Guarantees:**
 
-- الكتابة في ملف `.md` واحد بس.
-- المسار المخصص لازم يكون موجود؛ الملف الافتراضي فقط هو اللي بيتعمل تلقائيًا.
-- التكرار بيتم منعه بالزوج (كلمة + ترجمة) في الاتجاهين.
-- لو الحفظ فشل، النص اللي في المربع بيفضل زي ما هو؛ ولو المستخدم بدأ يكتب
-  كلمة جديدة قبل ما الطلب يخلص، حصالة مش بتمسح الكتابة الجديدة.
-- الرموز `&`, `<`, `>`, `|`, `\` بتتهرّب قبل الكتابة.
+- Writes go to exactly one `.md` file.
+- A custom path must already exist; only the default file may be created
+  automatically.
+- Duplicates are prevented by the word + translation pair in both directions.
+- If saving fails, the input keeps its text. If the user starts typing a new
+  word before the request finishes, Hassala does not erase the new text.
+- `&`, `<`, `>`, `|`, and `\` are escaped before writing.
 
 ---
 
-## 5) تدفق يوتيوب
+## 5. YouTube flow
 
 ```mermaid
 flowchart LR
     A["YouTube player"] --> B["youtube.js<br/>readCaptionLines()"]
-    B --> C{"فيه CC؟"}
-    C -->|"لأ"| D["السبتايتل الأصلي ظاهر"]
-    C -->|"أيوه"| E["render(lines)<br/>سطرين بحد أقصى"]
-    E --> F["hover على كلمة"]
+    B --> C{"CC enabled?"}
+    C -->|"No"| D["Native captions stay visible"]
+    C -->|"Yes"| E["render(lines)<br/>two lines maximum"]
+    E --> F["Hover a word"]
     F --> G["pauseVideo()"]
-    E --> H["click على كلمة"]
+    E --> H["Click a word"]
     H --> I["__AET_FLOATING_API__.translate()"]
-    E --> J["drag على جملة"]
+    E --> J["Drag across a phrase"]
     J --> I
-    I --> K["floating.js<br/>يفتح الصندوق ويترجم"]
+    I --> K["floating.js<br/>opens the panel and translates"]
 ```
 
-- `youtube.js` و`floating.js` في نفس الـ isolated world، فالاتصال بينهم عن
-  طريق كائن `globalThis.__AET_FLOATING_API__` مش DOM event.
-- ده بيمنع أي سكربت في الصفحة إنه يطلق حدث ترجمة مزيف.
-- السبتايتل الأصلي بيتخفي بـ CSS، ويرجع تاني لو مفيش CC أو الموقع متعطل.
+- `youtube.js` and `floating.js` run in the same isolated world, so they talk
+  through the `globalThis.__AET_FLOATING_API__` object instead of a DOM event.
+- This prevents any page script from firing a fake translation event.
+- Native captions are hidden with CSS and return when CC is off or the site is
+  blocked.
 
 ---
 
-## 6) التخزين
+## 6. Storage
 
-| المفتاح | المكان | المحتوى | ملاحظات |
+| Key | Location | Content | Notes |
 | --- | --- | --- | --- |
-| `hassalaFile` | `chrome.storage.local` | مسار ملف الحصالة الكامل | المفتاح الرسمي |
-| `obsidianFile` | `chrome.storage.local` | مسار من نسخة قديمة | بيتقرأ مرة واحدة، بيتنقل لـ `hassalaFile`، وبعدها بيتمسح |
-| `fabHidden` | `chrome.storage.local` | هل الزرار العائم مخفي | |
-| `fabPos` | `chrome.storage.local` | مكان الزرار العائم | |
-| `panelPos` | `chrome.storage.local` | مكان الصندوق | |
-| `panelPinned` | `chrome.storage.local` | هل الصندوق مثبّت | |
-| `blockedSites` | `chrome.storage.local` | قائمة المواقع المتعطلة | |
-| `history` | `chrome.storage.local` | آخر ٨ كلمات | |
-| `mode` | `chrome.storage.local` | اتجاه الترجمة المفضل | |
+| `hassalaFile` | `chrome.storage.local` | Full word bank file path | Current key |
+| `obsidianFile` | `chrome.storage.local` | Path from an older version | Read once, migrated to `hassalaFile`, then removed |
+| `fabHidden` | `chrome.storage.local` | Whether the floating button is hidden | |
+| `fabPos` | `chrome.storage.local` | Floating button position | |
+| `panelPos` | `chrome.storage.local` | Panel position | |
+| `panelPinned` | `chrome.storage.local` | Whether the panel is pinned | |
+| `blockedSites` | `chrome.storage.local` | Blocked sites list | |
+| `history` | `chrome.storage.local` | Last 8 words | |
+| `mode` | `chrome.storage.local` | Preferred translation direction | |
 
-كاش الترجمة وكاش الصوت **مش** في التخزين الدائم؛ هما `Map` جوه الـ service
-worker.
+Translation and audio caches are **not** in persistent storage; they are `Map`
+objects inside the service worker.
 
 ---
 
-## 7) بروتوكول الـ Native Host
+## 7. Native host protocol
 
-الرسائل بتتبعت بـ `chrome.runtime.sendNativeMessage` بصيغة JSON، وكل رسالة
-ليها `type`:
+Messages are sent with `chrome.runtime.sendNativeMessage` as JSON, and every
+message has a `type`:
 
-| النوع | المدخلات | المخرجات |
+| Type | Input | Output |
 | --- | --- | --- |
-| `info` | — | اسم الـ host، النسخة، المسار الافتراضي، حالة الملف |
-| `checkFile` | `file` | `ok`, `create`, `filePath`, أو `error` |
+| `info` | — | Host name, version, default path, file status |
+| `checkFile` | `file` | `ok`, `create`, `filePath`, or `error` |
 | `append` | `word`, `translation`, `mode`, `file?` | `ok`, `duplicate`, `count`, `filePath` |
-| `openFile` | `file?` | `ok` أو `error` |
-| `browse` | `root`, `files`, `showHidden` | قائمة ملفات/مجلدات |
+| `openFile` | `file?` | `ok` or `error` |
+| `browse` | `root`, `files`, `showHidden` | File/folder list |
 
-**أخطاء معروفة:** `invalid_file`, `file_missing`, `write_failed`,
+**Known errors:** `invalid_file`, `file_missing`, `write_failed`,
 `vault_missing`, `config_error`, `timeout`.
 
-**حدود:**
+**Limits:**
 
-- أقصى حجم رسالة 1MB.
-- أقصى طول حقل 200 حرف.
-- أقصى طول مسار 4096 حرف.
-- الـ host بيقرأ `config.json` جنبه، وبيتحقق من `realpath` قبل أي كتابة.
-
----
-
-## 8) قرارات تصميمية
-
-### ليه Shadow DOM مغلق؟
-
-عشان الصفحة ما تقرأش النص المترجم أو عناصر الإدخال. الـ host element نفسه
-ظاهر (عشان يتموضع)، لكن المحتوى جواه مش متاح لـ `page.shadowRoot`.
-
-### ليه الـ background هو الوسيط الوحيد؟
-
-- بيقلل عدد الأماكن اللي بتتعامل مع الشبكة.
-- بيسمح بالتحقق من `sender.id` في مكان واحد.
-- بيخلي النطق والحفظ والترجمة كلهم تحت نفس سياسة الأخطاء.
-
-### ليه Native Host مش ملف مباشر؟
-
-المتصفح ما بيسمحش لـ extension يكتب في أي مكان على القرص. الـ host عملية
-محلية منفصلة، بتتقفل على Extension ID، وبتشتغل بصلاحيات المستخدم.
-
-### ليه مفيش build step؟
-
-- المشروع صغير ومقروء.
-- أي حد يقدر يفتح `src/` ويفهمه.
-- مفيش supply chain من مكتبات خارجية.
-- الـ ZIP هو نفسه الملفات المصدرية.
-
-### ليه الخط مضمّن؟
-
-**Baloo Bhaijaan 2** بيضمن شكل موحّد للعربي والإنجليزي على كل الأجهزة، من غير
-طلب شبكة إضافي. الترخيص SIL OFL موجود في `src/fonts/OFL.txt`.
+- Maximum message size: 1 MB.
+- Maximum field length: 200 characters.
+- Maximum path length: 4096 characters.
+- The host reads `config.json` next to it and resolves `realpath` before any
+  write.
 
 ---
 
-## 9) حدود معروفة
+## 8. Design decisions
 
-- الترجمة بتعتمد على خدمات عامة، وممكن تفشل أو تتغير من غير إشعار.
-- الـ Native Host لازم يتثبت يدويًا، ولازم يتعاد تسجيله لو الـ Extension ID
-  اتغيّر.
-- صفحات `chrome://` وصفحات المتجر الداخلية مش بيشتغل عليها content script.
-- الملفات الكبيرة جدًا في `browse` ممكن تكون بطيئة؛ الـ host بيرجّع قائمة
-  محدودة.
-- مفيش مزامنة بين الأجهزة؛ كل جهاز ليه ملفه وإعداداته.
+### Why a closed Shadow DOM?
 
-التفاصيل الأمنية في [SECURITY.md](SECURITY.md)، وسياسة الخصوصية في
-[PRIVACY.md](PRIVACY.md).
+So the page cannot read translated text or input elements. The host element
+remains visible for positioning, but its content is not available through
+`page.shadowRoot`.
+
+### Why is the background the only bridge?
+
+- It reduces the number of places that touch the network.
+- It validates `sender.id` in one place.
+- It puts pronunciation, saving, and translation under the same error policy.
+
+### Why a native host instead of writing directly?
+
+Browsers do not allow extensions to write anywhere on disk. The host is a
+separate local process, restricted to the extension ID, running with the user's
+permissions.
+
+### Why no build step?
+
+- The project is small and readable.
+- Anyone can open `src/` and understand it.
+- There is no third-party supply chain.
+- The ZIP contains the same source files.
+
+### Why bundle the font?
+
+**Baloo Bhaijaan 2** gives Arabic and English a consistent look on every device
+without an extra network request. The SIL OFL license is in
+`src/fonts/OFL.txt`.
+
+---
+
+## 9. Known limitations
+
+- Translation depends on public services and may fail or change without notice.
+- The native host must be installed manually and re-registered if the extension
+  ID changes.
+- `chrome://` pages and internal store pages do not allow content scripts.
+- Very large folders in `browse` may be slow; the host returns a bounded list.
+- There is no cross-device sync; each device has its own file and settings.
+
+For security details, see [SECURITY.md](SECURITY.md). For the privacy policy,
+see [PRIVACY.md](PRIVACY.md).

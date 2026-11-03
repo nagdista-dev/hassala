@@ -1,162 +1,169 @@
-# النشر على Chrome Web Store — حصالة
+# Chrome Web Store Release — Hassala
 
-**آخر تحديث:** 3 نوفمبر 2026
+**Last updated:** November 3, 2026
 
-الملف ده هو تشيك ليست النشر الكامل. اتبعه بالترتيب قبل أي إصدار، وبعده بعد كل
-تحديث.
+This is the complete release checklist. Follow it in order before every release,
+and again after each update.
 
 ---
 
-## 0) قبل ما تبدأ
+## 0. Before you start
 
-### حساب المطوّر
+### Developer account
 
-- [ ] حساب Google Chrome Web Store Developer مفعّل.
-- [ ] رسوم التسجيل مرة واحدة مدفوعة.
-- [ ] البريد الإلكتروني للحساب متأكد.
-- [ ] التحقق بخطوتين مفعّل على حساب Google.
-- [ ] بيانات الدفع والعنوان محدثة (Chrome Web Store بيطلبها للنشر).
+- [ ] Google Chrome Web Store Developer account is active.
+- [ ] One-time registration fee is paid.
+- [ ] The account email is verified.
+- [ ] Two-factor authentication is enabled on the Google account.
+- [ ] Payment and address details are up to date (the store requires them for
+      publishing).
 
-### الأصول المطلوبة
+### Required assets
 
-| الأصل | المقاس | المكان |
+| Asset | Size | Location |
 | --- | --- | --- |
-| أيقونة المتجر | 128×128 PNG | `src/icons/icon128.png` |
-| أيقونة 512 (اختياري) | 512×512 PNG | `assets/icon-1024.png` بعد التصغير |
-| لقطات شاشة | 1280×800 أو 640×400 | تُلتقط يدويًا |
-| صورة ترويجية صغيرة | 440×280 | اختياري |
-| صورة ترويجية كبيرة | 1400×560 | اختياري |
-| فيديو | YouTube URL | اختياري |
+| Store icon | 128×128 PNG | `src/icons/icon128.png` |
+| 512 icon (optional) | 512×512 PNG | `assets/icon-1024.png` after resizing |
+| Screenshots | 1280×800 or 640×400 | Captured manually |
+| Small promo tile | 440×280 | Optional |
+| Large promo tile | 1400×560 | Optional |
+| Video | YouTube URL | Optional |
 
-### الروابط العامة
+### Public links
 
-- **سياسة الخصوصية (عامة):**
+- **Privacy policy (public):**
   <https://gist.github.com/nagdista-dev/282cc2ce8fe35c5fb7199f7ffd2cd705>
-- **الريبو:** <https://github.com/nagdista-dev/hassala> — عام ومفتوح المصدر.
-- **الدعم:** تبويب **Support** في صفحة المتجر، أو
+- **Repository:** <https://github.com/nagdista-dev/hassala> — public and open
+  source.
+- **Support:** the **Support** tab on the store listing, or
   [GitHub Issues](https://github.com/nagdista-dev/hassala/issues).
 
-> **مهم:** سياسة الخصوصية لازم تفضل متاحة للعامة. لو الـ Gist اتغير، حدّث
-> الرابط في صفحة المتجر وفي `store/listing-*.md`.
+> **Important:** the privacy policy must remain publicly accessible. If the Gist
+> changes, update the link in the store listing and in `store/listing-*.md`.
 
 ---
 
-## 1) تجهيز الإصدار
+## 1. Prepare the release
 
-### رقم الإصدار
+### Version number
 
-- [ ] `manifest.json` فيه رقم إصدار جديد (مثال: `2.0.4`).
-- [ ] `src/options/options.html` بيعرض نفس الرقم.
-- [ ] `CHANGELOG.md` فيه مدخل للنسخة.
-- [ ] `docs/ROADMAP.md` محدّث.
-- [ ] مفيش رقم قديم في أي مكان.
+- [ ] `manifest.json` has a new version (for example, `2.0.4`).
+- [ ] `src/options/options.html` shows the same version.
+- [ ] `CHANGELOG.md` has an entry for the version.
+- [ ] `docs/ROADMAP.md` is up to date.
+- [ ] No stale version number remains anywhere.
 
-### الفحص
+### Checks
 
 ```bash
 bash scripts/check.sh
 ```
 
-لازم يعدي:
+It must pass:
 
-- JavaScript: `node --check` لكل ملف.
-- Python: `py_compile` لكل ملف.
-- JSON: `jq empty` لكل ملف.
+- JavaScript: `node --check` for every file.
+- Python: `py_compile` for every file.
+- JSON: `jq empty` for every file.
 - Shell: `bash -n`.
-- المراجع: كل ملف في المانيفست والـ HTML موجود.
-- الأمان: مفيش `eval`، مفيش `new Function`، مفيش inline script، مفيش اسم
-  شخصي أو مسار بيت.
-- Native Host: كل الاختبارات.
+- References: every file referenced by the manifest and HTML exists.
+- Security: no `eval`, no `new Function`, no inline script, no personal name or
+  home path.
+- Native host: all tests.
 
-### الحزمة
+### Package
 
 ```bash
 bash scripts/package.sh
 ```
 
-- [ ] الحزمة اسمها `dist/hassala-<version>.zip`.
-- [ ] جواها `manifest.json` + `src/` بس.
-- [ ] مفيش `docs/`، `native/`، `tests/`، `store/`، `.git`، `TODO.md`،
-      `dist/`، `__pycache__`، أو أي ملف شخصي.
-- [ ] الأيقونة الجديدة موجودة، ومفيش أي أثر للأيقونة القديمة.
-- [ ] الخط موجود: `src/fonts/BalooBhaijaan2-Variable.woff2` + `OFL.txt`.
-- [ ] الحجم أقل من حد المتجر (حاليًا 2 GB، لكن خليها خفيفة).
+- [ ] The package is named `dist/hassala-<version>.zip`.
+- [ ] It contains only `manifest.json` + `src/`.
+- [ ] It does not contain `docs/`, `native/`, `tests/`, `store/`, `.git`,
+      `TODO.md`, `dist/`, `__pycache__`, or any personal file.
+- [ ] The new icon is present, with no trace of the old icon.
+- [ ] The font is present: `src/fonts/BalooBhaijaan2-Variable.woff2` + `OFL.txt`.
+- [ ] The size is below the store limit (currently 2 GB, but keep it light).
 
-### فحص الحزمة
+### Verify the package
 
 ```bash
 unzip -l dist/hassala-2.0.4.zip
 sha256sum dist/hassala-2.0.4.zip
 ```
 
-- [ ] سجّل الـ SHA256 في مكان آمن.
-- [ ] جرّب تحميل نفس الـ ZIP كـ **Load unpacked** في بروفايل متصفح نظيف.
-- [ ] جرّب الترجمة، الحفظ، التكرار، يوتيوب، الزرار العائم، والإعدادات.
+- [ ] Record the SHA256 in a safe place.
+- [ ] Load the same ZIP as **Load unpacked** in a clean browser profile.
+- [ ] Test translation, saving, duplicates, YouTube, the floating button, and
+      Settings.
 
 ---
 
-## 2) تجربة المتصفح النظيف
+## 2. Clean-browser test
 
-اعمل بروفايل جديد (مش بروفايلك اليومي) وجرّب:
+Create a new profile (not your daily profile) and test:
 
-1. **Load unpacked** من فولدر الحزمة المفكوكة.
-2. اتأكد إن الأيقونة ظاهرة وواضحة في شريط الأدوات.
-3. اكتب `hello` → لازم تظهر «مرحبًا».
-4. اضغط **أضف للحصالة** → لازم يتعمل ملف `~/Documents/Hassala Words.md`
-   (لو مش موجود) ويتكتب الصف، والمربع يتفضّى وتظهر رسالة التأكيد.
-5. اكتب `hello` تاني واضغط حفظ → لازم تظهر «كانت موجودة عندك ✓».
-6. افتح يوتيوب وفيديو بيه CC → جرّب الوقوف عند المرور والضغط على كلمة.
-7. افتح صفحة عادية → جرّب الزرار العائم وتحديد النص.
-8. من الإعدادات → جرّب تغيير المسار، تعطيل موقع، ومسح السجل.
-9. اعمل Reload للإضافة → اتأكد إن الإعدادات والمسار لسه موجودين.
-10. اقفل المتصفح وافتحه → اتأكد إن كل حاجة شغالة.
+1. **Load unpacked** from the extracted package folder.
+2. Confirm the icon is visible and clear in the toolbar.
+3. Type `hello` → “مرحبًا” should appear.
+4. Click **Add to Hassala** → `~/Documents/Hassala Words.md` should be created
+   if missing, the row should be written, the input should clear, and the
+   confirmation should appear.
+5. Type `hello` again and save → the duplicate confirmation should appear.
+6. Open YouTube with a video that has CC → test hover-to-pause and
+   click-to-translate.
+7. Open a normal page → test the floating button and selection translation.
+8. In Settings → test changing the path, blocking a site, and clearing history.
+9. Reload the extension → confirm settings and the path are still there.
+10. Close and reopen the browser → confirm everything still works.
 
-### اختبار الهجرة من نسخة قديمة
+### Migration test from an older version
 
-لو عندك نسخة قديمة مسجلة:
+If you have an older version registered:
 
-- [ ] ثبّت النسخة القديمة، اختار مسار، واعمل ترجمة.
-- [ ] ثبّت `2.0.4` فوقها (نفس فولدر التحميل أو Reload).
-- [ ] اتأكد إن المسار القديم اتنقل لـ `hassalaFile`، وإن الحفظ شغال.
-- [ ] اتأكد إن مفتاح `obsidianFile` اتمسح بعد الترحيل.
+- [ ] Install the old version, choose a path, and translate a word.
+- [ ] Install `2.0.4` over it (same unpacked folder or Reload).
+- [ ] Confirm the old path moved to `hassalaFile`, and saving still works.
+- [ ] Confirm the `obsidianFile` key is removed after migration.
 
 ---
 
-## 3) صفحة المتجر
+## 3. Store listing
 
-### المعلومات الأساسية
+### Basic information
 
-- **الاسم:** حصالة — مترجم وحافظ الكلمات
-- **الاسم المختصر:** حصالة
-- **الفئة:** Education
-- **اللغة الأساسية:** العربية
-- **الوصف القصير:** من `store/listing-ar.md`
-- **الوصف الكامل:** من `store/listing-ar.md`
-- **الكلمات المفتاحية:** من `store/listing-ar.md`
+- **Name:** Hassala — Arabic Word Translator & Keeper
+- **Short name:** Hassala
+- **Category:** Education
+- **Primary language:** Arabic
+- **Short description:** from `store/listing-ar.md` (Arabic) or
+  `store/listing-en.md` (English)
+- **Full description:** from `store/listing-ar.md` or `store/listing-en.md`
+- **Keywords:** from `store/listing-ar.md` or `store/listing-en.md`
 
-### الصور
+### Images
 
-- [ ] أيقونة 128×128 واضحة.
-- [ ] 5 لقطات شاشة بالمقاس المطلوب.
-- [ ] لقطة البوب فيها ترجمة + زرار الحفظ.
-- [ ] لقطة الصندوق العائم فوق صفحة حقيقية.
-- [ ] لقطة يوتيوب بسبتايتل تفاعلي.
-- [ ] لقطة الإعدادات.
-- [ ] لقطة ملف Markdown بعد الحفظ.
-- [ ] مفيش أي بيانات شخصية أو إيميل أو مسار بيت في اللقطات.
+- [ ] Clear 128×128 icon.
+- [ ] Five screenshots at the required size.
+- [ ] Popup screenshot with a translation and the save button.
+- [ ] Floating panel screenshot over a real page.
+- [ ] YouTube screenshot with interactive subtitles.
+- [ ] Settings screenshot.
+- [ ] Markdown file screenshot after saving.
+- [ ] No personal data, email, or home path in any screenshot.
 
-### الخصوصية والصلاحيات
+### Privacy and permissions
 
-- [ ] رابط سياسة الخصوصية العام شغال.
-- [ ] كل صلاحية ليها تبرير في `store/permissions.md`.
-- [ ] **Single purpose** مكتوب بوضوح.
-- [ ] إقرار **Remote code**: «لا يوجد».
-- [ ] إقرار استخدام البيانات: ترجمة عند الطلب فقط، تخزين محلي، مفيش بيع.
-- [ ] توضيح إن الـ Native Host اختياري وبيتثبت محليًا.
+- [ ] The public privacy policy link works.
+- [ ] Every permission has a justification in `store/permissions.md`.
+- [ ] **Single purpose** is clearly stated.
+- [ ] **Remote code** declaration: “No”.
+- [ ] Data usage declaration: translation on request only, local storage, no
+      selling.
+- [ ] The native host is explained as optional and installed locally.
 
-### ملاحظة المراجع (Reviewer notes)
+### Reviewer notes
 
-انسخ النص ده في خانة الملاحظات:
+Copy this into the reviewer notes field:
 
 ```text
 Hassala translates Arabic <-> English and saves words to a local Markdown file.
@@ -179,93 +186,98 @@ or tracking. Privacy policy:
 https://gist.github.com/nagdista-dev/282cc2ce8fe35c5fb7199f7ffd2cd705
 ```
 
-> **ملاحظة:** لو المراجع مش قادر يثبت Python، وضّح في الوصف إن الحفظ اختياري
-> وإن باقي الميزات شغالة من غيره. ده بيقلل خطر الرفض بسبب ميزة مش قابلة
-> للاختبار.
+> **Note:** If the reviewer cannot install Python, state in the description that
+> saving is optional and the other features work without it. This reduces the
+> risk of rejection for an untestable feature.
 
 ---
 
-## 4) الرفع
+## 4. Upload
 
-1. افتح [Chrome Web Store Developer Dashboard](https://chrome.google.com/webstore/devconsole).
-2. اضغط **New item** (أو **Upload new package** للتحديث).
-3. ارفع `dist/hassala-<version>.zip`.
-4. املأ كل الحقول.
-5. راجع **Privacy practices**.
-6. اضغط **Submit for review**.
-7. تابع الإيميل بتاع الحساب.
+1. Open the
+   [Chrome Web Store Developer Dashboard](https://chrome.google.com/webstore/devconsole).
+2. Click **New item** (or **Upload new package** for an update).
+3. Upload `dist/hassala-<version>.zip`.
+4. Fill in every field.
+5. Review **Privacy practices**.
+6. Click **Submit for review**.
+7. Watch the account email.
 
-### بعد الموافقة
+### After approval
 
-- [ ] الإضافة ظهرت في المتجر.
-- [ ] جرّب التثبيت من المتجر في بروفايل نظيف.
-- [ ] سجّل الـ Extension ID المنشور.
-- [ ] حدّث `native/install.sh` / `install.ps1` بالـ ID المنشور عند الحاجة.
-- [ ] حدّث `README.md` و`docs/INSTALL.md` برابط المتجر.
-- [ ] أنشئ Release `v<version>` في الريبو العام بالـ ZIP وSHA256.
+- [ ] The extension appears in the store.
+- [ ] Test installing from the store in a clean profile.
+- [ ] Record the published extension ID.
+- [ ] Update `native/install.sh` / `install.ps1` with the published ID if
+      needed.
+- [ ] Update `README.md` and `docs/INSTALL.md` with the store link.
+- [ ] Create a `v<version>` release in the public repository with the ZIP and
+      SHA256.
 
 ---
 
-## 5) الرفض والأخطاء الشائعة
+## 5. Rejections and common issues
 
-| السبب | الحل |
+| Cause | Fix |
 | --- | --- |
-| صلاحية مش مبررة | راجع `store/permissions.md` ووضّح كل واحدة في الاستمارة |
-| سياسة خصوصية مش متاحة | تأكد إن رابط الـ Gist عام ويفتح من متصفح تاني |
-| Remote code | اتأكد إن مفيش سكربت خارجي أو `eval` |
-| Native host مش قابل للاختبار | وضّح إنه اختياري + خطوات التثبيت + إن الحفظ مش أساسي |
-| وصف مضلل | اكتب بالظبط اللي الإضافة بتعمله، ومتنكرش إن الحفظ محتاج host |
-| أيقونة مش واضحة | استخدم `icon128.png` الجديدة |
-| بيانات مستخدم مش معلنة | راجع قسم Data usage في الاستمارة |
+| Unjustified permission | Review `store/permissions.md` and explain each permission in the form |
+| Privacy policy unavailable | Make sure the Gist is public and opens in another browser |
+| Remote code | Confirm there are no external scripts or `eval` |
+| Native host cannot be tested | Explain that it is optional, include install steps, and note that saving is not core |
+| Misleading description | Describe exactly what the extension does and do not hide that saving needs a host |
+| Unclear icon | Use the new `icon128.png` |
+| Undeclared user data | Review the Data usage section of the form |
 
-لو الرفض بسبب ميزة معينة، ممكن تنشر نسخة بدونها مؤقتًا، لكن الأفضل تصلح
-السبب وتعيد الرفع.
+If a feature causes a rejection, you can publish a temporary build without it,
+but fixing the cause and resubmitting is better.
 
 ---
 
-## 6) الريبو العام
+## 6. Public repository
 
-- الريبو **Public** على GitHub:
+- The repository is **Public** on GitHub:
   <https://github.com/nagdista-dev/hassala>.
-- المشروع مفتوح المصدر تحت ترخيص MIT، وأي حد يقدر يفتح Issue أو Pull Request.
-- المختبرين بياخدوا ZIP من صفحة
+- The project is open source under the MIT license, and anyone can open an
+  issue or pull request.
+- Testers download the ZIP from
   [Releases](https://github.com/nagdista-dev/hassala/releases).
-- ممنوع رفع:
-  - `native/config.json` اللي فيه مسار شخصي.
-  - `.env` أو مفاتيح أو توكنات.
-  - `dist/` أو `TODO.md`.
-  - أي لقطة شاشة فيها بيانات شخصية.
-- سياسة الخصوصية العامة في Gist منفصل، وموجودة كمان في
+- Never commit:
+  - `native/config.json`, which contains a personal path.
+  - `.env`, keys, or tokens.
+  - `dist/` or `TODO.md`.
+  - Any screenshot with personal data.
+- The public privacy policy lives in a separate Gist and is also available in
   [PRIVACY.md](PRIVACY.md).
 
-### طريقة إصدار نسخة جديدة
+### How to publish a new version
 
-1. اتأكد إن `bash scripts/check.sh` بيعدي.
-2. ابنِ الحزمتين:
+1. Make sure `bash scripts/check.sh` passes.
+2. Build both packages:
 
    ```bash
    bash scripts/package.sh
    bash scripts/package-testers.sh
    ```
 
-3. اعمل tag وارفع التغييرات:
+3. Create a tag and push the changes:
 
    ```bash
    git tag v<version>
    git push origin main --tags
    ```
 
-4. من GitHub → **Releases** → **Draft a new release**، اختار الـ tag،
-   وارفع `hassala-<version>.zip` و`hassala-<version>-testers.zip` مع ملفات
-   الـ SHA256.
-5. اكتب ملاحظات الإصدار من `CHANGELOG.md`، وحدّث `manifest.json` و
+4. On GitHub → **Releases** → **Draft a new release**, choose the tag, and
+   upload `hassala-<version>.zip` and `hassala-<version>-testers.zip` with the
+   SHA256 files.
+5. Write release notes from `CHANGELOG.md`, and update `manifest.json` and
    `options.html`.
 
-> أي حد عنده رابط الـ Release يقدر ينزّل الحزمة؛ مش محتاج حساب GitHub.
+> Anyone with the release link can download the package; no GitHub account is
+> required.
 
-### تنظيف التاريخ
+### Cleaning history
 
-لو حصل إن اسم شخصي أو إيميل دخل في commit:
+If a personal name or email ever enters a commit:
 
 ```bash
 git filter-branch --force --env-filter '
@@ -276,61 +288,62 @@ export GIT_COMMITTER_EMAIL="hassala-maintainers@users.noreply.github.com"
 ' --tag-name-filter cat -- --all
 ```
 
-أو استخدم `git-filter-repo` (أسرع وأنضف). بعدها:
+Or use `git-filter-repo` (faster and cleaner). Then:
 
 ```bash
 git push --force --all
 git push --force --tags
 ```
 
-> **تحذير:** ده بيعيد كتابة التاريخ. أي حد عنده Clone قديم لازم يعمل Clone
-> جديد. متعملهوش من غير نسخة احتياطية.
+> **Warning:** this rewrites history. Anyone with an old clone must clone again.
+> Do not do it without a backup.
 
 ---
 
-## 7) الإصدارات
+## 7. Releases
 
 - **SemVer:** `MAJOR.MINOR.PATCH`.
-- **MAJOR:** تغيير في طريقة الحفظ أو الصلاحيات أو الهوية.
-- **MINOR:** ميزة جديدة متوافقة.
-- **PATCH:** إصلاحات صغيرة.
-- كل إصدار لازم يكون له:
-  - مدخل في `CHANGELOG.md`.
-  - ZIP جديد.
-  - Release في GitHub (عام).
-  - SHA256.
-  - تحديث `manifest.json` و`options.html`.
+- **MAJOR:** a change to saving, permissions, or identity.
+- **MINOR:** a compatible new feature.
+- **PATCH:** small fixes.
+- Every release needs:
+  - An entry in `CHANGELOG.md`.
+  - A new ZIP.
+  - A GitHub release (public).
+  - A SHA256.
+  - Updated `manifest.json` and `options.html`.
 
 ---
 
-## 8) التراجع (Rollback)
+## 8. Rollback
 
-لو إصدار فيه مشكلة:
+If a release has a problem:
 
-1. من Developer Dashboard، **Unpublish** الإصدار الحالي.
-2. ارفع نسخة سابقة (نفس رقم الإصدار مش مسموح؛ لازم رقم جديد).
-3. اختبر النسخة السابقة في بروفايل نظيف.
-4. انشرها.
-5. وثّق المشكلة في `CHANGELOG.md`.
-
----
-
-## 9) الخصوصية والأمان قبل كل نشر
-
-- [ ] مفيش تتبع أو تحليلات.
-- [ ] مفيش طلبات شبكة جديدة من غير توثيق.
-- [ ] مفيش صلاحيات جديدة من غير تبرير.
-- [ ] مفيش كود بعيد.
-- [ ] الـ Native Host لسه بيقبل Extension ID بس.
-- [ ] الـ Native Host لسه بيرفض غير `.md`.
-- [ ] الملف الافتراضي بس هو اللي بيتعمل تلقائيًا.
-- [ ] الرموز بتتهرّب قبل الكتابة.
-- [ ] سياسة الخصوصية محدّثة.
-- [ ] `bash scripts/check.sh` ناجح.
+1. In the Developer Dashboard, **Unpublish** the current version.
+2. Upload a previous version (reusing the same version number is not allowed;
+   use a new number).
+3. Test the previous version in a clean profile.
+4. Publish it.
+5. Document the issue in `CHANGELOG.md`.
 
 ---
 
-## 10) مراجع
+## 9. Privacy and security before every release
+
+- [ ] No tracking or analytics.
+- [ ] No new network requests without documentation.
+- [ ] No new permissions without justification.
+- [ ] No remote code.
+- [ ] The native host still accepts only the extension ID.
+- [ ] The native host still rejects anything that is not `.md`.
+- [ ] Only the default file is created automatically.
+- [ ] Characters are escaped before writing.
+- [ ] The privacy policy is up to date.
+- [ ] `bash scripts/check.sh` passes.
+
+---
+
+## 10. References
 
 - [Chrome Web Store Program Policies](https://developer.chrome.com/docs/webstore/program-policies/)
 - [Prepare your extension for distribution](https://developer.chrome.com/docs/webstore/prepare)

@@ -1,8 +1,8 @@
 blank_issues_enabled: false
 contact_links:
-  - name: دليل التثبيت والاستخدام
+  - name: Installation and usage guide
     url: https://github.com/nagdista-dev/hassala/blob/main/docs/INSTALL.md
-    about: خطوات التثبيت، تفعيل الحفظ، وحل المشاكل الشائعة.
-  - name: الإبلاغ عن ثغرة أمنية
+    about: Installation steps, enabling saving, and troubleshooting.
+  - name: Report a security vulnerability
     url: https://github.com/nagdista-dev/hassala/security/advisories/new
-    about: استخدم Security Advisories للإبلاغ بشكل خاص، مش Issue عام.
+    about: Use Security Advisories for a private report, not a public issue.

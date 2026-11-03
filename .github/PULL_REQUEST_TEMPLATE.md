@@ -1,41 +1,41 @@
-# وصف التغيير
+# Change description
 
-<!-- اشرح المشكلة والحل باختصار. -->
+<!-- Briefly explain the problem and the solution. -->
 
-## المشكلة
+## Problem
 
-## الحل
+## Solution
 
-## نوع التغيير
+## Type of change
 
-- [ ] إصلاح bug
-- [ ] ميزة جديدة
-- [ ] تحسين توثيق
-- [ ] إعادة تنظيم أو صيانة
-- [ ] تغيير في الصلاحيات أو الأمان
+- [ ] Bug fix
+- [ ] New feature
+- [ ] Documentation improvement
+- [ ] Refactor or maintenance
+- [ ] Permission or security change
 
-## الاختبار
+## Testing
 
-<!-- إزاي اختبرت التغيير؟ اذكر المتصفح ونظام التشغيل. -->
+<!-- How did you test the change? Mention the browser and operating system. -->
 
-- [ ] شغّلت `bash scripts/check.sh` وكل الفحوصات عدت.
-- [ ] جربت التغيير في Brave أو Chrome من **Load unpacked**.
-- [ ] جربت الحفظ والترجمة والسبتايتل لو التغيير لمسهم.
-- [ ] ضفت/حدّثت الاختبارات لو لزم الأمر.
+- [ ] Ran `bash scripts/check.sh` and all checks passed.
+- [ ] Tested the change in Brave or Chrome with **Load unpacked**.
+- [ ] Tested saving, translation, and subtitles if the change touched them.
+- [ ] Added or updated tests where needed.
 
-## checklist
+## Checklist
 
-- [ ] الكود متوافق مع أسلوب المشروع (Manifest V3، بدون build step، بدون مكتبات خارجية).
-- [ ] مفيش بيانات شخصية أو مسارات بيت أو توكنات في التغيير.
-- [ ] مفيش `eval` أو كود بعيد أو `innerHTML` لنصوص جاية من الصفحة.
-- [ ] أي صلاحية جديدة موثقة في `store/permissions.md` و`docs/PRIVACY.md` و`docs/SECURITY.md`.
-- [ ] أي تغيير في الحفظ بيحافظ على منع التكرار والكتابة في `.md` فقط.
-- [ ] حدّثت `CHANGELOG.md` لو التغيير يستاهل.
+- [ ] The code follows the project style (Manifest V3, no build step, no external libraries).
+- [ ] No personal data, home paths, or tokens are included in the change.
+- [ ] No `eval`, remote code, or `innerHTML` for page-provided text.
+- [ ] Any new permission is documented in `store/permissions.md`, `docs/PRIVACY.md`, and `docs/SECURITY.md`.
+- [ ] Any saving change preserves duplicate prevention and `.md`-only writes.
+- [ ] Updated `CHANGELOG.md` if the change is notable.
 
-## لقطات شاشة
+## Screenshots
 
-<!-- لو التغيير بصري، ضيف قبل/بعد. -->
+<!-- For visual changes, add before/after screenshots. -->
 
-## Issue مرتبطة
+## Related issue
 
 Closes #

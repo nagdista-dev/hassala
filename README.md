@@ -1,13 +1,14 @@
 <p align="center">
-  <img src="src/icons/icon128.png" width="104" alt="حصالة — مترجم وحافظ الكلمات" />
+  <img src="src/icons/icon128.png" width="104" alt="Hassala — Arabic word translator and keeper" />
 </p>
 
-<h1 align="center">حصالة — مترجم وحافظ الكلمات</h1>
+<h1 align="center">Hassala</h1>
 
 <p align="center">
-  <strong>كلماتك مش هتتوه… هتتحوش.</strong><br />
-  ترجمة فورية عربي ↔ إنجليزي، وحفظ الكلمات في بنك كلماتك على جهازك،<br />
-  وسبتايتل يوتيوب تفاعلي، وزرار عائم في كل الصفحات.
+  <strong>Your words won't get lost. They get saved.</strong><br />
+  An Arabic-first Chrome extension that translates Arabic ↔ English, saves every
+  word to a Markdown word bank on your device, and turns YouTube subtitles into
+  an interactive learning surface.
 </p>
 
 <p align="center">
@@ -21,140 +22,154 @@
 
 ---
 
-## إيه هي حصالة؟
+## What is Hassala?
 
-**حصالة** إضافة متصفح عربية-first بتحوّل كل كلمة بتترجمها إلى جزء من
-**بنك كلماتك**. اكتب الكلمة، أو حددها في أي صفحة، أو اضغط عليها في سبتايتل
-يوتيوب — والترجمة تظهر فورًا. لو عجبتك، بضغطة واحدة بتتحفظ في ملف Markdown
-على جهازك، وترجع لها وقت المراجعة.
+**Hassala** is an Arabic-first browser extension that turns every word you
+translate into part of your **personal word bank**. Type a word, select it on
+any page, or click it in a YouTube subtitle — the translation appears instantly.
+If you like it, one click saves it to a Markdown file on your device, ready for
+review later.
 
-حصالة مش مجرد مترجم بيفتح ويقفل. ده **مكان كلماتك بتتحوش فيه**:
+Hassala is not just a translator that opens and closes. It is a place where your
+words are kept:
 
-> **حصالة** = وعاء كلماتك. كل كلمة مهمة بتتحفظ، وكل مراجعة بتبقى أسهل.
+> **Hassala** = a container for your words. Every important word is saved, and
+> every review gets easier.
 
----
-
-## المميزات
-
-- **ترجمة تلقائية**: مفيش زرار «ترجمها». الترجمة بتبدأ بعد ٣٥٠ مللي ثانية من
-  وقوفك عن الكتابة، و**Enter** بيترجم فورًا.
-- **الاتجاه أوتوماتيك**: إنجليزي ← عربي افتراضيًا، وأول ما تكتب عربي بيتحوّل
-  للاتجاه العكسي لوحده.
-- **ترجمة التحديد**: حدد أي كلام في الصفحة، هيظهر زرار **ترجمة** جنبه، اضغط
-  عليه وهيتفتح المترجم ويتترجم الكلام فورًا.
-- **سبتايتل يوتيوب تفاعلي**: بنستبدل السبتايتل بس بتاعتنا، وبعرض **سطرين بحد
-  أقصى**. مرّر الماوس على أي كلمة والفيديو بيقف، ولما تبعد الماوس الفيديو
-  بيرجع يشتغل. اضغط على الكلمة عشان تترجمها، أو اسحب على أكتر من كلمة عشان
-  تترجمهم كجملة.
-- **زرار عائم في كل الصفحات**: بيشتغل جوه الصفحة نفسها، حتى في وضع Fullscreen،
-  وبيفضل شغال مع تغيير لغة الكيبورد. تقدر تخفيه وترجّعه من أيقونة الإضافة.
-- **صندوق مترجم متحرك**: اسحب الصندوق من راسه وحدد مكانه على الشاشة، ومكانه
-  بيتحفظ. ولو الزرار العائم مخفي، الصندوق بيفتح في نص الشاشة.
-- **تثبيت الصندوق**: زرار الدبوس بيخلي الصندوق يفضل مفتوح لما تدوس في أي مكان
-  بره، وحالة التثبيت بتتحفظ.
-- **تعطيل على مواقع معينة**: وقّف حصالة على أي موقع أو دومين مش عايزها تشتغل
-  عليه، وارجّعها في أي وقت من الإعدادات.
-- **حفظ في بنك الكلمات**: بضغطة واحدة، الكلمة والترجمة بيتحفظوا في ملف Markdown
-  تختاره بمساره الكامل، مع منع تكرار نفس الكلمة والترجمة.
-- **منع التكرار**: لو الكلمة والترجمة موجودين بالفعل، حصالة بتقولك «كانت موجودة
-  عندك ✓» ومش بتضيف صف جديد.
-- **تفريغ تلقائي بعد الحفظ**: أول ما الكلمة تتحفظ، الكلمة والترجمة بيتلاشوا
-  بحركة هادية، وبعدها المربع بيتفضّى والتركيز بيرجع لمربع الكتابة، جاهز
-  للكلمة اللي بعدها.
-- **متصفح ملفات مدمج**: اختار ملف `.md` من أي مكان على جهازك، مع إمكانية إظهار
-  المجلدات المخفية.
-- **فتح الملف وتغيير المسار بسرعة**: من الصندوق العائم أو البوب أو الإعدادات.
-- **نطق صوتي**: زرار السماع بينطق الكلمة أو الترجمة باللغة المناسبة.
-- **نسخ الأصل والترجمة**: زرارين منفصلين.
-- **خط موحّد**: **Baloo Bhaijaan 2** هو الخط الأساسي للعربي والإنجليزي في كل
-  الواجهات، ومضمّن جوه الإضافة.
-- **محاذاة صح**: العربي دايمًا يمين والإنجليزي دايمًا شمال.
-- **خصوصية**: مفيش حسابات، مفيش تتبع، ومفيش تحليلات. الكلمات بتتحفظ على جهازك.
+The extension UI is Arabic-first with full RTL support, while this repository
+and its documentation are in English for an international audience.
 
 ---
 
-## التثبيت — دليل مفصّل
+## Features
 
-> **ملاحظة مهمة:** حصالة **مفتوحة المصدر (Open Source)** على GitHub تحت ترخيص
-> MIT. أي حد يقدر يقرأ الكود، يعمل Fork، أو يساهم. تقدر تنزّل آخر إصدار من
-> [Releases](https://github.com/nagdista-dev/hassala/releases) أو تثبّت من
-> السورس زي ما هو موضح تحت.
+- **Automatic translation:** no “Translate” button. Translation starts 350 ms
+  after you stop typing, and **Enter** translates immediately.
+- **Automatic direction:** English → Arabic by default; Arabic input switches
+  the direction automatically.
+- **Translate any selection:** select text on a page, click the **Translate**
+  button that appears next to it, and the panel opens with the translation.
+- **Interactive YouTube subtitles:** Hassala replaces the native captions and
+  shows a maximum of two lines. Hover a word to pause the video, click a word to
+  translate it, or drag across a phrase to translate the whole phrase.
+- **Floating button on every page:** works inside the page, including
+  fullscreen, and keeps working when you change keyboard layouts. Hide or
+  restore it from the toolbar popup.
+- **Draggable translator panel:** drag it by its header, place it anywhere, and
+  your position is saved. If the floating button is hidden, the panel opens in
+  the center of the screen.
+- **Pin the panel:** keep it open when you click outside it. The pinned state is
+  remembered.
+- **Block sites:** disable Hassala on any site or domain, and re-enable it at
+  any time from Settings.
+- **Save to your word bank:** one click writes the word and translation to a
+  Markdown file whose full path you choose, with duplicate prevention.
+- **Duplicate detection:** if the word and translation already exist, Hassala
+  shows “Already in your word bank ✓” and does not add another row.
+- **Auto-clear after saving:** after a successful save, the word and translation
+  fade out gently, the input clears, and focus returns to the input for the next
+  word.
+- **Built-in file browser:** choose a `.md` file anywhere on your device, with an
+  option to show hidden folders.
+- **Open and change the file quickly:** from the floating panel, the popup, or
+  Settings.
+- **Pronunciation:** hear the word or translation in the appropriate language.
+- **Copy original or translation:** two separate buttons.
+- **Consistent typography:** **Baloo Bhaijaan 2** is bundled for both Arabic and
+  English across the interface.
+- **Correct alignment:** Arabic is always right-aligned and English is always
+  left-aligned.
+- **Privacy first:** no accounts, no tracking, no analytics. Your words stay on
+  your device.
 
-### الطريقة 1: من Chrome Web Store (بعد النشر)
+---
 
-1. افتح صفحة الإضافة على Chrome Web Store.
-2. اضغط **Add to Chrome**.
-3. أكّد الصلاحيات.
-4. ثبّت الإضافة بـ **Pin** من قائمة البازل 🧩 عشان الأيقونة تفضل ظاهرة.
+## Install
 
-> الإضافة لسه بتتجهّز للنشر. لحد ما تنشر، استخدم الطريقة 2 أو 3.
+> **Hassala is open source** under the MIT license. You can read the code, fork
+> it, and contribute. Download the latest release from
+> [GitHub Releases](https://github.com/nagdista-dev/hassala/releases), or build
+> from source.
 
-### الطريقة 2: من ملف ZIP (للمختبرين)
+### Option 1: Chrome Web Store (coming soon)
 
-فيه نسختين، واختار اللي تناسبك:
+1. Open the extension page on the Chrome Web Store.
+2. Click **Add to Chrome**.
+3. Confirm the permissions.
+4. Pin the extension from the puzzle menu 🧩.
 
-- **`hassala-2.0.4-testers.zip`** — الحزمة الكاملة للمختبرين: الإضافة + الـ
-  Native Host + دليل التثبيت. دي المفضلة لأن الحفظ بيشتغل من أول مرة.
-- **`hassala-2.0.4.zip`** — نفس حزمة Chrome Web Store: الإضافة بس. الحفظ فيها
-  محتاج إنك تجيب فولدر `native/` من الريبو.
+> The store release is still being prepared. Until then, use Option 2 or 3.
 
-1. نزّل `hassala-2.0.4-testers.zip` من
-   [صفحة الإصدارات](https://github.com/nagdista-dev/hassala/releases).
-2. فك الضغط في مكان ثابت على جهازك، مثلًا:
+### Option 2: Download a release (recommended for testers)
+
+Two packages are available:
+
+- **`hassala-2.0.4-testers.zip`** — the complete tester package: extension +
+  native host + installation guide. Recommended, because saving works
+  immediately.
+- **`hassala-2.0.4.zip`** — the Chrome Web Store package: extension only. To
+  enable saving, clone the repository or copy the `native/` folder.
+
+1. Download `hassala-2.0.4-testers.zip` from
+   [Releases](https://github.com/nagdista-dev/hassala/releases).
+2. Extract it to a stable folder, for example:
    - Linux/macOS: `~/Hassala`
    - Windows: `%USERPROFILE%\Hassala`
-3. اتأكد إن جوه الفولدر ملف `manifest.json` مباشرة (مش جوه فولدر زيادة).
-4. افتح صفحة الإضافات:
+3. Make sure `manifest.json` is directly inside that folder, not in a nested
+   folder.
+4. Open the extensions page:
    - Chrome: `chrome://extensions`
    - Brave: `brave://extensions`
    - Edge: `edge://extensions`
    - Chromium: `chromium://extensions`
-5. شغّل **Developer mode**.
-6. اضغط **Load unpacked** واختار فولدر `Hassala`.
-7. ثبّت الإضافة بـ **Pin** من قائمة البازل 🧩.
-8. عشان الحفظ يشتغل، من جوه فولدر `Hassala` شغّل:
+5. Enable **Developer mode**.
+6. Click **Load unpacked** and select the `Hassala` folder.
+7. Pin the extension from the puzzle menu 🧩.
+8. To enable saving, run the native host installer from inside the `Hassala`
+   folder:
    - Linux/macOS: `bash native/install.sh`
-   - Windows: `powershell -ExecutionPolicy Bypass -File native\install.ps1 -ExtensionId <id>`
+   - Windows:
+     `powershell -ExecutionPolicy Bypass -File native\install.ps1 -ExtensionId <id>`
 
-   وبعدها اعمل **Reload** للإضافة من صفحة الإضافات.
+   Then click **Reload** on the extension card.
 
-> **مهم:** لو نقلت الفولدر أو غيّرت اسمه بعد التثبيت، الـ Extension ID
-> بيتغيّر. ساعتها لازم تعمل Reload للإضافة وتشغّل `native/install.sh` تاني
-> (أو `install.ps1` على Windows).
+> **Important:** if you move or rename the folder after installation, the
+> extension ID changes. Reload the extension and run the native installer again.
 
-### الطريقة 3: من السورس
+### Option 3: From source
 
 ```bash
 git clone https://github.com/nagdista-dev/hassala.git
 cd hassala
 ```
 
-بعدها اتبع خطوات **Load unpacked** فوق، واختار فولدر `hassala` اللي فيه
-`manifest.json`. ولو عايز تساهم، اقرا [CONTRIBUTING.md](CONTRIBUTING.md).
+Then follow the **Load unpacked** steps above and select the `hassala` folder
+that contains `manifest.json`. If you want to contribute, read
+[CONTRIBUTING.md](CONTRIBUTING.md).
 
-### تفعيل الحفظ في ملف Markdown (Native Host)
+### Enable saving to a Markdown file (native host)
 
-الحفظ في ملف Markdown بيتم عن طريق **Native Messaging Host** صغير، بيتثبت
-مرة واحدة على جهازك. الترجمة والسبتايتل والزرار العائم بيشتغلوا من غير الـ
-Host، لكن زرار **أضف للحصالة** محتاج الـ Host عشان يكتب الملف.
+Saving to Markdown uses a small **Native Messaging Host** that is installed once
+on your device. Translation, subtitles, and the floating panel work without it,
+but the **Add to Hassala** button needs the host to write the file.
 
-#### Linux وmacOS
+#### Linux and macOS
 
 ```bash
 bash native/install.sh
 ```
 
-بعدها اعمل **Reload** للإضافة من صفحة الإضافات، وافتح الإعدادات عشان تتأكد
-إن الحالة «متصل».
+Then reload the extension and open Settings to confirm the status is
+**Connected**.
 
-- السكريبت بيسجّل الـ Host لـ Brave وChrome وChromium وEdge.
-- لو بتستخدم نسخة منشورة على Chrome Web Store، مرّر ID الإضافة:
+- The script registers the host for Brave, Chrome, Chromium, and Edge.
+- If you use a published Chrome Web Store build, pass the extension ID:
 
 ```bash
 HASSALA_EXT_ID=<chrome-web-store-extension-id> bash native/install.sh
 ```
 
-- لإزالة التسجيل:
+- To unregister the host:
 
 ```bash
 bash native/install.sh --uninstall
@@ -162,90 +177,92 @@ bash native/install.sh --uninstall
 
 #### Windows
 
-محتاج **Python 3** متثبت ومضاف لـ PATH. بعد ما تعرف Extension ID من صفحة
-الإضافات (Developer mode → ID تحت اسم حصالة)، شغّل PowerShell:
+Python 3 must be installed and available on `PATH`. Find the extension ID on the
+extensions page (Developer mode → ID below Hassala), then run PowerShell:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File native\install.ps1 -ExtensionId <id>
 ```
 
-- السكريبت بيسجّل الـ Host لـ Chrome وChromium وBrave وEdge.
-- لإزالة التسجيل:
+- The script registers the host for Chrome, Chromium, Brave, and Edge.
+- To unregister the host:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File native\install.ps1 -Uninstall
 ```
 
-> لو PowerShell معطّل عندك، تقدر تسجّل الـ Host يدويًا. الخطوات الكاملة في
-> [docs/INSTALL.md](docs/INSTALL.md).
+> If PowerShell is disabled, you can register the host manually. The full steps
+> are in [docs/INSTALL.md](docs/INSTALL.md).
 
-#### التأكد إن الحفظ شغال
+#### Verify that saving works
 
-1. افتح الإعدادات من الإضافة.
-2. اتأكد إن حالة الاتصال **متصل**.
-3. اضغط **أضف للحصالة** على أي كلمة.
-4. افتح ملف الحصالة، هتلاقي صف جديد فيه الكلمة والترجمة.
-
----
-
-## الاستخدام
-
-### الترجمة السريعة
-
-- اضغط على أيقونة الإضافة في شريط الأدوات.
-- أو اضغط على **الزرار العائم** اللي في الصفحة.
-- أو حدد أي كلام في الصفحة، واضغط زرار **ترجمة** اللي هيظهر جنب التحديد.
-- اكتب الكلمة عربي أو إنجليزي، والترجمة هتظهر لوحدها.
-- **Enter** يترجم فورًا، و**Esc** يقفل الصندوق العائم أو يمسح الكتابة في البوب.
-- زرار السماعة بينطق النتيجة.
-- آخر ٨ كلمات بتظهر في البوب، وتقدر تمسح السجل منها في أي وقت.
-
-### الحفظ في بنك الكلمات
-
-- بعد ما الترجمة تظهر، اضغط **أضف للحصالة**.
-- بعد الحفظ بنجاح، الكلمة والترجمة بيتلاشوا بحركة هادية (٣٠٠ مللي ثانية)،
-  وبعدها المربع بيتفضّى تلقائيًا، ورسالة التأكيد بتظهر مكان الترجمة عشان تكتب
-  الكلمة اللي بعدها على طول. لو بدأت تكتب أثناء الحركة، حصالة بتوقفها وبتسيب
-  اللي كتبته.
-- لو الكلمة والترجمة موجودين قبل كده، هتظهر **كانت موجودة عندك ✓** ومش هيتضاف
-  صف جديد.
-- **افتح الملف** بيفتح ملف الحصالة الحالي بأي تطبيق Markdown.
-- **تغيير المسار** بيفتح نافذة سريعة لتغيير مسار الحفظ.
-- من الإعدادات تقدر تختار ملف الحصالة، تشوف معاينة المسار، وتظبط الزرار
-  العائم والصندوق والمواقع المتعطلة.
-
-### يوتيوب
-
-1. شغّل **CC**.
-2. مرّر الماوس على أي كلمة في السبتايتل عشان توقف الفيديو.
-3. اضغط على الكلمة عشان تترجمها وتفضل واقفة.
-4. عايز جملة؟ اسحب بالماوس على الكلمات وسيب.
-
-### الإعدادات
-
-- **ملف الحصالة:** المسار الكامل للملف، مع متصفح ملفات ومعاينة.
-- **الزرار العائم:** إظهار/إخفاء.
-- **المواقع المتعطلة:** أضف دومين أو URL، وارجّع أي موقع في أي وقت.
-- **حالة الاتصال:** هل الـ Native Host متسجل وشغال.
+1. Open the extension Settings.
+2. Confirm the connection status is **Connected**.
+3. Click **Add to Hassala** on any word.
+4. Open your word bank file and check that a new row was added.
 
 ---
 
-## ملف الحصالة
+## Usage
 
-الحفظ بيتم في ملف Markdown واحد انت بتحدده بمساره الكامل، زي:
+### Quick translation
+
+- Click the extension icon in the toolbar, or
+- click the **floating button** on the page, or
+- select text on a page and click the **Translate** button next to it.
+- Type a word in Arabic or English; the translation appears automatically.
+- **Enter** translates immediately, and **Esc** closes the floating panel or
+  clears the popup input.
+- The speaker button pronounces the result.
+- The last 8 words appear in the popup, and you can clear the history there.
+
+### Save to your word bank
+
+- After the translation appears, click **Add to Hassala**.
+- After a successful save, the word and translation fade out (300 ms), the
+  input clears, and a confirmation message appears in place of the translation.
+  If you start typing during the animation, Hassala stops it and keeps your new
+  text.
+- If the pair already exists, you see **Already in your word bank ✓** and no new
+  row is added.
+- **Open file** opens the current word bank with any Markdown app.
+- **Change path** opens a quick file picker.
+- Settings lets you choose the word bank file, preview the path, and configure
+  the floating button, panel, and blocked sites.
+
+### YouTube
+
+1. Turn on **CC**.
+2. Hover any word in the subtitle to pause the video.
+3. Click a word to translate it and keep the video paused.
+4. To translate a phrase, drag across the words and release.
+
+### Settings
+
+- **Word bank file:** full path, with a file browser and preview.
+- **Floating button:** show or hide.
+- **Blocked sites:** add a domain or URL and restore any site at any time.
+- **Connection status:** whether the native host is registered and running.
+
+---
+
+## Your word bank file
+
+Words are saved to one Markdown file whose full path you choose, for example:
 
 ```text
 ~/Documents/Hassala Words.md
 ```
 
-- الملف ممكن يكون في أي مكان على جهازك، مش شرط يكون جوه Obsidian.
-- **الملف الافتراضي بيتعمل تلقائيًا أول حفظ** لو مش موجود:
-  `~/Documents/Hassala Words.md`.
-- أي **مسار مخصص** لازم يكون ملف `.md` موجود بالفعل؛ حصالة مش بتنشئ ملفات
-  جديدة في أماكن غلط.
-- تقدر تختار الملف من الإعدادات بزرار **اختار ملف**، أو تكتب المسار كامل
-  يدويًا.
-- الحفظ بيتكتب بالشكل ده، و**الإنجليزي دايمًا بعد الكاونتر والعربي بعده**:
+- The file can live anywhere on your device; it does not have to be inside
+  Obsidian.
+- **The default file is created automatically on first save** if it does not
+  exist: `~/Documents/Hassala Words.md`.
+- A **custom path** must point to an existing `.md` file; Hassala does not create
+  new files in arbitrary locations.
+- Choose the file from Settings with **Choose file**, or type the full path
+  manually.
+- Rows are written in this format, with **English first and Arabic second**:
 
 ```markdown
 | # | English | Arabic |
@@ -254,90 +271,95 @@ powershell -ExecutionPolicy Bypass -File native\install.ps1 -Uninstall
 | 2 | book | كتاب |
 ```
 
-- عمود **#** كاونتر بيزيد مع كل كلمة جديدة، والتكرار مش بياخد رقم جديد.
-- مفيش أعمدة Direction أو Added، ومفيش عنوان مكرر جوه الملف.
-- التكرار بيتم منعه بنفس زوج الكلمة والترجمة.
-- الملف بيتفتح بأي تطبيق Markdown: Obsidian، Logseq، Typora، VS Code، أو غيره.
+- The **#** column is a counter that increases with every new word; duplicates
+  do not get a new number.
+- There are no Direction or Added columns, and no repeated title inside the file.
+- Duplicates are prevented by the word + translation pair.
+- The file opens with any Markdown app: Obsidian, Logseq, Typora, VS Code, and
+  others.
 
 ---
 
-## الخصوصية
+## Privacy
 
-- الكلمات والنصوص بتتبعت لخدمات ترجمة مباشرة: Google (اتنين endpoints
-  بالتوازي) وبعدها MyMemory كخطة بديلة.
-- مفيش حسابات، مفيش تتبع، ومفيش بيانات بتتبعت لأي مكان تاني.
-- السجل بيتخزن محليًا في `chrome.storage.local`، والكاش في ذاكرة الـ service
-  worker بس.
-- الكلمات المحفوظة بتتكتب في ملف Markdown على جهازك عن طريق Native Host.
-- مفيش سيرفر خاص بحصالة، ومفيش تحليلات، ومفيش بيع بيانات.
-- التفاصيل الكاملة في [docs/PRIVACY.md](docs/PRIVACY.md).
-- نسخة عامة للنشر على المتجر:
+- Text is sent directly to translation providers: Google (two endpoints in
+  parallel), then MyMemory as a fallback. Pronunciation uses Google TTS.
+- No accounts, no tracking, and no data sent anywhere else.
+- History is stored locally in `chrome.storage.local`; the translation cache
+  lives only in service-worker memory.
+- Saved words are written to a Markdown file on your device through the native
+  host.
+- Hassala has no backend server, no analytics, and no data selling.
+- Read the full policy in [docs/PRIVACY.md](docs/PRIVACY.md).
+- Public store policy:
   <https://gist.github.com/nagdista-dev/282cc2ce8fe35c5fb7199f7ffd2cd705>.
 
 ---
 
-## الأمان
+## Security
 
-- **مفيش كود بعيد**: كل الكود جوه الحزمة، ومفيش `eval` أو تحميل سكربتات من
-  الإنترنت.
-- **صلاحيات أقل حد ممكن**: `storage`, `nativeMessaging`, `scripting`,
-  `activeTab`, `offscreen` + صلاحيات المواقع اللي بتتكلم مع خدمات الترجمة بس.
-- **Native Host مقفول على الإضافة**: `allowed_origins` فيه Extension ID بس.
-- **كتابة محدودة**: الـ Host بيرفض أي مسار مش `.md`، وبيرفض إنشاء ملفات
-  مخصصة غير موجودة. الملف الافتراضي بس هو اللي ممكن يتعمل.
-- **مفيش تتبع**: مفيش analytics أو telemetry أو إعلانات.
-- **HTTPS**: كل اتصالات الترجمة بتتم عبر HTTPS.
+- **No remote code:** all code is inside the package, with no `eval` and no
+  remotely loaded scripts.
+- **Least-privilege permissions:** `storage`, `nativeMessaging`, `scripting`,
+  `activeTab`, `offscreen`, plus host permissions for translation services only.
+- **Locked-down native host:** `allowed_origins` contains only the extension ID.
+- **Limited writes:** the host rejects any path that is not `.md`, and refuses
+  to create custom files that do not already exist. Only the default file may be
+  created automatically.
+- **No tracking:** no analytics, telemetry, or ads.
+- **HTTPS:** all translation connections use HTTPS.
 
-اقرا [docs/SECURITY.md](docs/SECURITY.md) لنموذج التهديد الكامل، وطريقة
-الإبلاغ عن أي مشكلة أمنية.
+Read [docs/SECURITY.md](docs/SECURITY.md) for the full threat model and how to
+report a vulnerability. Please use **Security → Report a vulnerability** on
+GitHub for private reports.
 
 ---
 
-## حل المشاكل الشائعة
+## Troubleshooting
 
-| المشكلة | السبب المحتمل | الحل |
+| Problem | Likely cause | Fix |
 | --- | --- | --- |
-| «الربط مش مفعّل» عند الحفظ | الـ Native Host مش متسجل، أو Extension ID اتغيّر | شغّل `bash native/install.sh` تاني، واعمل Reload |
-| «الملف مش موجود» | مسار مخصص مش موجود | اختار ملف `.md` موجود، أو استخدم الملف الافتراضي |
-| الحفظ بيقول «مقدرتش أحوش» | مشكلة صلاحيات أو مسار غلط | اتأكد إن الملف قابل للكتابة، وافتح الإعدادات |
-| الترجمة واقفة | مشكلة شبكة أو خدمة الترجمة | جرّب تاني، أو غيّر الشبكة/VPN |
-| الزرار العائم مش ظاهر | متخفي من الإضافة أو الموقع متعطل | فعّله من البوب، وشوف المواقع المتعطلة |
-| يوتيوب مش تفاعلي | CC مقفول أو الصفحة محتاجة Refresh | شغّل CC واعمل Refresh |
-| الخط مختلف | الإضافة محتاجة Reload بعد التحديث | اعمل Reload من صفحة الإضافات |
-| Extension ID اتغيّر بعد نقل الفولدر | مسار الـ unpacked اتغيّر | شغّل الـ Native Host installer تاني |
+| “Connection is not enabled” when saving | Native host is not registered, or the extension ID changed | Run `bash native/install.sh` again, then reload the extension |
+| “File not found” | Custom path does not exist | Choose an existing `.md` file, or use the default file |
+| “Could not save” | Permission or path problem | Make sure the file is writable, then open Settings |
+| Translation is stuck | Network or translation service issue | Try again, or switch network/VPN |
+| Floating button is missing | Hidden from the popup, or the site is blocked | Enable it from the popup and check blocked sites |
+| YouTube is not interactive | CC is off, or the page needs a refresh | Turn on CC and refresh the page |
+| Font looks wrong | The extension needs a reload after an update | Reload it from the extensions page |
+| Extension ID changed after moving the folder | The unpacked folder path changed | Run the native host installer again |
 
 ---
 
-## بنية المشروع
+## Project structure
 
 ```text
 .
-├── .github/                   # CI + قوالب Issues وPull Requests
+├── .github/                   # CI, issue templates, and PR template
 ├── manifest.json              # Manifest V3
 ├── src/
-│   ├── background.js          # الترجمة، الصوت، الحفظ، والرسائل
+│   ├── background.js          # Translation, audio, saving, messaging
 │   ├── content/
-│   │   ├── floating.js        # الصندوق العائم وترجمة التحديد (Shadow DOM)
-│   │   ├── keyboard-guard.js  # عزل مفاتيح الكتابة عن اختصارات الصفحة
-│   │   ├── site-policy.js     # تطبيع الدومينات والمواقع المتعطلة
-│   │   ├── youtube.js         # السبتايتل التفاعلي
-│   │   └── youtube.css        # إخفاء السبتايتل الأصلي
-│   ├── popup/                 # واجهة أيقونة الإضافة
-│   ├── options/               # الإعدادات واختيار ملف الحصالة
-│   ├── offscreen/             # تشغيل الصوت
-│   ├── fonts/                 # Baloo Bhaijaan 2 + ترخيص OFL
-│   └── icons/                 # أيقونات الإضافة والزرار
+│   │   ├── floating.js        # Floating panel and selection translation (Shadow DOM)
+│   │   ├── keyboard-guard.js  # Keeps typing keys away from page shortcuts
+│   │   ├── site-policy.js     # Domain normalization and blocked sites
+│   │   ├── youtube.js         # Interactive subtitles
+│   │   └── youtube.css        # Hides the native caption layer
+│   ├── popup/                 # Toolbar popup
+│   ├── options/               # Settings and word bank file picker
+│   ├── offscreen/             # Audio playback
+│   ├── fonts/                 # Baloo Bhaijaan 2 + OFL license
+│   └── icons/                 # Extension and toolbar icons
 ├── native/
-│   ├── hassala_writer.py      # كاتب Markdown (append + dedupe)
-│   ├── hassala_writer.bat     # مشغّل Windows
-│   ├── install.sh             # تسجيل Native Host على Linux/macOS
-│   ├── install.ps1            # تسجيل Native Host على Windows
-│   └── config.example.json    # مثال الإعداد؛ انسخه لـ config.json لو حبيت
-├── docs/                      # الخصوصية، الأمان، التثبيت، المعمارية
-├── store/                     # نصوص متجر Chrome
-├── scripts/                   # بناء ZIP وفحص المشروع
-├── tests/                     # اختبارات Native Host
-├── assets/                    # أيقونة المتجر وصورة Social Preview
+│   ├── hassala_writer.py      # Markdown writer (append + dedupe)
+│   ├── hassala_writer.bat     # Windows launcher
+│   ├── install.sh             # Native host installer for Linux/macOS
+│   ├── install.ps1            # Native host installer for Windows
+│   └── config.example.json    # Example config; copy to config.json if needed
+├── docs/                      # Privacy, security, install, architecture, release
+├── store/                     # Chrome Web Store copy
+├── scripts/                   # Packaging and project checks
+├── tests/                     # Native host tests
+├── assets/                    # Store icon and social preview
 ├── CHANGELOG.md
 ├── CODE_OF_CONDUCT.md
 ├── CONTRIBUTING.md
@@ -348,34 +370,34 @@ powershell -ExecutionPolicy Bypass -File native\install.ps1 -Uninstall
 
 ---
 
-## التطوير
+## Development
 
-- Manifest V3، بدون build step وبدون مكتبات خارجية.
-- الترجمة من `src/background.js`، والواجهة من `src/content/floating.js` و
-  `src/popup/popup.js`، والإعدادات من `src/options/options.js`، والحفظ من
-  `native/hassala_writer.py`.
-- خط الواجهة **Baloo Bhaijaan 2** مضمّن في `src/fonts/` (SIL OFL).
-- فحص كل حاجة قبل أي commit:
+- Manifest V3, no build step, no external libraries.
+- Translation lives in `src/background.js`; the UI lives in
+  `src/content/floating.js`, `src/popup/popup.js`, and
+  `src/options/options.js`; saving lives in `native/hassala_writer.py`.
+- The UI font **Baloo Bhaijaan 2** is bundled in `src/fonts/` under the SIL OFL.
+- Run every check before committing:
 
 ```bash
 bash scripts/check.sh
 ```
 
-- بناء حزمة Chrome Web Store:
+- Build the Chrome Web Store package:
 
 ```bash
 bash scripts/package.sh
 # dist/hassala-2.0.4.zip
 ```
 
-- بناء حزمة كاملة للمختبرين (الإضافة + Native Host + الدليل):
+- Build the complete tester package (extension + native host + guide):
 
 ```bash
 bash scripts/package-testers.sh
 # dist/hassala-2.0.4-testers.zip
 ```
 
-- اختبارات Native Host لوحدها:
+- Run the native host tests separately:
 
 ```bash
 python3 tests/test_native_host.py
@@ -383,65 +405,37 @@ python3 tests/test_native_host.py
 
 ---
 
-## خطة الطريق
+## Roadmap
 
-شوف [docs/ROADMAP.md](docs/ROADMAP.md). أهم اللي جاي:
+See [docs/ROADMAP.md](docs/ROADMAP.md). Highlights:
 
-- مراجعة الكلمات بنظام التكرار المتباعد (Spaced Repetition).
-- بطاقات فلاش واختبارات قصيرة.
-- تصدير لحصالة كـ CSV / Anki.
-- دعم لغات أكتر.
-- إحصائيات وتحديات يومية.
-- نسخة ويب/موبايل تكمّل حصالة.
-
----
-
-## المساهمة
-
-حصالة مفتوحة المصدر، وأي مساهمة مرحّب بها — كود، ترجمة، تصميم، أو توثيق.
-
-- افتح **Issue** لو لقيت مشكلة أو عندك فكرة جديدة.
-- اعمل **Fork** و**Pull Request** لأي تغيير، واقرا
-  [CONTRIBUTING.md](CONTRIBUTING.md) قبل ما تبدأ.
-- شغّل `bash scripts/check.sh` قبل أي PR.
-- للإبلاغ عن ثغرة أمنية، اتبع [docs/SECURITY.md](docs/SECURITY.md) ومتنشرش
-  التفاصيل علنًا قبل الإصلاح.
-- كل التفاعل في المشروع بيتبع [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
+- Spaced repetition review.
+- Flashcards and short quizzes.
+- CSV / Anki export.
+- More language pairs.
+- Statistics and daily challenges.
+- A web/mobile companion for Hassala.
 
 ---
 
-## الترخيص
+## Contributing
+
+Hassala is open source, and every contribution is welcome — code, translation,
+design, or documentation.
+
+- Open an **Issue** if you find a bug or have an idea.
+- **Fork** the repository and send a **Pull Request** for any change. Read
+  [CONTRIBUTING.md](CONTRIBUTING.md) before you start.
+- Run `bash scripts/check.sh` before opening a PR.
+- For security issues, follow [SECURITY.md](SECURITY.md) and do not disclose
+  details publicly before a fix is available.
+- All project interactions follow [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
+
+---
+
+## License
 
 [MIT](LICENSE) © 2026 Hassala contributors
 
-الخط **Baloo Bhaijaan 2** مرخّص تحت
+The **Baloo Bhaijaan 2** font is licensed under the
 [SIL Open Font License 1.1](src/fonts/OFL.txt).
-
----
-
-## English summary
-
-**Hassala** is an Arabic-first Chrome extension that translates Arabic ↔ English
-words instantly, saves them to a Markdown word bank on your device, and makes
-YouTube subtitles interactive. It works on any page through a floating button,
-supports selection translation, pronunciation, site blocking, and a draggable
-panel.
-
-The name *Hassala* (حصالة) is used here as a **word bank**: a container where
-the words you learn are kept. Every word you translate can be saved, so it does
-not get lost.
-
-- **Manifest V3**, no build step, no external libraries.
-- **Translation providers:** Google endpoints first, MyMemory as fallback.
-- **Saving:** a small native messaging host appends to a Markdown file you
-  choose. The default `~/Documents/Hassala Words.md` is created on first save.
-- **Privacy:** no accounts, no tracking, no analytics. See
-  [docs/PRIVACY.md](docs/PRIVACY.md).
-- **Security:** no remote code, minimal permissions, host restricted to the
-  extension ID, Markdown-only writes. See [docs/SECURITY.md](docs/SECURITY.md).
-- **Status:** Open source under the MIT license. The Chrome Web Store release is
-  being prepared; testers can use the ZIP from the
-  [releases page](https://github.com/nagdista-dev/hassala/releases).
-
-Contributions and feedback are welcome through GitHub issues and pull requests.
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) before you start.
