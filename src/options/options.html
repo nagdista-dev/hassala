@@ -273,7 +273,11 @@
                 <h3>Save new words to</h3>
                 <p>Every new word goes to this folder until you change it.</p>
               </div>
-              <select id="activeFolder" class="select-input"></select>
+              <select
+                id="activeFolder"
+                class="select-input"
+                aria-label="Folder for new words"
+              ></select>
             </div>
 
             <div class="section-block section-block-column">
@@ -289,6 +293,7 @@
                   autocomplete="off"
                   placeholder="Folder name"
                   maxlength="60"
+                  dir="auto"
                   aria-describedby="folderHint"
                 />
                 <button id="addFolder" class="btn primary" type="button">
@@ -575,6 +580,11 @@
       aria-describedby="confirmBody"
     >
       <form method="dialog" class="dialog-card">
+        <div class="dialog-brand" aria-hidden="true">
+          <span class="dialog-brand-mark">ع</span>
+          <span class="dialog-brand-name">Hassala</span>
+          <span class="dialog-brand-spark">✦</span>
+        </div>
         <h2 id="confirmTitle">Delete this?</h2>
         <p id="confirmBody"></p>
         <div class="dialog-actions">
@@ -594,6 +604,11 @@
       aria-labelledby="renameTitle"
     >
       <form id="renameForm" method="dialog" class="dialog-card">
+        <div class="dialog-brand" aria-hidden="true">
+          <span class="dialog-brand-mark">ع</span>
+          <span class="dialog-brand-name">Hassala</span>
+          <span class="dialog-brand-spark">✦</span>
+        </div>
         <h2 id="renameTitle">Rename folder</h2>
         <label class="field-label" for="renameInput">Folder name</label>
         <input
@@ -602,6 +617,7 @@
           type="text"
           maxlength="60"
           autocomplete="off"
+          dir="auto"
           required
         />
         <div class="dialog-actions">

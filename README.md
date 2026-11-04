@@ -85,7 +85,8 @@ assistants.
   your position is saved. If the floating button is hidden, the panel opens in
   the center of the screen.
 - **Pin the panel:** keep it open when you click outside it. The pinned state is
-  remembered.
+  remembered. When it is not pinned, the panel closes itself after a successful
+  save.
 - **Block sites:** disable Hassala on any site or domain, and re-enable it at
   any time from Settings.
 - **Local word bank:** one click saves the word and translation inside the
@@ -188,6 +189,9 @@ that contains `manifest.json`. If you want to contribute, read
 - After a successful save, the word and translation fade out (300 ms), the input
   clears, and a confirmation message appears in place of the translation. If you
   start typing during the animation, Hassala stops it and keeps your new text.
+- If the floating panel is not pinned, it closes after the confirmation so it
+  stays out of your way. Pin it when you want to keep translating without
+  reopening it.
 - If the pair already exists, you see **Already in your word bank ✓** and no new
   entry is added.
 - Create a new folder quickly from the **New folder** button in the popup or the

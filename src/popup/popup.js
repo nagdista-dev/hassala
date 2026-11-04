@@ -17,6 +17,11 @@ const els = {
   saveLabel: document.getElementById('saveLabel'),
   folderSelect: document.getElementById('folderSelect'),
   newFolderQuick: document.getElementById('newFolderQuick'),
+  quickFolder: document.getElementById('quickFolder'),
+  quickFolderName: document.getElementById('quickFolderName'),
+  quickFolderCount: document.getElementById('quickFolderCount'),
+  createQuickFolder: document.getElementById('createQuickFolder'),
+  cancelQuickFolder: document.getElementById('cancelQuickFolder'),
   myWords: document.getElementById('myWords'),
   wordCount: document.getElementById('wordCount'),
   fileStatus: document.getElementById('fileStatus'),
@@ -90,7 +95,11 @@ function bindEvents() {
   els.saveHassala.addEventListener('click', saveToHassala);
   els.myWords.addEventListener('click', openWordsPage);
   els.folderSelect.addEventListener('change', changeActiveFolder);
-  els.newFolderQuick.addEventListener('click', createFolderQuick);
+  els.newFolderQuick.addEventListener('click', openQuickFolder);
+  els.cancelQuickFolder.addEventListener('click', closeQuickFolder);
+  els.quickFolder.addEventListener('submit', submitQuickFolder);
+  els.quickFolder.addEventListener('keydown', onQuickFolderKeydown);
+  els.quickFolderName.addEventListener('input', updateQuickFolderCount);
   els.settings.addEventListener('click', openOptions);
   els.clearHistory.addEventListener('click', clearHistory);
 }
@@ -400,6 +409,7 @@ function setLoading() {
 }
 
 function showResult(text, provider) {
+  dismissQuickFolder();
   els.resultCard.classList.remove('is-loading');
   setCardState('ready');
   els.result.textContent = text;
@@ -439,6 +449,7 @@ function showError(message) {
 
 function hideSave() {
   clearTimeout(saveTimer);
+  dismissQuickFolder();
   els.saveDock.hidden = true;
   els.saveHassala.hidden = true;
   els.saveHassala.disabled = false;
@@ -727,6 +738,8 @@ function renderFolderOptions() {
     const option = document.createElement('option');
     option.value = folder.id;
     option.textContent = folder.name;
+    option.dir = 'auto';
+    option.title = folder.name;
     els.folderSelect.append(option);
   }
 
@@ -741,6 +754,22 @@ function renderFolderOptions() {
   )
     ? target
     : bankState.folders[0]?.id || '';
+
+  updateFolderSelectLabel();
+}
+
+function selectedFolderName() {
+  const selected = bankState.folders.find(
+    (folder) => folder.id === els.folderSelect.value,
+  );
+  return selected ? selected.name : 'General';
+}
+
+function updateFolderSelectLabel() {
+  const name = selectedFolderName();
+  const label = `Folder for new words: ${name}`;
+  els.folderSelect.title = `New words go to “${name}”`;
+  els.folderSelect.setAttribute('aria-label', label);
 }
 
 async function changeActiveFolder() {
@@ -750,6 +779,7 @@ async function changeActiveFolder() {
   try {
     await bank.setActiveFolder(folderId);
     bankState.activeFolderId = folderId;
+    updateFolderSelectLabel();
     const folder = bankState.folders.find((item) => item.id === folderId);
     setFileStatus(
       `New words will be saved to “${folder ? folder.name : 'General'}”.`,
@@ -761,33 +791,86 @@ async function changeActiveFolder() {
   }
 }
 
-async function createFolderQuick() {
-  if (!bank) return;
+function updateQuickFolderCount() {
+  const length = els.quickFolderName.value.length;
+  els.quickFolderCount.textContent = `${length}/60`;
+}
 
-  const name = window.prompt('New folder name:');
-  if (name === null) return;
+function dismissQuickFolder() {
+  if (els.quickFolder.hidden) return;
 
-  const clean = name.trim();
-  if (!clean) {
-    setFileStatus('Enter a valid folder name.', 'error');
+  els.quickFolder.hidden = true;
+  els.quickFolderName.value = '';
+  updateQuickFolderCount();
+  els.newFolderQuick.setAttribute('aria-expanded', 'false');
+  els.saveDock.hidden = !lastResult;
+}
+
+function setQuickFolderOpen(open, { focus = true } = {}) {
+  if (!open) {
+    dismissQuickFolder();
+    if (focus) els.newFolderQuick.focus();
     return;
   }
+
+  els.quickFolder.hidden = false;
+  els.newFolderQuick.setAttribute('aria-expanded', 'true');
+  els.saveDock.hidden = true;
+  els.quickFolderName.value = '';
+  updateQuickFolderCount();
+  if (focus) els.quickFolderName.focus();
+}
+
+function openQuickFolder() {
+  setQuickFolderOpen(true);
+}
+
+function closeQuickFolder() {
+  setQuickFolderOpen(false);
+}
+
+function onQuickFolderKeydown(event) {
+  if (event.key !== 'Escape') return;
+
+  event.preventDefault();
+  setQuickFolderOpen(false);
+}
+
+async function submitQuickFolder(event) {
+  event.preventDefault();
+  if (!bank) return;
+
+  const clean = els.quickFolderName.value.trim();
+  if (!clean) {
+    setFileStatus('Enter a folder name first.', 'error');
+    els.quickFolderName.focus();
+    return;
+  }
+
+  els.createQuickFolder.disabled = true;
 
   try {
     const result = await bank.createFolder(clean);
     if (!result.ok) {
       setFileStatus(bankErrorMessage(result.code), 'error');
+      els.quickFolderName.focus();
       return;
     }
 
     await refreshBank(true);
     els.folderSelect.value = result.folder.id;
+    updateFolderSelectLabel();
     setFileStatus(
       `Created “${result.folder.name}”; it is now your save folder.`,
       'ok',
     );
+    setQuickFolderOpen(false, { focus: false });
+    els.input.focus();
   } catch (error) {
     setFileStatus(bankErrorMessage(error && error.code), 'error');
+    els.quickFolderName.focus();
+  } finally {
+    els.createQuickFolder.disabled = false;
   }
 }
 

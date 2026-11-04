@@ -365,12 +365,17 @@ function fillFolderSelect(select, selectedValue) {
     const option = document.createElement('option');
     option.value = folder.id;
     option.textContent = folder.name;
+    option.dir = 'auto';
+    option.title = folder.name;
     select.append(option);
   }
 
   select.value = state.folders.some((folder) => folder.id === previous)
     ? previous
     : state.folders[0]?.id || '';
+
+  const selected = state.folders.find((folder) => folder.id === select.value);
+  select.title = selected ? `Selected folder: ${selected.name}` : '';
 }
 
 function renderFolders() {
@@ -393,9 +398,18 @@ function renderFolders() {
     'folder',
   )}`;
 
-  if (els.folderHint) {
-    els.folderHint.textContent = `Folder names can be up to 60 characters. Deleting a folder moves its words back to “${generalFolderName()}”; it never deletes the words.`;
-  }
+  updateFolderHint();
+}
+
+function updateFolderHint() {
+  if (!els.folderHint) return;
+
+  const length = els.newFolderName ? els.newFolderName.value.length : 0;
+  const lead = length
+    ? `${formatCount(length)}/60 characters used.`
+    : 'Folder names can be up to 60 characters.';
+
+  els.folderHint.textContent = `${lead} Deleting a folder moves its words back to “${generalFolderName()}”; it never deletes the words.`;
 }
 
 function renderFolderFilter(counts) {
@@ -412,6 +426,8 @@ function renderFolderFilter(counts) {
     option.textContent = `${folder.name} (${formatCount(
       counts.get(folder.id) || 0,
     )})`;
+    option.dir = 'auto';
+    option.title = folder.name;
     els.folderFilter.append(option);
   }
 
@@ -421,6 +437,8 @@ function renderFolderFilter(counts) {
 
   if (!known) folderFilterId = 'all';
   els.folderFilter.value = folderFilterId;
+  els.folderFilter.title =
+    els.folderFilter.selectedOptions[0]?.textContent || '';
 }
 
 function renderFolderList(counts) {
@@ -450,6 +468,7 @@ function renderFolderList(counts) {
     name.className = 'folder-name';
     setTextDirection(name, folder.name);
     name.textContent = folder.name;
+    name.title = folder.name;
 
     const meta = document.createElement('span');
     meta.className = 'folder-meta';
@@ -653,6 +672,7 @@ function makeWordRow(entry, folders) {
   const folderTagName = folder ? folder.name : generalFolderName();
   setTextDirection(folderTag, folderTagName);
   folderTag.textContent = folderTagName;
+  folderTag.title = folderTagName;
 
   meta.append(folderTag);
 
@@ -1226,6 +1246,7 @@ if (els.brandLink) {
 }
 
 els.addFolder.addEventListener('click', addFolder);
+els.newFolderName.addEventListener('input', updateFolderHint);
 els.newFolderName.addEventListener('keydown', (event) => {
   if (event.key === 'Enter') {
     event.preventDefault();

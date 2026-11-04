@@ -555,6 +555,29 @@
       filter: brightness(1.06);
     }
 
+    .words-bank {
+      position: relative;
+    }
+
+    .word-count {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      display: grid;
+      place-items: center;
+      min-width: 13px;
+      height: 13px;
+      padding: 0 3px;
+      border: 1.5px solid var(--aet-surface);
+      border-radius: 999px;
+      background: var(--aet-gold);
+      color: var(--aet-on-gold);
+      font-size: 8px;
+      font-weight: 800;
+      line-height: 1;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
     .direction {
       display: flex;
       align-items: center;
@@ -929,6 +952,7 @@
     }
 
     .save-folder span {
+      flex: none;
       color: var(--aet-muted);
       font-size: 10.5px;
       font-weight: 600;
@@ -936,8 +960,11 @@
     }
 
     .folder-select {
+      flex: 0 1 150px;
+      min-width: 0;
       max-width: 150px;
       padding: 5px 7px;
+      overflow: hidden;
       border: 1px solid var(--aet-line-strong);
       border-radius: 8px;
       outline: none;
@@ -946,6 +973,8 @@
       font: inherit;
       font-size: 10.5px;
       direction: ltr;
+      text-overflow: ellipsis;
+      white-space: nowrap;
       cursor: pointer;
     }
 
@@ -958,10 +987,6 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 8px;
-    }
-
-    .words-bank {
-      grid-column: 1 / -1;
     }
 
     .site-toggle {
@@ -1112,6 +1137,20 @@
       }
     }
 
+    @media (max-width: 320px) {
+      .save-folder {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .folder-select {
+        flex: 1 1 auto;
+        width: 100%;
+        max-width: none;
+      }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *,
       *::before,
@@ -1156,16 +1195,22 @@
           </span>
         </div>
         <div class="head-actions">
-          <button id="pin" class="icon" type="button" title="Pin panel — keep it open when you click outside" aria-label="Pin panel" aria-pressed="false">
+          <button id="pin" class="icon" type="button" title="Pin panel — keep it open after saving or clicking outside" aria-label="Pin panel" aria-pressed="false">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M9 4h6M10 4l.7 5.2-2.7 2.8v1.8h8v-1.8L13.3 9.2 14 4M12 13.8V21"/>
             </svg>
           </button>
+          <button id="wordsBank" class="icon words-bank" type="button" title="My words and export" aria-label="My words and export">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15.5H6.5A2.5 2.5 0 0 0 4 21V5.5Z"/>
+              <path d="M4 18.5A2.5 2.5 0 0 1 6.5 16H20"/>
+              <path d="M8 7h7M8 10.5h5"/>
+            </svg>
+            <span id="wordCount" class="word-count">0</span>
+          </button>
           <button id="settings" class="icon" type="button" title="Settings" aria-label="Settings">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true">
-              <path d="M4 7h9M17 7h3M4 17h3M11 17h9" />
-              <circle cx="15" cy="7" r="2.2" />
-              <circle cx="9" cy="17" r="2.2" />
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M11.078 2.25c-.917 0-1.699.663-1.85 1.567L9.05 4.889c-.02.12-.115.26-.297.348a7.493 7.493 0 0 0-.986.57c-.166.115-.334.126-.45.083L6.3 5.508a1.875 1.875 0 0 0-2.282.819l-.922 1.597a1.875 1.875 0 0 0 .432 2.385l.84.692c.095.078.17.229.154.43a7.598 7.598 0 0 0 0 1.139c.015.2-.059.352-.153.43l-.841.692a1.875 1.875 0 0 0-.432 2.385l.922 1.597a1.875 1.875 0 0 0 2.282.818l1.019-.382c.115-.043.283-.031.45.082.312.214.641.405.985.57.182.088.277.228.297.35l.178 1.071c.151.904.933 1.567 1.85 1.567h1.844c.916 0 1.699-.663 1.85-1.567l.178-1.072c.02-.12.114-.26.297-.349.344-.165.673-.356.985-.57.167-.114.335-.125.45-.082l1.02.382a1.875 1.875 0 0 0 2.28-.819l.923-1.597a1.875 1.875 0 0 0-.432-2.385l-.84-.692c-.095-.078-.17-.229-.154-.43a7.614 7.614 0 0 0 0-1.139c-.016-.2.059-.352.153-.43l.84-.692a1.875 1.875 0 0 0 .433-2.385l-.922-1.597a1.875 1.875 0 0 0-2.282-.818l-1.02.382c-.114.043-.282.031-.449-.083a7.49 7.49 0 0 0-.985-.57c-.183-.087-.277-.227-.297-.348l-.179-1.072a1.875 1.875 0 0 0-1.85-1.567h-1.843ZM12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z" clip-rule="evenodd"/>
             </svg>
           </button>
           <button id="close" class="icon" type="button" title="Close" aria-label="Close">×</button>
@@ -1221,14 +1266,6 @@
       </div>
 
       <div class="file-tools">
-        <button id="wordsBank" class="file-tool words-bank" type="button" title="View and export your words">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15.5H6.5A2.5 2.5 0 0 0 4 21V5.5Z"/>
-            <path d="M4 18.5A2.5 2.5 0 0 1 6.5 16H20"/>
-            <path d="M8 7h7M8 10.5h5"/>
-          </svg>
-          <span>Words</span>
-        </button>
         <button id="siteToggle" class="file-tool site-toggle" type="button" title="Disable Hassala on this site">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="12" cy="12" r="8.5"/>
@@ -1308,6 +1345,7 @@
     copy: shadow.getElementById('copy'),
     folderSelect: shadow.getElementById('folderSelect'),
     wordsBank: shadow.getElementById('wordsBank'),
+    wordCount: shadow.getElementById('wordCount'),
     siteToggle: shadow.getElementById('siteToggle'),
     fileStatus: shadow.getElementById('fileStatus'),
   };
@@ -1322,12 +1360,14 @@
   let requestSeq = 0;
   let debounceTimer = 0;
   let saveTimer = 0;
+  let autoCloseTimer = 0;
   let emptyNoticeTimer = 0;
   let clearAnimationTimer = 0;
   let sourceCopyTimer = 0;
   let fileStatusTimer = 0;
   let bankFolders = [];
   let activeFolderId = bank ? bank.DEFAULT_FOLDER_ID : 'general';
+  let bankWordCount = 0;
   let siteDisableArmedUntil = 0;
   let siteDisableTimer = 0;
   let lastResult = '';
@@ -1521,11 +1561,12 @@
 
   function setPanelPinned(pinned, persist) {
     panelPinned = Boolean(pinned);
+    if (panelPinned) cancelAutoClose();
     els.pin.classList.toggle('pinned', panelPinned);
     els.pin.setAttribute('aria-pressed', String(panelPinned));
     els.pin.title = panelPinned
       ? 'Unpin panel'
-      : 'Pin panel — keep it open when you click outside';
+      : 'Pin panel — keep it open after saving or clicking outside';
     els.pin.setAttribute(
       'aria-label',
       panelPinned ? 'Unpin panel' : 'Pin panel',
@@ -1838,6 +1879,7 @@
   function openPanel() {
     if (siteBlocked) return;
 
+    cancelAutoClose();
     hideSelectionButton();
 
     if (!els.panel.hidden) {
@@ -1870,6 +1912,7 @@
 
   function closePanel() {
     if (els.panel.hidden) return;
+    cancelAutoClose();
     hideSelectionButton();
     stopSpeaking();
     els.panel.hidden = true;
@@ -1888,6 +1931,27 @@
     const show = typeof force === 'boolean' ? force : els.panel.hidden;
     if (show) openPanel();
     else closePanel();
+  }
+
+  // After a save, the unpinned panel steps out of the way like it does when
+  // clicking outside. Pinning keeps it open for learners who want to keep
+  // translating, and typing during the short confirmation cancels the close.
+  function cancelAutoClose() {
+    if (!autoCloseTimer) return;
+    clearTimeout(autoCloseTimer);
+    autoCloseTimer = 0;
+  }
+
+  function scheduleAutoCloseAfterSave() {
+    cancelAutoClose();
+    if (panelPinned) return;
+
+    autoCloseTimer = setTimeout(() => {
+      autoCloseTimer = 0;
+      if (panelPinned || els.panel.hidden) return;
+      if (els.input.value.trim()) return;
+      closePanel();
+    }, 700);
   }
 
   /* ---------- Language direction ---------- */
@@ -1927,6 +1991,7 @@
 
   function onInput() {
     if (composing) return;
+    cancelAutoClose();
     cancelClearAnimation();
 
     const text = els.input.value;
@@ -2276,9 +2341,26 @@
       const state = await bank.read();
       bankFolders = state.folders;
       activeFolderId = state.activeFolderId;
+      bankWordCount = state.words.length;
+      renderWordCount();
       renderFolderSelect();
     } catch (error) {
       setFileStatus(bankErrorMessage(error && error.code), 'error');
+    }
+  }
+
+  function renderWordCount() {
+    if (!els.wordCount) return;
+
+    const wordsLabel =
+      bankWordCount === 1 ? '1 word' : `${bankWordCount} words`;
+    els.wordCount.textContent = String(bankWordCount);
+    if (els.wordsBank) {
+      els.wordsBank.title = `My words and export (${wordsLabel})`;
+      els.wordsBank.setAttribute(
+        'aria-label',
+        `My words and export (${wordsLabel})`,
+      );
     }
   }
 
@@ -2290,6 +2372,8 @@
       const option = document.createElement('option');
       option.value = folder.id;
       option.textContent = folder.name;
+      option.dir = 'auto';
+      option.title = folder.name;
       els.folderSelect.append(option);
     }
 
@@ -2302,6 +2386,17 @@
     )
       ? target
       : bankFolders[0]?.id || '';
+
+    updateFolderSelectLabel();
+  }
+
+  function updateFolderSelectLabel() {
+    const selected = bankFolders.find(
+      (folder) => folder.id === els.folderSelect.value,
+    );
+    const name = selected ? selected.name : 'General';
+    els.folderSelect.title = `New words go to “${name}”`;
+    els.folderSelect.setAttribute('aria-label', `Word save folder: ${name}`);
   }
 
   async function changeActiveFolder() {
@@ -2311,6 +2406,7 @@
     try {
       await bank.setActiveFolder(folderId);
       activeFolderId = folderId;
+      updateFolderSelectLabel();
       const folder = bankFolders.find((item) => item.id === folderId);
       setFileStatus(
         `New words will be saved to “${folder ? folder.name : 'General'}”.`,
@@ -2414,6 +2510,11 @@
     });
 
     if (response && response.ok) {
+      if (typeof response.count === 'number') {
+        bankWordCount = response.count;
+        renderWordCount();
+      }
+
       const notice = response.duplicate
         ? 'Already in your word bank ✓ Type the next word'
         : 'Saved ✓ Type the next word';
@@ -2422,6 +2523,7 @@
       // user has already started the next word, leave their text alone.
       if (lastQuery === query && els.input.value.trim() === query) {
         animateResetInput({ focus: true, notice });
+        scheduleAutoCloseAfterSave();
       } else {
         setFileStatus(notice, 'ok');
         els.save.disabled = false;

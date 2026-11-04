@@ -124,7 +124,8 @@ Then:
 2. After the translation appears, click **Add to Hassala**.
 3. After a successful save, the word and translation fade out, the input clears,
    and a confirmation appears in place of the translation, ready for the next
-   word.
+   word. An unpinned floating panel then closes; pin it if you want to keep
+   translating without reopening it.
 4. Duplicates are prevented automatically by the word + translation pair.
 
 ### Folders

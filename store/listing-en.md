@@ -65,6 +65,7 @@ lets you export it as Markdown, TXT, CSV, or JSON whenever you want.
 - **Floating button on every page:** translate while reading or studying
   without leaving the page.
 - **Draggable panel:** move it anywhere on screen and pin it open when needed.
+  An unpinned panel closes after a successful save so it stays out of the way.
 - **Site blocking:** disable Hassala on any site you choose.
 - **Pronunciation and copy:** hear the word or translation, and copy either one.
 - **Bilingual typography:** Baloo Bhaijaan 2 is bundled with the extension, so

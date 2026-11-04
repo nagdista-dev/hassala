@@ -349,32 +349,25 @@ textarea:focus-visible {
 
 .library-btn {
   position: relative;
-  color: var(--accent-strong);
-}
-
-.library-btn:hover {
-  border-color: var(--accent);
-  background: var(--accent-soft);
-  color: var(--accent-text);
 }
 
 .word-count {
   position: absolute;
-  top: -5px;
-  right: -6px;
+  top: -4px;
+  right: -4px;
   display: grid;
   place-items: center;
-  min-width: 15px;
-  height: 15px;
-  padding: 0 4px;
-  border: 2px solid var(--surface);
+  min-width: 13px;
+  height: 13px;
+  padding: 0 3px;
+  border: 1.5px solid var(--surface);
   border-radius: 999px;
-  background: var(--accent);
-  color: var(--on-accent);
-  font-size: 8.5px;
+  background: var(--gold);
+  color: var(--on-gold);
+  font-size: 8px;
   font-weight: 800;
   line-height: 1;
-  box-shadow: 0 1px 3px rgba(85, 55, 25, 0.25);
+  box-shadow: 0 1px 2px rgba(85, 55, 25, 0.22);
 }
 
 /* ---------- Direction ---------- */
@@ -905,6 +898,7 @@ body.is-clearing .save-dock {
   min-width: 0;
   max-width: 100px;
   padding: 3px 2px;
+  overflow: hidden;
   border: 1px solid var(--line-strong);
   border-radius: 7px;
   outline: none;
@@ -913,6 +907,8 @@ body.is-clearing .save-dock {
   font-family: inherit;
   font-size: 10.5px;
   direction: ltr;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   cursor: pointer;
 }
 
@@ -952,6 +948,134 @@ body.is-clearing .save-dock {
 
 .folder-add:active {
   transform: scale(0.94);
+}
+
+/* Inline quick-create keeps the popup compact and avoids a native prompt. */
+.quick-folder {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 7px 9px 8px;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.34), transparent 60%),
+    var(--surface-2);
+  box-shadow: inset 3px 0 0 var(--gold);
+}
+
+.quick-folder-head {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+}
+
+.quick-folder-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+  color: var(--gold-strong);
+  font-size: 10.5px;
+  font-weight: 700;
+}
+
+.quick-folder-title svg {
+  width: 13px;
+  height: 13px;
+  flex: none;
+}
+
+.quick-folder-count {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 9.5px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.quick-folder-close {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1;
+}
+
+.quick-folder-close:hover {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+.quick-folder-row {
+  display: flex;
+  gap: 6px;
+  min-width: 0;
+}
+
+.quick-folder-input {
+  flex: 1;
+  min-width: 0;
+  padding: 5px 8px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  outline: none;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 11.5px;
+}
+
+.quick-folder-input::placeholder {
+  color: var(--muted);
+}
+
+.quick-folder-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-soft);
+}
+
+.quick-folder-create {
+  flex: none;
+  padding: 5px 10px;
+  border: 1px solid var(--gold);
+  border-radius: 8px;
+  background: linear-gradient(
+    135deg,
+    var(--gold) 0%,
+    var(--gold-strong) 100%
+  );
+  color: var(--on-gold);
+  font-size: 11px;
+  font-weight: 700;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.quick-folder-create:hover:not(:disabled) {
+  filter: brightness(1.05);
+}
+
+.quick-folder-create:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.quick-folder-create:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.quick-folder-hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: 9.5px;
+  line-height: 1.45;
 }
 
 .file-status {
@@ -1054,6 +1178,9 @@ body.is-clearing .save-dock {
   .folder-add,
   .folder-select,
   .library-btn,
+  .quick-folder,
+  .quick-folder-input,
+  .quick-folder-create,
   .chip,
   .copy-btn,
   .clear-btn,

@@ -40,12 +40,30 @@ All notable changes to Hassala are documented here. The project follows
   that only appears when there is a translation to save.
 - Replaced the sliders icon with a solid, recognizable gear and gave the folder,
   word-bank, copy, and clear-history actions expressive icons.
+- Unified the header controls: the book and gear now share the same gold stroke,
+  and the smaller count badge uses the same warm gold, so the top row reads as
+  one calm cluster.
+- Replaced the popup's browser prompt with an inline **New folder** form: a
+  60-character limit, a live counter, Enter to create, and Escape or Cancel to
+  return to the save dock.
 - Kept every action: translate, listen, copy, save, folder selection, new
   folder, word bank/export, and recent words.
 - Fixed the language layout: English always sits on the left and Arabic on the
   right, while the arrow flips to show the translation direction.
 - Moved recent words into one horizontally scrollable row instead of a tall
   block.
+
+### Floating panel
+
+- Rebuilt the header as one calm row: pin, **Words** with a count badge,
+  Settings gear, and close. The old bottom Words button is gone.
+- Replaced the sliders glyph with the same solid gear used in the popup and
+  gave the book, gear, and badge the same warm gold treatment.
+- Kept the save-folder selector, word count, drag handle, and close behavior
+  working with no extra height.
+- After a successful save, an unpinned panel now steps aside like it does when
+  you click outside. Pinning keeps it open for the next word, and typing during
+  the short confirmation cancels the close.
 
 ### Settings redesign
 
@@ -59,6 +77,15 @@ All notable changes to Hassala are documented here. The project follows
   single polite toast for feedback.
 - Added a collapsed **Help & feedback** menu with email, Buy Me a Coffee, and
   GitHub links so it stays out of the learner's way.
+- Added the Hassala tricolor ribbon and a subtle woven background, brand marks
+  inside dialogs, and a diamond motif in empty states so the whole page carries
+  the same identity as the popup and floating panel.
+- Made long folder names safe everywhere: names stay capped at 60 characters
+  and truncate with an ellipsis in folder rows, word tags, selects, dialogs, and
+  toasts, while the full name stays available in tooltips.
+- Added a live character counter under the folder-name field and reflowed folder
+  rows on narrow screens so a 60-character unbroken name never creates
+  horizontal scrolling.
 
 ### Open source
 

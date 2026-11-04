@@ -251,6 +251,8 @@
             type="button"
             title="New folder"
             aria-label="Create a new folder"
+            aria-expanded="false"
+            aria-controls="quickFolder"
           >
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path
@@ -270,6 +272,63 @@
           </button>
         </div>
       </div>
+
+      <form id="quickFolder" class="quick-folder" hidden>
+        <div class="quick-folder-head">
+          <span class="quick-folder-title">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.7"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path
+                d="M3 7.5A2.5 2.5 0 0 1 5.5 5H9l2 2h7.5A2.5 2.5 0 0 1 21 9.5v7A2.5 2.5 0 0 1 18.5 19h-13A2.5 2.5 0 0 1 3 16.5v-9Z"
+              />
+              <path d="M12 10.5v5M9.5 13h5" />
+            </svg>
+            New folder
+          </span>
+          <span
+            id="quickFolderCount"
+            class="quick-folder-count"
+            aria-hidden="true"
+            >0/60</span
+          >
+          <button
+            id="cancelQuickFolder"
+            class="quick-folder-close"
+            type="button"
+            title="Cancel"
+            aria-label="Cancel new folder"
+          >
+            ×
+          </button>
+        </div>
+        <div class="quick-folder-row">
+          <input
+            id="quickFolderName"
+            class="quick-folder-input"
+            type="text"
+            maxlength="60"
+            placeholder="Folder name"
+            autocomplete="off"
+            spellcheck="false"
+            dir="auto"
+            aria-label="New folder name"
+            aria-describedby="quickFolderHint"
+          />
+          <button id="createQuickFolder" class="quick-folder-create" type="submit">
+            Create
+          </button>
+        </div>
+        <p id="quickFolderHint" class="quick-folder-hint">
+          Max 60 characters · rename later in Settings.
+        </p>
+      </form>
 
       <p
         id="fileStatus"
