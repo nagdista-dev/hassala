@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>How to Translate YouTube Arabic Subtitles Word by Word</title>
-  <meta name="description" content="Turn YouTube Arabic or English captions into a vocabulary lesson: pause on a word, translate it, drag across a phrase, and save it to a Markdown word bank with Hassala.">
+  <meta name="description" content="Turn YouTube Arabic or English captions into a vocabulary lesson: pause on a word, translate it, drag across a phrase, and save it to a private local word bank with Hassala.">
   <link rel="canonical" href="https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/">
   <link rel="alternate" hreflang="en" href="https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/">
   <link rel="alternate" hreflang="ar" href="https://nagdista-dev.github.io/hassala/ar/guides/translate-youtube-subtitles/">
@@ -16,7 +16,7 @@
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Hassala">
   <meta property="og:title" content="How to Translate YouTube Arabic Subtitles Word by Word">
-  <meta property="og:description" content="A practical caption workflow: hover to pause, click a word, drag a phrase, and save it to your Markdown word bank.">
+  <meta property="og:description" content="A practical caption workflow: hover to pause, click a word, drag a phrase, and save it to your local word bank.">
   <meta property="og:url" content="https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/">
   <meta property="og:image" content="https://nagdista-dev.github.io/hassala/assets/social-preview-en.png">
   <meta property="og:image:width" content="1280">
@@ -24,7 +24,7 @@
   <meta property="og:locale" content="en_US">
   <meta property="og:locale:alternate" content="ar_AR">
   <meta property="article:published_time" content="2026-11-03">
-  <meta property="article:modified_time" content="2026-11-03">
+  <meta property="article:modified_time" content="2026-11-04">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="How to Translate YouTube Arabic Subtitles Word by Word">
   <meta name="twitter:description" content="Make captions interactive, look up words without leaving the video, and keep what you learn.">
@@ -37,159 +37,164 @@
   <link rel="stylesheet" href="../../assets/style.css">
 
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Article",
-        "@id": "https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/#article",
-        "headline": "How to Translate YouTube Arabic Subtitles Word by Word",
-        "description": "A step-by-step guide to interactive YouTube captions with Hassala: pause on a word, translate it or a phrase, and save it to a Markdown word bank.",
-        "datePublished": "2026-11-03",
-        "dateModified": "2026-11-03",
-        "inLanguage": "en",
-        "author": {
-          "@type": "Organization",
-          "name": "Hassala contributors",
-          "url": "https://github.com/nagdista-dev/hassala"
-        },
-        "publisher": {
-          "@type": "Organization",
-          "name": "Hassala contributors",
-          "url": "https://github.com/nagdista-dev/hassala"
-        },
-        "mainEntityOfPage": "https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/",
-        "image": "https://nagdista-dev.github.io/hassala/assets/social-preview-en.png",
-        "about": {
-          "@type": "SoftwareApplication",
-          "name": "Hassala",
-          "url": "https://nagdista-dev.github.io/hassala/",
-          "applicationCategory": "EducationalApplication",
-          "operatingSystem": "Chrome, Brave, Edge, Chromium"
-        }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/#article",
+      "headline": "How to Translate YouTube Arabic Subtitles Word by Word",
+      "description": "A step-by-step guide to interactive YouTube captions with Hassala: pause on a word, translate it or a phrase, and save it to a private local word bank.",
+      "datePublished": "2026-11-03",
+      "dateModified": "2026-11-04",
+      "inLanguage": "en",
+      "author": {
+        "@type": "Organization",
+        "name": "Hassala contributors",
+        "url": "https://github.com/nagdista-dev/hassala"
       },
-      {
-        "@type": "HowTo",
-        "@id": "https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/#howto",
-        "name": "How to translate YouTube subtitles word by word",
-        "description": "Install Hassala, enable captions on YouTube, click a caption word to translate it, drag across a phrase, and save the result to Markdown.",
-        "totalTime": "PT8M",
-        "tool": [
-          { "@type": "HowToTool", "name": "Hassala" },
-          { "@type": "HowToTool", "name": "YouTube" },
-          { "@type": "HowToTool", "name": "Python 3 (for saving)" }
-        ],
-        "step": [
-          {
-            "@type": "HowToStep",
-            "position": 1,
-            "name": "Install Hassala",
-            "text": "Download the tester package from GitHub Releases, load the unpacked extension in Chrome, Brave, Edge, or Chromium, and install the native host if you want saving.",
-            "url": "https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/#step-1"
-          },
-          {
-            "@type": "HowToStep",
-            "position": 2,
-            "name": "Turn on YouTube captions",
-            "text": "Open a video and enable captions with the CC button. Hassala only works when YouTube is already displaying captions.",
-            "url": "https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/#step-2"
-          },
-          {
-            "@type": "HowToStep",
-            "position": 3,
-            "name": "Hover to pause and click a word",
-            "text": "Hover over the captions to pause the video, then click any word. The floating panel opens with the translation of that word.",
-            "url": "https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/#step-3"
-          },
-          {
-            "@type": "HowToStep",
-            "position": 4,
-            "name": "Drag across a phrase",
-            "text": "Drag the mouse across several caption words and release. Hassala translates the whole highlighted phrase instead of a single word.",
-            "url": "https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/#step-4"
-          },
-          {
-            "@type": "HowToStep",
-            "position": 5,
-            "name": "Save the word or phrase",
-            "text": "Click Add to Hassala in the floating panel. The word or phrase and its translation are appended to your Markdown file, with duplicates skipped.",
-            "url": "https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/#step-5"
-          }
-        ]
+      "publisher": {
+        "@type": "Organization",
+        "name": "Hassala contributors",
+        "url": "https://github.com/nagdista-dev/hassala"
       },
-      {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Hassala",
-            "item": "https://nagdista-dev.github.io/hassala/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Translate YouTube subtitles",
-            "item": "https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/"
-          }
-        ]
-      },
-      {
-        "@type": "FAQPage",
-        "@id": "https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/#faq",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Does Hassala translate the whole YouTube video?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "No. Hassala makes the captions interactive: you choose a word or drag across a phrase, and only that text is translated. It is not a full-video or full-page translator."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Do I need captions to be enabled?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes. Hassala uses YouTube's own captions as the timing source, then displays an interactive copy in the same place. If the video has no captions or they are turned off, there is nothing to interact with."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Do auto-generated captions work?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes, if YouTube displays them. Auto-generated captions can contain recognition errors, so treat unusual words as uncertain and check the context."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Does clicking a word pause the video?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes. Hovering over the captions pauses playback while you read, and clicking a word keeps the video paused. Press play when you are ready to continue."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Can I save a phrase, not just one word?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes. Drag across several caption words before releasing the mouse. The floating panel translates the highlighted phrase, and the save button stores the phrase in the same Markdown table as single words."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Does subtitle translation require the native host?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "No. Translating captions works without the native host. Saving to a Markdown file requires the local native host, because browsers cannot write to arbitrary files."
-            }
-          }
-        ]
+      "mainEntityOfPage": "https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/",
+      "image": "https://nagdista-dev.github.io/hassala/assets/social-preview-en.png",
+      "about": {
+        "@type": "SoftwareApplication",
+        "name": "Hassala",
+        "url": "https://nagdista-dev.github.io/hassala/",
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "Chrome, Brave, Edge, Chromium"
       }
-    ]
-  }
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/#howto",
+      "name": "How to translate YouTube subtitles word by word",
+      "description": "Install Hassala, enable captions on YouTube, click a caption word to translate it, drag across a phrase, and save the result to local folders. Export Markdown whenever you want.",
+      "totalTime": "PT8M",
+      "tool": [
+        {
+          "@type": "HowToTool",
+          "name": "Hassala"
+        },
+        {
+          "@type": "HowToTool",
+          "name": "YouTube"
+        }
+      ],
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Install Hassala",
+          "text": "Download the latest package from GitHub Releases, extract it, and load the unpacked extension in Chrome, Brave, Edge, or Chromium. No native host or Python is required.",
+          "url": "https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/#step-1"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Turn on YouTube captions",
+          "text": "Open a video and enable captions with the CC button. Hassala only works when YouTube is already displaying captions.",
+          "url": "https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/#step-2"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Hover to pause and click a word",
+          "text": "Hover over the captions to pause the video, then click any word. The floating panel opens with the translation of that word.",
+          "url": "https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/#step-3"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Drag across a phrase",
+          "text": "Drag the mouse across several caption words and release. Hassala translates the whole highlighted phrase instead of a single word.",
+          "url": "https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/#step-4"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 5,
+          "name": "Save the word or phrase",
+          "text": "Click Add to Hassala in the floating panel. The word or phrase and its translation are saved to the selected folder in the extension; duplicate pairs are skipped.",
+          "url": "https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/#step-5"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Hassala",
+          "item": "https://nagdista-dev.github.io/hassala/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Translate YouTube subtitles",
+          "item": "https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does Hassala translate the whole YouTube video?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Hassala makes the captions interactive: you choose a word or drag across a phrase, and only that text is translated. It is not a full-video or full-page translator."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need captions to be enabled?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Hassala uses YouTube's own captions as the timing source, then displays an interactive copy in the same place. If the video has no captions or they are turned off, there is nothing to interact with."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do auto-generated captions work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, if YouTube displays them. Auto-generated captions can contain recognition errors, so treat unusual words as uncertain and check the context."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does clicking a word pause the video?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Hovering over the captions pauses playback while you read, and clicking a word keeps the video paused. Press play when you are ready to continue."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I save a phrase, not just one word?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Drag across several caption words before releasing the mouse. The floating panel translates the highlighted phrase, and the save button stores the phrase in the same local word bank as single words."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does saving captions require a native host?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Saving happens inside the extension with chrome.storage.local. You can export Markdown, TXT, CSV, or JSON whenever you want, and there is no native host or file-system permission."
+          }
+        }
+      ]
+    }
+  ]
+}
   </script>
 </head>
 <body>
@@ -201,7 +206,7 @@
         <img src="../../assets/icon128.png" width="48" height="48" alt="">
         <span class="brand-text">
           <strong>Hassala</strong>
-          <span class="brand-sub">Arabic word bank</span>
+          <span class="brand-sub">Arabic ↔ English word bank</span>
         </span>
       </a>
       <nav class="site-nav" aria-label="Main navigation">
@@ -231,10 +236,10 @@
         <p class="lead">
           Watching a video in Arabic or English is a good place to meet new words.
           Keeping them is the hard part. This guide turns the captions into a
-          lookup surface, then stores what you choose in a Markdown word bank.
+          lookup surface, then stores what you choose in a private local word bank.
         </p>
         <div class="article-meta">
-          <span>Updated November 3, 2026</span>
+          <span>Updated November 4, 2026</span>
           <span>5 min read</span>
           <span>Chrome, Brave, Edge, Chromium</span>
         </div>
@@ -246,7 +251,7 @@
           <a href="../../">Hassala</a> keeps YouTube's own captions as the timing
           source, but shows an interactive copy in the same place. You can stop on
           a word, look it up without opening another tab, and save it to the same
-          Markdown file you use for everything else.
+          folder-based word bank you use for everything else.
         </p>
 
         <div class="note">
@@ -265,7 +270,7 @@
             The Chrome Web Store release is still being prepared.
           </li>
           <li>A YouTube video with captions available — uploaded or auto-generated.</li>
-          <li>Python 3 if you want to save words; translation works without it.</li>
+          <li>No Python, native host, account, or file-system permission.</li>
         </ul>
 
         <h2 id="step-1">Step 1 — Install Hassala</h2>
@@ -278,14 +283,8 @@
           <li>Open <code>chrome://extensions</code>, <code>brave://extensions</code>, or <code>edge://extensions</code>.</li>
           <li>Enable <strong>Developer mode</strong> and click <strong>Load unpacked</strong>.</li>
           <li>Select the folder that contains <code>manifest.json</code>.</li>
-          <li>
-            To enable saving, install the native host from that folder:
-            <ul>
-              <li>Linux/macOS: <code>bash native/install.sh</code></li>
-              <li>Windows: <code>powershell -ExecutionPolicy Bypass -File native\install.ps1 -ExtensionId &lt;id&gt;</code></li>
-            </ul>
-          </li>
-          <li>Reload the extension. The full install steps are in the
+          <li>Pin Hassala to the toolbar. Saving works immediately because words are stored in the extension.</li>
+          <li>Reload the video tab once after installing. The full install steps are in the
             <a href="https://github.com/nagdista-dev/hassala/blob/main/docs/INSTALL.md" rel="noopener">installation guide</a>.
           </li>
         </ol>
@@ -334,26 +333,34 @@
 
         <h2 id="step-5">Step 5 — Save the word or phrase</h2>
         <p>
-          In the floating panel, click the save button — labeled
-          <strong>أضف للحصالة</strong> (Add to Hassala) in the Arabic-first
-          interface. Hassala appends the source text and translation to the
-          Markdown file you chose in Settings.
+          In the floating panel, click <strong>Add to Hassala</strong>. Hassala
+          saves the source text and translation to the folder selected under
+          <strong>Save new words to</strong>. The word stays in the extension until
+          you choose to export it.
         </p>
         <ul>
-          <li>The default file is <code>~/Documents/Hassala Words.md</code>.</li>
-          <li>You can point Settings at any existing <code>.md</code> file, such as a note in your Obsidian vault.</li>
-          <li>If the pair already exists, Hassala says so and does not add a duplicate row.</li>
-          <li>If saving fails, the word stays in the panel so you can fix the connection and try again.</li>
+          <li>Words live in <code>chrome.storage.local</code>, not in a file on your device.</li>
+          <li>Create folders such as <code>YouTube</code> or <code>Arabic News</code> to keep series separate.</li>
+          <li>If the pair already exists, Hassala says so and does not add a duplicate.</li>
+          <li>If saving fails, the word stays in the panel so you can try again.</li>
         </ul>
 
-        <h3>What the file looks like</h3>
-        <pre><code>| # | English | Arabic |
-| --- | --- | --- |
-| 1 | get used to | يعتاد على |
-| 2 | على قدم وساق | at full speed |</code></pre>
+        <h3>Export when you are ready</h3>
         <p>
-          Phrases and single words share the same table. The <strong>#</strong>
-          column is a counter, and duplicate pairs are skipped in both directions.
+          Open <strong>Words</strong>, choose Markdown, TXT, CSV,
+          or JSON, optionally type a file name, then export the folder, the visible
+          words, or a selection. The browser downloads the file only after that
+          click.
+        </p>
+        <pre><code># Hassala — My words
+
+| Word | Translation |
+| --- | --- |
+| get used to | يعتاد على |
+| على قدم وساق | at full speed |</code></pre>
+        <p>
+          Phrases and single words share the same table. Duplicate pairs are
+          skipped in both directions.
         </p>
 
         <h2>Tips for learning from video</h2>
@@ -362,7 +369,7 @@
           <li><strong>Save phrases, not only isolated words.</strong> A phrase carries the preposition and the register with it.</li>
           <li><strong>Write down the context in your head.</strong> A word from a cooking video and the same word in a news report are not the same lesson.</li>
           <li><strong>Review the file the next day.</strong> Open it in Obsidian, Logseq, or any editor and read the rows out loud.</li>
-          <li><strong>Use one file per series or topic.</strong> A focused list is easier to revisit than a giant dump.</li>
+          <li><strong>Use one folder per series or topic.</strong> A focused folder is easier to export and revisit than a giant dump.</li>
         </ul>
 
         <h2>Troubleshooting</h2>
@@ -371,8 +378,8 @@
             <tr><th scope="row">Captions are not clickable</th><td>Check that YouTube is showing captions and that the video has a caption track. Reload the video after installing or updating Hassala.</td></tr>
             <tr><th scope="row">The video will not resume</th><td>Clicking a word keeps the video paused on purpose. Press play in the player, or click the video area away from the captions.</td></tr>
             <tr><th scope="row">The panel covers the captions</th><td>Drag the panel by its header. Hassala remembers the position.</td></tr>
-            <tr><th scope="row">“Connection is not enabled”</th><td>The native host is not registered, or the extension ID changed after reloading. Run the installer again with the current ID.</td></tr>
-            <tr><th scope="row">A saved phrase looks wrong</th><td>Auto-generated captions can mishear words. Check the context before saving, and edit the row directly in the Markdown file if needed.</td></tr>
+            <tr><th scope="row">The save button does not respond</th><td>Reload the video tab after installing or updating Hassala. If the panel is open in an old tab, close it and reopen the extension.</td></tr>
+            <tr><th scope="row">A saved phrase looks wrong</th><td>Auto-generated captions can mishear words. Check the context before saving, or delete and re-save the word from Words.</td></tr>
           </tbody>
         </table>
 
@@ -415,15 +422,16 @@
             <p>
               Yes. Drag across several caption words before releasing the mouse.
               The floating panel translates the highlighted phrase, and the save
-              button stores the phrase in the same Markdown table as single words.
+              button stores the phrase in the same word bank as single words.
             </p>
           </details>
           <details class="faq-item">
-            <summary>Does subtitle translation require the native host?</summary>
+            <summary>Does saving captions require a native host?</summary>
             <p>
-              No. Translating captions works without the native host. Saving to a
-              Markdown file requires the local native host, because browsers cannot
-              write to arbitrary files.
+              No. Saving happens inside the extension with
+              <code>chrome.storage.local</code>. You can export Markdown, TXT, CSV,
+              or JSON whenever you want, and there is no native host or file-system
+              permission.
             </p>
           </details>
         </div>
@@ -431,11 +439,11 @@
         <div class="next-step">
           <h2>Next step</h2>
           <p>
-            If you have not chosen a word bank file yet, the Markdown guide covers
-            installation, file selection, and opening the result in Obsidian or
-            Logseq.
+            If you have not exported your word bank yet, the Markdown guide covers
+            installation, folder setup, export, and opening the result in Obsidian
+            or Logseq.
           </p>
-          <p><a href="../save-words-to-markdown/">Read the Markdown word bank guide →</a></p>
+          <p><a href="../save-words-to-markdown/">Read the local word bank guide →</a></p>
           <p>
             For a vault-based review routine, read the
             <a href="../obsidian-vocabulary-workflow/">Obsidian vocabulary workflow →</a>
@@ -471,7 +479,7 @@
             <img src="../../assets/icon128.png" width="34" height="34" alt="">
             Hassala
           </a>
-          <p>Arabic-first translation and word keeping. Free, open source, and built to last.</p>
+          <p>Arabic ↔ English translation and word keeping. Free, open source, and built to last.</p>
         </div>
         <div>
           <h2>Product</h2>

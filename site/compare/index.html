@@ -73,7 +73,7 @@
             "name": "Is Hassala a replacement for Google Translate?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Not exactly. Hassala is built for a different job: translating Arabic and English words and keeping them in a Markdown word bank. A general translator is better for translating whole documents or pages. Many people use both."
+              "text": "Not exactly. Hassala is built for a different job: translating Arabic and English words and keeping them in a private local word bank with folders and export. A general translator is better for translating whole documents or pages. Many people use both."
             }
           },
           {
@@ -81,15 +81,15 @@
             "name": "Is Hassala a flashcard or spaced repetition app?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "No. Hassala captures and stores words; it does not schedule reviews yet. Spaced repetition and flashcards are on the public roadmap. You can open the Markdown file in Anki, Obsidian, or another tool in the meantime."
+              "text": "No. Hassala captures and stores words; it does not schedule reviews yet. Spaced repetition and flashcards are on the public roadmap. You can export Markdown for Obsidian or CSV for Anki in the meantime."
             }
           },
           {
             "@type": "Question",
-            "name": "Why save words to Markdown instead of a database?",
+            "name": "Why export to Markdown instead of keeping words only inside the extension?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "A Markdown file is readable in any text editor, works with Obsidian, Logseq, and VS Code, and does not lock your vocabulary into a proprietary service. You can back it up, sync it, or edit it by hand."
+              "text": "The extension is the working copy; Markdown is your portable copy. A Markdown file is readable in any text editor, works with Obsidian, Logseq, and VS Code, and does not lock your vocabulary into a proprietary service. You can back it up, sync it, or edit it by hand."
             }
           },
           {
@@ -115,7 +115,7 @@
         <img src="../assets/icon128.png" width="48" height="48" alt="">
         <span class="brand-text">
           <strong>Hassala</strong>
-          <span class="brand-sub">Arabic word bank</span>
+          <span class="brand-sub">Arabic ↔ English word bank</span>
         </span>
       </a>
       <nav class="site-nav" aria-label="Main navigation">
@@ -161,7 +161,7 @@
           <div class="demo-translation" style="font-size: 1.5rem;">Translate → save → review</div>
           <div class="demo-file">
             <strong>Same word, different destination</strong>
-            A local Markdown file you can open in Obsidian, Logseq, or any editor.
+            A private word bank inside the extension, exportable to Markdown whenever you want.
           </div>
         </div>
         <p class="demo-caption">The difference is what happens after the translation.</p>
@@ -200,7 +200,7 @@
             <h3>Hassala</h3>
             <p>
               Best for words you want to remember. It translates in place, saves
-              the pair to Markdown, and skips duplicates so your list stays clean.
+              the pair to a local folder, and skips duplicates so your list stays clean.
             </p>
           </article>
           <article class="card">
@@ -240,7 +240,8 @@
               <tr><td>Floating translator on any page</td><td class="yes">Yes</td><td class="varies">Varies</td><td class="varies">No</td></tr>
               <tr><td>Save word + translation with one click</td><td class="yes">Yes</td><td class="varies">Varies</td><td class="varies">Manual</td></tr>
               <tr><td>Duplicate detection</td><td class="yes">Yes</td><td class="varies">Rarely</td><td class="varies">No</td></tr>
-              <tr><td>Local Markdown file you own</td><td class="yes">Yes</td><td class="varies">Varies</td><td class="varies">Manual</td></tr>
+              <tr><td>Private local word bank with folders</td><td class="yes">Yes</td><td class="varies">Varies</td><td class="varies">Manual</td></tr>
+              <tr><td>Export Markdown, TXT, CSV, or JSON</td><td class="yes">Yes</td><td class="varies">Rarely</td><td class="varies">Manual</td></tr>
               <tr><td>Works with Obsidian, Logseq, VS Code</td><td class="yes">Yes</td><td class="varies">Rarely</td><td class="yes">Yes</td></tr>
               <tr><td>Word-level interactive YouTube captions</td><td class="yes">Yes</td><td class="varies">Rarely</td><td class="varies">No</td></tr>
               <tr><td>Pronunciation</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="varies">No</td></tr>
@@ -316,7 +317,7 @@
             <p>
               Hassala captures words but does not schedule reviews. Spaced
               repetition, flashcards, and quizzes are on the public roadmap. Until
-              then, open the Markdown file in Anki, Obsidian, or another tool.
+              then, export Markdown for Obsidian or CSV for Anki and other tools.
             </p>
           </div>
           <div class="card">
@@ -334,11 +335,11 @@
             </p>
           </div>
           <div class="card">
-            <h3>Saving needs a small local host</h3>
+            <h3>Export is a deliberate step</h3>
             <p>
-              Browsers cannot write to arbitrary files. Hassala uses a local
-              native host, installed once, to append rows to your Markdown file.
-              Translation and subtitles work without it.
+              Words stay inside the extension until you choose to export them.
+              That keeps the extension away from your filesystem and puts you in
+              control of every downloaded copy.
             </p>
           </div>
         </div>
@@ -357,9 +358,9 @@
             <summary>Is Hassala a replacement for Google Translate?</summary>
             <p>
               Not exactly. Hassala is built for a different job: translating
-              Arabic and English words and keeping them in a Markdown word bank.
-              A general translator is better for translating whole documents or
-              pages. Many people use both.
+              Arabic and English words and keeping them in a private local word
+              bank with folders and export. A general translator is better for
+              translating whole documents or pages. Many people use both.
             </p>
           </details>
           <details class="faq-item">
@@ -367,17 +368,17 @@
             <p>
               No. Hassala captures and stores words; it does not schedule reviews
               yet. Spaced repetition and flashcards are on the public roadmap. You
-              can open the Markdown file in Anki, Obsidian, or another tool in the
-              meantime.
+              can export Markdown for Obsidian or CSV for Anki in the meantime.
             </p>
           </details>
           <details class="faq-item">
-            <summary>Why save words to Markdown instead of a database?</summary>
+            <summary>Why export to Markdown instead of keeping words only inside the extension?</summary>
             <p>
-              A Markdown file is readable in any text editor, works with
-              Obsidian, Logseq, and VS Code, and does not lock your vocabulary
-              into a proprietary service. You can back it up, sync it, or edit it
-              by hand.
+              The extension is the working copy; Markdown is your portable copy.
+              A Markdown file is readable in any text editor, works with Obsidian,
+              Logseq, and VS Code, and does not lock your vocabulary into a
+              proprietary service. You can back it up, sync it, or edit it by
+              hand.
             </p>
           </details>
           <details class="faq-item">
@@ -385,7 +386,7 @@
             <p>
               Translation requires an internet connection because Hassala sends
               the requested text to translation providers. Your saved word bank
-              is local, so you can read and edit it offline.
+              is local, so you can browse and manage it offline.
             </p>
           </details>
         </div>
@@ -397,8 +398,8 @@
         <div class="cta-band">
           <h2>Keep the next word you look up.</h2>
           <p>
-            Install Hassala, translate a word, and see where it lands. The file is
-            yours, and it is already in a format you know.
+            Install Hassala, translate a word, and give it a folder. Export a copy
+            whenever you want, in a format you already know.
           </p>
           <div class="hero-actions">
             <a class="button" href="https://github.com/nagdista-dev/hassala/releases/latest" rel="noopener">
@@ -419,7 +420,7 @@
             <img src="../assets/icon128.png" width="34" height="34" alt="">
             Hassala
           </a>
-          <p>Arabic-first translation and word keeping. Free, open source, and built to last.</p>
+          <p>Arabic ↔ English translation and word keeping. Free, open source, and built to last.</p>
         </div>
         <div>
           <h2>Product</h2>

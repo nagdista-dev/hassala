@@ -1,52 +1,82 @@
 'use strict';
 
+const bank = window.HassalaWordBank || null;
+const DEFAULT_FOLDER_ID = bank ? bank.DEFAULT_FOLDER_ID : 'general';
+const PAGE_SIZE = 100;
+const SEARCH_DEBOUNCE_MS = 120;
+const FORMAT_EXTENSIONS = {
+  markdown: '.md',
+  text: '.txt',
+  csv: '.csv',
+  json: '.json',
+};
+
 const els = {
-  connection: document.getElementById('connection'),
-  notePath: document.getElementById('notePath'),
-  pickFile: document.getElementById('pickFile'),
-  savePath: document.getElementById('savePath'),
-  openFile: document.getElementById('openFile'),
-  useDefault: document.getElementById('useDefault'),
-  hassalaStatus: document.getElementById('hassalaStatus'),
-  filePreview: document.getElementById('filePreview'),
+  version: document.getElementById('version'),
+  navWordCount: document.getElementById('navWordCount'),
+  navItems: [...document.querySelectorAll('.nav-item[data-section]')],
+  brandLink: document.querySelector('[data-section-link]'),
+  wordCount: document.getElementById('wordCount'),
+  wordSearch: document.getElementById('wordSearch'),
+  folderFilter: document.getElementById('folderFilter'),
+  sortOrder: document.getElementById('sortOrder'),
+  viewSummary: document.getElementById('viewSummary'),
+  selectionInfo: document.getElementById('selectionInfo'),
+  selectAllWords: document.getElementById('selectAllWords'),
+  moveFolder: document.getElementById('moveFolder'),
+  moveSelected: document.getElementById('moveSelected'),
+  deleteSelected: document.getElementById('deleteSelected'),
+  clearWords: document.getElementById('clearWords'),
+  wordList: document.getElementById('wordList'),
+  wordEmpty: document.getElementById('wordEmpty'),
+  wordPager: document.getElementById('wordPager'),
+  wordRange: document.getElementById('wordRange'),
+  wordPageLabel: document.getElementById('wordPageLabel'),
+  wordPrev: document.getElementById('wordPrev'),
+  wordNext: document.getElementById('wordNext'),
+  activeFolder: document.getElementById('activeFolder'),
+  newFolderName: document.getElementById('newFolderName'),
+  addFolder: document.getElementById('addFolder'),
+  folderSummary: document.getElementById('folderSummary'),
+  folderList: document.getElementById('folderList'),
+  folderEmpty: document.getElementById('folderEmpty'),
+  folderHint: document.getElementById('folderHint'),
+  exportName: document.getElementById('exportName'),
+  exportExtension: document.getElementById('exportExtension'),
+  exportSelected: document.getElementById('exportSelected'),
+  exportVisible: document.getElementById('exportVisible'),
+  exportAll: document.getElementById('exportAll'),
+  deleteAfterExport: document.getElementById('deleteAfterExport'),
   fabVisible: document.getElementById('fabVisible'),
-  fabStatus: document.getElementById('fabStatus'),
   resetPanel: document.getElementById('resetPanel'),
   resetFab: document.getElementById('resetFab'),
-  positionStatus: document.getElementById('positionStatus'),
   siteInput: document.getElementById('siteInput'),
   addSite: document.getElementById('addSite'),
   siteList: document.getElementById('siteList'),
   siteEmpty: document.getElementById('siteEmpty'),
-  siteStatus: document.getElementById('siteStatus'),
   clearSites: document.getElementById('clearSites'),
-  version: document.getElementById('version'),
-
-  browserModal: document.getElementById('browserModal'),
-  browserClose: document.getElementById('browserClose'),
-  browserUp: document.getElementById('browserUp'),
-  browserPath: document.getElementById('browserPath'),
-  browserHidden: document.getElementById('browserHidden'),
-  browserList: document.getElementById('browserList'),
-  browserEmpty: document.getElementById('browserEmpty'),
-  browserStatus: document.getElementById('browserStatus'),
-  browserCancel: document.getElementById('browserCancel'),
+  confirmDialog: document.getElementById('confirmDialog'),
+  confirmTitle: document.getElementById('confirmTitle'),
+  confirmBody: document.getElementById('confirmBody'),
+  confirmOk: document.getElementById('confirmOk'),
+  renameDialog: document.getElementById('renameDialog'),
+  renameInput: document.getElementById('renameInput'),
+  toast: document.getElementById('toast'),
 };
-
-const MAX_FULL_PATH = 4096;
-const FOLDER_SVG =
-  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.5A2.5 2.5 0 0 1 5.5 5H10l2 2.5h6.5A2.5 2.5 0 0 1 21 10v7.5A2.5 2.5 0 0 1 18.5 20h-13A2.5 2.5 0 0 1 3 17.5v-10Z"/></svg>';
-const FILE_SVG =
-  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6V3Z"/><path d="M14 3v5h5M9 12h6M9 16h4"/></svg>';
-
-let defaultFilePath = '';
-let vaultPath = '';
-let browserPath = '';
-let browserRequestSeq = 0;
-let browserLastFocus = null;
 
 const sitePolicy = window.__AET_SITE_POLICY__ || null;
 let blockedSites = [];
+
+let state = {
+  words: [],
+  folders: [],
+  activeFolderId: DEFAULT_FOLDER_ID,
+};
+let folderFilterId = 'all';
+let selectedIds = new Set();
+let currentPage = 0;
+let toastTimer = 0;
+let searchTimer = 0;
 
 /* ---------- Storage ---------- */
 
@@ -89,478 +119,939 @@ function removeStorage(keys) {
   });
 }
 
-async function getStoredNotePath() {
-  const data = await getStorage(['hassalaFile', 'obsidianFile']);
-  const current =
-    typeof data.hassalaFile === 'string' ? data.hassalaFile.trim() : '';
-  const legacy =
-    typeof data.obsidianFile === 'string' ? data.obsidianFile.trim() : '';
-  const value = current || legacy;
+/* ---------- Feedback and dialogs ---------- */
 
-  if (!current && legacy) {
-    await setStorage({ hassalaFile: value });
-    await removeStorage('obsidianFile');
+function showToast(text, kind = 'info', holdMs = 6500) {
+  clearTimeout(toastTimer);
+  if (!text) {
+    els.toast.classList.remove('is-visible');
+    return;
   }
 
-  return value;
+  els.toast.textContent = text;
+  els.toast.dataset.kind = kind;
+  els.toast.classList.add('is-visible');
+
+  toastTimer = setTimeout(() => {
+    els.toast.classList.remove('is-visible');
+  }, holdMs);
+}
+
+function askConfirm({
+  title,
+  body,
+  confirmLabel = 'Delete',
+  danger = true,
+}) {
+  els.confirmTitle.textContent = title;
+  els.confirmBody.textContent = body;
+  els.confirmOk.textContent = confirmLabel;
+  els.confirmOk.className = danger ? 'btn danger' : 'btn primary';
+  els.confirmDialog.returnValue = '';
+
+  return new Promise((resolve) => {
+    const onClose = () => {
+      els.confirmDialog.removeEventListener('close', onClose);
+      resolve(els.confirmDialog.returnValue === 'confirm');
+    };
+
+    els.confirmDialog.addEventListener('close', onClose);
+    els.confirmDialog.showModal();
+  });
+}
+
+function askFolderName(folder) {
+  els.renameInput.value = folder.name;
+  els.renameDialog.returnValue = '';
+
+  return new Promise((resolve) => {
+    const onClose = () => {
+      els.renameDialog.removeEventListener('close', onClose);
+      resolve(
+        els.renameDialog.returnValue === 'save'
+          ? els.renameInput.value.trim()
+          : null,
+      );
+    };
+
+    els.renameDialog.addEventListener('close', onClose);
+    els.renameDialog.showModal();
+
+    requestAnimationFrame(() => {
+      els.renameInput.focus();
+      els.renameInput.select();
+    });
+  });
+}
+
+function wireDialogCancelButtons() {
+  for (const dialog of [els.confirmDialog, els.renameDialog]) {
+    dialog.querySelectorAll('[data-dialog-close]').forEach((button) => {
+      button.addEventListener('click', () => dialog.close('cancel'));
+    });
+  }
+}
+
+/* ---------- Section navigation ---------- */
+
+function validSection(name) {
+  return els.navItems.some((item) => item.dataset.section === name);
+}
+
+function switchSection(name, { updateHash = true } = {}) {
+  const target = validSection(name) ? name : 'words';
+
+  for (const item of els.navItems) {
+    const active = item.dataset.section === target;
+    item.classList.toggle('is-active', active);
+    if (active) item.setAttribute('aria-current', 'page');
+    else item.removeAttribute('aria-current');
+  }
+
+  for (const panel of document.querySelectorAll('.panel[data-panel]')) {
+    const active = panel.dataset.panel === target;
+    panel.classList.toggle('is-active', active);
+    panel.hidden = !active;
+  }
+
+  if (updateHash) {
+    try {
+      history.replaceState(null, '', `#${target}`);
+    } catch {
+      // Hash updates are best-effort.
+    }
+  }
 }
 
 /* ---------- Helpers ---------- */
 
-function askBackground(payload, timeoutMs = 12000) {
-  return new Promise((resolve) => {
-    let settled = false;
-    const finish = (response) => {
-      if (settled) return;
-      settled = true;
-      clearTimeout(timer);
-      resolve(response);
-    };
-    const timer = setTimeout(() => finish({ ok: false, code: 'timeout' }), timeoutMs);
-
-    try {
-      chrome.runtime.sendMessage(payload, (response) => {
-        if (chrome.runtime.lastError) finish({ ok: false, code: 'failed' });
-        else finish(response || { ok: false, code: 'empty' });
-      });
-    } catch {
-      finish({ ok: false, code: 'failed' });
-    }
-  });
-}
-
-function trimTrailingSlashes(value) {
-  return String(value || '').replace(/\/+$/, '') || '/';
-}
-
-function normalizeAbsolutePath(raw) {
-  const value = String(raw || '')
-    .replace(/[\u0000-\u001f\u007f]/g, '')
-    .trim()
-    .replace(/\\/g, '/');
-
-  if (!value || value.length > MAX_FULL_PATH) return null;
-  if (!value.startsWith('/') || value.endsWith('/')) return null;
-
-  const parts = value.split('/');
-  const resolved = [];
-
-  for (const part of parts) {
-    if (!part || part === '.') continue;
-
-    if (part === '..') {
-      if (!resolved.length) return null;
-      resolved.pop();
-      continue;
-    }
-
-    resolved.push(part);
-  }
-
-  if (!resolved.length) return null;
-  return `/${resolved.join('/')}`;
-}
-
-// The storage value is always an absolute path from the filesystem root.
-function resolveNotePath(raw) {
-  const value = String(raw || '')
-    .replace(/[\u0000-\u001f\u007f]/g, '')
-    .trim()
-    .replace(/\\/g, '/');
-
-  if (!value) return '';
-  if (!value.startsWith('/')) return null;
-  return normalizeAbsolutePath(value);
-}
-
-// Only used to migrate values saved by older versions, which were relative to
-// the configured vault. New selections are always absolute.
-function resolveStoredNotePath(raw) {
-  const value = String(raw || '')
-    .replace(/[\u0000-\u001f\u007f]/g, '')
-    .trim()
-    .replace(/\\/g, '/');
-
-  if (!value) return '';
-  if (value.startsWith('/')) return normalizeAbsolutePath(value);
-  if (value.startsWith('~') || !vaultPath) return null;
-
-  const relative = value.replace(/^\/+/, '');
-  const parts = relative.split('/');
-  if (parts.some((part) => !part || part === '.' || part === '..')) return null;
-
-  return normalizeAbsolutePath(`${trimTrailingSlashes(vaultPath)}/${relative}`);
-}
-
-function setStatus(element, text, kind = 'info') {
-  element.textContent = text;
-  element.dataset.kind = kind;
-}
-
-function setConnection(state, text) {
-  els.connection.dataset.state = state;
-  els.connection.textContent = text;
-}
-
-function updatePreview() {
-  const raw = els.notePath.value.trim();
-  const resolved = raw ? resolveNotePath(raw) : '';
-
-  els.filePreview.textContent = raw
-    ? resolved || raw
-    : defaultFilePath || '…';
-}
-
-function nativeErrorMessage(code) {
+function bankErrorMessage(code) {
   switch (code) {
-    case 'native_missing':
-      return 'الربط مش مفعّل. راجع خطوات تركيب Native Host في README، وبعدها جرّب تاني.';
-    case 'vault_missing':
-      return 'ملف الإعدادات الافتراضي مش موجود. اختار ملف بنفسك.';
-    case 'vault_readonly':
-      return 'المكان ده مش قابل للكتابة.';
-    case 'outside_root':
-      return 'المسار ده بره المكان المسموح.';
-    case 'not_directory':
-      return 'المسار ده مش فولدر.';
-    case 'unreadable':
-      return 'مقدرتش أقرا الفولدر ده.';
-    case 'file_missing':
-      return 'الملف ده مش موجود. اتأكد من المسار الكامل، أو اعمله الأول وارجع اختاره.';
-    case 'invalid_file':
-      return 'المسار مش صح. اكتب مسار ملف كامل من الروت، ومن غير ما يكون فولدر.';
-    case 'invalid_path':
-      return 'المسار مش صح.';
-    case 'config_error':
-      return 'فيه مشكلة في config.json بتاع الحفظ.';
-    case 'write_failed':
-      return 'مقدرتش أكتب في الملف ده. اتأكد إنه موجود وإن عندك صلاحية تعديله.';
-    case 'open_failed':
-      return 'مقدرتش أفتح الملف. اتأكد إن فيه تطبيق بيقرأ Markdown.';
-    case 'timeout':
-      return 'الطلب خد وقت طويل. جرّب تاني.';
+    case 'invalid':
+      return 'The word or translation is incomplete.';
+    case 'invalid_name':
+      return 'Enter a valid folder name.';
+    case 'duplicate_name':
+      return 'A folder with that name already exists.';
+    case 'folder_limit':
+      return 'You reached the maximum number of folders.';
+    case 'folder_missing':
+      return 'That folder no longer exists. Refresh the page and try again.';
+    case 'protected_folder':
+      return 'The default folder cannot be deleted. You can rename it.';
+    case 'word_limit':
+      return 'You reached the maximum number of words. Export and delete some words.';
+    case 'storage_full':
+      return 'Storage is full. Export and delete some words, then try again.';
+    case 'storage_error':
+      return 'Could not reach local storage. Try reloading the page.';
     default:
-      return 'حصلت مشكلة. جرّب تاني.';
+      return 'Something went wrong. Try again.';
   }
 }
 
-function isTemporaryNativeFailure(code) {
-  return code === 'native_missing' || code === 'timeout' || code === 'failed';
+function plural(count, singular, pluralForm = `${singular}s`) {
+  return count === 1 ? singular : pluralForm;
 }
 
-/* ---------- Hassala target ---------- */
+function formatCount(count) {
+  return Number(count).toLocaleString('en-US');
+}
 
-async function refreshInfo(quiet = false) {
-  const response = await askBackground({ type: 'hassalaInfo' });
+function folderById(id) {
+  return state.folders.find((folder) => folder.id === id) || null;
+}
 
-  if (response && response.ok) {
-    vaultPath = typeof response.vault === 'string' ? response.vault : vaultPath;
-    defaultFilePath =
-      (typeof response.filePath === 'string' && response.filePath) ||
-      resolveStoredNotePath(response.file) ||
-      '';
-    setConnection('ok', 'متصل');
+function generalFolderName() {
+  const folder = folderById(DEFAULT_FOLDER_ID);
+  return folder ? folder.name : 'General';
+}
 
-    if (!quiet) {
-      setStatus(
-        els.hassalaStatus,
-        defaultFilePath
-          ? `الملف الافتراضي دلوقتي: «${defaultFilePath}».`
-          : 'مفيش ملف افتراضي متظبط. اختار ملف بنفسك.',
-        'ok',
-      );
+function setTextDirection(element, text) {
+  element.dir = 'auto';
+  if (/[\u0600-\u06FF]/.test(text)) element.lang = 'ar';
+}
+
+function folderCounts() {
+  const counts = new Map();
+  for (const entry of state.words) {
+    counts.set(entry.folderId, (counts.get(entry.folderId) || 0) + 1);
+  }
+  return counts;
+}
+
+function visibleWords() {
+  const query = els.wordSearch.value.trim().toLocaleLowerCase();
+
+  const list = state.words.filter((entry) => {
+    if (folderFilterId !== 'all' && entry.folderId !== folderFilterId) {
+      return false;
     }
-  } else {
-    setConnection(
-      'error',
-      response && response.code === 'native_missing' ? 'مش متصل' : 'فيه مشكلة',
+    if (!query) return true;
+
+    return (
+      entry.word.toLocaleLowerCase().includes(query) ||
+      entry.translation.toLocaleLowerCase().includes(query)
     );
-
-    if (!quiet) {
-      setStatus(
-        els.hassalaStatus,
-        nativeErrorMessage(response && response.code),
-        'error',
-      );
-    }
-  }
-
-  updatePreview();
-}
-
-async function savePath() {
-  const raw = els.notePath.value.trim();
-
-  if (!raw) {
-    await useDefaultPath();
-    return;
-  }
-
-  const path = resolveNotePath(raw);
-  if (!path) {
-    setStatus(
-      els.hassalaStatus,
-      'اكتب مسار كامل من الروت، زي /home/you/Documents/Hassala Words.md.',
-      'error',
-    );
-    return;
-  }
-
-  els.notePath.value = path;
-  els.savePath.disabled = true;
-  const check = await askBackground({ type: 'hassalaCheckFile', file: path });
-  els.savePath.disabled = false;
-
-  if (check && check.ok) {
-    const finalPath = check.filePath || check.file || path;
-    els.notePath.value = finalPath;
-    await setStorage({ hassalaFile: finalPath });
-    updatePreview();
-    setStatus(
-      els.hassalaStatus,
-      `تم. الكلمات هتتحفظ في «${finalPath}» بالظبط.`,
-      'ok',
-    );
-    return;
-  }
-
-  if (check && isTemporaryNativeFailure(check.code)) {
-    await setStorage({ hassalaFile: path });
-    updatePreview();
-    setStatus(
-      els.hassalaStatus,
-      `اتحفظ المسار «${path}»، بس مش قادر أتأكد من الملف دلوقتي.`,
-      'info',
-    );
-    return;
-  }
-
-  const previous = await getStoredNotePath();
-  els.notePath.value = previous;
-  updatePreview();
-  setStatus(
-    els.hassalaStatus,
-    nativeErrorMessage(check && check.code),
-    'error',
-  );
-}
-
-async function useDefaultPath() {
-  await removeStorage('hassalaFile');
-  els.notePath.value = '';
-  updatePreview();
-  setStatus(
-    els.hassalaStatus,
-    `تمام — هنستخدم الملف الافتراضي${
-      defaultFilePath ? ` «${defaultFilePath}»` : ''
-    }.`,
-    'ok',
-  );
-}
-
-async function commitSelectedFile(path) {
-  let full = resolveNotePath(path);
-
-  if (!full) {
-    setStatus(
-      els.hassalaStatus,
-      'الملف ده مش مسار كامل صح. اختار ملف تاني.',
-      'error',
-    );
-    return;
-  }
-
-  const check = await askBackground({ type: 'hassalaCheckFile', file: full });
-
-  if (check && check.ok) {
-    full = check.filePath || check.file || full;
-  } else if (check && !isTemporaryNativeFailure(check.code)) {
-    setStatus(
-      els.hassalaStatus,
-      nativeErrorMessage(check.code),
-      'error',
-    );
-    return;
-  }
-
-  els.notePath.value = full;
-  await setStorage({ hassalaFile: full });
-  updatePreview();
-  setStatus(
-    els.hassalaStatus,
-    `تم. الكلمات هتتحفظ في «${full}» بالظبط.`,
-    'ok',
-  );
-}
-
-async function openCurrentFile() {
-  if (els.openFile.disabled) return;
-
-  els.openFile.disabled = true;
-  setStatus(els.hassalaStatus, 'بيفتح الملف…', 'info');
-
-  const response = await askBackground({ type: 'openHassalaFile' }, 9000);
-  els.openFile.disabled = false;
-
-  if (response && response.ok) {
-    setStatus(
-      els.hassalaStatus,
-      response.filePath
-        ? `اتفتح الملف: ${response.filePath}`
-        : 'اتفتح ملف الحفظ.',
-      'ok',
-    );
-  } else {
-    setStatus(
-      els.hassalaStatus,
-      nativeErrorMessage(response && response.code),
-      'error',
-    );
-  }
-}
-
-/* ---------- File browser ---------- */
-
-function startDirectory() {
-  const current = els.notePath.value.trim();
-  const source = current.startsWith('/') ? current : defaultFilePath;
-
-  if (!source || !source.startsWith('/')) return '';
-
-  const clean = source.replace(/\/+$/, '');
-  if (!clean) return '/';
-
-  if (/\.md$/i.test(clean)) {
-    const slash = clean.lastIndexOf('/');
-    return slash <= 0 ? '/' : clean.slice(0, slash);
-  }
-
-  return clean;
-}
-
-function openBrowser() {
-  browserLastFocus = document.activeElement;
-  browserPath = startDirectory();
-
-  els.browserModal.hidden = false;
-  document.body.classList.add('modal-open');
-  loadBrowser(browserPath);
-  window.setTimeout(() => els.browserClose.focus(), 30);
-}
-
-function closeBrowser() {
-  if (els.browserModal.hidden) return;
-
-  browserRequestSeq += 1;
-  els.browserModal.hidden = true;
-  document.body.classList.remove('modal-open');
-
-  if (browserLastFocus && typeof browserLastFocus.focus === 'function') {
-    try {
-      browserLastFocus.focus();
-    } catch {
-      // The element may be gone.
-    }
-  }
-  browserLastFocus = null;
-}
-
-async function loadBrowser(path) {
-  const seq = ++browserRequestSeq;
-  els.browserList.replaceChildren();
-  els.browserEmpty.hidden = true;
-  els.browserUp.disabled = true;
-  setStatus(els.browserStatus, 'بنجيب المحتويات…', 'info');
-
-  const response = await askBackground({
-    type: 'hassalaBrowse',
-    path: path || '',
-    files: true,
-    showHidden: els.browserHidden.checked,
   });
 
-  if (seq !== browserRequestSeq) return;
-
-  if (!response || !response.ok) {
-    setStatus(
-      els.browserStatus,
-      nativeErrorMessage(response && response.code),
-      'error',
+  if (els.sortOrder.value === 'az') {
+    return [...list].sort((a, b) =>
+      a.word.localeCompare(b.word, undefined, { sensitivity: 'base' }),
     );
-    els.browserEmpty.hidden = true;
+  }
+  if (els.sortOrder.value === 'za') {
+    return [...list].sort((a, b) =>
+      b.word.localeCompare(a.word, undefined, { sensitivity: 'base' }),
+    );
+  }
+
+  return list;
+}
+
+function wordsForFolder(folderId) {
+  return state.words.filter((entry) => entry.folderId === folderId);
+}
+
+function getExportFormat() {
+  const checked = document.querySelector(
+    'input[name="exportFormat"]:checked',
+  );
+  return checked ? checked.value : 'markdown';
+}
+
+function updateExportExtension() {
+  const format = getExportFormat();
+  els.exportExtension.textContent = FORMAT_EXTENSIONS[format] || '.md';
+}
+
+/* ---------- Word bank rendering ---------- */
+
+async function loadWords(quiet = false) {
+  if (!bank) {
+    showToast('Could not load the word bank. Reload the page.', 'error');
     return;
   }
 
-  browserPath = response.path || path || '';
-  els.browserPath.textContent = browserPath || '…';
-  els.browserPath.title = browserPath;
-  els.browserUp.disabled = !response.parent;
-  els.browserUp.dataset.parent = response.parent || '';
-  setStatus(els.browserStatus, '', 'info');
-
-  renderBrowserEntries(response);
-}
-
-function renderBrowserEntries(data) {
-  const fragment = document.createDocumentFragment();
-
-  for (const dir of data.dirs || []) {
-    fragment.append(
-      makeBrowserRow('folder', dir.name, 'مجلد', () => loadBrowser(dir.path)),
-    );
+  try {
+    state = await bank.read();
+  } catch (error) {
+    console.warn('Word bank read failed:', error);
+    if (!quiet) {
+      showToast(bankErrorMessage(error && error.code), 'error');
+    }
+    return;
   }
 
-  for (const file of data.files || []) {
-    fragment.append(
-      makeBrowserRow('file', file.name, 'Markdown', () =>
-        chooseExistingFile(file),
-      ),
-    );
+  const validIds = new Set(state.words.map((entry) => entry.id));
+  selectedIds = new Set([...selectedIds].filter((id) => validIds.has(id)));
+
+  if (
+    folderFilterId !== 'all' &&
+    !state.folders.some((folder) => folder.id === folderFilterId)
+  ) {
+    folderFilterId = 'all';
   }
 
-  els.browserList.replaceChildren(fragment);
-
-  const hasDirs = (data.dirs || []).length > 0;
-  const hasFiles = (data.files || []).length > 0;
-  els.browserEmpty.hidden = hasDirs || hasFiles;
+  renderFolders();
+  renderWords();
 }
 
-function makeBrowserRow(kind, name, meta, onActivate) {
-  const row = document.createElement('button');
-  row.type = 'button';
-  row.className = kind === 'file' ? 'browser-row is-file' : 'browser-row';
+function fillFolderSelect(select, selectedValue) {
+  const previous = selectedValue || select.value;
+  select.replaceChildren();
 
-  const icon = document.createElement('span');
-  icon.className = 'browser-row-icon';
-  icon.innerHTML = kind === 'file' ? FILE_SVG : FOLDER_SVG;
+  for (const folder of state.folders) {
+    const option = document.createElement('option');
+    option.value = folder.id;
+    option.textContent = folder.name;
+    select.append(option);
+  }
 
-  const label = document.createElement('span');
-  label.className = 'browser-row-name';
-  label.textContent = name;
+  select.value = state.folders.some((folder) => folder.id === previous)
+    ? previous
+    : state.folders[0]?.id || '';
+}
 
-  const metaEl = document.createElement('span');
-  metaEl.className = 'browser-row-meta';
-  metaEl.textContent = meta;
+function renderFolders() {
+  const counts = folderCounts();
+  const total = state.words.length;
 
-  row.append(icon, label, metaEl);
-  row.addEventListener('click', onActivate);
+  els.wordCount.textContent = `${formatCount(total)} ${plural(total, 'word')}`;
+  els.wordCount.dataset.state = total ? 'ok' : 'idle';
+  els.navWordCount.textContent = formatCount(total);
+
+  fillFolderSelect(els.activeFolder, state.activeFolderId);
+  fillFolderSelect(els.moveFolder, els.moveFolder.value || state.activeFolderId);
+
+  renderFolderFilter(counts);
+  renderFolderList(counts);
+
+  const folderTotal = state.folders.length;
+  els.folderSummary.textContent = `${formatCount(folderTotal)} ${plural(
+    folderTotal,
+    'folder',
+  )}`;
+
+  if (els.folderHint) {
+    els.folderHint.textContent = `Folder names can be up to 60 characters. Deleting a folder moves its words back to “${generalFolderName()}”; it never deletes the words.`;
+  }
+}
+
+function renderFolderFilter(counts) {
+  els.folderFilter.replaceChildren();
+
+  const allOption = document.createElement('option');
+  allOption.value = 'all';
+  allOption.textContent = `All words (${formatCount(state.words.length)})`;
+  els.folderFilter.append(allOption);
+
+  for (const folder of state.folders) {
+    const option = document.createElement('option');
+    option.value = folder.id;
+    option.textContent = `${folder.name} (${formatCount(
+      counts.get(folder.id) || 0,
+    )})`;
+    els.folderFilter.append(option);
+  }
+
+  const known =
+    folderFilterId === 'all' ||
+    state.folders.some((folder) => folder.id === folderFilterId);
+
+  if (!known) folderFilterId = 'all';
+  els.folderFilter.value = folderFilterId;
+}
+
+function renderFolderList(counts) {
+  els.folderList.replaceChildren();
+
+  if (!state.folders.length) {
+    els.folderEmpty.hidden = false;
+    return;
+  }
+
+  els.folderEmpty.hidden = true;
+
+  for (const folder of state.folders) {
+    const count = counts.get(folder.id) || 0;
+    const isActive = folder.id === state.activeFolderId;
+    const isProtected = folder.id === DEFAULT_FOLDER_ID;
+
+    const row = document.createElement('li');
+    row.className = 'folder-row';
+    row.dataset.folderId = folder.id;
+    row.classList.toggle('is-active', isActive);
+
+    const main = document.createElement('div');
+    main.className = 'folder-main';
+
+    const name = document.createElement('span');
+    name.className = 'folder-name';
+    setTextDirection(name, folder.name);
+    name.textContent = folder.name;
+
+    const meta = document.createElement('span');
+    meta.className = 'folder-meta';
+    meta.textContent = `${formatCount(count)} ${plural(count, 'word')}`;
+
+    main.append(name, meta);
+
+    if (isActive) {
+      const badge = document.createElement('span');
+      badge.className = 'folder-badge';
+      badge.textContent = 'Saving here';
+      main.append(badge);
+    }
+
+    const actions = document.createElement('div');
+    actions.className = 'folder-actions';
+
+    const view = document.createElement('button');
+    view.type = 'button';
+    view.className = 'btn small ghost';
+    view.dataset.action = 'view';
+    view.textContent = 'View';
+    view.setAttribute('aria-label', `View words in ${folder.name}`);
+
+    const rename = document.createElement('button');
+    rename.type = 'button';
+    rename.className = 'btn small ghost';
+    rename.dataset.action = 'rename';
+    rename.textContent = 'Rename';
+    rename.setAttribute('aria-label', `Rename ${folder.name}`);
+
+    const remove = document.createElement('button');
+    remove.type = 'button';
+    remove.className = 'btn small ghost danger';
+    remove.dataset.action = 'delete';
+    remove.textContent = 'Delete';
+    remove.disabled = isProtected;
+    remove.setAttribute('aria-label', `Delete ${folder.name}`);
+    if (isProtected) {
+      remove.title = 'The default folder is protected.';
+      remove.setAttribute(
+        'aria-label',
+        `${folder.name} is the default folder and cannot be deleted`,
+      );
+    }
+
+    actions.append(view);
+    if (!isActive) {
+      const save = document.createElement('button');
+      save.type = 'button';
+      save.className = 'btn small';
+      save.dataset.action = 'save';
+      save.textContent = 'Save here';
+      save.setAttribute(
+        'aria-label',
+        `Save new words to ${folder.name}`,
+      );
+      actions.append(save);
+    }
+    actions.append(rename, remove);
+    row.append(main, actions);
+    els.folderList.append(row);
+  }
+}
+
+function renderWords() {
+  const all = visibleWords();
+  const pageCount = Math.max(1, Math.ceil(all.length / PAGE_SIZE));
+
+  if (currentPage >= pageCount) currentPage = pageCount - 1;
+  if (currentPage < 0) currentPage = 0;
+
+  const start = currentPage * PAGE_SIZE;
+  const pageWords = all.slice(start, start + PAGE_SIZE);
+  const folders = new Map(state.folders.map((folder) => [folder.id, folder]));
+
+  els.wordList.replaceChildren();
+
+  if (!all.length) {
+    els.wordEmpty.hidden = false;
+    els.wordEmpty.textContent = state.words.length
+      ? 'No words match your search or the selected folder.'
+      : 'No words here yet. Save a word from the extension and it will appear here.';
+    els.wordPager.hidden = true;
+  } else {
+    els.wordEmpty.hidden = true;
+
+    const fragment = document.createDocumentFragment();
+    for (const entry of pageWords) {
+      fragment.append(makeWordRow(entry, folders));
+    }
+    els.wordList.append(fragment);
+
+    els.wordPager.hidden = all.length <= PAGE_SIZE;
+    els.wordRange.textContent = `Showing ${formatCount(
+      start + 1,
+    )}–${formatCount(start + pageWords.length)} of ${formatCount(
+      all.length,
+    )} ${plural(all.length, 'word')}`;
+    els.wordPageLabel.textContent = `${currentPage + 1} / ${pageCount}`;
+    els.wordPrev.disabled = currentPage === 0;
+    els.wordNext.disabled = currentPage >= pageCount - 1;
+  }
+
+  els.viewSummary.textContent =
+    all.length === state.words.length
+      ? `${formatCount(all.length)} ${plural(all.length, 'word')}`
+      : `${formatCount(all.length)} of ${formatCount(state.words.length)} ${plural(
+          state.words.length,
+          'word',
+        )}`;
+
+  const allPageSelected =
+    pageWords.length > 0 && pageWords.every((entry) => selectedIds.has(entry.id));
+  const somePageSelected = pageWords.some((entry) => selectedIds.has(entry.id));
+
+  els.selectAllWords.checked = allPageSelected;
+  els.selectAllWords.indeterminate = somePageSelected && !allPageSelected;
+  els.selectAllWords.disabled = pageWords.length === 0;
+
+  els.exportVisible.disabled = all.length === 0;
+  els.exportAll.disabled = state.words.length === 0;
+  els.exportVisible.textContent = all.length
+    ? `Export visible (${formatCount(all.length)})`
+    : 'Export visible';
+  els.exportAll.textContent = state.words.length
+    ? `Export all (${formatCount(state.words.length)})`
+    : 'Export all';
+
+  const filteredView =
+    folderFilterId !== 'all' || els.wordSearch.value.trim().length > 0;
+  els.clearWords.disabled = all.length === 0;
+  els.clearWords.textContent = filteredView
+    ? `Clear shown (${formatCount(all.length)})`
+    : `Clear all words (${formatCount(state.words.length)})`;
+
+  updateSelectionState();
+}
+
+function makeWordRow(entry, folders) {
+  const row = document.createElement('div');
+  row.className = 'word-row';
+  row.setAttribute('role', 'listitem');
+  if (selectedIds.has(entry.id)) row.classList.add('is-selected');
+
+  const checkLabel = document.createElement('label');
+  checkLabel.className = 'word-check';
+  checkLabel.title = 'Select word';
+
+  const checkbox = document.createElement('input');
+  checkbox.type = 'checkbox';
+  checkbox.checked = selectedIds.has(entry.id);
+  checkbox.setAttribute('aria-label', `Select ${entry.word}`);
+  checkbox.addEventListener('change', () => {
+    if (checkbox.checked) selectedIds.add(entry.id);
+    else selectedIds.delete(entry.id);
+
+    row.classList.toggle('is-selected', checkbox.checked);
+    updateSelectionState();
+
+    const pageWords = visibleWords().slice(
+      currentPage * PAGE_SIZE,
+      (currentPage + 1) * PAGE_SIZE,
+    );
+    els.selectAllWords.checked =
+      pageWords.length > 0 &&
+      pageWords.every((item) => selectedIds.has(item.id));
+    els.selectAllWords.indeterminate =
+      pageWords.some((item) => selectedIds.has(item.id)) &&
+      !els.selectAllWords.checked;
+  });
+
+  checkLabel.append(checkbox);
+
+  const text = document.createElement('div');
+  text.className = 'word-text';
+
+  const source = document.createElement('span');
+  source.className = 'word-source';
+  setTextDirection(source, entry.word);
+  source.textContent = entry.word;
+
+  const arrow = document.createElement('span');
+  arrow.className = 'word-arrow';
+  arrow.setAttribute('aria-hidden', 'true');
+  arrow.textContent = '→';
+
+  const target = document.createElement('span');
+  target.className = 'word-target';
+  setTextDirection(target, entry.translation);
+  target.textContent = entry.translation;
+
+  text.append(source, arrow, target);
+
+  const meta = document.createElement('div');
+  meta.className = 'word-meta';
+
+  const folder = folders.get(entry.folderId);
+  const folderTag = document.createElement('span');
+  folderTag.className = 'word-folder-tag';
+  const folderTagName = folder ? folder.name : generalFolderName();
+  setTextDirection(folderTag, folderTagName);
+  folderTag.textContent = folderTagName;
+
+  meta.append(folderTag);
+
+  const remove = document.createElement('button');
+  remove.type = 'button';
+  remove.className = 'word-delete';
+  remove.title = 'Delete word';
+  remove.setAttribute('aria-label', `Delete ${entry.word}`);
+  remove.textContent = '×';
+  remove.addEventListener('click', () => deleteSingleWord(entry));
+
+  row.append(checkLabel, text, meta, remove);
   return row;
 }
 
-async function chooseExistingFile(file) {
-  const full = resolveNotePath((file && file.path) || '');
+function updateSelectionState() {
+  const count = selectedIds.size;
 
-  if (!full) {
-    setStatus(
-      els.browserStatus,
-      'الملف ده مش مسار كامل صح.',
+  els.selectionInfo.textContent = count
+    ? `${formatCount(count)} selected`
+    : 'No words selected';
+
+  els.exportSelected.textContent = count
+    ? `Export selected (${formatCount(count)})`
+    : 'Export selected';
+
+  els.exportSelected.disabled = count === 0;
+  els.moveSelected.disabled = count === 0;
+  els.deleteSelected.disabled = count === 0;
+  els.moveSelected.textContent = count ? `Move (${formatCount(count)})` : 'Move';
+  els.deleteSelected.textContent = count
+    ? `Delete (${formatCount(count)})`
+    : 'Delete selected';
+}
+
+/* ---------- Folder actions ---------- */
+
+async function addFolder() {
+  if (!bank || els.addFolder.disabled) return;
+
+  const name = els.newFolderName.value.trim();
+  if (!name) {
+    showToast('Enter a folder name first.', 'error');
+    els.newFolderName.focus();
+    return;
+  }
+
+  els.addFolder.disabled = true;
+  let result;
+  try {
+    result = await bank.createFolder(name);
+  } catch (error) {
+    result = { ok: false, code: error && error.code };
+  }
+  els.addFolder.disabled = false;
+
+  if (!result || !result.ok) {
+    showToast(bankErrorMessage(result && result.code), 'error');
+    return;
+  }
+
+  els.newFolderName.value = '';
+  folderFilterId = result.folder.id;
+  currentPage = 0;
+  selectedIds.clear();
+  await loadWords(true);
+  showToast(
+    `Created “${result.folder.name}” and set it as your save folder.`,
+    'ok',
+  );
+  els.newFolderName.focus();
+}
+
+async function setActiveFolder(folder) {
+  if (!bank || !folder || folder.id === state.activeFolderId) return;
+
+  try {
+    await bank.setActiveFolder(folder.id);
+    state.activeFolderId = folder.id;
+    renderFolders();
+    showToast(`New words will be saved to “${folder.name}”.`, 'ok');
+  } catch (error) {
+    showToast(bankErrorMessage(error && error.code), 'error');
+    await loadWords(true);
+  }
+}
+
+async function renameFolder(folder) {
+  if (!bank || !folder) return;
+
+  const name = await askFolderName(folder);
+  if (name === null) return;
+  if (!name) {
+    showToast('Folder name cannot be empty.', 'error');
+    return;
+  }
+
+  let result;
+  try {
+    result = await bank.renameFolder(folder.id, name);
+  } catch (error) {
+    result = { ok: false, code: error && error.code };
+  }
+
+  if (!result || !result.ok) {
+    showToast(bankErrorMessage(result && result.code), 'error');
+    return;
+  }
+
+  await loadWords(true);
+  showToast(`Folder renamed to “${result.folder.name}”.`, 'ok');
+}
+
+async function deleteFolder(folder) {
+  if (!bank || !folder) return;
+
+  if (folder.id === DEFAULT_FOLDER_ID) {
+    showToast(
+      `The “${folder.name}” folder is the default folder and cannot be deleted. You can rename it.`,
       'error',
     );
     return;
   }
 
-  closeBrowser();
-  await commitSelectedFile(full);
+  const count = wordsForFolder(folder.id).length;
+  const generalName = generalFolderName();
+  const confirmed = await askConfirm({
+    title: `Delete “${folder.name}”?`,
+    body: count
+      ? `${formatCount(count)} ${plural(
+          count,
+          'word',
+        )} will move to “${generalName}”. The words themselves are not deleted.`
+      : 'This empty folder will be removed.',
+    confirmLabel: 'Delete folder',
+  });
+  if (!confirmed) return;
+
+  let result;
+  try {
+    result = await bank.deleteFolder(folder.id);
+  } catch (error) {
+    result = { ok: false, code: error && error.code };
+  }
+
+  if (!result || !result.ok) {
+    showToast(bankErrorMessage(result && result.code), 'error');
+    return;
+  }
+
+  if (folderFilterId === folder.id) folderFilterId = 'all';
+  currentPage = 0;
+  selectedIds.clear();
+  await loadWords(true);
+  showToast(
+    result.moved
+      ? `Folder deleted; ${formatCount(result.moved)} ${plural(
+          result.moved,
+          'word',
+        )} moved to “${generalName}”.`
+      : 'Folder deleted.',
+    'ok',
+  );
+}
+
+async function onFolderAction(event) {
+  const button = event.target.closest('button[data-action]');
+  if (!button) return;
+
+  const row = button.closest('[data-folder-id]');
+  if (!row) return;
+
+  const folder = folderById(row.dataset.folderId);
+  if (!folder) return;
+
+  switch (button.dataset.action) {
+    case 'view':
+      folderFilterId = folder.id;
+      currentPage = 0;
+      selectedIds.clear();
+      renderFolders();
+      renderWords();
+      switchSection('words');
+      break;
+    case 'save':
+      await setActiveFolder(folder);
+      break;
+    case 'rename':
+      await renameFolder(folder);
+      break;
+    case 'delete':
+      await deleteFolder(folder);
+      break;
+    default:
+      break;
+  }
+}
+
+async function changeActiveFolder() {
+  const folderId = els.activeFolder.value;
+  const folder = folderById(folderId);
+  if (folder) await setActiveFolder(folder);
+}
+
+/* ---------- Word actions ---------- */
+
+async function deleteSingleWord(entry) {
+  if (!bank) return;
+
+  const confirmed = await askConfirm({
+    title: 'Delete this word?',
+    body: `“${entry.word} — ${entry.translation}” will be removed from the extension. Export first if you need a copy.`,
+    confirmLabel: 'Delete word',
+  });
+  if (!confirmed) return;
+
+  try {
+    const result = await bank.removeWords([entry.id]);
+    selectedIds.delete(entry.id);
+    await loadWords(true);
+    showToast(
+      result.removed
+        ? 'Word deleted from the extension.'
+        : 'That word was already gone.',
+      'ok',
+    );
+  } catch (error) {
+    showToast(bankErrorMessage(error && error.code), 'error');
+  }
+}
+
+async function deleteSelectedWords() {
+  if (!bank || selectedIds.size === 0) return;
+
+  const count = selectedIds.size;
+  const confirmed = await askConfirm({
+    title: `Delete ${formatCount(count)} ${plural(count, 'word')}?`,
+    body: 'They will be removed from the extension. Export them first if you need a copy.',
+    confirmLabel: 'Delete selected',
+  });
+  if (!confirmed) return;
+
+  try {
+    const result = await bank.removeWords([...selectedIds]);
+    selectedIds.clear();
+    await loadWords(true);
+    showToast(
+      `${formatCount(result.removed)} ${plural(
+        result.removed,
+        'word',
+      )} deleted from the extension.`,
+      'ok',
+    );
+  } catch (error) {
+    showToast(bankErrorMessage(error && error.code), 'error');
+  }
+}
+
+async function moveSelectedWords() {
+  if (!bank || selectedIds.size === 0) return;
+
+  const folderId = els.moveFolder.value;
+  const folder = folderById(folderId);
+  if (!folder) return;
+
+  try {
+    const result = await bank.moveWords([...selectedIds], folderId);
+    await loadWords(true);
+    showToast(
+      result.moved
+        ? `Moved ${formatCount(result.moved)} ${plural(
+            result.moved,
+            'word',
+          )} to “${folder.name}”.`
+        : `The selected words are already in “${folder.name}”.`,
+      'ok',
+    );
+  } catch (error) {
+    showToast(bankErrorMessage(error && error.code), 'error');
+  }
+}
+
+async function clearWordsScope() {
+  if (!bank) return;
+
+  const words = visibleWords();
+  if (!words.length) return;
+
+  const query = els.wordSearch.value.trim();
+  const folder =
+    folderFilterId === 'all' ? null : folderById(folderFilterId);
+  const filters = [];
+
+  if (folder) filters.push(`folder “${folder.name}”`);
+  if (query) filters.push(`search “${query}”`);
+
+  const count = words.length;
+  const scope = filters.length
+    ? `currently shown (${filters.join(', ')})`
+    : 'in your word bank';
+  const confirmed = await askConfirm({
+    title: `Clear ${formatCount(count)} ${plural(count, 'word')}?`,
+    body: `Clear ${formatCount(count)} ${plural(
+      count,
+      'word',
+    )} ${scope}? This cannot be undone. Export them first if you need a copy.`,
+    confirmLabel: 'Clear words',
+  });
+  if (!confirmed) return;
+
+  try {
+    const result = await bank.removeWords(words.map((entry) => entry.id));
+    selectedIds.clear();
+    currentPage = 0;
+    await loadWords(true);
+    showToast(
+      result.removed
+        ? `Deleted ${formatCount(result.removed)} ${plural(
+            result.removed,
+            'word',
+          )} from the extension.`
+        : 'There were no words to delete.',
+      'ok',
+    );
+  } catch (error) {
+    showToast(bankErrorMessage(error && error.code), 'error');
+  }
+}
+
+/* ---------- Export ---------- */
+
+function downloadTextFile(file) {
+  const blob = new Blob([file.text], { type: file.mime });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+
+  link.href = url;
+  link.download = file.filename;
+  link.rel = 'noopener';
+  document.body.append(link);
+  link.click();
+  link.remove();
+
+  // Give the browser time to start the download before releasing the blob.
+  setTimeout(() => URL.revokeObjectURL(url), 30000);
+}
+
+async function exportWords(words, label) {
+  if (!bank) return;
+  if (!words.length) {
+    showToast('There are no words in this scope to export.', 'error');
+    return;
+  }
+
+  let file;
+  try {
+    file = bank.buildExport(words, getExportFormat(), els.exportName.value);
+    downloadTextFile(file);
+  } catch (error) {
+    console.warn('Export failed:', error);
+    showToast('Could not prepare the export file. Try again.', 'error');
+    return;
+  }
+
+  const count = words.length;
+  let deleted = 0;
+
+  if (els.deleteAfterExport.checked) {
+    try {
+      const result = await bank.removeWords(words.map((entry) => entry.id));
+      deleted = result.removed;
+      for (const entry of words) selectedIds.delete(entry.id);
+      await loadWords(true);
+    } catch (error) {
+      showToast(
+        `Downloaded “${file.filename}”, but could not delete the words from the extension. ${bankErrorMessage(
+          error && error.code,
+        )}`,
+        'error',
+        10000,
+      );
+      return;
+    }
+  }
+
+  showToast(
+    deleted
+      ? `Downloaded “${file.filename}” (${formatCount(
+          count,
+        )} ${plural(count, 'word')}) and deleted ${formatCount(
+          deleted,
+        )} from the extension.`
+      : `Downloaded “${file.filename}” (${formatCount(count)} ${plural(
+          count,
+          'word',
+        )}) from ${label}.`,
+    'ok',
+    10000,
+  );
 }
 
 /* ---------- Blocked sites ---------- */
@@ -586,8 +1077,8 @@ function renderBlockedSites(value) {
     const remove = document.createElement('button');
     remove.type = 'button';
     remove.className = 'site-remove';
-    remove.title = `تفعيل حصالة على ${site}`;
-    remove.setAttribute('aria-label', `إزالة ${site} من المواقع المتعطلة`);
+    remove.title = `Enable Hassala on ${site}`;
+    remove.setAttribute('aria-label', `Remove ${site} from disabled sites`);
     remove.textContent = '×';
     remove.addEventListener('click', () => removeBlockedSite(site));
 
@@ -599,11 +1090,7 @@ function renderBlockedSites(value) {
 async function loadBlockedSites() {
   if (!sitePolicy) {
     if (els.addSite) els.addSite.disabled = true;
-    setStatus(
-      els.siteStatus,
-      'مقدرتش أحمّل إعدادات المواقع. أعد تحميل الصفحة.',
-      'error',
-    );
+    showToast('Could not load site settings. Reload the page.', 'error');
     return;
   }
 
@@ -616,9 +1103,8 @@ async function addBlockedSite() {
 
   const site = sitePolicy.normalizeSite(els.siteInput.value);
   if (!site) {
-    setStatus(
-      els.siteStatus,
-      'اكتب دومين صحيح، زي example.com أو https://example.com.',
+    showToast(
+      'Enter a valid domain, such as example.com or https://example.com.',
       'error',
     );
     els.siteInput.focus();
@@ -629,7 +1115,7 @@ async function addBlockedSite() {
   const list = sitePolicy.sanitizeList(data.blockedSites);
 
   if (list.includes(site)) {
-    setStatus(els.siteStatus, `«${site}» متضاف بالفعل.`, 'info');
+    showToast(`“${site}” is already blocked.`, 'info');
     els.siteInput.select();
     return;
   }
@@ -638,9 +1124,8 @@ async function addBlockedSite() {
   await setStorage({ blockedSites: sitePolicy.sanitizeList(list) });
   els.siteInput.value = '';
   renderBlockedSites(list);
-  setStatus(
-    els.siteStatus,
-    `تم تعطيل حصالة على «${site}» وكل النطاقات الفرعية.`,
+  showToast(
+    `Hassala is now disabled on “${site}” and its subdomains.`,
     'ok',
   );
   els.siteInput.focus();
@@ -656,20 +1141,23 @@ async function removeBlockedSite(site) {
 
   await setStorage({ blockedSites: list });
   renderBlockedSites(list);
-  setStatus(els.siteStatus, `تم تفعيل حصالة على «${site}» تاني.`, 'ok');
+  showToast(`Hassala is enabled again on “${site}”.`, 'ok');
 }
 
 async function clearBlockedSites() {
   if (blockedSites.length === 0) return;
 
-  const confirmed = window.confirm(
-    'تفعيل حصالة على كل المواقع تاني؟ هتمسح كل المواقع المتعطلة.',
-  );
+  const confirmed = await askConfirm({
+    title: 'Enable Hassala everywhere?',
+    body: 'This clears every blocked site. Hassala will be active on all sites again.',
+    confirmLabel: 'Enable on all sites',
+    danger: false,
+  });
   if (!confirmed) return;
 
   await removeStorage('blockedSites');
   renderBlockedSites([]);
-  setStatus(els.siteStatus, 'حصالة اتفعّلت على كل المواقع تاني.', 'ok');
+  showToast('Hassala is enabled on all sites again.', 'ok');
 }
 
 /* ---------- Floating button & positions ---------- */
@@ -678,29 +1166,26 @@ async function toggleFab() {
   const visible = els.fabVisible.checked;
   await setStorage({ fabHidden: !visible });
 
-  setStatus(
-    els.fabStatus,
+  showToast(
     visible
-      ? 'الزرار العائم رجع هيظهر في الصفحات المفتوحة.'
-      : 'الزرار العائم اتخفى. تقدر ترجّعه بأيقونة الإضافة من شريط المتصفح.',
+      ? 'The floating button will appear on open pages again.'
+      : 'The floating button is hidden. You can bring it back from the extension icon in the browser toolbar.',
     'ok',
   );
 }
 
 async function resetPanelPosition() {
   await removeStorage('panelPos');
-  setStatus(
-    els.positionStatus,
-    'مكان صندوق الترجمة رجع للافتراضي. لو الصندوق مفتوح، هيتحرك على طول.',
+  showToast(
+    'The translation panel is back in its default position. If it is open, it will move right away.',
     'ok',
   );
 }
 
 async function resetFabPosition() {
   await removeStorage('fabPos');
-  setStatus(
-    els.positionStatus,
-    'الزرار العائم رجع لمكانه الأصلي في الصفحات المفتوحة.',
+  showToast(
+    'The floating button is back in its original position on open pages.',
     'ok',
   );
 }
@@ -714,57 +1199,124 @@ async function init() {
     // Keep the version in the markup.
   }
 
+  wireDialogCancelButtons();
+  updateExportExtension();
+
   const data = await getStorage(['fabHidden']);
-  const stored = await getStoredNotePath();
-
   els.fabVisible.checked = !data.fabHidden;
-  await refreshInfo(false);
 
-  if (stored) {
-    const full = resolveStoredNotePath(stored);
+  const hash = location.hash.replace('#', '');
+  switchSection(validSection(hash) ? hash : 'words', { updateHash: false });
 
-    if (full) {
-      els.notePath.value = full;
-      if (full !== stored) await setStorage({ hassalaFile: full });
-    } else {
-      els.notePath.value = stored;
-    }
-  }
-
-  updatePreview();
-
-  const current = els.notePath.value.trim();
-  if (current.startsWith('/')) {
-    const check = await askBackground({ type: 'hassalaCheckFile', file: current });
-
-    if (check && check.ok) {
-      const finalPath = check.filePath || check.file || current;
-      if (finalPath !== current) {
-        els.notePath.value = finalPath;
-        await setStorage({ hassalaFile: finalPath });
-        updatePreview();
-      }
-      setStatus(
-        els.hassalaStatus,
-        `الكلمات هتتحفظ في «${els.notePath.value}» بالظبط.`,
-        'ok',
-      );
-    } else if (check && check.code === 'file_missing') {
-      setStatus(
-        els.hassalaStatus,
-        'الملف المحفوظ مش موجود دلوقتي. اختار ملف تاني أو اعمله الأول.',
-        'error',
-      );
-    }
-  }
-
+  await loadWords();
   await loadBlockedSites();
 }
 
-els.savePath.addEventListener('click', savePath);
-els.openFile.addEventListener('click', openCurrentFile);
-els.useDefault.addEventListener('click', useDefaultPath);
-els.pickFile.addEventListener('click', openBrowser);
+/* ---------- Events ---------- */
+
+for (const item of els.navItems) {
+  item.addEventListener('click', () => switchSection(item.dataset.section));
+}
+
+if (els.brandLink) {
+  els.brandLink.addEventListener('click', (event) => {
+    event.preventDefault();
+    switchSection('words');
+  });
+}
+
+els.addFolder.addEventListener('click', addFolder);
+els.newFolderName.addEventListener('keydown', (event) => {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    addFolder();
+  }
+});
+els.activeFolder.addEventListener('change', changeActiveFolder);
+els.folderList.addEventListener('click', onFolderAction);
+
+els.wordSearch.addEventListener('input', () => {
+  currentPage = 0;
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(renderWords, SEARCH_DEBOUNCE_MS);
+});
+els.wordSearch.addEventListener('keydown', (event) => {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    clearTimeout(searchTimer);
+    currentPage = 0;
+    renderWords();
+  }
+});
+
+els.folderFilter.addEventListener('change', () => {
+  folderFilterId = els.folderFilter.value;
+  currentPage = 0;
+  selectedIds.clear();
+  renderFolders();
+  renderWords();
+});
+
+els.sortOrder.addEventListener('change', () => {
+  currentPage = 0;
+  renderWords();
+});
+
+els.selectAllWords.addEventListener('change', () => {
+  const pageWords = visibleWords().slice(
+    currentPage * PAGE_SIZE,
+    (currentPage + 1) * PAGE_SIZE,
+  );
+
+  if (els.selectAllWords.checked) {
+    for (const entry of pageWords) selectedIds.add(entry.id);
+  } else {
+    for (const entry of pageWords) selectedIds.delete(entry.id);
+  }
+  renderWords();
+});
+
+els.wordPrev.addEventListener('click', () => {
+  if (currentPage > 0) {
+    currentPage -= 1;
+    renderWords();
+  }
+});
+
+els.wordNext.addEventListener('click', () => {
+  const all = visibleWords();
+  if ((currentPage + 1) * PAGE_SIZE < all.length) {
+    currentPage += 1;
+    renderWords();
+  }
+});
+
+document.querySelectorAll('input[name="exportFormat"]').forEach((input) => {
+  input.addEventListener('change', updateExportExtension);
+});
+
+els.exportSelected.addEventListener('click', () => {
+  exportWords(
+    state.words.filter((entry) => selectedIds.has(entry.id)),
+    'selected words',
+  );
+});
+els.exportVisible.addEventListener('click', () => {
+  const folder =
+    folderFilterId === 'all' ? null : folderById(folderFilterId);
+  exportWords(
+    visibleWords(),
+    folder ? `folder “${folder.name}”` : 'visible words',
+  );
+});
+els.exportAll.addEventListener('click', () => {
+  exportWords(state.words, 'all words');
+});
+
+els.moveSelected.addEventListener('click', moveSelectedWords);
+els.deleteSelected.addEventListener('click', deleteSelectedWords);
+els.clearWords.addEventListener('click', clearWordsScope);
+
 els.fabVisible.addEventListener('change', toggleFab);
 els.resetPanel.addEventListener('click', resetPanelPosition);
 els.resetFab.addEventListener('click', resetFabPosition);
@@ -777,39 +1329,21 @@ els.siteInput.addEventListener('keydown', (event) => {
   }
 });
 
-els.notePath.addEventListener('input', updatePreview);
-els.notePath.addEventListener('keydown', (event) => {
-  if (event.key === 'Enter') {
-    event.preventDefault();
-    savePath();
-  }
-});
-
-els.browserClose.addEventListener('click', closeBrowser);
-els.browserCancel.addEventListener('click', closeBrowser);
-els.browserModal.addEventListener('click', (event) => {
-  if (event.target.closest('[data-browser-close]')) closeBrowser();
-});
-
-els.browserUp.addEventListener('click', () => {
-  const parent = els.browserUp.dataset.parent;
-  if (parent) loadBrowser(parent);
-});
-els.browserHidden.addEventListener('change', () => {
-  if (!els.browserModal.hidden) loadBrowser(browserPath);
-});
-
-document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape' && !els.browserModal.hidden) {
-    event.preventDefault();
-    closeBrowser();
-  }
-});
-
 if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.onChanged) {
   chrome.storage.onChanged.addListener((changes, area) => {
-    if (area !== 'local' || !changes.blockedSites) return;
-    renderBlockedSites(changes.blockedSites.newValue);
+    if (area !== 'local') return;
+
+    if (changes.blockedSites) {
+      renderBlockedSites(changes.blockedSites.newValue);
+    }
+
+    if (
+      changes[bank?.WORDS_KEY || 'wordBank'] ||
+      changes[bank?.FOLDERS_KEY || 'wordFolders'] ||
+      changes[bank?.ACTIVE_FOLDER_KEY || 'activeFolderId']
+    ) {
+      loadWords(true);
+    }
   });
 }
 

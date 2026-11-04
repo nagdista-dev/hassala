@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Hassala — Arabic ↔ English Chrome Translator &amp; Word Bank</title>
-  <meta name="description" content="Hassala is a free, open-source Chrome extension that translates Arabic ↔ English, saves every word to a Markdown word bank on your device, and makes YouTube subtitles interactive. No account, no tracking.">
+  <meta name="description" content="Hassala is a free, open-source Chrome extension that translates Arabic ↔ English, keeps every word in a private local word bank with folders, and makes YouTube subtitles interactive. Export to Markdown, TXT, CSV, or JSON whenever you want. No account, no tracking.">
   <link rel="canonical" href="https://nagdista-dev.github.io/hassala/">
   <link rel="alternate" hreflang="en" href="https://nagdista-dev.github.io/hassala/">
   <link rel="alternate" hreflang="ar" href="https://nagdista-dev.github.io/hassala/ar/">
@@ -16,17 +16,17 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Hassala">
   <meta property="og:title" content="Hassala — Arabic ↔ English Translator for Chrome">
-  <meta property="og:description" content="Translate Arabic ↔ English, save every word to a Markdown word bank, and turn YouTube subtitles into a vocabulary lesson. Free, open source, no account.">
+  <meta property="og:description" content="Translate Arabic ↔ English, keep every word in a private local word bank with folders and export, and turn YouTube subtitles into a vocabulary lesson. Free, open source, no account.">
   <meta property="og:url" content="https://nagdista-dev.github.io/hassala/">
   <meta property="og:image" content="https://nagdista-dev.github.io/hassala/assets/social-preview-en.png">
   <meta property="og:image:width" content="1280">
   <meta property="og:image:height" content="640">
-  <meta property="og:image:alt" content="Hassala — Arabic-first translator and Markdown word bank">
+  <meta property="og:image:alt" content="Hassala — Arabic ↔ English translator and private local word bank">
   <meta property="og:locale" content="en_US">
   <meta property="og:locale:alternate" content="ar_AR">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Hassala — Arabic ↔ English Translator for Chrome">
-  <meta name="twitter:description" content="Translate Arabic ↔ English, save every word to a Markdown word bank, and make YouTube subtitles interactive. Free and open source.">
+  <meta name="twitter:description" content="Translate Arabic ↔ English, keep every word in a local word bank with folders and export, and make YouTube subtitles interactive. Free and open source.">
   <meta name="twitter:image" content="https://nagdista-dev.github.io/hassala/assets/social-preview-en.png">
 
   <link rel="icon" type="image/png" href="assets/icon128.png">
@@ -47,7 +47,7 @@
         "applicationCategory": "EducationalApplication",
         "applicationSubCategory": "Language Learning",
         "operatingSystem": "Chrome, Brave, Edge, Chromium",
-        "description": "Hassala is a free, open-source Chrome extension that translates Arabic and English, saves words to a local Markdown word bank, and makes YouTube subtitles interactive.",
+        "description": "Hassala is a free, open-source Chrome extension that translates Arabic and English, keeps words in a private local word bank with folders and export, and makes YouTube subtitles interactive.",
         "url": "https://nagdista-dev.github.io/hassala/",
         "downloadUrl": "https://github.com/nagdista-dev/hassala/releases/latest",
         "codeRepository": "https://github.com/nagdista-dev/hassala",
@@ -61,7 +61,9 @@
         },
         "featureList": [
           "Instant Arabic ↔ English translation",
-          "Save words to a local Markdown word bank",
+          "Save words to a private local word bank",
+          "Folders for organising vocabulary",
+          "Export to Markdown, TXT, CSV, or JSON",
           "Duplicate detection",
           "Interactive YouTube subtitles",
           "Floating translator on any page",
@@ -92,7 +94,7 @@
             "name": "What is Hassala?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Hassala is a free, open-source Chrome extension for Arabic ↔ English translation and vocabulary saving. It translates words and phrases, writes each saved word and translation to a Markdown file on your device, and makes YouTube subtitles interactive. It does not require an account."
+              "text": "Hassala is a free, open-source Chrome extension for Arabic ↔ English translation and vocabulary saving. It translates words and phrases, keeps each saved word and translation in local extension storage, and makes YouTube subtitles interactive. You can organise words into folders and export them as Markdown, TXT, CSV, or JSON. It does not require an account."
             }
           },
           {
@@ -116,7 +118,7 @@
             "name": "Can Hassala save words to Obsidian?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes. Hassala saves words to a standard Markdown file at a path you choose, so you can open that file in Obsidian, Logseq, Typora, VS Code, or any Markdown editor. The file does not have to live inside an Obsidian vault."
+              "text": "Yes. Hassala exports standard Markdown, so you can open the downloaded file in Obsidian, Logseq, Typora, VS Code, or any Markdown editor. The file does not have to live inside an Obsidian vault. You can also export CSV or JSON."
             }
           },
           {
@@ -137,10 +139,10 @@
           },
           {
             "@type": "Question",
-            "name": "Does saving words require a native host?",
+            "name": "Where are my saved words stored?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes. Browsers cannot write to arbitrary files, so Hassala uses a small local native messaging host to append rows to your Markdown file. The host is installed once, runs locally, and accepts messages only from Hassala. Translation, subtitles, and the floating panel work without it."
+              "text": "In chrome.storage.local, inside the extension. Hassala does not write to your filesystem on its own and does not use a native host or Python. When you want a copy, choose the words, format, and filename in Words; the browser downloads the file."
             }
           },
           {
@@ -156,7 +158,7 @@
             "name": "What languages does Hassala support?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Hassala translates between Arabic and English. The interface is Arabic-first with full right-to-left support, and the project documentation is available in English."
+              "text": "Hassala translates between Arabic and English. The interface is English-first with full Arabic and right-to-left support, and the documentation is available in English and Arabic."
             }
           }
         ]
@@ -174,7 +176,7 @@
         <img src="assets/icon128.png" width="48" height="48" alt="">
         <span class="brand-text">
           <strong>Hassala</strong>
-          <span class="brand-sub">Arabic word bank</span>
+          <span class="brand-sub">Arabic ↔ English word bank</span>
         </span>
       </a>
       <nav class="site-nav" aria-label="Main navigation">
@@ -191,13 +193,14 @@
   <main id="main">
     <section class="hero wrap" aria-labelledby="hero-title">
       <div>
-        <p class="eyebrow">Free · Open source · Arabic-first</p>
+        <p class="eyebrow">Free · Open source · Arabic ↔ English</p>
         <h1 id="hero-title">Arabic ↔ English.<br>Every word kept.</h1>
         <p class="lead">
-          Hassala is a Chrome extension that translates words and phrases, saves
-          them to a <strong>Markdown word bank on your device</strong>, and turns
-          YouTube subtitles into an interactive vocabulary lesson. No account. No
-          tracking. Your words stay yours.
+          Hassala is a Chrome extension that translates words and phrases, keeps
+          them in a <strong>private word bank inside the extension</strong>, and
+          turns YouTube subtitles into an interactive vocabulary lesson. Export
+          Markdown, TXT, CSV, or JSON whenever you want. No account. No tracking.
+          Your words stay yours.
         </p>
         <div class="hero-actions">
           <a class="button" href="https://github.com/nagdista-dev/hassala/releases/latest" rel="noopener">
@@ -213,7 +216,7 @@
           </li>
           <li>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>
-            Local Markdown file
+            Private local word bank
           </li>
           <li>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>
@@ -226,7 +229,7 @@
         </ul>
       </div>
 
-      <div class="demo" aria-label="Example of a translated word saved to a Markdown file">
+      <div class="demo" aria-label="Example of a translated word saved to the local word bank">
         <div class="demo-card">
           <div class="demo-head">
             <img src="assets/icon128.png" width="30" height="30" alt="">
@@ -243,11 +246,11 @@
             <span class="demo-copy">Copy</span>
           </div>
           <div class="demo-file">
-            <strong>Saved to your word bank</strong>
-            <code>~/Documents/Hassala Words.md</code>
+            <strong>Saved to your local word bank</strong>
+            <code>Folder: General · 248 words</code>
           </div>
         </div>
-        <p class="demo-caption">Example output. The extension interface is Arabic-first.</p>
+        <p class="demo-caption">Example output. English-first interface with full Arabic support.</p>
       </div>
     </section>
 
@@ -257,10 +260,10 @@
           <div class="callout">
             <p id="definition-title">
               <strong>Hassala is a free, open-source Chrome extension for Arabic ↔
-              English translation and vocabulary saving.</strong> It writes every
-              saved word and translation to a local Markdown file, so you can
-              review your word bank in Obsidian, Logseq, VS Code, or any text
-              editor.
+              English translation and vocabulary saving.</strong> It keeps every saved word and translation
+              in a private local word bank with folders, and exports to Markdown,
+              TXT, CSV, or JSON whenever you want, so you can review it in
+              Obsidian, Logseq, VS Code, or any text editor.
             </p>
           </div>
           <div>
@@ -269,7 +272,8 @@
               <tbody>
                 <tr><th scope="row">Type</th><td>Chrome extension (Manifest V3)</td></tr>
                 <tr><th scope="row">Languages</th><td>Arabic ↔ English</td></tr>
-                <tr><th scope="row">Saves to</th><td>A local Markdown (<code>.md</code>) file you choose</td></tr>
+                <tr><th scope="row">Saves to</th><td><code>chrome.storage.local</code> inside the extension</td></tr>
+                <tr><th scope="row">Export</th><td>Markdown, TXT, CSV, or JSON with your filename</td></tr>
                 <tr><th scope="row">Account</th><td>Not required</td></tr>
                 <tr><th scope="row">Price</th><td>Free</td></tr>
                 <tr><th scope="row">License</th><td>MIT (open source)</td></tr>
@@ -289,8 +293,8 @@
           <h2 id="features-title">A translator that remembers what you learned</h2>
           <p>
             Most translators help you in the moment and forget the word when you
-            close the tab. Hassala keeps it — in a file you own, in the app you
-            already use.
+            close the tab. Hassala keeps it — in a private word bank you control,
+            with export when you want a file.
           </p>
         </div>
 
@@ -313,7 +317,7 @@
             </span>
             <h3>One-click saving</h3>
             <p>
-              Add the word and translation to your Markdown file with one click.
+              Add the word and translation to your local word bank with one click.
               Hassala skips duplicates, so the same pair never appears twice.
             </p>
           </article>
@@ -334,11 +338,11 @@
             <span class="icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z"/><path d="M4 5.5v16"/><path d="M8 7h8M8 11h6"/></svg>
             </span>
-            <h3>Your file, your app</h3>
+            <h3>Folders and export</h3>
             <p>
-              Choose any existing <code>.md</code> file. Open it later in
-              Obsidian, Logseq, Typora, VS Code, or a plain text editor. No
-              export step and no lock-in.
+              Create folders such as English or Programming, move words between
+              them, then export Markdown, TXT, CSV, or JSON with your own
+              filename. No lock-in.
             </p>
           </article>
 
@@ -348,9 +352,9 @@
             </span>
             <h3>Privacy by design</h3>
             <p>
-              No accounts, no analytics, no ads, and no data selling. Settings and
-              recent words stay in local browser storage, and saved words stay in
-              your file.
+              No accounts, no analytics, no ads, and no data selling. Settings,
+              recent words, and saved words stay in local browser storage. Nothing
+              is written to disk until you click export.
             </p>
           </article>
 
@@ -389,16 +393,17 @@
           <li class="step">
             <h3>Save</h3>
             <p>
-              Click <strong>Add to Hassala</strong>. The word and translation are
-              appended to your Markdown file, duplicates are skipped, and the
+              Choose a folder and click <strong>Add to Hassala</strong>. The word
+              and translation are saved locally, duplicates are skipped, and the
               input clears for the next word.
             </p>
           </li>
           <li class="step">
             <h3>Review</h3>
             <p>
-              Open the same file in your Markdown app whenever you want. The words
-              are already there — no export, no copy-paste, no separate database.
+              Organise words into folders, then export Markdown, TXT, CSV, or
+              JSON with the filename you choose. The words are yours — no lock-in,
+              no separate database.
               <a href="guides/save-words-to-markdown/">See the step-by-step guide →</a>
             </p>
           </li>
@@ -447,7 +452,7 @@
                 <td class="varies">No</td>
               </tr>
               <tr>
-                <td>Local Markdown file you own</td>
+                <td>Private local word bank you own</td>
                 <td class="yes">Yes</td>
                 <td class="varies">Varies</td>
                 <td class="varies">Manual</td>
@@ -490,7 +495,7 @@
         <div class="grid grid-3">
           <div class="card">
             <h3>Arabic speakers learning English</h3>
-            <p>Look up a word in a video, article, or document and keep it in the same Markdown file you review later.</p>
+            <p>Look up a word in a video, article, or document and keep it in the same local word bank you review and export later.</p>
           </div>
           <div class="card">
             <h3>English speakers learning Arabic</h3>
@@ -498,7 +503,7 @@
           </div>
           <div class="card">
             <h3>Students and note-takers</h3>
-            <p>Build a personal glossary in Obsidian, Logseq, or any editor without maintaining a second app.</p>
+            <p>Build a personal glossary inside the extension, then export it to Obsidian, Logseq, or any editor without maintaining a second app.</p>
           </div>
         </div>
       </div>
@@ -516,26 +521,26 @@
         </div>
         <div class="grid grid-3">
           <article class="card">
-            <h3>Save words to Markdown</h3>
+            <h3>Save words and export</h3>
             <p>
-              Install Hassala, choose a <code>.md</code> file, translate a word,
-              and open the result in Obsidian, Logseq, or VS Code.
+              Install Hassala, translate a word, organise it into a folder, then
+              export Markdown and open it in Obsidian, Logseq, or VS Code.
             </p>
-            <p><a href="guides/save-words-to-markdown/">Read the Markdown guide →</a></p>
+            <p><a href="guides/save-words-to-markdown/">Read the export guide →</a></p>
           </article>
           <article class="card">
             <h3>Translate YouTube subtitles</h3>
             <p>
               Hover to pause a captioned video, click a word or drag across a
-              phrase, and save it to the same word bank.
+              phrase, and save it to the same local word bank.
             </p>
             <p><a href="guides/translate-youtube-subtitles/">Read the YouTube guide →</a></p>
           </article>
           <article class="card">
             <h3>Review inside Obsidian</h3>
             <p>
-              Use a note in your vault as the word bank, keep the table last, and
-              build a five-minute review routine.
+              Export Markdown into your vault, keep the table last, and build a
+              five-minute review routine.
             </p>
             <p><a href="guides/obsidian-vocabulary-workflow/">Read the Obsidian guide →</a></p>
           </article>
@@ -556,10 +561,10 @@
             <summary>What is Hassala?</summary>
             <p>
               Hassala is a free, open-source Chrome extension for Arabic ↔ English
-              translation and vocabulary saving. It translates words and phrases,
-              writes each saved word and translation to a Markdown file on your
-              device, and makes YouTube subtitles interactive. It does not require
-              an account.
+              translation and vocabulary saving. It translates words and phrases, keeps each saved word and
+              translation in local extension storage, and makes YouTube subtitles
+              interactive. Folders and export are built in. It does not require an
+              account.
             </p>
           </details>
 
@@ -582,10 +587,10 @@
           <details class="faq-item">
             <summary>Can Hassala save words to Obsidian?</summary>
             <p>
-              Yes. Hassala saves words to a standard Markdown file at a path you
-              choose, so you can open that file in Obsidian, Logseq, Typora, VS
-              Code, or any Markdown editor. The file does not have to live inside
-              an Obsidian vault.
+              Yes. Hassala exports standard Markdown, so you can open the file in
+              Obsidian, Logseq, Typora, VS Code, or any Markdown editor. The file
+              does not have to live inside an Obsidian vault. CSV and JSON are also
+              available.
               <a href="guides/save-words-to-markdown/">Follow the step-by-step guide →</a>
             </p>
           </details>
@@ -610,13 +615,13 @@
           </details>
 
           <details class="faq-item">
-            <summary>Does saving words require a native host?</summary>
+            <summary>Where are my saved words stored?</summary>
             <p>
-              Yes. Browsers cannot write to arbitrary files, so Hassala uses a
-              small local native messaging host to append rows to your Markdown
-              file. The host is installed once, runs locally, and accepts messages
-              only from Hassala. Translation, subtitles, and the floating panel
-              work without it.
+              Saved words live in <code>chrome.storage.local</code> inside the
+              extension, organised into folders you create. Export is a normal
+              browser download that happens only after you click export. There is
+              nothing else to install, and the extension never writes to your
+              files directly.
             </p>
           </details>
 
@@ -634,8 +639,8 @@
             <summary>What languages does Hassala support?</summary>
             <p>
               Hassala translates between Arabic and English. The interface is
-              Arabic-first with full right-to-left support, and the project
-              documentation is available in English.
+              English-first with full Arabic and right-to-left support, and the
+              documentation is available in English and Arabic.
             </p>
           </details>
         </div>
@@ -650,9 +655,9 @@
             <h2 id="privacy-title">No account. No tracking. No data selling.</h2>
             <p>
               Text is sent to translation providers only when you ask for a
-              translation. Saved words go to your file, not to a server. Settings
-              and recent words stay in local browser storage. Hassala has no
-              backend, no analytics, and no ads.
+              translation. Saved words and folders stay in local browser storage,
+              not on a server. Exports happen only when you click export. Hassala
+              has no backend, no analytics, and no ads.
             </p>
             <p>
               <a href="https://github.com/nagdista-dev/hassala/blob/main/docs/PRIVACY.md" rel="noopener">Read the privacy policy →</a>
@@ -661,10 +666,11 @@
           <div class="card">
             <h3>Security at a glance</h3>
             <p>
-              No remote code. Least-privilege permissions. The native host accepts
-              only <code>.md</code> files and messages from Hassala. The page UI
-              runs in a closed Shadow DOM. Vulnerabilities can be reported
-              privately through GitHub Security Advisories.
+              No remote code. Least-privilege permissions: storage, scripting,
+              activeTab, and offscreen only. No native host, no filesystem access,
+              and no downloads permission. The page UI runs in a closed Shadow
+              DOM. Vulnerabilities can be reported privately through GitHub
+              Security Advisories.
             </p>
             <p style="margin-top: 14px;">
               <a href="https://github.com/nagdista-dev/hassala/security/policy" rel="noopener">Security policy →</a>
@@ -679,8 +685,9 @@
         <div class="cta-band">
           <h2>Start your word bank today.</h2>
           <p>
-            Download Hassala, translate your first word, and open the Markdown
-            file. The next word will already have a place to go.
+            Download Hassala, translate your first word, and give it a folder. Export
+            a copy whenever you want — the next word will already have a place to
+            go.
           </p>
           <div class="hero-actions">
             <a class="button" href="https://github.com/nagdista-dev/hassala/releases/latest" rel="noopener">
@@ -703,7 +710,7 @@
             <img src="assets/icon128.png" width="34" height="34" alt="">
             Hassala
           </a>
-          <p>Arabic-first translation and word keeping. Free, open source, and built to last.</p>
+          <p>Arabic ↔ English translation and word keeping. Free, open source, and built to last.</p>
         </div>
         <div>
           <h2>Product</h2>
@@ -729,8 +736,10 @@
         <div>
           <h2>Community</h2>
           <ul>
-            <li><a href="https://github.com/nagdista-dev/hassala" rel="noopener">GitHub</a></li>
+            <li><a href="https://github.com/nagdista-dev/hassala" rel="noopener">GitHub · star the project</a></li>
             <li><a href="https://github.com/nagdista-dev/hassala/issues" rel="noopener">Issues</a></li>
+            <li><a href="mailto:nagdista@gmail.com?subject=Hassala%20feedback">Email feedback</a></li>
+            <li><a href="https://buymeacoffee.com/nagdista" rel="noopener">Support this project</a></li>
             <li><a href="https://github.com/nagdista-dev/hassala/blob/main/CONTRIBUTING.md" rel="noopener">Contributing</a></li>
             <li><a href="https://github.com/nagdista-dev/hassala/security/policy" rel="noopener">Security</a></li>
           </ul>

@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 # Build a self-contained ZIP for testers.
 #
-# Unlike the store package, this archive includes the native host and the
-# installation guide, so a tester can load the extension and enable saving
-# without cloning the repository.
+# The extension keeps words in chrome.storage.local and exports them on demand,
+# so there is no native host to install.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -18,12 +17,11 @@ cd "$ROOT"
 zip -r "$OUT_FILE" \
   manifest.json \
   src \
-  native \
   docs \
   README.md \
   CHANGELOG.md \
   LICENSE \
-  -x 'native/config.json' '*.DS_Store' '*__pycache__*' '*.py[cod]' >/dev/null
+  -x '*.DS_Store' '*__pycache__*' '*.py[cod]' >/dev/null
 
 echo "Built: $OUT_FILE"
 echo "Size:  $(du -h "$OUT_FILE" | cut -f1)"

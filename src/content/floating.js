@@ -5,8 +5,8 @@
  *
  * A small floating button is injected into every page. It opens a compact
  * panel that does everything the toolbar popup does, including saving words
- * to the user's Markdown word bank. Because the panel lives in the page, it stays open when the
- * keyboard layout changes (Win+Space) or when the browser is fullscreen.
+ * to the local word bank. Because the panel lives in the page, it stays open
+ * when the keyboard layout changes (Win+Space) or when the browser is fullscreen.
  */
 
 (() => {
@@ -25,12 +25,13 @@
   window[LOADED_FLAG] = true;
 
   const FONT_URL = runtime.getURL('src/fonts/BalooBhaijaan2-Variable.woff2');
+  const bank = globalThis.HassalaWordBank || null;
 
   const ARABIC_RE =
     /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]/;
   const LETTER_RE =
     /[A-Za-z\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]/;
-  const EMPTY_TEXT = 'اكتب كلمة… وهتلاقي معناها هنا.';
+  const EMPTY_TEXT = 'Type a word… and its meaning will appear here.';
   const DEBOUNCE_MS = 350;
   const CLEAR_ANIMATION_MS = 300;
 
@@ -82,7 +83,7 @@
       z-index: 2147483647;
       display: block;
       pointer-events: none;
-      direction: rtl;
+      direction: ltr;
       color: var(--aet-text);
       font-family: "Baloo Bhaijaan 2", "Noto Sans Arabic", "Segoe UI", Tahoma, sans-serif;
       font-size: 14px;
@@ -916,10 +917,51 @@
       animation: none;
     }
 
+    .save-folder {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 7px 9px;
+      border: 1px dashed var(--aet-line-strong);
+      border-radius: 11px;
+      background: var(--aet-surface-2);
+    }
+
+    .save-folder span {
+      color: var(--aet-muted);
+      font-size: 10.5px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .folder-select {
+      max-width: 150px;
+      padding: 5px 7px;
+      border: 1px solid var(--aet-line-strong);
+      border-radius: 8px;
+      outline: none;
+      background: var(--aet-surface);
+      color: var(--aet-text);
+      font: inherit;
+      font-size: 10.5px;
+      direction: ltr;
+      cursor: pointer;
+    }
+
+    .folder-select:focus {
+      border-color: var(--aet-gold);
+      box-shadow: 0 0 0 2px var(--aet-gold-soft);
+    }
+
     .file-tools {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 8px;
+    }
+
+    .words-bank {
+      grid-column: 1 / -1;
     }
 
     .site-toggle {
@@ -981,179 +1023,6 @@
 
     .file-status[data-kind="error"] {
       color: var(--aet-danger);
-    }
-
-    .path-modal {
-      position: fixed;
-      inset: 0;
-      z-index: 5;
-      display: grid;
-      place-items: center;
-      padding: 16px;
-      /* The shadow host is pointer-events: none so it never blocks the page.
-         The modal must re-enable clicks for itself, otherwise clicks land on
-         the YouTube player underneath and the save button does nothing. */
-      pointer-events: auto;
-    }
-
-    .path-modal[hidden] {
-      display: none;
-    }
-
-    .path-backdrop {
-      position: absolute;
-      inset: 0;
-      background: rgba(12, 10, 8, 0.54);
-      backdrop-filter: blur(3px);
-    }
-
-    .path-card {
-      position: relative;
-      width: min(360px, calc(100vw - 24px));
-      max-height: calc(100dvh - 32px);
-      overflow: auto;
-      padding: 16px;
-      border: 1.5px solid var(--aet-gold);
-      border-radius: 18px;
-      background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 45%),
-        var(--aet-surface);
-      box-shadow:
-        0 24px 60px rgba(0, 0, 0, 0.38),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08);
-      color: var(--aet-text);
-    }
-
-    .path-head {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-
-    .path-head strong {
-      display: block;
-      font-family: "Baloo Bhaijaan 2", "Noto Sans Arabic", "Segoe UI", Tahoma, sans-serif;
-      font-size: 15px;
-      line-height: 1.4;
-    }
-
-    .path-head small {
-      display: block;
-      margin-top: 2px;
-      color: var(--aet-muted);
-      font-size: 10.5px;
-    }
-
-    .path-close {
-      width: 28px;
-      height: 28px;
-      font-size: 17px;
-    }
-
-    .path-label {
-      display: block;
-      margin-bottom: 6px;
-      color: var(--aet-muted);
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .path-input {
-      width: 100%;
-      padding: 10px 12px;
-      border: 1px solid var(--aet-line-strong);
-      border-radius: 11px;
-      background: var(--aet-surface-2);
-      color: var(--aet-text);
-      font-family: "Baloo Bhaijaan 2", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: 11.5px;
-      direction: ltr;
-    }
-
-    .path-input:focus {
-      outline: none;
-      border-color: var(--aet-gold);
-      box-shadow: 0 0 0 3px var(--aet-gold-soft);
-    }
-
-    .path-default {
-      margin: 7px 0 0;
-      color: var(--aet-muted);
-      font-size: 10.5px;
-      line-height: 1.6;
-      overflow-wrap: anywhere;
-    }
-
-    .path-status {
-      min-height: 18px;
-      margin: 10px 0 0;
-      color: var(--aet-muted);
-      font-size: 11px;
-      line-height: 1.6;
-      overflow-wrap: anywhere;
-    }
-
-    .path-status[data-kind="ok"] {
-      color: var(--aet-accent-text);
-    }
-
-    .path-status[data-kind="error"] {
-      color: var(--aet-danger);
-    }
-
-    .path-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 12px;
-    }
-
-    .path-btn {
-      padding: 9px 12px;
-      border: 1px solid var(--aet-line-strong);
-      border-radius: 11px;
-      background: var(--aet-surface);
-      color: var(--aet-accent-text);
-      font-size: 11.5px;
-      font-weight: 700;
-      transition:
-        color 0.15s ease,
-        border-color 0.15s ease,
-        background 0.15s ease,
-        transform 0.12s ease;
-    }
-
-    .path-btn:hover:not(:disabled) {
-      border-color: var(--aet-gold);
-      background: var(--aet-gold-soft);
-      color: var(--aet-gold-strong);
-    }
-
-    .path-btn:active:not(:disabled) {
-      transform: translateY(1px);
-    }
-
-    .path-btn:disabled {
-      opacity: 0.6;
-      cursor: progress;
-    }
-
-    .path-btn.primary {
-      border-color: var(--aet-gold);
-      background: linear-gradient(135deg, var(--aet-gold) 0%, var(--aet-gold-strong) 100%);
-      color: var(--aet-on-gold);
-    }
-
-    .path-btn.primary:hover:not(:disabled) {
-      filter: brightness(1.08);
-      color: var(--aet-on-gold);
-    }
-
-    .path-btn.ghost {
-      background: transparent;
-      color: var(--aet-muted);
     }
 
     @keyframes aet-pulse {
@@ -1260,64 +1129,64 @@
   `;
 
   const HTML = `
-    <button id="selectionTranslate" class="selection-translate" type="button" title="ترجمة الكلام المحدد" aria-label="ترجمة الكلام المحدد" hidden>
+    <button id="selectionTranslate" class="selection-translate" type="button" title="Translate selected text" aria-label="Translate selected text" hidden>
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <circle cx="12" cy="12" r="8.6" stroke="currentColor" stroke-width="1.6"/>
         <path d="M3.6 12h16.8M12 3.4c2.5 2.5 3.8 5.4 3.8 8.6s-1.3 6.1-3.8 8.6c-2.5-2.5-3.8-5.4-3.8-8.6S9.5 5.9 12 3.4Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
       </svg>
-      <span>ترجمة</span>
+      <span>Translate</span>
     </button>
 
     <div id="fabWrap" style="visibility:hidden">
-      <button id="fab" type="button" title="حصالة — كلماتك مش هتتوه" aria-label="فتح حصالة">
+      <button id="fab" type="button" title="Hassala — keep every word" aria-label="Open Hassala">
         <span class="fab-spark" aria-hidden="true">✦</span>
         <span class="fab-logo">ع</span>
         <span class="fab-badge">A</span>
       </button>
-      <button id="fabClose" type="button" title="حذف الزرار العائم — ترجعه من أيقونة الإضافة" aria-label="حذف الزرار العائم">×</button>
+      <button id="fabClose" type="button" title="Hide floating button — restore it from the extension icon" aria-label="Hide floating button">×</button>
     </div>
 
-    <section id="panel" dir="rtl" hidden>
+    <section id="panel" dir="ltr" hidden>
       <header class="head" id="panelHead">
         <div class="head-title">
           <span class="mini-logo">ع</span>
           <span class="head-text">
-            <strong>حصالة</strong>
-            <small>كلماتك مش هتتوه ✦</small>
+            <strong>Hassala</strong>
+            <small>Keep every word ✦</small>
           </span>
         </div>
         <div class="head-actions">
-          <button id="pin" class="icon" type="button" title="تثبيت الصندوق — يفضل مفتوح لما تدوس بره" aria-label="تثبيت الصندوق" aria-pressed="false">
+          <button id="pin" class="icon" type="button" title="Pin panel — keep it open when you click outside" aria-label="Pin panel" aria-pressed="false">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M9 4h6M10 4l.7 5.2-2.7 2.8v1.8h8v-1.8L13.3 9.2 14 4M12 13.8V21"/>
             </svg>
           </button>
-          <button id="settings" class="icon" type="button" title="الإعدادات" aria-label="الإعدادات">
+          <button id="settings" class="icon" type="button" title="Settings" aria-label="Settings">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true">
               <path d="M4 7h9M17 7h3M4 17h3M11 17h9" />
               <circle cx="15" cy="7" r="2.2" />
               <circle cx="9" cy="17" r="2.2" />
             </svg>
           </button>
-          <button id="close" class="icon" type="button" title="إغلاق" aria-label="إغلاق">×</button>
+          <button id="close" class="icon" type="button" title="Close" aria-label="Close">×</button>
         </div>
       </header>
 
-      <div id="direction" class="direction">من الإنجليزي للعربي</div>
+      <div id="direction" class="direction">English → Arabic</div>
 
       <div class="field">
         <textarea
           id="input"
           rows="2"
-          dir="rtl"
+          dir="auto"
           maxlength="200"
-          placeholder="اكتب الكلمة هنا… إنجليزي أو عربي"
+          placeholder="Type a word… English or Arabic"
           spellcheck="false"
           autocomplete="off"
           autocapitalize="off"
         ></textarea>
-        <button id="clear" class="clear" type="button" title="مسح" aria-label="مسح" hidden>×</button>
-        <button id="copySource" class="clear copy-source" type="button" title="انسخ الكلمة" aria-label="انسخ الكلمة" hidden>
+        <button id="clear" class="clear" type="button" title="Clear" aria-label="Clear text" hidden>×</button>
+        <button id="copySource" class="clear copy-source" type="button" title="Copy word" aria-label="Copy word" hidden>
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <rect x="9" y="9" width="11" height="11" rx="2" stroke="currentColor" stroke-width="1.8"/>
             <path d="M15 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
@@ -1326,85 +1195,50 @@
       </div>
 
       <div id="resultCard" class="result" data-state="empty" aria-live="polite">
-        <span id="result">اكتب كلمة… وهتلاقي معناها هنا.</span>
+        <span id="result">Type a word… and its meaning will appear here.</span>
       </div>
 
       <div class="foot">
-        <button id="save" class="save" type="button" title="حفظ الكلمة والترجمة في حصالتك" hidden>
+        <button id="save" class="save" type="button" title="Save the word and translation to your word bank" hidden>
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M12 2.6 4.4 7v10L12 21.4 19.6 17V7L12 2.6Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
             <path d="M12 7.2 8 9.5v5l4 2.3 4-2.3v-5l-4-2.3Z" fill="currentColor" opacity=".85"/>
           </svg>
-          <span id="saveLabel">أضف للحصالة</span>
+          <span id="saveLabel">Add to Hassala</span>
         </button>
-        <button id="speak" class="copy speak" type="button" title="سمّعني" aria-label="سمّعني" hidden>
+        <button id="speak" class="copy speak" type="button" title="Listen" aria-label="Listen" hidden>
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M5 10v4h3l4 3V7l-4 3H5Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
             <path d="M15 9.5a4 4 0 0 1 0 5M17.4 7.1a7.4 7.4 0 0 1 0 9.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
           </svg>
         </button>
-        <button id="copy" class="copy" type="button" title="انسخ الترجمة" hidden>انسخ</button>
+        <button id="copy" class="copy" type="button" title="Copy translation" hidden>Copy</button>
+      </div>
+
+      <div class="save-folder">
+        <span>Save new words to</span>
+        <select id="folderSelect" class="folder-select" aria-label="Word save folder"></select>
       </div>
 
       <div class="file-tools">
-        <button id="openFile" class="file-tool" type="button" title="افتح ملف الحفظ الحالي">
+        <button id="wordsBank" class="file-tool words-bank" type="button" title="View and export your words">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M3 7.5A2.5 2.5 0 0 1 5.5 5H10l2 2.5h6.5A2.5 2.5 0 0 1 21 10v7.5A2.5 2.5 0 0 1 18.5 20h-13A2.5 2.5 0 0 1 3 17.5v-10Z"/>
-            <path d="M8 13h6M11 10l3 3-3 3"/>
+            <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15.5H6.5A2.5 2.5 0 0 0 4 21V5.5Z"/>
+            <path d="M4 18.5A2.5 2.5 0 0 1 6.5 16H20"/>
+            <path d="M8 7h7M8 10.5h5"/>
           </svg>
-          <span>افتح الملف</span>
+          <span>Words</span>
         </button>
-        <button id="pathSettings" class="file-tool" type="button" title="تغيير مسار ملف الحفظ">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M4 6h9M19 6h1M4 12h3M13 12h7M4 18h9M19 18h1"/>
-            <circle cx="16" cy="6" r="2.2"/>
-            <circle cx="10" cy="12" r="2.2"/>
-            <circle cx="16" cy="18" r="2.2"/>
-          </svg>
-          <span>تغيير المسار</span>
-        </button>
-        <button id="siteToggle" class="file-tool site-toggle" type="button" title="تعطيل حصالة على هذا الموقع">
+        <button id="siteToggle" class="file-tool site-toggle" type="button" title="Disable Hassala on this site">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="12" cy="12" r="8.5"/>
             <path d="m6 18 12-12"/>
           </svg>
-          <span>تعطيل هنا</span>
+          <span>Disable here</span>
         </button>
       </div>
       <p id="fileStatus" class="file-status" role="status" aria-live="polite" hidden></p>
     </section>
-
-    <div id="pathModal" class="path-modal" hidden>
-      <div class="path-backdrop" data-path-close></div>
-      <section class="path-card" role="dialog" aria-modal="true" aria-labelledby="pathTitle">
-        <header class="path-head">
-          <div>
-            <strong id="pathTitle">مسار ملف الحفظ</strong>
-            <small>اكتب المسار الكامل من الروت</small>
-          </div>
-          <button id="pathClose" class="icon path-close" type="button" title="إغلاق" aria-label="إغلاق">×</button>
-        </header>
-
-        <label class="path-label" for="pathInput">مسار ملف الحفظ</label>
-        <input
-          id="pathInput"
-          class="path-input"
-          type="text"
-          dir="ltr"
-          autocomplete="off"
-          spellcheck="false"
-          placeholder="/home/you/Documents/Hassala Words.md"
-        />
-        <p id="pathDefault" class="path-default" dir="auto"></p>
-        <p id="pathStatus" class="path-status" role="status" aria-live="polite"></p>
-
-        <div class="path-actions">
-          <button id="pathSave" class="path-btn primary" type="button">احفظ المسار</button>
-          <button id="pathUseDefault" class="path-btn" type="button">الافتراضي</button>
-          <button id="pathOpenOptions" class="path-btn ghost" type="button">كل الإعدادات</button>
-        </div>
-      </section>
-    </div>
   `;
 
   // A page can always see the host element, but a closed shadow root keeps the
@@ -1472,18 +1306,10 @@
     saveLabel: shadow.getElementById('saveLabel'),
     speak: shadow.getElementById('speak'),
     copy: shadow.getElementById('copy'),
-    openFile: shadow.getElementById('openFile'),
-    pathSettings: shadow.getElementById('pathSettings'),
+    folderSelect: shadow.getElementById('folderSelect'),
+    wordsBank: shadow.getElementById('wordsBank'),
     siteToggle: shadow.getElementById('siteToggle'),
     fileStatus: shadow.getElementById('fileStatus'),
-    pathModal: shadow.getElementById('pathModal'),
-    pathClose: shadow.getElementById('pathClose'),
-    pathInput: shadow.getElementById('pathInput'),
-    pathDefault: shadow.getElementById('pathDefault'),
-    pathStatus: shadow.getElementById('pathStatus'),
-    pathSave: shadow.getElementById('pathSave'),
-    pathUseDefault: shadow.getElementById('pathUseDefault'),
-    pathOpenOptions: shadow.getElementById('pathOpenOptions'),
   };
 
   // Blocking is meaningful only for real web origins. On file:// and other
@@ -1500,8 +1326,8 @@
   let clearAnimationTimer = 0;
   let sourceCopyTimer = 0;
   let fileStatusTimer = 0;
-  let pathDefaultPath = '';
-  let pathLastFocus = null;
+  let bankFolders = [];
+  let activeFolderId = bank ? bank.DEFAULT_FOLDER_ID : 'general';
   let siteDisableArmedUntil = 0;
   let siteDisableTimer = 0;
   let lastResult = '';
@@ -1698,11 +1524,11 @@
     els.pin.classList.toggle('pinned', panelPinned);
     els.pin.setAttribute('aria-pressed', String(panelPinned));
     els.pin.title = panelPinned
-      ? 'إلغاء تثبيت الصندوق'
-      : 'تثبيت الصندوق — يفضل مفتوح لما تدوس بره';
+      ? 'Unpin panel'
+      : 'Pin panel — keep it open when you click outside';
     els.pin.setAttribute(
       'aria-label',
-      panelPinned ? 'إلغاء تثبيت الصندوق' : 'تثبيت الصندوق',
+      panelPinned ? 'Unpin panel' : 'Pin panel',
     );
 
     if (persist !== false && storage) {
@@ -1817,6 +1643,13 @@
             : null;
 
         if (!els.panel.hidden) placePanel();
+      }
+
+      if (
+        changes[bank ? bank.FOLDERS_KEY : 'wordFolders'] ||
+        changes[bank ? bank.ACTIVE_FOLDER_KEY : 'activeFolderId']
+      ) {
+        loadBankFolders();
       }
     });
   }
@@ -2018,6 +1851,7 @@
     els.panel.hidden = false;
     placePanel();
     syncFabVisibility();
+    loadBankFolders();
 
     requestAnimationFrame(() => {
       placePanel();
@@ -2036,7 +1870,6 @@
 
   function closePanel() {
     if (els.panel.hidden) return;
-    closePathModal();
     hideSelectionButton();
     stopSpeaking();
     els.panel.hidden = true;
@@ -2067,8 +1900,8 @@
     mode = next;
     els.direction.textContent =
       mode === 'en-ar'
-        ? 'من الإنجليزي للعربي'
-        : 'من العربي للإنجليزي';
+        ? 'English → Arabic'
+        : 'Arabic → English';
   }
 
   /* ---------- Translation ---------- */
@@ -2099,7 +1932,7 @@
     const text = els.input.value;
     els.clear.hidden = !text;
     els.copySource.hidden = !text;
-    els.input.dir = text && !ARABIC_RE.test(text) ? 'ltr' : 'rtl';
+    els.input.dir = text ? (ARABIC_RE.test(text) ? 'rtl' : 'ltr') : 'auto';
     autoGrowInput();
 
     if (!text.trim()) {
@@ -2158,11 +1991,11 @@
 
     els.input.value = '';
     els.input.style.height = '';
-    els.input.dir = 'rtl';
+    els.input.dir = 'auto';
     els.clear.hidden = true;
     els.copySource.hidden = true;
     els.copySource.classList.remove('copied', 'error');
-    els.copySource.title = 'انسخ الكلمة';
+    els.copySource.title = 'Copy word';
     lastResult = '';
     lastQuery = '';
     setState('empty', notice || EMPTY_TEXT);
@@ -2198,7 +2031,7 @@
     if (!LETTER_RE.test(text)) {
       lastResult = '';
       lastQuery = '';
-      setState('error', 'محتاج كلمة عربية أو إنجليزية عشان أقدر أترجمها.');
+      setState('error', 'Enter an Arabic or English word to translate.');
       return;
     }
 
@@ -2219,7 +2052,7 @@
       return;
     }
 
-    setState('loading', 'بندوّر عليها…');
+    setState('loading', 'Looking it up…');
 
     const response = await sendMessage({ type: 'translate', text, from, to });
     if (seq !== requestSeq) return;
@@ -2238,20 +2071,20 @@
 
   function errorMessage(code) {
     if (!navigator.onLine) {
-      return 'مفيش اتصال بالإنترنت. اتأكد من الشبكة وجرّب تاني.';
+      return 'No internet connection. Check your network and try again.';
     }
 
     switch (code) {
       case 'empty':
-        return 'اكتب كلمة الأول.';
+        return 'Type a word first.';
       case 'too_long':
-        return 'النص طويل شوية. جرّب كلمة أو جملة قصيرة.';
+        return 'That text is a little long. Try a word or a short phrase.';
       case 'timeout':
-        return 'الترجمة خدت وقت أطول من المعتاد. جرّب تاني.';
+        return 'Translation took longer than usual. Try again.';
       case 'rate':
-        return 'الخدمة مشغولة شوية دلوقتي. استنى لحظة وجرّب تاني.';
+        return 'The service is a little busy. Wait a moment and try again.';
       default:
-        return 'مقدرتش أترجم الكلمة دلوقتي. جرّب تاني بعد لحظة.';
+        return 'Could not translate right now. Try again in a moment.';
     }
   }
 
@@ -2260,14 +2093,14 @@
     els.result.textContent = text;
 
     if (state !== 'ready') {
-      els.result.dir = 'rtl';
+      els.result.dir = 'ltr';
       els.resultCard.dataset.size = '';
       els.save.hidden = true;
       els.copy.hidden = true;
       hideSpeak();
       els.save.classList.remove('ok', 'err');
       els.save.disabled = false;
-      els.saveLabel.textContent = 'أضف للحصالة';
+      els.saveLabel.textContent = 'Add to Hassala';
     }
   }
 
@@ -2285,7 +2118,7 @@
     resetSpeakButton();
     els.save.disabled = false;
     els.save.classList.remove('ok', 'err');
-    els.saveLabel.textContent = 'أضف للحصالة';
+    els.saveLabel.textContent = 'Add to Hassala';
   }
 
   /* ---------- Copy ---------- */
@@ -2293,9 +2126,9 @@
   async function copyResult() {
     if (!lastResult) return;
     const copied = await copyText(lastResult);
-    els.copy.textContent = copied ? 'اتنسخت ✓' : 'مقدرتش أنسخ';
+    els.copy.textContent = copied ? 'Copied ✓' : 'Could not copy';
     setTimeout(() => {
-      els.copy.textContent = 'انسخ';
+      els.copy.textContent = 'Copy';
     }, 1600);
   }
 
@@ -2308,11 +2141,11 @@
 
     els.copySource.classList.remove('copied', 'error');
     els.copySource.classList.add(copied ? 'copied' : 'error');
-    els.copySource.title = copied ? 'اتنسخت ✓' : 'مقدرتش أنسخ';
+    els.copySource.title = copied ? 'Copied ✓' : 'Could not copy';
 
     sourceCopyTimer = setTimeout(() => {
       els.copySource.classList.remove('copied', 'error');
-      els.copySource.title = 'انسخ الكلمة';
+      els.copySource.title = 'Copy word';
     }, 1600);
   }
 
@@ -2345,14 +2178,14 @@
     els.speak.hidden = true;
     els.speak.classList.remove('is-speaking', 'error');
     els.speak.disabled = false;
-    els.speak.title = 'سمّعني';
+    els.speak.title = 'Listen';
   }
 
   function resetSpeakButton() {
     speaking = false;
     els.speak.classList.remove('is-speaking', 'error');
     els.speak.disabled = false;
-    els.speak.title = 'سمّعني';
+    els.speak.title = 'Listen';
   }
 
   async function speakResult() {
@@ -2367,7 +2200,7 @@
     speaking = true;
     els.speak.classList.remove('error');
     els.speak.classList.add('is-speaking');
-    els.speak.title = 'وقف الصوت';
+    els.speak.title = 'Stop audio';
 
     const response = await sendMessage({
       type: 'tts',
@@ -2378,11 +2211,11 @@
     if (!response || !response.ok) {
       resetSpeakButton();
       els.speak.classList.add('error');
-      els.speak.title = 'الصوت مش متاح دلوقتي';
+      els.speak.title = 'Audio is unavailable right now';
       setTimeout(() => {
         if (!speaking) {
           els.speak.classList.remove('error');
-          els.speak.title = 'سمّعني';
+          els.speak.title = 'Listen';
         }
       }, 2200);
     }
@@ -2402,7 +2235,7 @@
       els.speak.hidden = false;
       els.speak.classList.remove('error');
       els.speak.classList.add('is-speaking');
-      els.speak.title = 'وقف الصوت';
+      els.speak.title = 'Stop audio';
     } else {
       resetSpeakButton();
     }
@@ -2410,89 +2243,7 @@
     return false;
   });
 
-  /* ---------- Hassala ---------- */
-
-  function getStoredPath() {
-    return new Promise((resolve) => {
-      if (!storage) return resolve('');
-      try {
-        storage.get(['hassalaFile', 'obsidianFile'], (data) => {
-          readRuntimeError();
-          const current =
-            data && typeof data.hassalaFile === 'string'
-              ? data.hassalaFile.trim()
-              : '';
-          const legacy =
-            data && typeof data.obsidianFile === 'string'
-              ? data.obsidianFile.trim()
-              : '';
-          const value = current || legacy;
-          if (!current && legacy) {
-            storage.set({ hassalaFile: value }, () => {
-              readRuntimeError();
-              storage.remove('obsidianFile', () => readRuntimeError());
-            });
-          }
-          resolve(value);
-        });
-      } catch {
-        resolve('');
-      }
-    });
-  }
-
-  function setStoredPath(path) {
-    return new Promise((resolve) => {
-      if (!storage) return resolve();
-      try {
-        storage.set({ hassalaFile: path }, () => {
-          readRuntimeError();
-          resolve();
-        });
-      } catch {
-        resolve();
-      }
-    });
-  }
-
-  function removeStoredPath() {
-    return new Promise((resolve) => {
-      if (!storage) return resolve();
-      try {
-        storage.remove('hassalaFile', () => {
-          readRuntimeError();
-          resolve();
-        });
-      } catch {
-        resolve();
-      }
-    });
-  }
-
-  function isTemporaryNativeFailure(code) {
-    return code === 'native_missing' || code === 'timeout' || code === 'failed';
-  }
-
-  function nativeErrorMessage(code) {
-    switch (code) {
-      case 'native_missing':
-        return 'الربط مش مفعّل. راجع تركيب Native Host في الإعدادات.';
-      case 'file_missing':
-        return 'الملف ده مش موجود. اتأكد من المسار الكامل، أو اعمله الأول.';
-      case 'invalid_file':
-        return 'المسار مش صح. اكتب مسار ملف كامل من الروت، ومن غير ما يكون فولدر.';
-      case 'write_failed':
-        return 'مقدرتش أعدّل الملف ده. اتأكد إن عندك صلاحية كتابة.';
-      case 'open_failed':
-        return 'مقدرتش أفتح الملف. اتأكد إن فيه تطبيق بيقرأ Markdown.';
-      case 'config_error':
-        return 'فيه مشكلة في إعدادات الملف الافتراضي.';
-      case 'timeout':
-        return 'الطلب خد وقت طويل. جرّب تاني.';
-      default:
-        return 'حصلت مشكلة. جرّب تاني.';
-    }
-  }
+  /* ---------- Hassala word bank ---------- */
 
   function setFileStatus(text, kind = 'info') {
     clearTimeout(fileStatusTimer);
@@ -2507,140 +2258,72 @@
     }
   }
 
-  function setPathStatus(text, kind = 'info') {
-    els.pathStatus.textContent = text || '';
-    els.pathStatus.dataset.kind = kind;
+  function bankErrorMessage(code) {
+    switch (code) {
+      case 'storage_full':
+        return 'Storage is full. Export your words and delete some.';
+      case 'word_limit':
+        return 'Your word bank is at its limit. Export and delete some words.';
+      default:
+        return 'Could not save the word. Try again.';
+    }
   }
 
-  async function openCurrentFile() {
-    if (els.openFile.disabled) return;
+  async function loadBankFolders() {
+    if (!bank) return;
 
-    els.openFile.disabled = true;
-    setFileStatus('بيفتح الملف…', 'info');
+    try {
+      const state = await bank.read();
+      bankFolders = state.folders;
+      activeFolderId = state.activeFolderId;
+      renderFolderSelect();
+    } catch (error) {
+      setFileStatus(bankErrorMessage(error && error.code), 'error');
+    }
+  }
 
-    const response = await sendMessage({ type: 'openHassalaFile' }, 9000);
-    els.openFile.disabled = false;
+  function renderFolderSelect() {
+    const previous = els.folderSelect.value;
+    els.folderSelect.replaceChildren();
 
-    if (response && response.ok) {
+    for (const folder of bankFolders) {
+      const option = document.createElement('option');
+      option.value = folder.id;
+      option.textContent = folder.name;
+      els.folderSelect.append(option);
+    }
+
+    const target = bankFolders.some((folder) => folder.id === previous)
+      ? previous
+      : activeFolderId;
+
+    els.folderSelect.value = bankFolders.some(
+      (folder) => folder.id === target,
+    )
+      ? target
+      : bankFolders[0]?.id || '';
+  }
+
+  async function changeActiveFolder() {
+    if (!bank) return;
+
+    const folderId = els.folderSelect.value;
+    try {
+      await bank.setActiveFolder(folderId);
+      activeFolderId = folderId;
+      const folder = bankFolders.find((item) => item.id === folderId);
       setFileStatus(
-        response.filePath
-          ? `اتفتح الملف: ${response.filePath}`
-          : 'اتفتح ملف الحفظ.',
+        `New words will be saved to “${folder ? folder.name : 'General'}”.`,
         'ok',
       );
-    } else {
-      setFileStatus(
-        nativeErrorMessage(response && response.code),
-        'error',
-      );
+    } catch (error) {
+      setFileStatus(bankErrorMessage(error && error.code), 'error');
+      await loadBankFolders();
     }
   }
 
-  async function openPathModal() {
-    pathLastFocus = shadow.activeElement || els.pathSettings;
-    els.pathModal.hidden = false;
-    els.pathSave.disabled = false;
-    els.pathUseDefault.disabled = false;
-    els.pathInput.value = '';
-    els.pathDefault.textContent = 'بنجيب المسار الحالي…';
-    setPathStatus('', 'info');
-
-    const stored = await getStoredPath();
-    const info = await sendMessage({ type: 'hassalaInfo' }, 8000);
-
-    if (els.pathModal.hidden) return;
-
-    pathDefaultPath =
-      info && info.ok && typeof info.filePath === 'string'
-        ? info.filePath
-        : '';
-
-    els.pathDefault.textContent = pathDefaultPath
-      ? `الافتراضي: ${pathDefaultPath}`
-      : 'مفيش ملف افتراضي متظبط.';
-
-    els.pathInput.value = stored || pathDefaultPath;
-    window.setTimeout(() => {
-      if (els.pathModal.hidden) return;
-      els.pathInput.focus();
-      els.pathInput.select();
-    }, 30);
-  }
-
-  function closePathModal() {
-    if (els.pathModal.hidden) return;
-
-    els.pathModal.hidden = true;
-    const target = pathLastFocus;
-    pathLastFocus = null;
-
-    if (target && typeof target.focus === 'function') {
-      try {
-        target.focus({ preventScroll: true });
-      } catch {
-        // The element may be gone.
-      }
-    }
-  }
-
-  async function savePathFromModal() {
-    const raw = els.pathInput.value.trim();
-
-    if (!raw) {
-      await useDefaultPathFromModal();
-      return;
-    }
-
-    if (!raw.startsWith('/') || raw.length > 4096) {
-      setPathStatus(
-        'اكتب مسار كامل من الروت، زي /home/you/Documents/Hassala Words.md.',
-        'error',
-      );
-      return;
-    }
-
-    els.pathSave.disabled = true;
-    setPathStatus('بنراجع الملف…', 'info');
-
-    const check = await sendMessage({ type: 'hassalaCheckFile', file: raw }, 12000);
-    els.pathSave.disabled = false;
-
-    if (check && check.ok) {
-      const finalPath = check.filePath || check.file || raw;
-      await setStoredPath(finalPath);
-      els.pathInput.value = finalPath;
-      setPathStatus(
-        `تم. الكلمات هتتحفظ في «${finalPath}» بالظبط.`,
-        'ok',
-      );
-      setFileStatus('اتغير مسار الحفظ ✓', 'ok');
-      return;
-    }
-
-    if (check && isTemporaryNativeFailure(check.code)) {
-      await setStoredPath(raw);
-      els.pathInput.value = raw;
-      setPathStatus(
-        `اتحفظ المسار «${raw}»، بس مش قادر أتأكد من الملف دلوقتي.`,
-        'info',
-      );
-      setFileStatus('اتغير مسار الحفظ ✓', 'ok');
-      return;
-    }
-
-    setPathStatus(nativeErrorMessage(check && check.code), 'error');
-  }
-
-  async function useDefaultPathFromModal() {
-    await removeStoredPath();
-    els.pathInput.value = pathDefaultPath || '';
-    setPathStatus(
-      pathDefaultPath
-        ? `تمام — هنستخدم الملف الافتراضي «${pathDefaultPath}».`
-        : 'تمام — مفيش اختيار مخصص، وهنستخدم الملف الافتراضي.',
-      'ok',
-    );
-    setFileStatus('رجعنا للملف الافتراضي ✓', 'ok');
+  function openWordsPage() {
+    sendMessage({ type: 'openOptions' }, 4000);
   }
 
   function resetSiteDisablePrompt() {
@@ -2650,7 +2333,7 @@
       siteDisableTimer = 0;
     }
     const label = els.siteToggle && els.siteToggle.querySelector('span');
-    if (label) label.textContent = 'تعطيل هنا';
+    if (label) label.textContent = 'Disable here';
   }
 
   function blockCurrentSite(site) {
@@ -2659,7 +2342,7 @@
     try {
       storage.get([sitePolicy.STORAGE_KEY], (data) => {
         if (readRuntimeError()) {
-          setFileStatus('مقدرتش أقرأ إعدادات المواقع دلوقتي. جرّب تاني.', 'error');
+          setFileStatus('Could not read site settings right now. Try again.', 'error');
           return;
         }
 
@@ -2672,7 +2355,7 @@
           { [sitePolicy.STORAGE_KEY]: sitePolicy.sanitizeList(list) },
           () => {
             if (readRuntimeError()) {
-              setFileStatus('مقدرتش أحفظ تعطيل الموقع. جرّب تاني.', 'error');
+              setFileStatus('Could not save the site block. Try again.', 'error');
               return;
             }
 
@@ -2682,7 +2365,7 @@
         );
       });
     } catch {
-      setFileStatus('مقدرتش أحفظ تعطيل الموقع. جرّب تاني.', 'error');
+      setFileStatus('Could not save the site block. Try again.', 'error');
     }
   }
 
@@ -2699,9 +2382,9 @@
       siteDisableArmedUntil = Date.now() + 5000;
       if (siteDisableTimer) clearTimeout(siteDisableTimer);
       const label = els.siteToggle.querySelector('span');
-      if (label) label.textContent = 'متأكد؟';
+      if (label) label.textContent = 'Sure?';
       setFileStatus(
-        `هتتعطّل حصالة على «${site}» وكل النطاقات الفرعية. اضغط تاني للتأكيد.`,
+        `Hassala will be disabled on “${site}” and its subdomains. Click again to confirm.`,
         'info',
       );
       siteDisableTimer = setTimeout(resetSiteDisablePrompt, 5000);
@@ -2721,19 +2404,19 @@
 
     els.save.disabled = true;
     els.save.classList.remove('ok', 'err');
-    els.saveLabel.textContent = 'بيحوش…';
+    els.saveLabel.textContent = 'Saving…';
 
     const response = await sendMessage({
       type: 'saveToHassala',
       word: query,
       translation,
-      mode,
+      folderId: els.folderSelect.value || activeFolderId,
     });
 
     if (response && response.ok) {
       const notice = response.duplicate
-        ? 'كانت موجودة عندك ✓ اكتب الكلمة اللي بعدها'
-        : 'اتحوشت ✓ اكتب الكلمة اللي بعدها';
+        ? 'Already in your word bank ✓ Type the next word'
+        : 'Saved ✓ Type the next word';
 
       // Only clear when the field still holds the word that was saved. If the
       // user has already started the next word, leave their text alone.
@@ -2743,26 +2426,24 @@
         setFileStatus(notice, 'ok');
         els.save.disabled = false;
         els.save.classList.remove('ok', 'err');
-        els.saveLabel.textContent = 'أضف للحصالة';
+        els.saveLabel.textContent = 'Add to Hassala';
       }
       return;
     }
 
     els.save.classList.add('err');
     els.saveLabel.textContent =
-      response && response.code === 'native_missing'
-        ? 'الربط مش مفعّل'
-        : response && response.code === 'invalid_file'
-          ? 'راجع مسار الحصالة'
-          : response && response.code === 'file_missing'
-            ? 'الملف مش موجود'
-            : 'مقدرتش أحوش';
+      response && response.code === 'storage_full'
+        ? 'Storage is full'
+        : response && response.code === 'word_limit'
+          ? 'Word bank is full'
+          : 'Could not save';
 
     clearTimeout(saveTimer);
     saveTimer = setTimeout(() => {
       els.save.disabled = false;
       els.save.classList.remove('ok', 'err');
-      els.saveLabel.textContent = 'أضف للحصالة';
+      els.saveLabel.textContent = 'Add to Hassala';
     }, 2400);
   }
 
@@ -2823,8 +2504,7 @@
 
     if (event.key === 'Escape') {
       event.preventDefault();
-      if (!els.pathModal.hidden) closePathModal();
-      else closePanel();
+      closePanel();
       return;
     }
 
@@ -2833,11 +2513,6 @@
       cancelDebounce();
       translateNow();
       return;
-    }
-
-    if (target === els.pathInput && event.key === 'Enter') {
-      event.preventDefault();
-      savePathFromModal();
     }
   }
 
@@ -2857,10 +2532,6 @@
     handlePanelKeydown(event);
     event.stopPropagation();
   });
-  els.pathModal.addEventListener('keydown', (event) => {
-    handlePanelKeydown(event);
-    event.stopPropagation();
-  });
 
   els.clear.addEventListener('click', () => {
     resetInput({ focus: true });
@@ -2870,19 +2541,11 @@
   els.copy.addEventListener('click', copyResult);
   els.speak.addEventListener('click', speakResult);
   els.save.addEventListener('click', saveToHassala);
-  els.openFile.addEventListener('click', openCurrentFile);
-  els.pathSettings.addEventListener('click', openPathModal);
+  els.wordsBank.addEventListener('click', openWordsPage);
+  if (els.folderSelect) {
+    els.folderSelect.addEventListener('change', changeActiveFolder);
+  }
   if (els.siteToggle) els.siteToggle.addEventListener('click', onSiteToggleClick);
-  els.pathClose.addEventListener('click', closePathModal);
-  els.pathSave.addEventListener('click', savePathFromModal);
-  els.pathUseDefault.addEventListener('click', useDefaultPathFromModal);
-  els.pathOpenOptions.addEventListener('click', () => {
-    sendMessage({ type: 'openOptions' }, 4000);
-    closePathModal();
-  });
-  els.pathModal.addEventListener('click', (event) => {
-    if (event.target.closest('[data-path-close]')) closePathModal();
-  });
   els.pin.addEventListener('click', togglePanelPin);
   els.settings.addEventListener('click', () => {
     sendMessage({ type: 'openOptions' }, 4000);

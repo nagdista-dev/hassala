@@ -4,28 +4,19 @@ This file is for the Chrome Web Store review form and for contributors.
 
 ## Single purpose
 
-Hassala translates Arabic ↔ English words and saves them to a local Markdown
-word bank for later review. Every feature serves that single purpose:
-translation, word capture, and review.
+Hassala translates Arabic ↔ English words and keeps them in a private local word
+bank with folders, so the user can review and export them later. Every feature
+serves that single purpose: translation, word capture, organisation, and export.
 
 ## Permissions
 
 ### `storage`
 
-**Why:** Save the user's settings (word-bank file path, floating-button state,
-panel position, blocked sites) and the last 8 translated words locally in
-`chrome.storage.local`.
+**Why:** Save the user's word bank, folders, active folder, settings
+(floating-button state, panel position, blocked sites), and the last 8 translated
+words locally in `chrome.storage.local`.
 
-**Data:** Settings and recent words only. No personal data.
-
-### `nativeMessaging`
-
-**Why:** Write saved words to the user's chosen Markdown file through a local
-native messaging host. The host is installed by the user and accepts messages
-only from this extension (`allowed_origins` contains one extension ID).
-
-**Data:** The source word and its translation. The data stays on the user's
-device; it is not uploaded anywhere.
+**Data:** Words, folders, settings, and recent words only. No personal data.
 
 ### `scripting`
 
@@ -71,6 +62,15 @@ The YouTube-specific script runs only on YouTube.
 **Data:** The selected text only when the user explicitly asks for a
 translation. No page content is collected automatically.
 
+## Permissions that are intentionally absent
+
+- **`nativeMessaging`** — removed. There is no native host; words live in
+  `chrome.storage.local`.
+- **`downloads`** — not used. Export uses a temporary `Blob` URL and a normal
+  `<a download>` click after the user presses export.
+- **`tabs`, `history`, `bookmarks`, `cookies`** — not used.
+- **Camera, microphone, location** — not used.
+
 ## Remote code
 
 Hassala does **not** load or execute remote code. All JavaScript is bundled in
@@ -82,34 +82,25 @@ and no remotely hosted script.
 - **Website content:** sent to Google/MyMemory only when the user requests a
   translation.
 - **User settings and recent words:** stored locally.
-- **Saved words:** written to a local Markdown file via the native host.
+- **Saved words and folders:** stored in `chrome.storage.local`.
+- **Export:** the user chooses selected words/folder/all, a format
+  (Markdown/TXT/CSV/JSON), and a filename; the browser downloads the file.
+  Nothing is written to disk automatically.
 - **No sale of data, no advertising, no analytics, no human review.**
 - **No accounts or sign-in.**
 
-## Native host note for reviewers
+## Saving and export note for reviewers
 
-The native host is optional for translation and subtitles. It is required only
-for the “Save to Hassala” feature, which appends to a Markdown file chosen by
-the user. The host source is in `native/hassala_writer.py`; installation
-instructions are in `native/install.sh`, `native/install.ps1`, and
-`docs/INSTALL.md` in the public repository:
-<https://github.com/nagdista-dev/hassala>.
+Saving does not require any external program. Clicking **Add to Hassala** stores the
+word in `chrome.storage.local`. To get a file:
 
-Reviewer setup (Linux/macOS):
+1. Open the extension Settings (Options).
+2. Go to **Words**.
+3. Select words, a folder, or all words.
+4. Choose Markdown, TXT, CSV, or JSON and type a filename.
+5. Click **Export**. The browser downloads the file normally.
 
-```bash
-bash native/install.sh
-```
-
-Windows:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File native\install.ps1 -ExtensionId <id>
-```
-
-After registration, reload the extension and open Settings to confirm the
-connection status. The default word bank is `~/Documents/Hassala Words.md` and
-is created automatically on first save.
+The user can also delete selected words or clear the bank from the same screen.
 
 ## Privacy policy
 
@@ -117,5 +108,7 @@ https://gist.github.com/nagdista-dev/282cc2ce8fe35c5fb7199f7ffd2cd705
 
 ## Contact
 
-Use the **Support** tab on the Chrome Web Store listing, or open an issue at
-<https://github.com/nagdista-dev/hassala/issues>.
+Use the **Support** tab on the Chrome Web Store listing,
+[nagdista@gmail.com](mailto:nagdista@gmail.com?subject=Hassala%20feedback), or
+open an issue at <https://github.com/nagdista-dev/hassala/issues>. You can
+support development at <https://buymeacoffee.com/nagdista>.

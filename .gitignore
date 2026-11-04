@@ -29,6 +29,3 @@ Thumbs.db
 # Environment / secrets
 .env
 .env.*
-
-# Local native-host config (may contain a personal path)
-native/config.json

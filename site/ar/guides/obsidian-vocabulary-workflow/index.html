@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>طريقة عمل للمفردات في Obsidian لمتعلمي العربية</title>
-  <meta name="description" content="طريقة عملية لبناء بنك مفردات عربي ↔ إنجليزي داخل Obsidian: احفظ الكلمات المترجمة بحصالة، واجعل الجدول آخر الملف، وراجع في السياق، واعمل نسخة احتياطية.">
+  <meta name="description" content="طريقة عملية لبناء بنك مفردات عربي ↔ إنجليزي: اجمع الكلمات في حصالة، وصدّر Markdown، وانقل الملف لمكتبة Obsidian، وراجع في السياق.">
   <link rel="canonical" href="https://nagdista-dev.github.io/hassala/ar/guides/obsidian-vocabulary-workflow/">
   <link rel="alternate" hreflang="en" href="https://nagdista-dev.github.io/hassala/guides/obsidian-vocabulary-workflow/">
   <link rel="alternate" hreflang="ar" href="https://nagdista-dev.github.io/hassala/ar/guides/obsidian-vocabulary-workflow/">
@@ -16,7 +16,7 @@
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="حصالة — Hassala">
   <meta property="og:title" content="طريقة عمل للمفردات في Obsidian">
-  <meta property="og:description" content="ملاحظة عادية واحدة تصبح بنك كلمات عربي ↔ إنجليزي، تعيش داخل مكتبتك.">
+  <meta property="og:description" content="اجمع الكلمات في بنك كلمات محلي، وصدّر Markdown، وراجعها داخل مكتبتك.">
   <meta property="og:url" content="https://nagdista-dev.github.io/hassala/ar/guides/obsidian-vocabulary-workflow/">
   <meta property="og:image" content="https://nagdista-dev.github.io/hassala/assets/social-preview-en.png">
   <meta property="og:image:width" content="1280">
@@ -25,10 +25,10 @@
   <meta property="og:locale" content="ar_AR">
   <meta property="og:locale:alternate" content="en_US">
   <meta property="article:published_time" content="2026-11-03">
-  <meta property="article:modified_time" content="2026-11-03">
+  <meta property="article:modified_time" content="2026-11-04">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="طريقة عمل للمفردات في Obsidian">
-  <meta name="twitter:description" content="بنك كلمات يعيش داخل مكتبتك، لا داخل تطبيق آخر.">
+  <meta name="twitter:description" content="حصالة تجمع الكلمات، وأنت تصدّر Markdown وتنقله لمكتبتك.">
   <meta name="twitter:image" content="https://nagdista-dev.github.io/hassala/assets/social-preview-en.png">
 
   <link rel="icon" type="image/png" href="../../../assets/icon128.png">
@@ -38,160 +38,172 @@
   <link rel="stylesheet" href="../../../assets/style.css">
 
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Article",
-        "@id": "https://nagdista-dev.github.io/hassala/ar/guides/obsidian-vocabulary-workflow/#article",
-        "headline": "طريقة عمل للمفردات في Obsidian لمتعلمي العربية",
-        "description": "طريقة عملية لبناء بنك مفردات عربي ↔ إنجليزي داخل Obsidian باستخدام ملف Markdown محلي تكتبه حصالة.",
-        "datePublished": "2026-11-03",
-        "dateModified": "2026-11-03",
-        "inLanguage": "ar",
-        "author": {
-          "@type": "Organization",
-          "name": "Hassala contributors",
-          "url": "https://github.com/nagdista-dev/hassala"
-        },
-        "publisher": {
-          "@type": "Organization",
-          "name": "Hassala contributors",
-          "url": "https://github.com/nagdista-dev/hassala"
-        },
-        "mainEntityOfPage": "https://nagdista-dev.github.io/hassala/ar/guides/obsidian-vocabulary-workflow/",
-        "image": "https://nagdista-dev.github.io/hassala/assets/social-preview-en.png",
-        "about": {
-          "@type": "SoftwareApplication",
-          "name": "حصالة",
-          "alternateName": "Hassala",
-          "url": "https://nagdista-dev.github.io/hassala/ar/",
-          "applicationCategory": "EducationalApplication",
-          "operatingSystem": "Chrome, Brave, Edge, Chromium"
-        }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://nagdista-dev.github.io/hassala/ar/guides/obsidian-vocabulary-workflow/#article",
+      "headline": "طريقة عمل للمفردات في Obsidian لمتعلمي العربية",
+      "description": "طريقة عملية لبناء بنك مفردات عربي ↔ إنجليزي: اجمع الكلمات في بنك كلمات حصالة المحلي، وصدّر Markdown، وانقل الملف لمكتبتك، وابنِ روتين مراجعة.",
+      "datePublished": "2026-11-03",
+      "dateModified": "2026-11-04",
+      "inLanguage": "ar",
+      "author": {
+        "@type": "Organization",
+        "name": "Hassala contributors",
+        "url": "https://github.com/nagdista-dev/hassala"
       },
-      {
-        "@type": "HowTo",
-        "@id": "https://nagdista-dev.github.io/hassala/ar/guides/obsidian-vocabulary-workflow/#howto",
-        "name": "كيف تبني طريقة عمل للمفردات في Obsidian",
-        "description": "أنشئ ملاحظة داخل مكتبة Obsidian، ووجّه حصالة إليها، واجعل جدول الكلمات آخر شيء في الملف، وابنِ روتين مراجعة قصير.",
-        "totalTime": "PT12M",
-        "tool": [
-          { "@type": "HowToTool", "name": "Obsidian" },
-          { "@type": "HowToTool", "name": "حصالة" },
-          { "@type": "HowToTool", "name": "Python 3 (للحفظ)" }
-        ],
-        "step": [
-          {
-            "@type": "HowToStep",
-            "position": 1,
-            "name": "أنشئ ملاحظة بنك الكلمات",
-            "text": "أنشئ ملاحظة Markdown فارغة داخل مكتبة Obsidian، مثل Arabic/Word Bank.md.",
-            "url": "https://nagdista-dev.github.io/hassala/ar/guides/obsidian-vocabulary-workflow/#step-1"
-          },
-          {
-            "@type": "HowToStep",
-            "position": 2,
-            "name": "وجّه حصالة إلى الملاحظة",
-            "text": "افتح إعدادات حصالة، واختر ملف .md الموجود، واحفظ الإعداد. الملف الافتراضي يُنشأ تلقائيًا، وأي ملف مخصص يجب أن يكون موجودًا بالفعل.",
-            "url": "https://nagdista-dev.github.io/hassala/ar/guides/obsidian-vocabulary-workflow/#step-2"
-          },
-          {
-            "@type": "HowToStep",
-            "position": 3,
-            "name": "اجعل الجدول آخر الملف",
-            "text": "أضف العناوين والمصادر والتعليقات فوق جدول الكلمات، وليس تحته. حصالة تضيف الصفوف الجديدة في نهاية الملف.",
-            "url": "https://nagdista-dev.github.io/hassala/ar/guides/obsidian-vocabulary-workflow/#step-3"
-          },
-          {
-            "@type": "HowToStep",
-            "position": 4,
-            "name": "ابنِ روتين مراجعة قصير",
-            "text": "استخدم بحث Obsidian عن كلمة أو وسم، وافتح الملاحظة في مراجعة يومية، واكتب جملة واحدة بثلاث كلمات محفوظة.",
-            "url": "https://nagdista-dev.github.io/hassala/ar/guides/obsidian-vocabulary-workflow/#step-4"
-          },
-          {
-            "@type": "HowToStep",
-            "position": 5,
-            "name": "اعمل نسخة احتياطية للمكتبة",
-            "text": "احتفظ بالملاحظة داخل نظام النسخ أو المزامنة المعتاد. الملف Markdown عادي، لذا يعمل مع Obsidian Sync أو Git أو أي مزامنة ملفات.",
-            "url": "https://nagdista-dev.github.io/hassala/ar/guides/obsidian-vocabulary-workflow/#step-5"
-          }
-        ]
+      "publisher": {
+        "@type": "Organization",
+        "name": "Hassala contributors",
+        "url": "https://github.com/nagdista-dev/hassala"
       },
-      {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "حصالة",
-            "item": "https://nagdista-dev.github.io/hassala/ar/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "طريقة عمل المفردات في Obsidian",
-            "item": "https://nagdista-dev.github.io/hassala/ar/guides/obsidian-vocabulary-workflow/"
-          }
-        ]
-      },
-      {
-        "@type": "FAQPage",
-        "@id": "https://nagdista-dev.github.io/hassala/ar/guides/obsidian-vocabulary-workflow/#faq",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "هل لحصالة إضافة خاصة بـ Obsidian؟",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "لا. تكتب حصالة ملف Markdown عاديًا، ويقرأه Obsidian مثل أي ملاحظة أخرى. لا تحتاج إلى إضافة أو تكامل."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "هل يمكن استخدام ملاحظة موجودة في مكتبتي؟",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "نعم. أنشئ أو اختر أي ملف .md موجود داخل المكتبة من إعدادات حصالة. يبقى الملف في مكانه، وتضيف حصالة الصفوف إليه."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "هل تكتب حصالة فوق ملاحظاتي؟",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "تُطبّع حصالة جدول الكلمات — العنوان والفاصل وأرقام الصفوف وترتيب الأعمدة — وقد تحذف سطور العنوان أو القسم القديمة التي كانت تُنشئها. لا تعيد كتابة النص خارج الجدول."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "هل يمكن إضافة ملاحظات تحت الجدول؟",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "الأفضل تجنّب ذلك. الصفوف الجديدة تُضاف في نهاية الملف، لذا النص الموجود تحت الجدول سيدفع الصفوف التالية خارجه. ضع الملاحظات فوق الجدول."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "هل توفر هذه الطريقة تكرارًا متباعدًا؟",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "ليس مدمجًا. تحفظ حصالة الكلمات وتمنع التكرار. للمراجعة المجدولة استخدم إضافة Obsidian أو Anki أو روتينًا يدويًا. تصدير CSV وAnki على خارطة الطريق."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "هل تعمل مع Obsidian Sync؟",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "نعم. بنك الكلمات ملف Markdown محلي، لذا يمكن لـ Obsidian Sync أو Git أو أي أداة مزامنة ملفات نقله. حصالة نفسها لا تزامن شيئًا."
-            }
-          }
-        ]
+      "mainEntityOfPage": "https://nagdista-dev.github.io/hassala/ar/guides/obsidian-vocabulary-workflow/",
+      "image": "https://nagdista-dev.github.io/hassala/assets/social-preview-en.png",
+      "about": {
+        "@type": "SoftwareApplication",
+        "name": "حصالة",
+        "alternateName": "Hassala",
+        "url": "https://nagdista-dev.github.io/hassala/ar/",
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "Chrome, Brave, Edge, Chromium"
       }
-    ]
-  }
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://nagdista-dev.github.io/hassala/ar/guides/obsidian-vocabulary-workflow/#howto",
+      "name": "كيف تبني طريقة عمل للمفردات في Obsidian",
+      "description": "اجمع الكلمات العربية والإنجليزية في حصالة، وصدّر ملف Markdown، وانقله لمكتبتك، وابنِ روتين مراجعة قصير.",
+      "totalTime": "PT12M",
+      "tool": [
+        {
+          "@type": "HowToTool",
+          "name": "Obsidian"
+        },
+        {
+          "@type": "HowToTool",
+          "name": "حصالة"
+        }
+      ],
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "اعمل مجلد في حصالة",
+          "text": "افتح الإعدادات واعمل مجلد للدورة أو اللغة أو السلسلة اللي بتدرسها، زي Arabic Course A.",
+          "url": "https://nagdista-dev.github.io/hassala/ar/guides/obsidian-vocabulary-workflow/#step-1"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "اجمع الكلمات أثناء القراءة",
+          "text": "ترجم واحفظ الكلمات من البوب أو الصندوق العائم أو سبتايتل يوتيوب. كل كلمة بتروح للمجلد المختار جوه الإضافة.",
+          "url": "https://nagdista-dev.github.io/hassala/ar/guides/obsidian-vocabulary-workflow/#step-2"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "صدّر المجلد Markdown",
+          "text": "افتح Words، فلتر على المجلد، اختار Markdown، اكتب اسم ملف واضح، واضغط تصدير.",
+          "url": "https://nagdista-dev.github.io/hassala/ar/guides/obsidian-vocabulary-workflow/#step-3"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "انقل الملف لمكتبتك",
+          "text": "انقل ملف Markdown اللي اتنزّل من التنزيلات لمكتبتك، مثلًا Arabic/Course A.md. الإضافة عمرها ما بتكتب في المكتبة نفسها.",
+          "url": "https://nagdista-dev.github.io/hassala/ar/guides/obsidian-vocabulary-workflow/#step-4"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 5,
+          "name": "ابنِ روتين مراجعة قصير",
+          "text": "ابحث في الملاحظة عن كلمة أو وسم، واقرأ عشرة صفوف بصوت مرتفع، واكتب جملة واحدة بثلاث كلمات محفوظة.",
+          "url": "https://nagdista-dev.github.io/hassala/ar/guides/obsidian-vocabulary-workflow/#step-5"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 6,
+          "name": "أعد التصدير لما القائمة تتغير",
+          "text": "صدّر المجلد تاني واستبدل الملاحظة القديمة، أو احتفظ بنسخ بتاريخ كصور محفوظة. أنت اللي بتتحكم في اللي يدخل مكتبتك.",
+          "url": "https://nagdista-dev.github.io/hassala/ar/guides/obsidian-vocabulary-workflow/#step-6"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "حصالة",
+          "item": "https://nagdista-dev.github.io/hassala/ar/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "طريقة عمل المفردات في Obsidian",
+          "item": "https://nagdista-dev.github.io/hassala/ar/guides/obsidian-vocabulary-workflow/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://nagdista-dev.github.io/hassala/ar/guides/obsidian-vocabulary-workflow/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "هل لحصالة إضافة خاصة بـ Obsidian؟",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "لا. حصالة بتصدّر ملف Markdown عادي. Obsidian بيقرأ الملف زي أي ملاحظة تانية، فمفيش إضافة أو تكامل مطلوب."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "هل حصالة بتكتب مباشرة في مكتبتي؟",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "لا. حصالة بتخزن الكلمات جوه الإضافة وبتنزّل تصدير بس لما تضغط تصدير. أنت اللي بتنقل الملف لمكتبتك بنفسك."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "هل التصدير بيكتب فوق ملاحظة موجودة؟",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "لا. المتصفح بيحفظ تنزيل جديد. لو عايز تحدّث ملاحظة في مكتبتك، استبدلها بالتصدير الجديد بنفسك أو احتفظ بنسخ بتاريخ كصور محفوظة."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "هل أقدر أعدّل الملاحظة المصدّرة؟",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "أيوه. الملف المصدّر Markdown عادي وملكك. تقدر تضيف عناوين ووسوم وروابط وملاحظات حوالين الجدول. افتكر إن أي تصدير جديد هو صورة جديدة ومش هيضم تعديلاتك إلا لو دمجتها بنفسك."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "هل الطريقة دي بتوفر تكرار متباعد؟",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "مش مدمج. حصالة بتحفظ وتمنع التكرار. للمراجعة المجدولة استخدم إضافة Obsidian أو Anki أو روتين يدوي. تصدير CSV متاح لاستيراد Anki."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "هل بتعمل مع Obsidian Sync؟",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "أيوه، بعد ما الملف المصدّر يبقى جوه المكتبة. Obsidian Sync أو Git أو أي أداة مزامنة ملفات تقدر تنقله. حصالة نفسها مش بتزامن أي حاجة."
+          }
+        }
+      ]
+    }
+  ]
+}
   </script>
 </head>
 <body>
@@ -231,12 +243,13 @@
         <p class="eyebrow">دليل</p>
         <h1 id="article-title">طريقة عمل للمفردات في Obsidian لمتعلمي العربية</h1>
         <p class="lead">
-          استخدم ملاحظة عادية واحدة كبنك كلمات عربي ↔ إنجليزي، واحفظ فيها أثناء
-          القراءة، وراجعها دون مغادرة مكتبتك. بدون إضافة وبدون قاعدة بيانات ثانية.
+          استخدم ملاحظة عادية واحدة كبنك كلمات عربي ↔ إنجليزي: اجمع الكلمات في
+          حصالة، وصدّر Markdown، وراجعها دون مغادرة مكتبتك. بدون إضافة وبدون
+          قاعدة بيانات ثانية.
         </p>
         <div class="article-meta">
-          <span>آخر تحديث: 3 نوفمبر 2026</span>
-          <span>قراءة 6 دقائق</span>
+          <span>آخر تحديث: 4 نوفمبر 2026</span>
+          <span>قراءة 7 دقائق</span>
           <span>Obsidian + أي محرر Markdown</span>
         </div>
       </div>
@@ -246,8 +259,8 @@
           Obsidian جيد في الاحتفاظ بالملاحظات التي كتبتها بالفعل. المفردات
           مختلفة: تصل في قطع صغيرة أثناء القراءة أو المشاهدة، ويسهل ضياعها. هذه
           الطريقة تربط الاثنين. <a href="../../">حصالة</a> تحفظ كل كلمة أو عبارة
-          مترجمة في ملاحظة Markdown داخل مكتبتك؛ وObsidian يمنحك البحث والروابط
-          ومكانًا للمراجعة.
+          مترجمة في بنك كلمات محلي خاص بمجلدات؛ ولما تكون جاهزًا، تصدّر ملاحظة
+          Markdown وتنقلها لمكتبتك للبحث والروابط والمراجعة.
         </p>
 
         <h2>ما تحتاجه</h2>
@@ -258,85 +271,88 @@
             <a href="https://github.com/nagdista-dev/hassala/releases/latest" rel="noopener">إصدارات GitHub</a>.
             إصدار Chrome Web Store لسه قيد التحضير.
           </li>
-          <li>Python 3 إذا أردت تفعيل الحفظ.</li>
-          <li>لا تحتاج إلى أي إضافة في Obsidian.</li>
+          <li>مفيش إضافة Obsidian، ولا Python، ولا Native Host مطلوب.</li>
         </ul>
 
-        <h2 id="step-1">الخطوة 1 — أنشئ ملاحظة بنك الكلمات</h2>
-        <p>داخل مكتبتك، أنشئ ملاحظة مثل:</p>
-        <pre><code>Arabic/Word Bank.md</code></pre>
+        <h2 id="step-1">الخطوة 1 — اعمل مجلد في حصالة</h2>
         <p>
-          مجلد لكل لغة أو دورة يجعل المكتبة أوضح. وإذا فضّلت ملفًا واحدًا لكل
-          شيء، ضعه في جذر المكتبة وسمّه <code>Word Bank.md</code>.
+          افتح إعدادات حصالة، وهتلاقي <strong>Save new words to</strong>.
+          اعمل مجلد للدورة أو اللغة أو السلسلة اللي بتدرسها:
         </p>
+        <pre><code>Arabic Course A
+Arabic News
+English Idioms
+Programming</code></pre>
         <p>
-          يمكن أن تكون الملاحظة فارغة. تضيف حصالة الجدول عند أول حفظ. وإذا
-          استخدمت الملف الافتراضي، تُنشئه حصالة بهذه الوسوم:
-        </p>
-        <pre><code>---
-tags:
-  - english
-  - vocabulary
-  - hassala
----</code></pre>
-        <p>
-          هذه مقدمة YAML عادية، لذا يمكنك تعديل الوسوم أو إضافة خصائصك. الملاحظة
-          المخصصة تحتفظ بمقدمتها كما هي.
+          المجلدات دي جوه الإضافة. بتساعدك تصدّر قائمة مركزة بعدين بدل ملف
+          ضخم واحد. ومجلد لكل سلسلة كمان بيسهّل بداية عادة المراجعة.
         </p>
 
-        <h2 id="step-2">الخطوة 2 — وجّه حصالة إلى الملاحظة</h2>
+        <h2 id="step-2">الخطوة 2 — اجمع الكلمات أثناء القراءة</h2>
+        <p>
+          ترجم واحفظ الكلمات من بوب شريط الأدوات، أو الصندوق العائم، أو سبتايتل
+          يوتيوب. كل زوج محفوظ بيروح للمجلد المختار تحت
+          <strong>Save new words to</strong>. الأزواج المكررة بتتخطى في
+          الاتجاهين، فحفظ الكلمة نفسها مرتين مش هيعمل فوضى.
+        </p>
+        <p>
+          الكلمات بتتخزن في <code>chrome.storage.local</code>. بتفضل بعد إعادة
+          تشغيل المتصفح، لكنها مش بتتكتب في مكتبتك — ولا في أي مكان على القرص —
+          وقت الجمع.
+        </p>
+
+        <h2 id="step-3">الخطوة 3 — صدّر المجلد Markdown</h2>
         <ol>
-          <li>افتح إعدادات حصالة.</li>
-          <li>في ملف بنك الكلمات، اختر <strong>اختيار ملف</strong>.</li>
-          <li>حدد ملاحظة <code>.md</code> الموجودة داخل مكتبتك.</li>
-          <li>احفظ الإعداد، ثم ترجم كلمة واحدة واحفظها للتجربة.</li>
+          <li>افتح <strong>Words</strong>.</li>
+          <li>اضغط شريحة المجلد الخاص بالدورة أو الموضوع اللي عايزه.</li>
+          <li>تحت <strong>File format</strong>، اختار <strong>Markdown (.md)</strong>.</li>
+          <li>تحت <strong>File name</strong>، اكتب اسمًا واضحًا زي <code>Arabic Course A</code>.</li>
+          <li>اضغط <strong>Export visible</strong> (أو <strong>Export selected</strong> لو حددت صفوفًا معينة).</li>
         </ol>
         <p>
-          المسار الافتراضي هو <code>~/Documents/Hassala Words.md</code>، وهو
-          داخل مكتبتك فقط إذا كانت مكتبتك نفسها في <code>~/Documents</code>.
-          لمعظم الناس، اختيار الملاحظة صراحةً هو الخيار الأكثر أمانًا.
+          المتصفح بينزّل الملف في مجلد التنزيلات الافتراضي. الإضافة مش بتكتب في
+          مكتبتك مباشرة، والتنزيل بيحصل بس بعد ما تضغط زر التصدير.
         </p>
 
         <div class="note">
-          <strong>الملفات المخصصة يجب أن تكون موجودة.</strong> حصالة تُنشئ الملف
-          الافتراضي فقط تلقائيًا. لن تُنشئ ملاحظة جديدة في مسار عشوائي، ولن تكتب
-          خارج الملف الذي اخترته.
+          <strong>ليه تصدير بدل الكتابة التلقائية؟</strong> إضافة المتصفح مش
+          المفروض يكون عندها وصول كامل لملفاتك. تخزين الكلمات في الإضافة
+          والتصدير عند الطلب أأمن وأسهل في المراجعة، وبيشتغل بنفس الشكل على كل
+          نظام تشغيل. أنت اللي بتقرر امتى يتعمل ملف وفين يروح.
         </div>
 
-        <h2 id="step-3">الخطوة 3 — اجعل الجدول آخر الملف</h2>
+        <h2 id="step-4">الخطوة 4 — انقل الملف لمكتبتك</h2>
         <p>
-          الصفوف الجديدة تُضاف في نهاية الملف. معنى ذلك أن جدول الكلمات يجب أن
-          يكون آخر شيء في الملاحظة. أضف العناوين والمصادر والتعليقات
-          <em>فوق</em> الجدول:
+          انقل الملف اللي اتنزّل من التنزيلات لمكتبتك، مثلًا:
         </p>
-        <pre><code># Arabic word bank
-
-Source: Al Jazeera documentary, November 2026.
-
-| # | English | Arabic |
-| --- | --- | --- |
-| 1 | get used to | يعتاد على |</code></pre>
+        <pre><code>Arabic/Course A.md</code></pre>
         <p>
-          إذا كتبت فقرات تحت الجدول، فسيأتي الصف المحفوظ التالي بعد تلك الفقرات —
-          خارج الجدول. اجعل الجدول في الآخر يبقى الشكل متوقعًا.
+          دلوقتي هو ملاحظة Obsidian عادية. تقدر تفتحها، وتربطها، وتوسمها،
+          وتضمها للـ graph. ولو تحب، ظبّط المتصفح يسألك عن مكان كل تنزيل عشان
+          الملف يوصل للمكتبة من أول مرة.
         </p>
 
-        <h3>ما الذي تغيّره حصالة في الملف؟</h3>
-        <ul>
-          <li>تضيف الجدول إذا لم يكن في الملاحظة.</li>
-          <li>تُطبّع عنوان الجدول والفاصل وأرقام الصفوف وترتيب الأعمدة.</li>
-          <li>قد تحذف سطور العنوان أو القسم القديمة التي كانت تُنشئها إصدارات سابقة.</li>
-          <li>لا تعيد كتابة النص خارج الجدول.</li>
-        </ul>
+        <h3>شكل الملاحظة المصدّرة</h3>
+        <pre><code># Hassala — My words
 
-        <h2 id="step-4">الخطوة 4 — ابنِ روتين مراجعة قصير</h2>
+| Word | Translation |
+| --- | --- |
+| get used to | يعتاد على |
+| على قدم وساق | at full speed |</code></pre>
+        <p>
+          التصدير Markdown عادي بترميز UTF-8. ضيف عناوينك ومصادرك وروابطك فوق
+          الجدول. وبما إن أي تصدير جديد هو صورة جديدة، احتفظ بالملاحظات
+          الطويلة في ملاحظة منفصلة واربطها ببنك الكلمات، أو ادمج التغييرات
+          يدويًا لما تحدّثه.
+        </p>
+
+        <h2 id="step-5">الخطوة 5 — ابنِ روتين مراجعة قصير</h2>
         <p>بنك الكلمات لا يفيد إلا إذا عدت إليه. هذا الروتين يأخذ خمس دقائق:</p>
         <ol>
           <li>
             <strong>ابحث في المكتبة.</strong> اضغط <kbd>Ctrl</kbd> +
             <kbd>Shift</kbd> + <kbd>F</kbd> (<kbd>Cmd</kbd> على macOS) وابحث عن
-            كلمة تتذكر أنك قابلتها. البحث بالوسم <code>tag:#hassala</code> يجد
-            ملاحظة بنك الكلمات الافتراضية.
+            كلمة تتذكر أنك قابلتها.
           </li>
           <li>
             <strong>افتح الملاحظة واقرأ عشرة صفوف بصوت مرتفع.</strong> القراءة
@@ -344,7 +360,7 @@ Source: Al Jazeera documentary, November 2026.
           </li>
           <li>
             <strong>اكتب جملة واحدة بثلاث منها.</strong> ضع الجملة في ملاحظتك
-            اليومية، واربط بنك الكلمات: <code>[[Word Bank]]</code>. الربط يجعل
+            اليومية، واربط بنك الكلمات: <code>[[Course A]]</code>. الربط يجعل
             ملاحظة المراجعة جزءًا من الرسم البياني بدلًا من نهاية مسدودة.
           </li>
           <li>
@@ -357,30 +373,25 @@ Source: Al Jazeera documentary, November 2026.
           ستؤجله.
         </p>
 
-        <h3>ملف واحد لكل دورة أو سلسلة</h3>
+        <h2 id="step-6">الخطوة 6 — أعد التصدير لما القائمة تتغير</h2>
         <p>
-          إذا كنت تدرس دورة أو قائمة تشغيل أو كتابًا، أعطه ملاحظته الخاصة:
-          <code>Arabic/Course A.md</code>. الجداول الأصغر أسهل في المسح، واسم
-          الملف يخبرك من أين جاءت الكلمات. يظل بإمكانك البحث في المكتبة كلها.
+          لما تضيف كلمات جديدة كفاية، صدّر المجلد تاني. عندك اختياران واضحان:
         </p>
-
-        <h2 id="step-5">الخطوة 5 — اعمل نسخة احتياطية للمكتبة</h2>
-        <p>بنك الكلمات ملف Markdown عادي بترميز UTF-8. استخدم ما تثق به:</p>
         <ul>
-          <li><strong>Obsidian Sync</strong> أو خدمة مزامنة أخرى.</li>
-          <li><strong>Git</strong>، إذا كانت مكتبتك مستودعًا.</li>
-          <li><strong>نسخة يدوية</strong> إلى قرص آخر.</li>
+          <li><strong>استبدل الملاحظة القديمة</strong> بأحدث تصدير، عشان ملاحظة المكتبة تعكس مجلد الإضافة دايمًا.</li>
+          <li><strong>احتفظ بنسخ بتاريخ</strong> زي <code>Course A 2026-11.md</code>، عشان تقارن التقدم مع الوقت.</li>
         </ul>
         <p>
-          لا تملك حصالة سحابة أو حسابًا، لذا النسخة الاحتياطية اختيارك بالكامل.
-          ولهذا أيضًا لا شيء محبوس داخل التطبيق.
+          الإضافة عمرها ما بتعدّل أو بتمسح ملاحظات في مكتبتك. استبدال أو دمج
+          الملفات خطوة متعمدة بتعملها أنت في Obsidian أو مدير الملفات.
         </p>
 
         <h2>ما لا تفعله هذه الطريقة</h2>
         <ul>
+          <li><strong>لا كتابة تلقائية في المكتبة.</strong> أنت اللي بتصدّر وتنقل الملف.</li>
           <li><strong>لا بطاقات أو جدولة.</strong> حصالة تحفظ وتمنع التكرار؛ لكنها لا تقرر متى تراجع.</li>
-          <li><strong>لا جدول Dataview.</strong> الصفوف خلايا جدول Markdown وليست حقول مقدمة، لذا لا تتوقع أن يستعلم عنها Dataview كخصائص.</li>
-          <li><strong>لا تصدير تلقائي إلى Anki.</strong> تصدير CSV وAnki على خارطة الطريق؛ حاليًا انسخ الصفوف أو حوّل الجدول بسكربت.</li>
+          <li><strong>لا جدول Dataview.</strong> الصفوف خلايا جدول Markdown وليست حقول مقدمة.</li>
+          <li><strong>لا حزمة Anki مباشرة.</strong> صدّر CSV لاستيراد Anki، أو انسخ الصفوف يدويًا.</li>
           <li><strong>لا ترجمة للصفحة كاملة.</strong> تترجم حصالة الكلمات والنص المحدد وسبتايتل يوتيوب، وليس المستندات كاملة.</li>
         </ul>
 
@@ -389,46 +400,45 @@ Source: Al Jazeera documentary, November 2026.
           <details class="faq-item">
             <summary>هل لحصالة إضافة خاصة بـ Obsidian؟</summary>
             <p>
-              لا. تكتب حصالة ملف Markdown عاديًا، ويقرأه Obsidian مثل أي ملاحظة
-              أخرى. لا تحتاج إلى إضافة أو تكامل.
+              لا. حصالة بتصدّر ملف Markdown عادي. Obsidian بيقرأ الملف زي أي
+              ملاحظة تانية، فمفيش إضافة أو تكامل مطلوب.
             </p>
           </details>
           <details class="faq-item">
-            <summary>هل يمكن استخدام ملاحظة موجودة في مكتبتي؟</summary>
+            <summary>هل حصالة بتكتب مباشرة في مكتبتي؟</summary>
             <p>
-              نعم. أنشئ أو اختر أي ملف <code>.md</code> موجود داخل المكتبة من
-              إعدادات حصالة. يبقى الملف في مكانه، وتضيف حصالة الصفوف إليه.
+              لا. حصالة بتخزن الكلمات جوه الإضافة وبتنزّل تصدير بس لما تضغط
+              تصدير. أنت اللي بتنقل الملف لمكتبتك بنفسك.
             </p>
           </details>
           <details class="faq-item">
-            <summary>هل تكتب حصالة فوق ملاحظاتي؟</summary>
+            <summary>هل التصدير بيكتب فوق ملاحظة موجودة؟</summary>
             <p>
-              تُطبّع حصالة جدول الكلمات — العنوان والفاصل وأرقام الصفوف وترتيب
-              الأعمدة — وقد تحذف سطور العنوان أو القسم القديمة التي كانت
-              تُنشئها. لا تعيد كتابة النص خارج الجدول.
+              لا. المتصفح بيحفظ تنزيل جديد. لو عايز تحدّث ملاحظة في مكتبتك،
+              استبدلها بالتصدير الجديد بنفسك أو احتفظ بنسخ بتاريخ كصور محفوظة.
             </p>
           </details>
           <details class="faq-item">
-            <summary>هل يمكن إضافة ملاحظات تحت الجدول؟</summary>
+            <summary>هل أقدر أعدّل الملاحظة المصدّرة؟</summary>
             <p>
-              الأفضل تجنّب ذلك. الصفوف الجديدة تُضاف في نهاية الملف، لذا النص
-              الموجود تحت الجدول سيدفع الصفوف التالية خارجه. ضع الملاحظات فوق
-              الجدول.
+              أيوه. الملف المصدّر Markdown عادي وملكك. تقدر تضيف عناوين ووسوم
+              وروابط وملاحظات حوالين الجدول. افتكر إن أي تصدير جديد هو صورة
+              جديدة ومش هيضم تعديلاتك إلا لو دمجتها بنفسك.
             </p>
           </details>
           <details class="faq-item">
-            <summary>هل توفر هذه الطريقة تكرارًا متباعدًا؟</summary>
+            <summary>هل الطريقة دي بتوفر تكرار متباعد؟</summary>
             <p>
-              ليس مدمجًا. تحفظ حصالة الكلمات وتمنع التكرار. للمراجعة المجدولة
-              استخدم إضافة Obsidian أو Anki أو روتينًا يدويًا. تصدير CSV وAnki
-              على خارطة الطريق.
+              مش مدمج. حصالة بتحفظ وتمنع التكرار. للمراجعة المجدولة استخدم
+              إضافة Obsidian أو Anki أو روتين يدوي. تصدير CSV متاح لاستيراد
+              Anki.
             </p>
           </details>
           <details class="faq-item">
-            <summary>هل تعمل مع Obsidian Sync؟</summary>
+            <summary>هل بتعمل مع Obsidian Sync؟</summary>
             <p>
-              نعم. بنك الكلمات ملف Markdown محلي، لذا يمكن لـ Obsidian Sync أو
-              Git أو أي أداة مزامنة ملفات نقله. حصالة نفسها لا تزامن شيئًا.
+              أيوه، بعد ما الملف المصدّر يبقى جوه المكتبة. Obsidian Sync أو Git
+              أو أي أداة مزامنة ملفات تقدر تنقله. حصالة نفسها مش بتزامن أي حاجة.
             </p>
           </details>
         </div>
@@ -436,10 +446,10 @@ Source: Al Jazeera documentary, November 2026.
         <div class="next-step">
           <h2>الخطوة التالية</h2>
           <p>
-            إذا لم تثبّت حصالة بعد، فدليل Markdown يبدأ من التنزيل وينتهي بأول
-            صف محفوظ.
+            إذا لم تثبّت حصالة بعد، فدليل بنك الكلمات يبدأ من التنزيل وينتهي
+            بأول تصدير.
           </p>
-          <p><a href="../save-words-to-markdown/">اقرأ دليل بنك كلمات Markdown ←</a></p>
+          <p><a href="../save-words-to-markdown/">اقرأ دليل بنك الكلمات المحلي ←</a></p>
         </div>
       </article>
     </section>
@@ -449,8 +459,8 @@ Source: Al Jazeera documentary, November 2026.
         <div class="cta-band">
           <h2>مكتبتك هي المكان الصحيح أصلًا.</h2>
           <p>
-            ثبّت حصالة، واختر ملاحظة، واحفظ كلمة واحدة. الملف يبقى في مكتبتك،
-            بصيغة تقرأها بدون الإضافة.
+            ثبّت حصالة، واجمع كلمة واحدة، وصدّرها Markdown. الملف يبقى في
+            مكتبتك، بصيغة تقرأها بدون الإضافة.
           </p>
           <div class="hero-actions">
             <a class="button" href="https://github.com/nagdista-dev/hassala/releases/latest" rel="noopener">
@@ -471,7 +481,7 @@ Source: Al Jazeera documentary, November 2026.
             <img src="../../../assets/icon128.png" width="34" height="34" alt="">
             حصالة
           </a>
-          <p>ترجمة عربية أولًا وحفظ للكلمات. مجانية، مفتوحة المصدر، ومبنية لتبقى.</p>
+          <p>ترجمة عربي ↔ إنجليزي وحفظ للكلمات. مجانية، مفتوحة المصدر، ومبنية لتبقى.</p>
         </div>
         <div>
           <h2>المنتج</h2>

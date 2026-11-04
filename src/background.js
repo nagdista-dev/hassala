@@ -1,10 +1,11 @@
 'use strict';
 
-importScripts('content/site-policy.js');
+importScripts('content/site-policy.js', 'wordbank.js');
 
 /**
- * Service worker: fetches translations, opens the in-page translator, and
- * appends saved words to the user's Markdown word bank through a small native messaging host.
+ * Service worker: fetches translations, opens the in-page translator, and keeps
+ * saved words in the extension's local storage. It never writes to the user's
+ * filesystem; exports are downloaded only when the user asks for them.
  *
  * Translation providers, in order:
  *   1. Google's lightweight dictionary endpoint (fast, no key).
@@ -14,40 +15,10 @@ importScripts('content/site-policy.js');
 const TIMEOUT_MS = 8000;
 const TRANSLATE_TIMEOUT_MS = 4500;
 const MAX_TEXT_LENGTH = 200;
-const NATIVE_HOST = 'com.hassala.writer';
 const CACHE_TTL_MS = 30 * 60 * 1000;
 const CACHE_LIMIT = 400;
-// Older builds stored the chosen Markdown path under this key.
-const LEGACY_FILE_KEY = 'obsidianFile';
 
 const translationCache = new Map();
-
-/**
- * Carry a saved word-bank path over from the pre-rename storage key, then drop
- * the legacy key so the extension only ever reads one source of truth.
- */
-async function migrateLegacyFileKey() {
-  try {
-    const data = await chrome.storage.local.get(['hassalaFile', LEGACY_FILE_KEY]);
-    const current =
-      typeof data.hassalaFile === 'string' ? data.hassalaFile.trim() : '';
-    const legacy =
-      typeof data[LEGACY_FILE_KEY] === 'string'
-        ? data[LEGACY_FILE_KEY].trim()
-        : '';
-
-    if (!current && legacy) {
-      await chrome.storage.local.set({ hassalaFile: legacy });
-    }
-    if (LEGACY_FILE_KEY in data) {
-      await chrome.storage.local.remove(LEGACY_FILE_KEY);
-    }
-  } catch {
-    // Storage is best-effort; the fallback in getHassalaFile still covers it.
-  }
-}
-
-migrateLegacyFileKey();
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (!message) return false;
@@ -65,34 +36,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
   if (message.type === 'saveToHassala') {
     saveToHassala(message)
-      .then(sendResponse)
-      .catch(() => sendResponse({ ok: false, code: 'failed' }));
-    return true;
-  }
-
-  if (message.type === 'hassalaInfo') {
-    getHassalaInfo()
-      .then(sendResponse)
-      .catch(() => sendResponse({ ok: false, code: 'failed' }));
-    return true;
-  }
-
-  if (message.type === 'hassalaCheckFile') {
-    checkHassalaFile(message)
-      .then(sendResponse)
-      .catch(() => sendResponse({ ok: false, code: 'failed' }));
-    return true;
-  }
-
-  if (message.type === 'openHassalaFile') {
-    openHassalaFile()
-      .then(sendResponse)
-      .catch(() => sendResponse({ ok: false, code: 'failed' }));
-    return true;
-  }
-
-  if (message.type === 'hassalaBrowse') {
-    browseHassala(message)
       .then(sendResponse)
       .catch(() => sendResponse({ ok: false, code: 'failed' }));
     return true;
@@ -130,14 +73,14 @@ chrome.action.onClicked.addListener((tab) => {
 
 async function openTranslator(tab) {
   if (!tab || typeof tab.id !== 'number' || !isScriptable(tab.url)) {
-    flashUnavailable(tab, 'الصفحة دي مش بتسمح بالترجمة — جرّب صفحة ويب عادية');
+    flashUnavailable(tab, 'This page does not allow translation — try a regular web page');
     return;
   }
 
   if (await isTabBlocked(tab.url)) {
     flashUnavailable(
       tab,
-      'حصالة معطّلة على الموقع ده — تقدر ترجّعها من إعدادات الإضافة',
+      'Hassala is disabled on this site — you can re-enable it in Settings',
     );
     return;
   }
@@ -153,7 +96,7 @@ async function openTranslator(tab) {
       if (response && response.code === 'site_blocked') {
         flashUnavailable(
           tab,
-          'حصالة معطّلة على الموقع ده — تقدر ترجّعها من إعدادات الإضافة',
+          'Hassala is disabled on this site — you can re-enable it in Settings',
         );
         return;
       }
@@ -169,6 +112,7 @@ async function openTranslator(tab) {
             files: [
               'src/content/keyboard-guard.js',
               'src/content/site-policy.js',
+              'src/wordbank.js',
               'src/content/floating.js',
             ],
           });
@@ -183,7 +127,7 @@ async function openTranslator(tab) {
 
   flashUnavailable(
     tab,
-    'افتح الصفحة من جديد (F5) مرة واحدة عشان حصالة تشتغل',
+    'Reload the page once (F5) to make Hassala work',
   );
 }
 
@@ -216,12 +160,12 @@ function flashUnavailable(tab, message) {
   chrome.action.setBadgeText({ text: '!' });
   setActionTitle(
     tab,
-    message || 'الصفحة دي مش بتسمح بالترجمة — جرّب صفحة ويب عادية',
+    message || 'This page does not allow translation — try a regular web page',
   );
 
   setTimeout(() => {
     chrome.action.setBadgeText({ text: '' });
-    setActionTitle(tab, 'حصالة');
+    setActionTitle(tab, 'Hassala');
   }, 2200);
 }
 
@@ -479,184 +423,40 @@ function decodeEntities(value) {
 
 /* ---------- Hassala ---------- */
 
-async function saveToHassala({ word, translation, mode }) {
-  const cleanWord = normalizeField(word);
-  const cleanTranslation = normalizeField(translation);
+async function saveToHassala({ word, translation, folderId }) {
+  const bank = globalThis.HassalaWordBank;
+  if (!bank) return { ok: false, code: 'storage_error' };
+
+  const cleanWord = bank.normalizeField(word);
+  const cleanTranslation = bank.normalizeField(translation);
 
   if (!cleanWord || !cleanTranslation) {
     return { ok: false, code: 'empty' };
   }
-  if (mode !== 'en-ar' && mode !== 'ar-en') {
-    return { ok: false, code: 'invalid_direction' };
-  }
 
-  const payload = {
-    type: 'append',
-    word: cleanWord,
-    translation: cleanTranslation,
-    mode,
-  };
-
-  const file = await getHassalaFile();
-  if (file) payload.file = file;
-
-  const result = await sendNativeMessage(payload);
-
-  if (result.error) {
-    console.warn('Hassala native host:', result.error);
-    return { ok: false, code: nativeErrorCode(result.error) };
-  }
-
-  const response = result.response;
-  if (!response || response.ok !== true) {
-    return { ok: false, code: response?.error || 'write_failed' };
-  }
-
-  return {
-    ok: true,
-    duplicate: Boolean(response.duplicate),
-    file: response.file || '',
-    filePath: response.filePath || response.path || '',
-  };
-}
-
-async function getHassalaInfo() {
-  const response = await nativeRequest({ type: 'info' });
-
-  if (!response.ok) return response;
-
-  const data = response.data;
-  return {
-    ok: true,
-    vault: typeof data.vault === 'string' ? data.vault : '',
-    file: typeof data.file === 'string' ? data.file : '',
-    filePath:
-      typeof data.filePath === 'string'
-        ? data.filePath
-        : typeof data.path === 'string'
-          ? data.path
-          : '',
-  };
-}
-
-async function checkHassalaFile({ file }) {
-  const response = await nativeRequest({
-    type: 'checkFile',
-    file: typeof file === 'string' ? file.slice(0, 4096) : '',
-  });
-
-  if (!response.ok) return response;
-
-  return {
-    ok: true,
-    create: Boolean(response.data.create),
-    file: typeof response.data.file === 'string' ? response.data.file : '',
-    filePath:
-      typeof response.data.filePath === 'string'
-        ? response.data.filePath
-        : typeof response.data.path === 'string'
-          ? response.data.path
-          : '',
-  };
-}
-
-async function openHassalaFile() {
-  const payload = { type: 'openFile' };
-  const file = await getHassalaFile();
-  if (file) payload.file = file;
-
-  const response = await nativeRequest(payload);
-
-  if (!response.ok) return response;
-
-  return {
-    ok: true,
-    file: typeof response.data.file === 'string' ? response.data.file : '',
-    filePath:
-      typeof response.data.filePath === 'string'
-        ? response.data.filePath
-        : typeof response.data.path === 'string'
-          ? response.data.path
-          : '',
-  };
-}
-
-async function browseHassala({ path, root, files, showHidden }) {
-  const response = await nativeRequest({
-    type: 'browse',
-    path: typeof path === 'string' ? path.slice(0, 4096) : '',
-    root: typeof root === 'string' ? root.slice(0, 4096) : '',
-    files: Boolean(files),
-    showHidden: Boolean(showHidden),
-  });
-
-  if (!response.ok) return response;
-
-  const data = response.data;
-  return {
-    ok: true,
-    path: typeof data.path === 'string' ? data.path : '',
-    root: typeof data.root === 'string' ? data.root : '',
-    parent: typeof data.parent === 'string' ? data.parent : '',
-    dirs: sanitizeEntries(data.dirs),
-    files: sanitizeEntries(data.files),
-  };
-}
-
-async function nativeRequest(payload) {
-  const result = await sendNativeMessage(payload);
-
-  if (result.error) {
-    console.warn('Hassala native host:', result.error);
-    return { ok: false, code: nativeErrorCode(result.error) };
-  }
-
-  const response = result.response;
-  if (!response || response.ok !== true) {
-    return { ok: false, code: response?.error || 'native_failed' };
-  }
-
-  return { ok: true, data: response };
-}
-
-function sanitizeEntries(entries) {
-  if (!Array.isArray(entries)) return [];
-
-  return entries
-    .filter((entry) => entry && typeof entry.name === 'string')
-    .slice(0, 2000)
-    .map((entry) => ({
-      name: entry.name.slice(0, 500),
-      path: typeof entry.path === 'string' ? entry.path.slice(0, 4096) : '',
-      relative:
-        typeof entry.relative === 'string' ? entry.relative.slice(0, 4096) : '',
-    }));
-}
-
-async function getHassalaFile() {
   try {
-    const data = await chrome.storage.local.get(['hassalaFile', LEGACY_FILE_KEY]);
-    const current =
-      typeof data.hassalaFile === 'string' ? data.hassalaFile.trim() : '';
-    const legacy =
-      typeof data[LEGACY_FILE_KEY] === 'string'
-        ? data[LEGACY_FILE_KEY].trim()
-        : '';
-    const value = current || legacy;
-    if (!current && legacy) {
-      await chrome.storage.local.set({ hassalaFile: value });
-      await chrome.storage.local.remove(LEGACY_FILE_KEY);
-    }
-    return value.slice(0, 4096);
-  } catch {
-    return '';
-  }
-}
+    const result = await bank.add({
+      word: cleanWord,
+      translation: cleanTranslation,
+      folderId: typeof folderId === 'string' ? folderId : '',
+    });
 
-function nativeErrorCode(error) {
-  return /not found|not registered|missing/i.test(error)
-    ? 'native_missing'
-    : 'native_failed';
+    if (!result.ok) return result;
+
+    return {
+      ok: true,
+      duplicate: Boolean(result.duplicate),
+      count: result.count,
+      folderId: result.folderId,
+      id: result.entry?.id || '',
+    };
+  } catch (error) {
+    console.warn('Hassala storage:', error);
+    return {
+      ok: false,
+      code: error?.code === 'storage_full' ? 'storage_full' : 'storage_error',
+    };
+  }
 }
 
 function openOptionsPage() {
@@ -673,33 +473,6 @@ function normalizeField(value) {
     .replace(/\s+/g, ' ')
     .trim()
     .slice(0, MAX_TEXT_LENGTH);
-}
-
-function sendNativeMessage(payload) {
-  return new Promise((resolve) => {
-    let settled = false;
-    const finish = (result) => {
-      if (settled) return;
-      settled = true;
-      clearTimeout(timer);
-      resolve(result);
-    };
-    const timer = setTimeout(() => finish({ error: 'timeout' }), 8000);
-
-    try {
-      chrome.runtime.sendNativeMessage(NATIVE_HOST, payload, (response) => {
-        if (chrome.runtime.lastError) {
-          finish({
-            error: chrome.runtime.lastError.message || 'native_error',
-          });
-        } else {
-          finish({ response });
-        }
-      });
-    } catch (error) {
-      finish({ error: String(error) });
-    }
-  });
 }
 
 /* ---------- Pronunciation ---------- */

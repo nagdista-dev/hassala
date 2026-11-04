@@ -17,7 +17,7 @@ body:
       options:
         - label: I searched existing issues and this is not a duplicate.
           required: true
-        - label: The idea fits the project principles (privacy first, Arabic first, simplicity).
+        - label: The idea fits the project principles (privacy first, English-first with Arabic support, simplicity).
           required: true
 
   - type: textarea

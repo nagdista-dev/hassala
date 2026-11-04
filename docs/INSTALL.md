@@ -1,10 +1,10 @@
 # Installation and Usage Guide — Hassala
 
-**Last updated:** November 3, 2026
+**Last updated:** November 4, 2026
 
 This guide walks you through installing and using **Hassala**, whether you are a
 regular user, a developer installing from GitHub, or a tester using a ZIP
-package.
+package. There is no native host to install and no Python requirement.
 
 ---
 
@@ -17,8 +17,8 @@ package.
   - Brave
   - Microsoft Edge
   - Chromium
-- **Python 3.9+** if you want to save words to a Markdown file (native host).
-- Write permission in the folder where you install the extension.
+- Write permission in the folder where you install the extension (only to load
+  it; Hassala does not write there).
 
 ### Where to get Hassala
 
@@ -28,16 +28,16 @@ Hassala is **open source** on GitHub:
 1. **From source (GitHub):** for developers and contributors, or anyone who
    wants the latest code.
 2. **From a ZIP:** download `hassala-2.0.4-testers.zip` from
-   [Releases](https://github.com/nagdista-dev/hassala/releases). This is the
-   complete package: extension + native host + guide.
+   [Releases](https://github.com/nagdista-dev/hassala/releases). It contains the
+   extension and the documentation.
 3. **From the Chrome Web Store:** for regular users after the store release.
 
 Regular users will install from the Chrome Web Store after release and do not
 need GitHub at all.
 
-> **Note:** There is also `hassala-2.0.4.zip`, the Chrome Web Store package
-> (extension only). Use it to upload to the store, or if you will get the native
-> host from the repository yourself.
+> **Note:** There is also `hassala-2.0.4.zip`, the Chrome Web Store package. It
+> contains only `manifest.json` and `src/`, and is the file you upload to the
+> store.
 
 ---
 
@@ -57,8 +57,8 @@ need GitHub at all.
    ```text
    ~/Hassala/manifest.json
    ~/Hassala/src/background.js
+   ~/Hassala/src/wordbank.js
    ~/Hassala/src/fonts/BalooBhaijaan2-Variable.woff2
-   ~/Hassala/native/install.sh
    ~/Hassala/docs/INSTALL.md
    ```
 
@@ -79,12 +79,11 @@ need GitHub at all.
 7. Select the `Hassala` folder that contains `manifest.json` directly.
 8. The extension appears. Click **Pin** from the puzzle menu 🧩 so the icon stays
    in the toolbar.
-9. To enable saving, continue with **Install the native host** below. The
-   package includes a ready-to-use `native/` folder.
+9. Start translating and saving. No further setup is required.
 
-> **Important:** keep the folder where it is. If you move or rename it, Chrome
-> treats it as a new extension, the extension ID changes, and the old native
-> host registration will no longer work.
+> **Important:** if you move or rename the unpacked folder, Chrome may treat it
+> as a new extension and assign a new ID. Your words are stored per extension
+> ID, so export a backup before moving an unpacked install.
 
 ---
 
@@ -107,121 +106,7 @@ Then:
 
 ---
 
-## 4. Install the native host (Markdown saving)
-
-Saving to a Markdown file requires a small **Native Messaging Host**. The
-translator, subtitles, and floating panel work without it, but **Add to
-Hassala** will not work.
-
-### 4.1 Linux and macOS
-
-From the extracted `Hassala` folder (the one containing `manifest.json` and
-`native/`):
-
-```bash
-bash native/install.sh
-```
-
-The script:
-
-- Checks that Python is available.
-- Computes the extension ID from the folder path if one is not provided.
-- Registers the host for Brave, Chrome, Chromium, and Edge.
-- Removes old registrations from previous versions.
-- Prints the host name, ID, and path.
-
-Then:
-
-1. Go back to the extensions page.
-2. Click **Reload** on Hassala.
-3. Open Settings and confirm the status is **Connected**.
-
-#### Chrome Web Store build
-
-The Chrome Web Store build has a fixed extension ID. You can find it on the
-extension page or at `chrome://extensions`. Register the host with that ID:
-
-```bash
-HASSALA_EXT_ID=<extension-id> bash native/install.sh
-```
-
-#### Unregister
-
-```bash
-bash native/install.sh --uninstall
-```
-
-### 4.2 Windows
-
-#### Requirements
-
-- Python 3.9+ from [python.org](https://www.python.org/downloads/windows/).
-- Enable **Add Python to PATH** during installation.
-- Verify PowerShell:
-
-  ```powershell
-  python --version
-  ```
-
-#### Steps
-
-1. Open the extensions page (`chrome://extensions` or `edge://extensions`).
-2. Enable Developer mode.
-3. Copy the **ID** shown below the Hassala card.
-4. From the `Hassala` folder, run:
-
-   ```powershell
-   powershell -ExecutionPolicy Bypass -File native\install.ps1 -ExtensionId <id>
-   ```
-
-5. Return to the extensions page and click **Reload**.
-6. Open Settings and confirm the status is **Connected**.
-
-#### Unregister
-
-```powershell
-powershell -ExecutionPolicy Bypass -File native\install.ps1 -Uninstall
-```
-
-#### Manual registration (if PowerShell is disabled)
-
-1. Create this folder:
-
-   ```text
-   %LOCALAPPDATA%\Hassala
-   ```
-
-2. Create `com.hassala.writer.json` with:
-
-   ```json
-   {
-     "name": "com.hassala.writer",
-     "description": "Hassala word bank writer (Markdown)",
-     "path": "C:\\Users\\<you>\\Hassala\\native\\hassala_writer.bat",
-     "type": "stdio",
-     "allowed_origins": ["chrome-extension://<extension-id>/"]
-   }
-   ```
-
-   Replace `<you>` and `<extension-id>` with the real values.
-
-3. Register the manifest for each browser:
-
-   ```bat
-   reg add "HKCU\Software\Google\Chrome\NativeMessagingHosts\com.hassala.writer" /ve /t REG_SZ /d "%LOCALAPPDATA%\Hassala\com.hassala.writer.json" /f
-   reg add "HKCU\Software\Chromium\NativeMessagingHosts\com.hassala.writer" /ve /t REG_SZ /d "%LOCALAPPDATA%\Hassala\com.hassala.writer.json" /f
-   reg add "HKCU\Software\BraveSoftware\Brave-Browser\NativeMessagingHosts\com.hassala.writer" /ve /t REG_SZ /d "%LOCALAPPDATA%\Hassala\com.hassala.writer.json" /f
-   reg add "HKCU\Software\Microsoft\Edge\NativeMessagingHosts\com.hassala.writer" /ve /t REG_SZ /d "%LOCALAPPDATA%\Hassala\com.hassala.writer.json" /f
-   ```
-
-4. Reload the extension.
-
-> **Note:** On Windows the host uses `hassala_writer.bat` to launch Python.
-> Python must be on `PATH`.
-
----
-
-## 5. Daily usage
+## 4. Daily usage
 
 ### Translation
 
@@ -234,20 +119,39 @@ powershell -ExecutionPolicy Bypass -File native\install.ps1 -Uninstall
 
 ### Saving
 
-1. After the translation appears, click **Add to Hassala**.
-2. After a successful save, the word and translation fade out, the input clears,
+1. Choose the target folder from the selector next to the save button. The
+   default is **General**.
+2. After the translation appears, click **Add to Hassala**.
+3. After a successful save, the word and translation fade out, the input clears,
    and a confirmation appears in place of the translation, ready for the next
    word.
-3. On first use, if the default file does not exist, Hassala creates it
-   automatically.
-4. If you choose a custom path, it must already be an existing `.md` file.
-5. Duplicates are prevented automatically.
+4. Duplicates are prevented automatically by the word + translation pair.
 
-### Open the file and change the path
+### Folders
 
-- **Open file:** opens the current file with the default Markdown app.
-- **Change path:** opens a quick dialog with the current and default paths.
-- **Settings:** choose a file with the built-in browser, or type a full path.
+- Open the word bank from the popup (**Words**), the floating panel, or
+  Settings.
+- Create folders such as `English` or `Programming`.
+- Choose the folder new words go to; the selection is remembered.
+- Rename folders or delete them. Deleting a folder moves its words back to
+  **General** instead of losing them.
+- Drag-free move: select words, then choose **Move selected**.
+
+### Export
+
+1. Open the word bank.
+2. Select individual words, or choose the current folder / all words.
+3. Pick a format: **Markdown**, **TXT**, **CSV**, or **JSON**.
+4. Type the filename if you want a custom one.
+5. Click **Export**.
+6. Optionally enable **Delete exported words from the extension afterwards** to
+   remove the exported words from local storage after the download starts.
+
+### Delete and clear
+
+- Select words and click **Delete selected**.
+- Clear the current folder or the whole bank from Settings.
+- Export first if you want a copy; deletion is permanent.
 
 ### YouTube
 
@@ -264,98 +168,102 @@ powershell -ExecutionPolicy Bypass -File native\install.ps1 -Uninstall
 
 ---
 
-## 6. Your word bank file
+## 5. Your word bank
 
-### Default file
+### Where words live
+
+Words are stored in `chrome.storage.local` inside the extension:
 
 ```text
-~/Documents/Hassala Words.md
+wordBank       -> [{ id, word, translation, folderId }]
+wordFolders    -> [{ id, name }]
+activeFolderId -> the folder new words are saved into
 ```
 
-- It is created automatically on first save if it does not exist.
-- To change it, choose an existing `.md` file from Settings.
-- A custom path must already exist; this prevents the extension from creating
-  files in arbitrary locations.
+Nothing is written to your disk automatically. Hassala has no filesystem access
+and does not use a native host.
 
-### File format
+### Limits
+
+- 10,000 words.
+- 200 folders.
+- 200 characters per word or translation.
+- 60 characters per folder name.
+
+### Exported Markdown
 
 ```markdown
----
-tags:
-  - english
-  - vocabulary
-  - hassala
----
-
-| # | English | Arabic |
-| --- | --- | --- |
-| 1 | hello | مرحبًا |
-| 2 | book | كتاب |
+| Word | Translation |
+| --- | --- |
+| hello | مرحبًا |
+| book | كتاب |
 ```
 
-- English is always in the first column and Arabic in the second.
-- The counter increases with every new row.
-- Duplicates are prevented by the word + translation pair.
-- Dangerous Markdown characters are escaped, so words containing `<` or `|` do
-  not break the table.
+- Markdown cells are escaped, so words containing `<` or `|` do not break the
+  table.
+- CSV includes a UTF-8 BOM for Excel and guards against formula injection.
+- JSON contains an array of `{ word, translation }` objects.
+- The export filename is sanitized and always gets the correct extension.
 
 ---
 
-## 7. Verify that everything works
+## 6. Verify that everything works
 
 1. **Translation:** type `hello` in the popup; “مرحبًا” should appear.
-2. **Saving:** click **Add to Hassala**; you should see the saved confirmation,
-   the input should clear, and focus should return to it.
-3. **Duplicates:** type `hello` again and save; you should see the duplicate
-   confirmation.
-4. **File:** open the file and check that a `hello` row exists.
-5. **YouTube:** play a video with CC and click a word.
-6. **Floating button:** open any page and check that the button appears.
+2. **Saving:** click **Add to Hassala**; the confirmation appears, the input clears,
+   and focus returns to it.
+3. **Duplicates:** type `hello` again and save; the duplicate confirmation
+   appears.
+4. **Word bank:** open **Words** and check that `hello` is listed.
+5. **Export:** export as Markdown, open the file, and check the row.
+6. **YouTube:** play a video with CC and click a word.
+7. **Floating button:** open any page and check that the button appears.
 
 ---
 
-## 8. Uninstall
+## 7. Uninstall
 
 ### Extension
 
 - On the extensions page, click **Remove** on Hassala.
 
-### Native host
-
-```bash
-# Linux/macOS
-bash native/install.sh --uninstall
-
-# Windows
-powershell -ExecutionPolicy Bypass -File native\install.ps1 -Uninstall
-```
-
 ### Data
 
-- Delete the word bank file from its location.
-- Clear the extension's browser data if you want to remove settings and history.
+- Export a backup first if you want to keep your words.
+- Removing the extension deletes its `chrome.storage.local` data, including
+  words, folders, settings, and history.
+- Exported files remain wherever you saved them.
 
 ---
 
-## 9. Troubleshooting
-
-### “Connection is not enabled”
-
-- The native host is not registered → run `install.sh` / `install.ps1`.
-- The extension ID changed after moving the folder → re-register the host.
-- Python is missing → install it and register again.
-- Reload the extension after registration.
-
-### “File not found”
-
-- The custom path does not exist → choose an existing `.md` file.
-- Or use the default file, which is created automatically.
+## 8. Troubleshooting
 
 ### “Could not save”
 
-- The file is not writable → check file permissions.
-- The path is wrong → open Settings and review the preview.
-- Try a test file in `~/Documents`.
+- Local storage may be full → export your words and delete some.
+- Try reloading the extension.
+- Check that the extension has the `storage` permission (it is required).
+
+### “Your word bank is at its limit”
+
+- You reached the 10,000-word limit → export and remove words you no longer
+  need.
+
+### A word is not saved again
+
+- The word + translation pair already exists. Search for it in the word bank.
+  Duplicates are intentional.
+
+### Export does nothing
+
+- Choose **All words** or select at least one word.
+- Make sure the filename is not empty and does not contain path separators
+  (Hassala sanitizes it, but a valid name is clearer).
+
+### CSV looks wrong in Excel
+
+- Use the CSV export; it includes a UTF-8 BOM so Excel reads Arabic correctly.
+- If needed, import it explicitly as UTF-8.
 
 ### Translation is not working
 
@@ -378,7 +286,7 @@ powershell -ExecutionPolicy Bypass -File native\install.ps1 -Uninstall
 
 ---
 
-## 10. Publishing to the Chrome Web Store
+## 9. Publishing to the Chrome Web Store
 
 Before publishing:
 

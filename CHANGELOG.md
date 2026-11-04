@@ -3,7 +3,62 @@
 All notable changes to Hassala are documented here. The project follows
 [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [2.0.4] — 2026-11-04
+
+### Local word bank and export (breaking)
+
+- **Words are now stored in `chrome.storage.local` only.** The extension never
+  writes to the user's filesystem on its own.
+- Removed the native messaging host, the Python writer, the installer scripts,
+  and the `nativeMessaging` permission. `native/` and `tests/` were deleted.
+- Removed the file-path setting, the built-in file browser, “Open file”, and
+  “Change path” from the popup, floating panel, and Settings.
+- Added `src/wordbank.js`: a shared module for storage, folders, dedupe,
+  sanitization, export builders, and filename cleanup. It is loaded by the
+  background worker, popup, options page, and floating panel.
+- Added word folders with a protected default folder General, a selectable save
+  target, rename/delete, and safe migration of a deleted folder's words back to
+  General.
+- Added search, selection, move, delete, clear-folder, and clear-all controls to
+  Settings.
+- Added export as Markdown (`.md`), plain text (`.txt`), CSV (`.csv`, UTF-8 BOM +
+  formula-injection guard), and JSON (`.json`), with a custom filename and
+  optional delete-after-export.
+- Added a folder selector and word count to the toolbar popup and floating panel.
+- Updated permissions to `storage`, `scripting`, `activeTab`, and `offscreen`
+  only. Export uses a temporary `Blob` URL and a normal download link, so no
+  `downloads` permission is needed.
+- Updated README, docs, store copy, and the public site to describe the local
+  word bank and export workflow.
+
+### Compact toolbar popup
+
+- Reduced the popup to 340 px wide: about 265 px tall when empty and about
+  345 px with a translation and recent words, so it no longer covers the page.
+- Moved the word-bank/export action into the header as a book icon with a word
+  count badge, and kept the save button and folder selector in one compact dock
+  that only appears when there is a translation to save.
+- Replaced the sliders icon with a solid, recognizable gear and gave the folder,
+  word-bank, copy, and clear-history actions expressive icons.
+- Kept every action: translate, listen, copy, save, folder selection, new
+  folder, word bank/export, and recent words.
+- Fixed the language layout: English always sits on the left and Arabic on the
+  right, while the arrow flips to show the translation direction.
+- Moved recent words into one horizontally scrollable row instead of a tall
+  block.
+
+### Settings redesign
+
+- Rebuilt the Settings page around five focused sections: Words, Folders,
+  Export, Translator, and Site rules.
+- Added a 100-word paged library with search, folder filter, A → Z / Z → A
+  sorting, selection across pages, and clear result counts.
+- Moved folder management, export, floating-button controls, and site rules into
+  separate sections instead of one long page.
+- Replaced browser prompts and confirms with accessible dialogs and added a
+  single polite toast for feedback.
+- Added a collapsed **Help & feedback** menu with email, Buy Me a Coffee, and
+  GitHub links so it stays out of the learner's way.
 
 ### Open source
 
@@ -14,8 +69,6 @@ All notable changes to Hassala are documented here. The project follows
 - Added issue templates (bug / feature) and a pull request template.
 - Added `CODE_OF_CONDUCT.md`, adapted from Contributor Covenant 2.1.
 - Updated security reporting to use GitHub Security Advisories.
-
-## [2.0.4] — 2026-11-03
 
 ### Calmer save transition
 

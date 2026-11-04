@@ -1,6 +1,6 @@
 # Contributing to Hassala
 
-Thanks for wanting to help! Hassala is an Arabic-first project, and every
+Thanks for wanting to help! Hassala is an Arabic ↔ English project, and every
 contribution — code, translation, design, or documentation — is welcome.
 
 > **Note:** Hassala is open source and public on
@@ -24,7 +24,7 @@ contribution — code, translation, design, or documentation — is welcome.
 ### Requirements
 
 - Node.js 18+ (for JavaScript syntax checks only; there is no build step).
-- Python 3.9+ (native host and tests).
+- Python 3.9+ (only for the helper/check scripts in `scripts/`).
 - `jq` (JSON validation).
 - `zip` (packaging).
 
@@ -66,17 +66,16 @@ contribution — code, translation, design, or documentation — is welcome.
 manifest.json          # Entry point
 src/
   background.js        # Translation, saving, audio, messaging
+  wordbank.js          # Local storage, folders, export builders
   content/             # Floating panel, site policy, YouTube
   popup/               # Toolbar UI
-  options/             # Settings
+  options/             # Word bank, folders, export, settings
   offscreen/           # Audio playback
   fonts/               # Baloo Bhaijaan 2 + OFL
   icons/               # Extension and toolbar icons
-native/                # Native host + installer scripts
 docs/                  # Install, privacy, security, architecture, release
 store/                 # Chrome Web Store copy
 scripts/               # Checks, packaging, icon generation
-tests/                 # Native host tests
 ```
 
 ---
@@ -84,21 +83,24 @@ tests/                 # Native host tests
 ## Code rules
 
 - **Manifest V3**, no build step, and no external libraries.
-- The UI is Arabic-first RTL; English content is LTR.
+- The UI is English-first, with Arabic content RTL and English content LTR.
 - New copy should be clear and consistent with the project's tone.
 - **Never** use `eval`, `new Function`, or remote code loading.
 - **Never** add tracking, analytics, or new external requests without an
   explicit discussion.
 - Any text that comes from a page must be rendered with `textContent`, not
   `innerHTML`.
-- Any change to saving must preserve:
-  - Writing to exactly one `.md` file.
-  - Duplicate prevention.
-  - Creating the default file only when it does not exist.
-  - Rejecting custom paths that do not exist.
+- Any change to the word bank must preserve:
+  - `chrome.storage.local` as the only storage location.
+  - Duplicate prevention by the word + translation pair.
+  - The protected default folder General.
+  - Sanitization and length limits in `src/wordbank.js`.
+  - User-initiated export only.
+- Do not add filesystem access, `nativeMessaging`, or automatic file writes.
 - Any new permission must be documented in `store/permissions.md`,
   `docs/PRIVACY.md`, and `docs/SECURITY.md`.
-- Any new file write must go through `resolve_absolute_file` or `resolve_note`.
+- Any new storage field must be sanitized and length-limited in
+  `src/wordbank.js`, and documented in `docs/ARCHITECTURE.md`.
 
 ---
 
@@ -114,13 +116,8 @@ The checks verify:
 - Every file referenced by the manifest and HTML exists.
 - No stale paths or remote code.
 - No personal names or home paths in the extension code.
-- Native host tests (save, duplicate, migration, path rejection, `.md` only).
-
-### Native host tests only
-
-```bash
-python3 tests/test_native_host.py
-```
+- No references to the removed native host.
+- The public site pages and references.
 
 ### Packaging
 
@@ -140,8 +137,8 @@ Open an issue with:
 - Steps to reproduce.
 - Expected behavior and actual behavior.
 - A screenshot or screen recording if possible.
-- If the issue is about saving: is the native host registered?
-  (`bash native/install.sh`)
+- If the issue is about saving: does the word appear in **My words & export**?
+  Is local storage full? Does the export work?
 
 ### Security issues
 

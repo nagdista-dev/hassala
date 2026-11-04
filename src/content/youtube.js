@@ -203,7 +203,7 @@
       if (query && LETTER_RE.test(query)) {
         word.dataset.word = query;
         word.classList.add('is-clickable');
-        word.title = `ترجمة: ${query}`;
+        word.title = `Translate: ${query}`;
       }
 
       lineElement.appendChild(word);

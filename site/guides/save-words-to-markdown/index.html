@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>How to Save Translated Words to Markdown (Arabic ↔ English)</title>
-  <meta name="description" content="A step-by-step guide to translating Arabic ↔ English words and saving them to a Markdown word bank with Hassala. Works with Obsidian, Logseq, VS Code, and any text editor.">
+  <meta name="description" content="Translate Arabic ↔ English words, save them in a private local word bank, and export them to Markdown with Hassala. Works with Obsidian, Logseq, VS Code, and any text editor.">
   <link rel="canonical" href="https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/">
   <link rel="alternate" hreflang="en" href="https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/">
   <link rel="alternate" hreflang="ar" href="https://nagdista-dev.github.io/hassala/ar/guides/save-words-to-markdown/">
@@ -16,7 +16,7 @@
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Hassala">
   <meta property="og:title" content="How to Save Translated Words to Markdown">
-  <meta property="og:description" content="A step-by-step Arabic ↔ English word bank workflow for Obsidian, Logseq, VS Code, or any Markdown editor.">
+  <meta property="og:description" content="A step-by-step Arabic ↔ English workflow: save words locally, then export Markdown for Obsidian, Logseq, VS Code, or any editor.">
   <meta property="og:url" content="https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/">
   <meta property="og:image" content="https://nagdista-dev.github.io/hassala/assets/social-preview-en.png">
   <meta property="og:image:width" content="1280">
@@ -24,10 +24,10 @@
   <meta property="og:locale" content="en_US">
   <meta property="og:locale:alternate" content="ar_AR">
   <meta property="article:published_time" content="2026-11-03">
-  <meta property="article:modified_time" content="2026-11-03">
+  <meta property="article:modified_time" content="2026-11-04">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="How to Save Translated Words to Markdown">
-  <meta name="twitter:description" content="Turn Arabic ↔ English lookups into a Markdown word bank you own.">
+  <meta name="twitter:description" content="Turn Arabic ↔ English lookups into a private word bank, then export Markdown whenever you want.">
   <meta name="twitter:image" content="https://nagdista-dev.github.io/hassala/assets/social-preview-en.png">
 
   <link rel="icon" type="image/png" href="../../assets/icon128.png">
@@ -37,151 +37,171 @@
   <link rel="stylesheet" href="../../assets/style.css">
 
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Article",
-        "@id": "https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/#article",
-        "headline": "How to Save Translated Words to Markdown (Arabic ↔ English)",
-        "description": "A step-by-step guide to translating Arabic and English words and saving them to a Markdown word bank with Hassala.",
-        "datePublished": "2026-11-03",
-        "dateModified": "2026-11-03",
-        "inLanguage": "en",
-        "author": {
-          "@type": "Organization",
-          "name": "Hassala contributors",
-          "url": "https://github.com/nagdista-dev/hassala"
-        },
-        "publisher": {
-          "@type": "Organization",
-          "name": "Hassala contributors",
-          "url": "https://github.com/nagdista-dev/hassala"
-        },
-        "mainEntityOfPage": "https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/",
-        "image": "https://nagdista-dev.github.io/hassala/assets/social-preview-en.png",
-        "about": {
-          "@type": "SoftwareApplication",
-          "name": "Hassala",
-          "url": "https://nagdista-dev.github.io/hassala/",
-          "applicationCategory": "EducationalApplication",
-          "operatingSystem": "Chrome, Brave, Edge, Chromium"
-        }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/#article",
+      "headline": "How to Save Translated Words to Markdown (Arabic ↔ English)",
+      "description": "A step-by-step guide to translating Arabic and English words, saving them in a private local word bank, and exporting them to Markdown with Hassala.",
+      "datePublished": "2026-11-03",
+      "dateModified": "2026-11-04",
+      "inLanguage": "en",
+      "author": {
+        "@type": "Organization",
+        "name": "Hassala contributors",
+        "url": "https://github.com/nagdista-dev/hassala"
       },
-      {
-        "@type": "HowTo",
-        "@id": "https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/#howto",
-        "name": "How to save translated words to Markdown",
-        "description": "Install Hassala, choose a Markdown file, translate an Arabic or English word, save it, and open the file in your notes app.",
-        "totalTime": "PT10M",
-        "tool": [
-          { "@type": "HowToTool", "name": "Hassala" },
-          { "@type": "HowToTool", "name": "Python 3" },
-          { "@type": "HowToTool", "name": "A Markdown editor (optional)" }
-        ],
-        "step": [
-          {
-            "@type": "HowToStep",
-            "position": 1,
-            "name": "Install Hassala",
-            "text": "Download the tester package from GitHub Releases, extract it, load the unpacked extension, and install the native host.",
-            "url": "https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/#step-1"
-          },
-          {
-            "@type": "HowToStep",
-            "position": 2,
-            "name": "Choose your word bank file",
-            "text": "Open Hassala Settings and keep the default ~/Documents/Hassala Words.md file, or choose an existing .md file such as a note in your Obsidian vault.",
-            "url": "https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/#step-2"
-          },
-          {
-            "@type": "HowToStep",
-            "position": 3,
-            "name": "Translate a word",
-            "text": "Open the popup, the floating panel, or select text on a page. Type an Arabic or English word and wait for the automatic translation.",
-            "url": "https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/#step-3"
-          },
-          {
-            "@type": "HowToStep",
-            "position": 4,
-            "name": "Save the word",
-            "text": "Click Add to Hassala. The word and translation are appended to the Markdown file, and duplicates are skipped.",
-            "url": "https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/#step-4"
-          },
-          {
-            "@type": "HowToStep",
-            "position": 5,
-            "name": "Open the file in your notes app",
-            "text": "Open the same Markdown file in Obsidian, Logseq, VS Code, or any text editor and review the saved rows.",
-            "url": "https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/#step-5"
-          }
-        ]
+      "publisher": {
+        "@type": "Organization",
+        "name": "Hassala contributors",
+        "url": "https://github.com/nagdista-dev/hassala"
       },
-      {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Hassala",
-            "item": "https://nagdista-dev.github.io/hassala/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Save translated words to Markdown",
-            "item": "https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/"
-          }
-        ]
-      },
-      {
-        "@type": "FAQPage",
-        "@id": "https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/#faq",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Do I need Obsidian to use Hassala?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "No. Hassala writes a standard Markdown file. You can open it in Obsidian, Logseq, Typora, VS Code, or any text editor. Obsidian is optional."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Where does Hassala save words?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "By default, Hassala saves to ~/Documents/Hassala Words.md and creates that file on the first save if it does not exist. You can choose any existing .md file in Settings."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Can I use a file inside my Obsidian vault?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes. Choose any existing .md file in your vault from Hassala Settings. The file stays where it is; Hassala appends rows to it."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Does Hassala create new custom files?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Only the default file is created automatically. A custom path must already point to an existing .md file, so Hassala never creates files in arbitrary locations."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Can I export the word bank to Anki?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Not directly yet. CSV and Anki export are on the roadmap. Until then, you can convert the Markdown table with a script or copy rows into Anki manually."
-            }
-          }
-        ]
+      "mainEntityOfPage": "https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/",
+      "image": "https://nagdista-dev.github.io/hassala/assets/social-preview-en.png",
+      "about": {
+        "@type": "SoftwareApplication",
+        "name": "Hassala",
+        "url": "https://nagdista-dev.github.io/hassala/",
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "Chrome, Brave, Edge, Chromium"
       }
-    ]
-  }
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/#howto",
+      "name": "How to save translated words to Markdown",
+      "description": "Install Hassala, save Arabic or English words in local folders, export them as a Markdown file, and open the file in your notes app.",
+      "totalTime": "PT8M",
+      "tool": [
+        {
+          "@type": "HowToTool",
+          "name": "Hassala"
+        },
+        {
+          "@type": "HowToTool",
+          "name": "A Markdown editor (optional)"
+        }
+      ],
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Install Hassala",
+          "text": "Download the latest package from GitHub Releases, extract it, and load the unpacked extension in Chrome, Brave, Edge, or Chromium. No native host or Python is required.",
+          "url": "https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/#step-1"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Create a folder",
+          "text": "Open Settings and create a folder for the words you are collecting, such as English, Arabic, or Programming. Folders live inside the extension, not on your device.",
+          "url": "https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/#step-2"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Translate a word",
+          "text": "Open the popup, the floating panel, or select text on a page. Type an Arabic or English word and wait for the automatic translation.",
+          "url": "https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/#step-3"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Save the word locally",
+          "text": "Click Add to Hassala. The word and translation are stored in the selected folder inside chrome.storage.local, and duplicate pairs are skipped.",
+          "url": "https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/#step-4"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 5,
+          "name": "Export to Markdown",
+          "text": "Open Words, choose Markdown, optionally type a file name, then export the selected, visible, or all words. The browser downloads the file only after this click.",
+          "url": "https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/#step-5"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 6,
+          "name": "Open the file in your notes app",
+          "text": "Open the downloaded Markdown file in Obsidian, Logseq, VS Code, or any text editor. Move it into your vault or notes folder if you want to keep it there.",
+          "url": "https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/#step-6"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Hassala",
+          "item": "https://nagdista-dev.github.io/hassala/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Save translated words to Markdown",
+          "item": "https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Do I need Obsidian to use Hassala?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Hassala exports standard Markdown. You can open the file in Obsidian, Logseq, Typora, VS Code, or any text editor. Obsidian is optional."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Where does Hassala save words?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Saved words live in chrome.storage.local inside the extension, organised into folders. Hassala does not write to your filesystem automatically. When you export, the browser downloads a copy to your Downloads folder."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need Python or a native host?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Hassala stores words with the browser's extension storage and exports through a normal browser download. There is no native host, Python requirement, or file-system permission."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I choose the export file name?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Type a name in the File name field before exporting. Hassala adds the correct extension and falls back to a dated name if the field is left empty."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I export to Anki or a spreadsheet?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Export CSV for spreadsheets or Anki import, JSON for scripts and backups, or Markdown for notes. There is no direct .apkg export yet."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does exporting delete my words?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Only if you enable Delete exported words from the extension afterwards. Otherwise the words remain in the extension and can be exported again."
+          }
+        }
+      ]
+    }
+  ]
+}
   </script>
 </head>
 <body>
@@ -193,7 +213,7 @@
         <img src="../../assets/icon128.png" width="48" height="48" alt="">
         <span class="brand-text">
           <strong>Hassala</strong>
-          <span class="brand-sub">Arabic word bank</span>
+          <span class="brand-sub">Arabic ↔ English word bank</span>
         </span>
       </a>
       <nav class="site-nav" aria-label="Main navigation">
@@ -225,8 +245,8 @@
           they own — in Obsidian, Logseq, VS Code, or any text editor.
         </p>
         <div class="article-meta">
-          <span>Updated November 3, 2026</span>
-          <span>6 min read</span>
+          <span>Updated November 4, 2026</span>
+          <span>7 min read</span>
           <span>Works with any Markdown editor</span>
         </div>
       </div>
@@ -235,9 +255,9 @@
         <p>
           If you translate words while reading or watching videos, the
           translation usually disappears when you close the tab. This guide shows
-          how to keep each word and translation in a local Markdown file with
-          <a href="../../">Hassala</a>, then open that file in the notes app you
-          already use.
+          how to keep each word and translation in <a href="../../">Hassala</a>'s
+          private local word bank, then export a Markdown file whenever you want
+          and open it in the notes app you already use.
         </p>
 
         <h2>What you need</h2>
@@ -248,7 +268,7 @@
             <a href="https://github.com/nagdista-dev/hassala/releases/latest" rel="noopener">GitHub Releases</a>.
             The Chrome Web Store release is still being prepared.
           </li>
-          <li>Python 3 if you want saving to work (the tester package includes the native host).</li>
+          <li>No Python, native host, account, or file-system permission.</li>
           <li>A Markdown editor such as Obsidian, Logseq, Typora, or VS Code — optional, but useful.</li>
         </ul>
 
@@ -262,37 +282,26 @@
           <li>Open <code>chrome://extensions</code>, <code>brave://extensions</code>, or <code>edge://extensions</code>.</li>
           <li>Enable <strong>Developer mode</strong> and click <strong>Load unpacked</strong>.</li>
           <li>Select the folder that contains <code>manifest.json</code>.</li>
-          <li>
-            From that same folder, install the native host:
-            <ul>
-              <li>Linux/macOS: <code>bash native/install.sh</code></li>
-              <li>Windows: <code>powershell -ExecutionPolicy Bypass -File native\install.ps1 -ExtensionId &lt;id&gt;</code></li>
-            </ul>
-          </li>
-          <li>Reload the extension from the extensions page.</li>
+          <li>Pin Hassala to the toolbar if you want one-click access.</li>
         </ol>
 
         <div class="note">
-          <strong>Why a native host?</strong> Browsers do not allow extensions to
-          write to arbitrary files. The host is a small local Python program that
-          appends rows to your Markdown file. It runs locally, accepts messages
-          only from Hassala, and writes only to <code>.md</code> files.
+          <strong>Nothing else to install.</strong> Words are stored inside the
+          extension, not in a file on your device. There is no native host, no
+          Python dependency, and no automatic file writing.
         </div>
 
-        <h2 id="step-2">Step 2 — Choose your word bank file</h2>
+        <h2 id="step-2">Step 2 — Create a folder</h2>
         <p>
-          Open Hassala Settings. The default path is:
-        </p>
-        <pre><code>~/Documents/Hassala Words.md</code></pre>
-        <p>
-          If that file does not exist, Hassala creates it automatically on your
-          first save. If you want a different file, choose any existing
-          <code>.md</code> file with <strong>Choose file</strong> — for example, a
-          note inside your Obsidian vault.
+          Open Hassala Settings and find <strong>Save new words to</strong>. Create
+          a folder for the words you are collecting, for example
+          <code>English</code>, <code>Arabic</code>, or <code>Programming</code>.
         </p>
         <p>
-          Custom paths must already exist. Hassala does not create new files in
-          arbitrary locations.
+          These folders live inside the extension. They are an organising tool,
+          not directories on your hard drive. You can rename them, move words
+          between them, and delete a folder without deleting its words — those
+          move back to <code>General</code>.
         </p>
 
         <h2 id="step-3">Step 3 — Translate a word</h2>
@@ -308,55 +317,80 @@
           <strong>Enter</strong>.
         </p>
 
-        <h2 id="step-4">Step 4 — Save the word</h2>
+        <h2 id="step-4">Step 4 — Save the word locally</h2>
         <p>
           When the translation looks right, click <strong>Add to Hassala</strong>.
-          Hassala writes the word and translation to the file you chose, then
-          clears the input for the next word.
+          The word pair is stored in the folder selected under
+          <strong>Save new words to</strong>, and the input clears for the next
+          word.
         </p>
         <ul>
-          <li>If the pair already exists, you see <strong>Already in your word bank ✓</strong> and no new row is added.</li>
+          <li>If the pair already exists, you see <strong>Already in your word bank ✓</strong> and no duplicate is added.</li>
           <li>Duplicates are checked in both directions, so the same pair does not appear twice.</li>
-          <li>If saving fails, the word and translation stay in the input so nothing is lost.</li>
+          <li>Saved words survive browser restarts because they live in <code>chrome.storage.local</code>.</li>
+          <li>Nothing is written to your device at this point. Saving is entirely inside the extension.</li>
         </ul>
 
-        <h2 id="step-5">Step 5 — Open the file in your notes app</h2>
+        <h2 id="step-5">Step 5 — Export to Markdown</h2>
         <p>
-          The file is a normal Markdown table. Open it directly, or keep it in the
-          folder your notes app already watches:
+          Open the word bank from the popup or floating panel, or scroll to
+          <strong>Words</strong> in Settings. Then:
+        </p>
+        <ol>
+          <li>Choose a folder chip to narrow the list, or search for a word.</li>
+          <li>Select specific words with the checkboxes if you only want some of them.</li>
+          <li>Choose <strong>Markdown (.md)</strong> under <strong>File format</strong>.</li>
+          <li>Optionally type a name under <strong>File name</strong>.</li>
+          <li>Click <strong>Export selected</strong>, <strong>Export visible</strong>, or <strong>Export all</strong>.</li>
+        </ol>
+        <p>
+          The browser downloads the file to your default Downloads folder. The
+          download starts only after you click an export button. If you want the
+          extension to remove the words after a successful download, enable
+          <strong>Delete exported words from the extension afterwards</strong>.
+        </p>
+
+        <h2 id="step-6">Step 6 — Open the file in your notes app</h2>
+        <p>
+          The download is a normal Markdown file. Move it into the folder or vault
+          your notes app watches, then open it:
         </p>
         <ul>
-          <li><strong>Obsidian:</strong> open the file in your vault, or use <strong>Open folder as vault</strong> if the file lives elsewhere.</li>
-          <li><strong>Logseq:</strong> open the file as a page or import the folder.</li>
+          <li><strong>Obsidian:</strong> move the file into your vault and open it as a note.</li>
+          <li><strong>Logseq:</strong> move it into your graph and open it as a page.</li>
           <li><strong>VS Code:</strong> open the file or the folder that contains it.</li>
           <li><strong>Any text editor:</strong> the file is plain UTF-8 Markdown.</li>
         </ul>
 
-        <h3>What the file looks like</h3>
-        <pre><code>| # | English | Arabic |
-| --- | --- | --- |
-| 1 | hello | مرحبًا |
-| 2 | book | كتاب |</code></pre>
+        <h3>What the exported file looks like</h3>
+        <pre><code># Hassala — My words
+
+| Word | Translation |
+| --- | --- |
+| hello | مرحبًا |
+| كتاب | book |</code></pre>
         <p>
-          The <strong>#</strong> column is a counter. Duplicates do not receive a
-          new number.
+          Each row is just the word and its translation. Direction and dates are
+          not stored or exported. Duplicate pairs do not receive a new row.
         </p>
 
         <h2>Tips that keep the workflow clean</h2>
         <ul>
-          <li><strong>Use one file per course or project.</strong> It is easier to review a focused list than one giant file.</li>
-          <li><strong>Keep the table structure intact.</strong> Hassala appends rows; free-form notes are better in a separate file.</li>
-          <li><strong>Back up or sync the file</strong> with the same tool you use for your notes. It is your file.</li>
-          <li><strong>Review in context.</strong> Open the file while watching a video or reading an article and test yourself on the rows.</li>
+          <li><strong>Use one folder per course or project.</strong> Exporting a focused folder is easier to review than one giant list.</li>
+          <li><strong>Export regularly.</strong> The extension is the working copy; the exported file is your portable backup.</li>
+          <li><strong>Choose a meaningful file name.</strong> For example, <code>arabic-course-a</code> or <code>programming-words</code>.</li>
+          <li><strong>Keep the optional delete checkbox off until you trust the export.</strong> It is safer to verify the downloaded file first.</li>
+          <li><strong>Review in context.</strong> Open the export while watching a video or reading an article and test yourself on the rows.</li>
         </ul>
 
         <h2>Troubleshooting</h2>
         <table class="fact-table">
           <tbody>
-            <tr><th scope="row">“Connection is not enabled”</th><td>The native host is not registered, or the extension ID changed. Run the installer again and reload the extension.</td></tr>
-            <tr><th scope="row">“File not found”</th><td>The custom path does not exist. Choose an existing <code>.md</code> file, or use the default file.</td></tr>
-            <tr><th scope="row">“Could not save”</th><td>The file may not be writable. Check its permissions, then try again.</td></tr>
-            <tr><th scope="row">The input does not clear</th><td>Saving failed, so Hassala kept your text. Check the connection status in Settings.</td></tr>
+            <tr><th scope="row">“No words here yet”</th><td>Save a word first, or switch the folder filter back to <strong>All words</strong>.</td></tr>
+            <tr><th scope="row">The download does not start</th><td>Check that your browser is not blocking downloads from the extension. Click the export button again and watch the Downloads toolbar.</td></tr>
+            <tr><th scope="row">“There are no words in this scope to export”</th><td>The current folder or selection is empty. Choose another folder, clear the search, or select words first.</td></tr>
+            <tr><th scope="row">Some words are missing</th><td>Check the search field and the active folder chip. Export uses the visible list, not necessarily every saved word.</td></tr>
+            <tr><th scope="row">“Storage is full”</th><td>Export your words, then delete the ones you no longer need or clear a whole folder.</td></tr>
           </tbody>
         </table>
 
@@ -365,41 +399,49 @@
           <details class="faq-item">
             <summary>Do I need Obsidian to use Hassala?</summary>
             <p>
-              No. Hassala writes a standard Markdown file. You can open it in
-              Obsidian, Logseq, Typora, VS Code, or any text editor. Obsidian is
-              optional.
+              No. Hassala exports standard Markdown. You can open it in Obsidian,
+              Logseq, Typora, VS Code, or any text editor. Obsidian is optional.
             </p>
           </details>
           <details class="faq-item">
             <summary>Where does Hassala save words?</summary>
             <p>
-              By default, Hassala saves to <code>~/Documents/Hassala Words.md</code>
-              and creates that file on the first save if it does not exist. You
-              can choose any existing <code>.md</code> file in Settings.
+              Saved words live in <code>chrome.storage.local</code> inside the
+              extension, organised into folders. Hassala does not write to your
+              filesystem automatically. When you export, the browser downloads a
+              copy to your Downloads folder.
             </p>
           </details>
           <details class="faq-item">
-            <summary>Can I use a file inside my Obsidian vault?</summary>
+            <summary>Do I need Python or a native host?</summary>
             <p>
-              Yes. Choose any existing <code>.md</code> file in your vault from
-              Hassala Settings. The file stays where it is; Hassala appends rows
-              to it.
+              No. Hassala stores words with the browser's extension storage and
+              exports through a normal browser download. There is no native host,
+              Python requirement, or file-system permission.
             </p>
           </details>
           <details class="faq-item">
-            <summary>Does Hassala create new custom files?</summary>
+            <summary>Can I choose the export file name?</summary>
             <p>
-              Only the default file is created automatically. A custom path must
-              already point to an existing <code>.md</code> file, so Hassala never
-              creates files in arbitrary locations.
+              Yes. Type a name in the <strong>File name</strong> field before
+              exporting. Hassala adds the correct extension and falls back to a
+              dated name if the field is left empty.
             </p>
           </details>
           <details class="faq-item">
-            <summary>Can I export the word bank to Anki?</summary>
+            <summary>Can I export to Anki or a spreadsheet?</summary>
             <p>
-              Not directly yet. CSV and Anki export are on the roadmap. Until
-              then, you can convert the Markdown table with a script or copy rows
-              into Anki manually.
+              Yes. Export CSV for spreadsheets or Anki import, JSON for scripts
+              and backups, or Markdown for notes. There is no direct
+              <code>.apkg</code> export yet.
+            </p>
+          </details>
+          <details class="faq-item">
+            <summary>Does exporting delete my words?</summary>
+            <p>
+              Only if you enable <strong>Delete exported words from the extension
+              afterwards</strong>. Otherwise the words remain in the extension and
+              can be exported again.
             </p>
           </details>
         </div>
@@ -407,8 +449,8 @@
         <div class="next-step">
           <h2>Next step</h2>
           <p>
-            See how Hassala compares with a general translator, and where a word
-            bank workflow fits in.
+            See how Hassala compares with a general translator, and where a local
+            word bank fits in.
           </p>
           <p><a href="../../compare/">Read the comparison →</a></p>
           <p>
@@ -416,7 +458,7 @@
             <a href="../translate-youtube-subtitles/">YouTube subtitles →</a>
           </p>
           <p>
-            For a vault-based review routine, read the
+            For a Markdown review routine, read the
             <a href="../obsidian-vocabulary-workflow/">Obsidian vocabulary workflow →</a>
           </p>
         </div>
@@ -450,7 +492,7 @@
             <img src="../../assets/icon128.png" width="34" height="34" alt="">
             Hassala
           </a>
-          <p>Arabic-first translation and word keeping. Free, open source, and built to last.</p>
+          <p>Arabic ↔ English translation and word keeping. Free, open source, and built to last.</p>
         </div>
         <div>
           <h2>Product</h2>

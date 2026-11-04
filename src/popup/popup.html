@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>حصالة — مترجم وحافظ الكلمات</title>
+    <title>Hassala — Translator &amp; Word Bank</title>
     <link rel="stylesheet" href="popup.css" />
   </head>
   <body>
@@ -15,43 +15,86 @@
             <span class="logo-badge">A</span>
           </span>
           <div class="brand-text">
-            <h1>حصالة</h1>
-            <p>كلماتك مش هتتوه ✦</p>
+            <h1>Hassala</h1>
+            <p>Keep every word you learn</p>
           </div>
         </div>
 
         <div class="top-actions">
-          <button id="settings" class="top-icon" type="button" title="الإعدادات" aria-label="الإعدادات">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true">
-              <path d="M4 7h9M17 7h3M4 17h3M11 17h9" />
-              <circle cx="15" cy="7" r="2.2" />
-              <circle cx="9" cy="17" r="2.2" />
+          <button
+            id="myWords"
+            class="top-icon library-btn"
+            type="button"
+            title="My words and export"
+            aria-label="My words and export"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path
+                d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15.5H6.5A2.5 2.5 0 0 0 4 21V5.5Z"
+              />
+              <path d="M4 18.5A2.5 2.5 0 0 1 6.5 16H20" />
+              <path d="M8 7h7M8 10.5h5" />
+            </svg>
+            <span id="wordCount" class="word-count">0</span>
+          </button>
+
+          <button
+            id="settings"
+            class="top-icon"
+            type="button"
+            title="Open settings"
+            aria-label="Open settings"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path
+                fill-rule="evenodd"
+                d="M11.078 2.25c-.917 0-1.699.663-1.85 1.567L9.05 4.889c-.02.12-.115.26-.297.348a7.493 7.493 0 0 0-.986.57c-.166.115-.334.126-.45.083L6.3 5.508a1.875 1.875 0 0 0-2.282.819l-.922 1.597a1.875 1.875 0 0 0 .432 2.385l.84.692c.095.078.17.229.154.43a7.598 7.598 0 0 0 0 1.139c.015.2-.059.352-.153.43l-.841.692a1.875 1.875 0 0 0-.432 2.385l.922 1.597a1.875 1.875 0 0 0 2.282.818l1.019-.382c.115-.043.283-.031.45.082.312.214.641.405.985.57.182.088.277.228.297.35l.178 1.071c.151.904.933 1.567 1.85 1.567h1.844c.916 0 1.699-.663 1.85-1.567l.178-1.072c.02-.12.114-.26.297-.349.344-.165.673-.356.985-.57.167-.114.335-.125.45-.082l1.02.382a1.875 1.875 0 0 0 2.28-.819l.923-1.597a1.875 1.875 0 0 0-.432-2.385l-.84-.692c-.095-.078-.17-.229-.154-.43a7.614 7.614 0 0 0 0-1.139c-.016-.2.059-.352.153-.43l.84-.692a1.875 1.875 0 0 0 .433-2.385l-.922-1.597a1.875 1.875 0 0 0-2.282-.818l-1.02.382c-.114.043-.282.031-.449-.083a7.49 7.49 0 0 0-.985-.57c-.183-.087-.277-.227-.297-.348l-.179-1.072a1.875 1.875 0 0 0-1.85-1.567h-1.843ZM12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"
+                clip-rule="evenodd"
+              />
             </svg>
           </button>
-          <span class="top-spark" aria-hidden="true">✦</span>
         </div>
       </header>
 
-      <div class="direction" id="direction">
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path
-            d="M4 7h15m0 0-3.2-3.2M19 7l-3.2 3.2M20 17H5m0 0 3.2-3.2M5 17l3.2 3.2"
-            stroke="currentColor"
-            stroke-width="1.8"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
+      <div
+        class="direction"
+        id="direction"
+        data-mode="en-ar"
+        aria-label="English to Arabic"
+      >
+        <span class="direction-lang" lang="en" dir="ltr">English</span>
+        <svg
+          class="direction-arrow"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.9"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M3 12h17m0 0-4.2-4.2M20 12l-4.2 4.2" />
         </svg>
-        <span id="directionText">من الإنجليزي للعربي</span>
+        <span class="direction-lang direction-ar" lang="ar" dir="rtl"
+          >العربية</span
+        >
       </div>
 
       <div class="field">
         <textarea
           id="input"
-          rows="2"
-          dir="rtl"
+          rows="1"
+          dir="auto"
           maxlength="200"
-          placeholder="اكتب الكلمة هنا… إنجليزي أو عربي"
+          placeholder="Type a word… English or Arabic"
           spellcheck="false"
           autocomplete="off"
           autocapitalize="off"
@@ -60,8 +103,8 @@
           id="clear"
           class="clear-btn"
           type="button"
-          title="مسح"
-          aria-label="مسح الكتابة"
+          title="Clear"
+          aria-label="Clear text"
           hidden
         >
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -77,8 +120,8 @@
           id="copySource"
           class="clear-btn copy-source"
           type="button"
-          title="انسخ الكلمة"
-          aria-label="انسخ الكلمة"
+          title="Copy word"
+          aria-label="Copy word"
           hidden
         >
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -103,15 +146,15 @@
 
       <section class="result-card" id="resultCard" data-state="empty">
         <div class="card-top">
-          <span class="eyebrow">الترجمة</span>
+          <span class="eyebrow">Translation</span>
           <div class="card-actions">
             <span id="provider" class="provider" hidden></span>
             <button
               id="speak"
               class="copy-btn speak-btn"
               type="button"
-              title="سمع الترجمة"
-              aria-label="سمع الترجمة"
+              title="Listen to translation"
+              aria-label="Listen to translation"
               hidden
             >
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -128,98 +171,141 @@
                   stroke-linecap="round"
                 />
               </svg>
-              <span id="speakLabel">سمّعني</span>
+              <span id="speakLabel">Listen</span>
             </button>
-            <button id="copy" class="copy-btn" type="button" hidden>انسخ</button>
+            <button id="copy" class="copy-btn" type="button" hidden>
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <rect
+                  x="9"
+                  y="9"
+                  width="11"
+                  height="11"
+                  rx="2"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                />
+                <path
+                  d="M15 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h3"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                />
+              </svg>
+              <span id="copyLabel">Copy</span>
+            </button>
           </div>
         </div>
         <p id="result" class="result-text" dir="auto" aria-live="polite"></p>
       </section>
 
-      <button
-        id="saveHassala"
-        class="save-btn"
-        type="button"
-        title="حفظ الكلمة والترجمة في حصالتك"
-        hidden
-      >
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path
-            d="M12 2.6 4.4 7v10L12 21.4 19.6 17V7L12 2.6Z"
-            stroke="currentColor"
-            stroke-width="1.6"
-            stroke-linejoin="round"
-          />
-          <path
-            d="M12 7.2 8 9.5v5l4 2.3 4-2.3v-5l-4-2.3Z"
-            fill="currentColor"
-            opacity=".85"
-          />
-        </svg>
-        <span id="saveLabel">أضف للحصالة</span>
-      </button>
+      <div class="save-dock" id="saveDock" hidden>
+        <button
+          id="saveHassala"
+          class="save-btn"
+          type="button"
+          title="Save the word and translation to your word bank"
+          hidden
+        >
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path
+              d="M12 2.6 4.4 7v10L12 21.4 19.6 17V7L12 2.6Z"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M12 7.2 8 9.5v5l4 2.3 4-2.3v-5l-4-2.3Z"
+              fill="currentColor"
+              opacity=".85"
+            />
+          </svg>
+          <span id="saveLabel">Add to Hassala</span>
+        </button>
 
-      <div class="file-tools">
-        <button id="openFile" class="file-tool" type="button" title="افتح ملف الحفظ الحالي">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M3 7.5A2.5 2.5 0 0 1 5.5 5H10l2 2.5h6.5A2.5 2.5 0 0 1 21 10v7.5A2.5 2.5 0 0 1 18.5 20h-13A2.5 2.5 0 0 1 3 17.5v-10Z"/>
-            <path d="M8 13h6M11 10l3 3-3 3"/>
-          </svg>
-          <span>افتح الملف</span>
-        </button>
-        <button id="pathSettings" class="file-tool" type="button" title="تغيير مسار ملف الحفظ">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M4 6h9M19 6h1M4 12h3M13 12h7M4 18h9M19 18h1"/>
-            <circle cx="16" cy="6" r="2.2"/>
-            <circle cx="10" cy="12" r="2.2"/>
-            <circle cx="16" cy="18" r="2.2"/>
-          </svg>
-          <span>تغيير المسار</span>
-        </button>
+        <div class="save-folder">
+          <label class="save-folder-label" for="folderSelect">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.7"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path
+                d="M3 7.5A2.5 2.5 0 0 1 5.5 5H9l2 2h7.5A2.5 2.5 0 0 1 21 9.5v7A2.5 2.5 0 0 1 18.5 19h-13A2.5 2.5 0 0 1 3 16.5v-9Z"
+              />
+            </svg>
+            <span class="sr-only">Save to</span>
+          </label>
+          <select
+            id="folderSelect"
+            class="folder-select"
+            title="Folder for new words"
+            aria-label="Folder for new words"
+          ></select>
+          <button
+            id="newFolderQuick"
+            class="folder-add"
+            type="button"
+            title="New folder"
+            aria-label="Create a new folder"
+          >
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                d="M3 7.5A2.5 2.5 0 0 1 5.5 5H9l2 2h7.5A2.5 2.5 0 0 1 21 9.5v7A2.5 2.5 0 0 1 18.5 19h-13A2.5 2.5 0 0 1 3 16.5v-9Z"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M12 10.5v5M9.5 13h5"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
-      <p id="fileStatus" class="file-status" role="status" aria-live="polite" hidden></p>
+
+      <p
+        id="fileStatus"
+        class="file-status"
+        role="status"
+        aria-live="polite"
+        hidden
+      ></p>
 
       <section id="historySection" class="history" hidden>
-        <div class="history-top">
-          <span class="eyebrow">آخر الكلمات</span>
-          <button id="clearHistory" class="link-btn" type="button">مسح السجل</button>
-        </div>
+        <span class="eyebrow">Recent</span>
         <div id="history" class="chips"></div>
+        <button
+          id="clearHistory"
+          class="link-btn"
+          type="button"
+          title="Clear recent words"
+          aria-label="Clear recent words"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M4 7h16M9 7V4.8h6V7M6.5 7l.8 13h9.4l.8-13" />
+            <path d="M10 11v5M14 11v5" />
+          </svg>
+        </button>
       </section>
     </div>
 
-    <div id="pathModal" class="path-modal" hidden>
-      <div class="path-backdrop" data-path-close></div>
-      <section class="path-card" role="dialog" aria-modal="true" aria-labelledby="pathTitle">
-        <header class="path-head">
-          <div>
-            <strong id="pathTitle">مسار ملف الحفظ</strong>
-            <small>اكتب المسار الكامل من الروت</small>
-          </div>
-          <button id="pathClose" class="path-close" type="button" title="إغلاق" aria-label="إغلاق">×</button>
-        </header>
-
-        <label class="path-label" for="pathInput">مسار ملف الحفظ</label>
-        <input
-          id="pathInput"
-          class="path-input"
-          type="text"
-          dir="ltr"
-          autocomplete="off"
-          spellcheck="false"
-          placeholder="/home/you/Documents/Hassala Words.md"
-        />
-        <p id="pathDefault" class="path-default" dir="auto"></p>
-        <p id="pathStatus" class="path-status" role="status" aria-live="polite"></p>
-
-        <div class="path-actions">
-          <button id="pathSave" class="path-btn primary" type="button">احفظ المسار</button>
-          <button id="pathUseDefault" class="path-btn" type="button">الافتراضي</button>
-          <button id="pathOpenOptions" class="path-btn ghost" type="button">كل الإعدادات</button>
-        </div>
-      </section>
-    </div>
-
+    <script src="../wordbank.js"></script>
     <script src="popup.js"></script>
   </body>
 </html>

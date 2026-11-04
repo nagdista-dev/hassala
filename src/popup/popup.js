@@ -1,30 +1,28 @@
 'use strict';
 
+const bank = window.HassalaWordBank || null;
+
 const els = {
   input: document.getElementById('input'),
   settings: document.getElementById('settings'),
   clear: document.getElementById('clear'),
   copySource: document.getElementById('copySource'),
   copy: document.getElementById('copy'),
+  copyLabel: document.getElementById('copyLabel'),
   provider: document.getElementById('provider'),
   result: document.getElementById('result'),
   resultCard: document.getElementById('resultCard'),
+  saveDock: document.getElementById('saveDock'),
   saveHassala: document.getElementById('saveHassala'),
   saveLabel: document.getElementById('saveLabel'),
-  openFile: document.getElementById('openFile'),
-  pathSettings: document.getElementById('pathSettings'),
+  folderSelect: document.getElementById('folderSelect'),
+  newFolderQuick: document.getElementById('newFolderQuick'),
+  myWords: document.getElementById('myWords'),
+  wordCount: document.getElementById('wordCount'),
   fileStatus: document.getElementById('fileStatus'),
-  pathModal: document.getElementById('pathModal'),
-  pathClose: document.getElementById('pathClose'),
-  pathInput: document.getElementById('pathInput'),
-  pathDefault: document.getElementById('pathDefault'),
-  pathStatus: document.getElementById('pathStatus'),
-  pathSave: document.getElementById('pathSave'),
-  pathUseDefault: document.getElementById('pathUseDefault'),
-  pathOpenOptions: document.getElementById('pathOpenOptions'),
   speak: document.getElementById('speak'),
   speakLabel: document.getElementById('speakLabel'),
-  directionText: document.getElementById('directionText'),
+  direction: document.getElementById('direction'),
   historySection: document.getElementById('historySection'),
   history: document.getElementById('history'),
   clearHistory: document.getElementById('clearHistory'),
@@ -32,7 +30,7 @@ const els = {
 
 const ARABIC_RE = /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]/;
 const LETTER_RE = /[A-Za-z\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]/;
-const EMPTY_MESSAGE = 'اكتب كلمة… وهتلاقي معناها هنا.';
+const EMPTY_MESSAGE = 'Type a word to see its meaning.';
 const MAX_HISTORY = 8;
 const DEBOUNCE_MS = 350;
 const CLEAR_ANIMATION_MS = 300;
@@ -52,10 +50,13 @@ let saveTimer = 0;
 let emptyNoticeTimer = 0;
 let clearAnimationTimer = 0;
 let fileStatusTimer = 0;
-let pathDefaultPath = '';
-let pathLastFocus = null;
 let speaking = false;
 let history = [];
+let bankState = {
+  words: [],
+  folders: [],
+  activeFolderId: bank ? bank.DEFAULT_FOLDER_ID : 'general',
+};
 const cache = new Map();
 
 /* ---------- Setup ---------- */
@@ -65,6 +66,7 @@ init();
 async function init() {
   bindEvents();
   await restoreState();
+  await refreshBank(true);
   setMode(mode);
   renderHistory();
   showEmpty();
@@ -86,31 +88,9 @@ function bindEvents() {
   els.copy.addEventListener('click', copyResult);
   els.speak.addEventListener('click', speakResult);
   els.saveHassala.addEventListener('click', saveToHassala);
-  els.openFile.addEventListener('click', openCurrentFile);
-  els.pathSettings.addEventListener('click', openPathModal);
-  els.pathClose.addEventListener('click', closePathModal);
-  els.pathSave.addEventListener('click', savePathFromModal);
-  els.pathUseDefault.addEventListener('click', useDefaultPathFromModal);
-  els.pathOpenOptions.addEventListener('click', () => {
-    closePathModal();
-    openOptions();
-  });
-  els.pathInput.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      savePathFromModal();
-    }
-  });
-  els.pathModal.addEventListener('click', (event) => {
-    if (event.target.closest('[data-path-close]')) closePathModal();
-  });
-  els.pathModal.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') {
-      event.preventDefault();
-      closePathModal();
-    }
-    event.stopPropagation();
-  });
+  els.myWords.addEventListener('click', openWordsPage);
+  els.folderSelect.addEventListener('change', changeActiveFolder);
+  els.newFolderQuick.addEventListener('click', createFolderQuick);
   els.settings.addEventListener('click', openOptions);
   els.clearHistory.addEventListener('click', clearHistory);
 }
@@ -142,10 +122,12 @@ function detectMode(text) {
 function setMode(next) {
   mode = next;
 
-  els.directionText.textContent =
-    mode === 'en-ar'
-      ? 'من الإنجليزي للعربي'
-      : 'من العربي للإنجليزي';
+  const isEnglishToArabic = mode === 'en-ar';
+  els.direction.dataset.mode = mode;
+  els.direction.setAttribute(
+    'aria-label',
+    isEnglishToArabic ? 'English to Arabic' : 'Arabic to English',
+  );
 
   saveMode();
 }
@@ -248,11 +230,11 @@ function clearInput(focus, notice = '') {
 
   els.input.value = '';
   els.input.style.height = '';
-  els.input.dir = 'rtl';
+  els.input.dir = 'ltr';
   els.clear.hidden = true;
   els.copySource.hidden = true;
   els.copySource.classList.remove('copied', 'is-error');
-  els.copySource.title = 'انسخ الكلمة';
+  els.copySource.title = 'Copy word';
   lastResult = '';
   lastQuery = '';
   showEmpty(notice || EMPTY_MESSAGE);
@@ -290,7 +272,7 @@ async function translateCurrent() {
   if (!LETTER_RE.test(text)) {
     lastResult = '';
     lastQuery = '';
-    showError('محتاج كلمة عربية أو إنجليزية عشان أقدر أترجمها.');
+    showError('Enter an Arabic or English word to translate.');
     return;
   }
 
@@ -364,20 +346,20 @@ function sendMessage(payload, timeoutMs = 12000) {
 
 function errorMessage(code) {
   if (!navigator.onLine) {
-    return 'مفيش اتصال بالإنترنت. اتأكد من الشبكة وجرّب تاني.';
+    return 'No internet connection. Check your network and try again.';
   }
 
   switch (code) {
     case 'empty':
-      return 'اكتب كلمة الأول.';
+      return 'Type a word first.';
     case 'too_long':
-      return 'النص طويل شوية. جرّب كلمة أو جملة قصيرة.';
+      return 'That text is a little long. Try a word or a short phrase.';
     case 'timeout':
-      return 'الترجمة خدت وقت أطول من المعتاد. جرّب تاني.';
+      return 'Translation took longer than usual. Try again.';
     case 'rate':
-      return 'الخدمة مشغولة شوية دلوقتي. استنى لحظة وجرّب تاني.';
+      return 'The service is a little busy. Wait a moment and try again.';
     default:
-      return 'مقدرتش أترجم الكلمة دلوقتي. جرّب تاني بعد لحظة.';
+      return 'Could not translate right now. Try again in a moment.';
   }
 }
 
@@ -392,7 +374,7 @@ function showEmpty(message = EMPTY_MESSAGE) {
   els.resultCard.classList.remove('is-loading');
   setCardState('empty');
   els.result.textContent = message;
-  els.result.dir = 'rtl';
+  els.result.dir = 'ltr';
   els.result.dataset.size = '';
   els.result.classList.remove('pop');
   els.copy.hidden = true;
@@ -408,8 +390,8 @@ function setLoading() {
   els.resultCard.classList.remove('is-loading');
 
   setCardState('loading');
-  els.result.textContent = 'بندوّر عليها…';
-  els.result.dir = 'rtl';
+  els.result.textContent = 'Looking it up…';
+  els.result.dir = 'ltr';
   els.result.dataset.size = '';
   els.result.classList.remove('pop');
   els.copy.hidden = true;
@@ -431,9 +413,10 @@ function showResult(text, provider) {
   els.provider.textContent = provider || '';
   els.provider.hidden = !provider;
   els.copy.hidden = false;
-  els.copy.textContent = 'انسخ';
+  els.copyLabel.textContent = 'Copy';
   els.copy.classList.remove('copied');
 
+  els.saveDock.hidden = false;
   els.saveHassala.hidden = false;
   resetSaveButton();
   els.speak.hidden = false;
@@ -444,7 +427,7 @@ function showError(message) {
   els.resultCard.classList.remove('is-loading');
   setCardState('error');
   els.result.textContent = message;
-  els.result.dir = 'rtl';
+  els.result.dir = 'ltr';
   els.result.dataset.size = '';
   els.result.classList.remove('pop');
   els.copy.hidden = true;
@@ -456,17 +439,18 @@ function showError(message) {
 
 function hideSave() {
   clearTimeout(saveTimer);
+  els.saveDock.hidden = true;
   els.saveHassala.hidden = true;
   els.saveHassala.disabled = false;
   els.saveHassala.classList.remove('is-saved', 'is-error');
-  els.saveLabel.textContent = 'أضف للحصالة';
+  els.saveLabel.textContent = 'Add to Hassala';
 }
 
 function resetSaveButton() {
   clearTimeout(saveTimer);
   els.saveHassala.disabled = false;
   els.saveHassala.classList.remove('is-saved', 'is-error');
-  els.saveLabel.textContent = 'أضف للحصالة';
+  els.saveLabel.textContent = 'Add to Hassala';
 }
 
 function hideSpeak() {
@@ -474,14 +458,14 @@ function hideSpeak() {
   els.speak.hidden = true;
   els.speak.classList.remove('is-speaking', 'is-error');
   els.speak.disabled = false;
-  els.speakLabel.textContent = 'سمّعني';
+  els.speakLabel.textContent = 'Listen';
 }
 
 function resetSpeakButton() {
   speaking = false;
   els.speak.classList.remove('is-speaking', 'is-error');
   els.speak.disabled = false;
-  els.speakLabel.textContent = 'سمّعني';
+  els.speakLabel.textContent = 'Listen';
 }
 
 /* ---------- Copy ---------- */
@@ -491,11 +475,11 @@ async function copyResult() {
 
   const copied = await copyText(lastResult);
   if (!copied) {
-    flashCopy('مقدرتش أنسخ');
+    flashCopy('Could not copy');
     return;
   }
 
-  flashCopy('اتنسخت ✓');
+  flashCopy('Copied ✓');
 }
 
 async function copySourceText() {
@@ -507,11 +491,11 @@ async function copySourceText() {
 
   els.copySource.classList.remove('copied', 'is-error');
   els.copySource.classList.add(copied ? 'copied' : 'is-error');
-  els.copySource.title = copied ? 'اتنسخت ✓' : 'مقدرتش أنسخ';
+  els.copySource.title = copied ? 'Copied ✓' : 'Could not copy';
 
   sourceCopyTimer = setTimeout(() => {
     els.copySource.classList.remove('copied', 'is-error');
-    els.copySource.title = 'انسخ الكلمة';
+    els.copySource.title = 'Copy word';
   }, 1600);
 }
 
@@ -540,11 +524,11 @@ async function copyText(value) {
 function flashCopy(label) {
   clearTimeout(copyTimer);
 
-  els.copy.textContent = label;
+  els.copyLabel.textContent = label;
   els.copy.classList.add('copied');
 
   copyTimer = setTimeout(() => {
-    els.copy.textContent = 'انسخ';
+    els.copyLabel.textContent = 'Copy';
     els.copy.classList.remove('copied');
   }, 1600);
 }
@@ -563,7 +547,7 @@ async function speakResult() {
   speaking = true;
   els.speak.classList.remove('is-error');
   els.speak.classList.add('is-speaking');
-  els.speakLabel.textContent = 'وقف';
+  els.speakLabel.textContent = 'Stop';
 
   const response = await sendMessage({
     type: 'tts',
@@ -574,11 +558,11 @@ async function speakResult() {
   if (!response || !response.ok) {
     resetSpeakButton();
     els.speak.classList.add('is-error');
-    els.speakLabel.textContent = 'الصوت مش متاح';
+    els.speakLabel.textContent = 'Audio unavailable';
     setTimeout(() => {
       if (!speaking) {
         els.speak.classList.remove('is-error');
-        els.speakLabel.textContent = 'سمّعني';
+        els.speakLabel.textContent = 'Listen';
       }
     }, 2200);
   }
@@ -598,7 +582,7 @@ chrome.runtime.onMessage.addListener((message) => {
     els.speak.hidden = false;
     els.speak.classList.remove('is-error');
     els.speak.classList.add('is-speaking');
-    els.speakLabel.textContent = 'وقف';
+    els.speakLabel.textContent = 'Stop';
   } else {
     resetSpeakButton();
   }
@@ -629,19 +613,25 @@ async function saveToHassala() {
   clearTimeout(saveTimer);
   els.saveHassala.disabled = true;
   els.saveHassala.classList.remove('is-saved', 'is-error');
-  els.saveLabel.textContent = 'بيحوش…';
+  els.saveLabel.textContent = 'Saving…';
 
   const response = await sendMessage({
     type: 'saveToHassala',
     word: query,
     translation,
-    mode,
+    folderId: els.folderSelect.value || bankState.activeFolderId,
   });
 
   if (response && response.ok) {
+    if (typeof response.count === 'number') {
+      renderWordCount(response.count);
+    } else {
+      refreshBank(true);
+    }
+
     const notice = response.duplicate
-      ? 'كانت موجودة عندك ✓ اكتب الكلمة اللي بعدها'
-      : 'اتحوشت ✓ اكتب الكلمة اللي بعدها';
+      ? 'Already in your word bank ✓ Type the next word'
+      : 'Saved ✓ Type the next word';
 
     // Only clear when the field still holds the word that was saved. If the
     // user has already started the next word, leave their text alone.
@@ -655,42 +645,25 @@ async function saveToHassala() {
   }
 
   els.saveHassala.classList.add('is-error');
-  els.saveLabel.textContent =
-    response && response.code === 'native_missing'
-      ? 'الربط مش مفعّل'
-      : response && response.code === 'invalid_file'
-        ? 'راجع مسار الحصالة'
-        : response && response.code === 'file_missing'
-          ? 'الملف مش موجود'
-          : 'مقدرتش أحوش';
+  els.saveLabel.textContent = saveErrorMessage(response && response.code);
 
   saveTimer = setTimeout(resetSaveButton, 2400);
 }
 
-/* ---------- File tools ---------- */
-
-function isTemporaryNativeFailure(code) {
-  return code === 'native_missing' || code === 'timeout' || code === 'failed';
-}
-
-function nativeErrorMessage(code) {
+function saveErrorMessage(code) {
   switch (code) {
-    case 'native_missing':
-      return 'الربط مش مفعّل. راجع تركيب Native Host في الإعدادات.';
-    case 'file_missing':
-      return 'الملف ده مش موجود. احفظ كلمة الأول أو اختار ملف موجود.';
-    case 'invalid_file':
-      return 'المسار مش صح. اكتب مسار ملف كامل من الروت، ومن غير ما يكون فولدر.';
-    case 'open_failed':
-      return 'مقدرتش أفتح الملف. اتأكد إن فيه تطبيق بيقرأ Markdown.';
-    case 'config_error':
-      return 'فيه مشكلة في إعدادات الملف الافتراضي.';
-    case 'timeout':
-      return 'الطلب خد وقت طويل. جرّب تاني.';
+    case 'storage_full':
+      return 'Storage is full — export and delete some words';
+    case 'word_limit':
+      return 'Your word bank is at its limit';
+    case 'invalid':
+      return 'The word is incomplete';
     default:
-      return 'حصلت مشكلة. جرّب تاني.';
+      return 'Could not save';
   }
 }
+
+/* ---------- Word bank & folders ---------- */
 
 function setFileStatus(text, kind = 'info') {
   clearTimeout(fileStatusTimer);
@@ -705,173 +678,121 @@ function setFileStatus(text, kind = 'info') {
   }
 }
 
-function setPathStatus(text, kind = 'info') {
-  els.pathStatus.textContent = text || '';
-  els.pathStatus.dataset.kind = kind;
-}
-
-async function getStoredPath() {
-  if (!storage) return '';
-  try {
-    const data = await storage.get(['hassalaFile', 'obsidianFile']);
-    const current =
-      data && typeof data.hassalaFile === 'string'
-        ? data.hassalaFile.trim()
-        : '';
-    const legacy =
-      data && typeof data.obsidianFile === 'string'
-        ? data.obsidianFile.trim()
-        : '';
-    const value = current || legacy;
-    if (!current && legacy) {
-      await storage.set({ hassalaFile: value });
-      await storage.remove('obsidianFile');
-    }
-    return value;
-  } catch {
-    return '';
+function bankErrorMessage(code) {
+  switch (code) {
+    case 'invalid_name':
+      return 'Enter a valid folder name.';
+    case 'duplicate_name':
+      return 'A folder with that name already exists.';
+    case 'folder_limit':
+      return 'You reached the maximum number of folders.';
+    case 'storage_full':
+      return 'Storage is full. Export your words and delete some.';
+    default:
+      return 'Could not save the change. Try again.';
   }
 }
 
-async function setStoredPath(path) {
-  if (!storage) return;
+async function refreshBank(quiet = false) {
+  if (!bank) return;
+
   try {
-    await storage.set({ hassalaFile: path });
-  } catch {
-    // Best-effort.
+    bankState = await bank.read();
+  } catch (error) {
+    if (!quiet) setFileStatus(bankErrorMessage(error && error.code), 'error');
+    return;
   }
+
+  renderFolderOptions();
+  renderWordCount(bankState.words.length);
 }
 
-async function removeStoredPath() {
-  if (!storage) return;
-  try {
-    await storage.remove('hassalaFile');
-  } catch {
-    // Best-effort.
-  }
+function renderWordCount(count) {
+  const total = Number.isFinite(count) ? Math.max(0, Math.trunc(count)) : 0;
+  const wordsLabel = total === 1 ? '1 word' : `${total} words`;
+
+  els.wordCount.textContent = String(total);
+  els.myWords.title = `My words and export (${wordsLabel})`;
+  els.myWords.setAttribute(
+    'aria-label',
+    `My words and export (${wordsLabel})`,
+  );
 }
 
-async function openCurrentFile() {
-  if (els.openFile.disabled) return;
+function renderFolderOptions() {
+  const previous = els.folderSelect.value;
+  els.folderSelect.replaceChildren();
 
-  els.openFile.disabled = true;
-  setFileStatus('بيفتح الملف…', 'info');
+  for (const folder of bankState.folders) {
+    const option = document.createElement('option');
+    option.value = folder.id;
+    option.textContent = folder.name;
+    els.folderSelect.append(option);
+  }
 
-  const response = await sendMessage({ type: 'openHassalaFile' }, 9000);
-  els.openFile.disabled = false;
+  const target = bankState.folders.some(
+    (folder) => folder.id === previous,
+  )
+    ? previous
+    : bankState.activeFolderId;
 
-  if (response && response.ok) {
+  els.folderSelect.value = bankState.folders.some(
+    (folder) => folder.id === target,
+  )
+    ? target
+    : bankState.folders[0]?.id || '';
+}
+
+async function changeActiveFolder() {
+  if (!bank) return;
+
+  const folderId = els.folderSelect.value;
+  try {
+    await bank.setActiveFolder(folderId);
+    bankState.activeFolderId = folderId;
+    const folder = bankState.folders.find((item) => item.id === folderId);
     setFileStatus(
-      response.filePath
-        ? `اتفتح الملف: ${response.filePath}`
-        : 'اتفتح ملف الحفظ.',
+      `New words will be saved to “${folder ? folder.name : 'General'}”.`,
       'ok',
     );
-  } else {
-    setFileStatus(nativeErrorMessage(response && response.code), 'error');
+  } catch (error) {
+    setFileStatus(bankErrorMessage(error && error.code), 'error');
+    await refreshBank(true);
   }
 }
 
-async function openPathModal() {
-  pathLastFocus = document.activeElement;
-  els.pathModal.hidden = false;
-  els.pathSave.disabled = false;
-  els.pathUseDefault.disabled = false;
-  els.pathInput.value = '';
-  els.pathDefault.textContent = 'بنجيب المسار الحالي…';
-  setPathStatus('', 'info');
+async function createFolderQuick() {
+  if (!bank) return;
 
-  const stored = await getStoredPath();
-  const info = await sendMessage({ type: 'hassalaInfo' }, 8000);
+  const name = window.prompt('New folder name:');
+  if (name === null) return;
 
-  if (els.pathModal.hidden) return;
+  const clean = name.trim();
+  if (!clean) {
+    setFileStatus('Enter a valid folder name.', 'error');
+    return;
+  }
 
-  pathDefaultPath =
-    info && info.ok && typeof info.filePath === 'string' ? info.filePath : '';
-
-  els.pathDefault.textContent = pathDefaultPath
-    ? `الافتراضي: ${pathDefaultPath}`
-    : 'مفيش ملف افتراضي متظبط.';
-
-  els.pathInput.value = stored || pathDefaultPath;
-  window.setTimeout(() => {
-    if (els.pathModal.hidden) return;
-    els.pathInput.focus();
-    els.pathInput.select();
-  }, 30);
-}
-
-function closePathModal() {
-  if (els.pathModal.hidden) return;
-
-  els.pathModal.hidden = true;
-  const target = pathLastFocus;
-  pathLastFocus = null;
-
-  if (target && typeof target.focus === 'function') {
-    try {
-      target.focus();
-    } catch {
-      // The element may be gone.
+  try {
+    const result = await bank.createFolder(clean);
+    if (!result.ok) {
+      setFileStatus(bankErrorMessage(result.code), 'error');
+      return;
     }
+
+    await refreshBank(true);
+    els.folderSelect.value = result.folder.id;
+    setFileStatus(
+      `Created “${result.folder.name}”; it is now your save folder.`,
+      'ok',
+    );
+  } catch (error) {
+    setFileStatus(bankErrorMessage(error && error.code), 'error');
   }
 }
 
-async function savePathFromModal() {
-  const raw = els.pathInput.value.trim();
-
-  if (!raw) {
-    await useDefaultPathFromModal();
-    return;
-  }
-
-  if (!raw.startsWith('/') || raw.length > 4096) {
-    setPathStatus(
-      'اكتب مسار كامل من الروت، زي /home/you/Documents/Hassala Words.md.',
-      'error',
-    );
-    return;
-  }
-
-  els.pathSave.disabled = true;
-  setPathStatus('بنراجع الملف…', 'info');
-
-  const check = await sendMessage({ type: 'hassalaCheckFile', file: raw }, 12000);
-  els.pathSave.disabled = false;
-
-  if (check && check.ok) {
-    const finalPath = check.filePath || check.file || raw;
-    await setStoredPath(finalPath);
-    els.pathInput.value = finalPath;
-    setPathStatus(`تم. الكلمات هتتحفظ في «${finalPath}» بالظبط.`, 'ok');
-    setFileStatus('اتغير مسار الحفظ ✓', 'ok');
-    return;
-  }
-
-  if (check && isTemporaryNativeFailure(check.code)) {
-    await setStoredPath(raw);
-    els.pathInput.value = raw;
-    setPathStatus(
-      `اتحفظ المسار «${raw}»، بس مش قادر أتأكد من الملف دلوقتي.`,
-      'info',
-    );
-    setFileStatus('اتغير مسار الحفظ ✓', 'ok');
-    return;
-  }
-
-  setPathStatus(nativeErrorMessage(check && check.code), 'error');
-}
-
-async function useDefaultPathFromModal() {
-  await removeStoredPath();
-  els.pathInput.value = pathDefaultPath || '';
-  setPathStatus(
-    pathDefaultPath
-      ? `تمام — هنستخدم الملف الافتراضي «${pathDefaultPath}».`
-      : 'تمام — مفيش اختيار مخصص، وهنستخدم الملف الافتراضي.',
-    'ok',
-  );
-  setFileStatus('رجعنا للملف الافتراضي ✓', 'ok');
+function openWordsPage() {
+  openOptions();
 }
 
 /* ---------- History ---------- */
@@ -949,6 +870,20 @@ async function clearHistory() {
 }
 
 /* ---------- Misc ---------- */
+
+if (typeof chrome !== 'undefined' && chrome.storage?.onChanged) {
+  chrome.storage.onChanged.addListener((changes, area) => {
+    if (area !== 'local') return;
+
+    const wordsKey = bank ? bank.WORDS_KEY : 'wordBank';
+    const foldersKey = bank ? bank.FOLDERS_KEY : 'wordFolders';
+    const activeKey = bank ? bank.ACTIVE_FOLDER_KEY : 'activeFolderId';
+
+    if (changes[wordsKey] || changes[foldersKey] || changes[activeKey]) {
+      refreshBank(true);
+    }
+  });
+}
 
 window.addEventListener('online', () => {
   if (lastQuery && !lastResult) translateCurrent();

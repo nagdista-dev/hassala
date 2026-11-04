@@ -1,262 +1,622 @@
 <!doctype html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>إعدادات حصالة</title>
+    <title>Hassala — Word bank settings</title>
     <link rel="stylesheet" href="options.css" />
   </head>
   <body>
-    <main class="page">
-      <header class="hero">
-        <div class="brand">
+    <div class="app">
+      <aside class="sidebar" aria-label="Settings">
+        <a class="brand" href="#words" data-section-link="words">
           <span class="logo" aria-hidden="true">
             <span class="logo-glyph">ع</span>
             <span class="logo-badge">A</span>
           </span>
-          <div class="brand-text">
-            <p class="eyebrow">حصالة</p>
-            <h1>الإعدادات</h1>
-            <p class="subtitle">
-              ظبّط حصالتك: مكان حفظ الكلمات، الزرار العائم، ومكان الصندوق.
+          <span class="brand-text">
+            <span class="brand-name">Hassala</span>
+            <span class="brand-sub">Settings</span>
+          </span>
+        </a>
+
+        <nav class="section-nav" aria-label="Settings sections">
+          <button
+            class="nav-item is-active"
+            type="button"
+            data-section="words"
+            aria-current="page"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15.5H6.5A2.5 2.5 0 0 0 4 21V5.5Z" />
+              <path d="M4 18.5A2.5 2.5 0 0 1 6.5 16H20" />
+              <path d="M8 7h7M8 10.5h5" />
+            </svg>
+            <span class="nav-label">Words</span>
+            <span id="navWordCount" class="nav-count">0</span>
+          </button>
+
+          <button class="nav-item" type="button" data-section="folders">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 7.5A2.5 2.5 0 0 1 5.5 5h4l2 2h7A2.5 2.5 0 0 1 21 9.5v7A2.5 2.5 0 0 1 18.5 19h-13A2.5 2.5 0 0 1 3 16.5v-9Z" />
+            </svg>
+            <span class="nav-label">Folders</span>
+          </button>
+
+          <button class="nav-item" type="button" data-section="export">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 3v11" />
+              <path d="m8 10 4 4 4-4" />
+              <path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" />
+            </svg>
+            <span class="nav-label">Export</span>
+          </button>
+
+          <button class="nav-item" type="button" data-section="translator">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="4.2" />
+              <path d="M12 3v3M12 18v3M3 12h3M18 12h3" />
+            </svg>
+            <span class="nav-label">Translator</span>
+          </button>
+
+          <button class="nav-item" type="button" data-section="sites">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="8.5" />
+              <path d="m6 18 12-12" />
+            </svg>
+            <span class="nav-label">Site rules</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="4" y="10" width="16" height="10" rx="2.5" />
+            <path d="M8 10V7a4 4 0 0 1 8 0v3" />
+          </svg>
+          <p><strong>Private by design.</strong> Your words stay in this browser.</p>
+        </div>
+
+        <div class="sidebar-foot">
+          <details class="support-menu">
+            <summary>Help &amp; feedback</summary>
+            <div class="support-menu-body">
+              <p>Questions, ideas, or a bug? I read every message.</p>
+              <ul class="support-links">
+                <li>
+                  <a href="mailto:nagdista@gmail.com?subject=Hassala%20feedback"
+                    >nagdista@gmail.com</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="https://buymeacoffee.com/nagdista"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Buy me a coffee</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="https://github.com/nagdista-dev/hassala"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >GitHub · leave a star</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </details>
+          <span class="sidebar-version"
+            >Version <span id="version">2.0.4</span></span
+          >
+        </div>
+      </aside>
+
+      <main class="main">
+        <h1 class="sr-only">Hassala settings</h1>
+
+        <section
+          id="panel-words"
+          class="panel is-active"
+          data-panel="words"
+          aria-labelledby="wordsTitle"
+        >
+          <header class="panel-head">
+            <div>
+              <p class="eyebrow">Library</p>
+              <h2 id="wordsTitle">Your word bank</h2>
+              <p class="panel-sub">
+                Every word you save, organized in folders and ready to export.
+              </p>
+            </div>
+            <span id="wordCount" class="pill" data-state="idle">0 words</span>
+          </header>
+
+          <div class="surface library-surface">
+            <div class="library-toolbar">
+              <div class="field search-field">
+                <label class="field-label" for="wordSearch">Search</label>
+                <div class="input-with-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+                    <circle cx="11" cy="11" r="6.5" />
+                    <path d="m16 16 4 4" />
+                  </svg>
+                  <input
+                    id="wordSearch"
+                    class="text-input"
+                    type="search"
+                    autocomplete="off"
+                    spellcheck="false"
+                    placeholder="Word or translation…"
+                  />
+                </div>
+              </div>
+
+              <div class="field">
+                <label class="field-label" for="folderFilter">Folder</label>
+                <select id="folderFilter" class="select-input"></select>
+              </div>
+
+              <div class="field">
+                <label class="field-label" for="sortOrder">Sort</label>
+                <select id="sortOrder" class="select-input">
+                  <option value="default">Default order</option>
+                  <option value="az">A → Z</option>
+                  <option value="za">Z → A</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="library-meta">
+              <p id="viewSummary" class="view-summary">0 words</p>
+              <span id="selectionInfo" class="selection-info" aria-live="polite"
+                >No words selected</span
+              >
+            </div>
+
+            <div class="bulk-bar">
+              <label class="select-all" for="selectAllWords">
+                <input id="selectAllWords" type="checkbox" />
+                <span>Select this page</span>
+              </label>
+
+              <div class="bulk-actions">
+                <div class="bulk-group">
+                  <select
+                    id="moveFolder"
+                    class="select-input compact"
+                    aria-label="Move selected words to a folder"
+                  ></select>
+                  <button
+                    id="moveSelected"
+                    class="btn small"
+                    type="button"
+                    disabled
+                  >
+                    Move
+                  </button>
+                </div>
+                <button
+                  id="deleteSelected"
+                  class="btn small danger"
+                  type="button"
+                  disabled
+                >
+                  Delete selected
+                </button>
+              </div>
+            </div>
+
+            <div
+              id="wordList"
+              class="word-list"
+              role="list"
+              aria-label="Saved words list"
+            ></div>
+
+            <div id="wordEmpty" class="empty-note" hidden>
+              No words here yet. Save a word from the extension and it will appear
+              here.
+            </div>
+
+            <div id="wordPager" class="pager" hidden>
+              <span id="wordRange" class="pager-range"></span>
+              <div class="pager-controls">
+                <button id="wordPrev" class="btn small ghost" type="button">
+                  Previous
+                </button>
+                <span id="wordPageLabel" class="pager-label"></span>
+                <button id="wordNext" class="btn small ghost" type="button">
+                  Next
+                </button>
+              </div>
+            </div>
+
+            <div class="library-footer">
+              <span class="library-footer-note">
+                Words stay in this browser until you export or delete them.
+              </span>
+              <button
+                id="clearWords"
+                class="btn small ghost danger"
+                type="button"
+                disabled
+              >
+                Clear all words
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section
+          id="panel-folders"
+          class="panel"
+          data-panel="folders"
+          aria-labelledby="foldersTitle"
+          hidden
+        >
+          <header class="panel-head">
+            <div>
+              <p class="eyebrow">Organization</p>
+              <h2 id="foldersTitle">Folders</h2>
+              <p class="panel-sub">
+                Keep courses, subjects, and word lists separate. Folders stay
+                inside the extension; nothing is written to your files.
+              </p>
+            </div>
+          </header>
+
+          <div class="surface">
+            <div class="section-block">
+              <div class="section-copy">
+                <h3>Save new words to</h3>
+                <p>Every new word goes to this folder until you change it.</p>
+              </div>
+              <select id="activeFolder" class="select-input"></select>
+            </div>
+
+            <div class="section-block section-block-column">
+              <div class="section-copy">
+                <h3>Create a folder</h3>
+                <p>Use short, meaningful names such as English, Programming, or Exam words.</p>
+              </div>
+              <div class="inline-form">
+                <input
+                  id="newFolderName"
+                  class="text-input"
+                  type="text"
+                  autocomplete="off"
+                  placeholder="Folder name"
+                  maxlength="60"
+                  aria-describedby="folderHint"
+                />
+                <button id="addFolder" class="btn primary" type="button">
+                  Create folder
+                </button>
+              </div>
+              <p id="folderHint" class="hint">
+                Folder names can be up to 60 characters. Deleting a folder moves
+                its words back to General; it never deletes the words.
+              </p>
+            </div>
+          </div>
+
+          <div class="surface">
+            <div class="surface-head">
+              <div>
+                <h3>All folders</h3>
+                <p id="folderSummary" class="surface-sub">0 folders</p>
+              </div>
+            </div>
+
+            <ul id="folderList" class="folder-list" aria-label="Word folders"></ul>
+            <p id="folderEmpty" class="empty-note" hidden>
+              No folders yet. Create one above to start organizing your words.
             </p>
           </div>
-        </div>
-        <span class="hero-spark" aria-hidden="true">✦</span>
-      </header>
+        </section>
 
-      <section class="card" aria-labelledby="hassalaTitle">
-        <div class="card-head">
-          <div class="card-title">
-            <span class="card-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15.5H6.5A2.5 2.5 0 0 0 4 21V5.5Z" />
-                <path d="M4 18.5A2.5 2.5 0 0 1 6.5 16H20" />
-                <path d="M8 7h7M8 10.5h5" />
-              </svg>
-            </span>
+        <section
+          id="panel-export"
+          class="panel"
+          data-panel="export"
+          aria-labelledby="exportTitle"
+          hidden
+        >
+          <header class="panel-head">
             <div>
-              <h2 id="hassalaTitle">حصالة الكلمات</h2>
-              <p class="card-sub">
-                اختار ملف Markdown بالمسار الكامل، وحصالة هتكتب فيه كل كلمة تحفظها.
+              <p class="eyebrow">Download</p>
+              <h2 id="exportTitle">Export your words</h2>
+              <p class="panel-sub">
+                Take a portable copy in the format that fits your notes app,
+                spreadsheet, or backup workflow.
+              </p>
+            </div>
+          </header>
+
+          <div class="surface">
+            <fieldset class="format-fieldset">
+              <legend class="field-label">File format</legend>
+              <div class="format-grid">
+                <label class="format-card">
+                  <input
+                    type="radio"
+                    name="exportFormat"
+                    value="markdown"
+                    checked
+                  />
+                  <span class="format-card-body">
+                    <span class="format-title">Markdown</span>
+                    <span class="format-ext">.md</span>
+                    <span class="format-desc">Notes, Obsidian, Logseq</span>
+                  </span>
+                </label>
+
+                <label class="format-card">
+                  <input type="radio" name="exportFormat" value="text" />
+                  <span class="format-card-body">
+                    <span class="format-title">Plain text</span>
+                    <span class="format-ext">.txt</span>
+                    <span class="format-desc">Simple word — translation pairs</span>
+                  </span>
+                </label>
+
+                <label class="format-card">
+                  <input type="radio" name="exportFormat" value="csv" />
+                  <span class="format-card-body">
+                    <span class="format-title">CSV</span>
+                    <span class="format-ext">.csv</span>
+                    <span class="format-desc">Excel and Anki imports</span>
+                  </span>
+                </label>
+
+                <label class="format-card">
+                  <input type="radio" name="exportFormat" value="json" />
+                  <span class="format-card-body">
+                    <span class="format-title">JSON</span>
+                    <span class="format-ext">.json</span>
+                    <span class="format-desc">Backups and scripts</span>
+                  </span>
+                </label>
+              </div>
+            </fieldset>
+
+            <div class="field export-name-field">
+              <label class="field-label" for="exportName">File name</label>
+              <div class="filename-row">
+                <input
+                  id="exportName"
+                  class="text-input"
+                  type="text"
+                  autocomplete="off"
+                  spellcheck="false"
+                  maxlength="80"
+                  placeholder="hassala-words"
+                  dir="auto"
+                />
+                <span id="exportExtension" class="filename-ext">.md</span>
+              </div>
+              <p class="hint">
+                Optional. Hassala adds the correct extension and removes unsafe
+                characters. Leave it empty for a dated file name.
+              </p>
+            </div>
+
+            <div class="export-scope">
+              <button
+                id="exportSelected"
+                class="btn primary"
+                type="button"
+                disabled
+              >
+                Export selected
+              </button>
+              <button id="exportVisible" class="btn" type="button" disabled>
+                Export visible
+              </button>
+              <button id="exportAll" class="btn ghost" type="button" disabled>
+                Export all
+              </button>
+            </div>
+
+            <label class="switch-row switch-row-bordered" for="deleteAfterExport">
+              <span class="switch-copy">
+                <strong>Delete exported words afterwards</strong>
+                <small>
+                  Removes the words from the extension after the download starts.
+                  Export first if you want to keep a copy.
+                </small>
+              </span>
+              <span class="switch">
+                <input id="deleteAfterExport" type="checkbox" />
+                <span class="track" aria-hidden="true"><span class="thumb"></span></span>
+              </span>
+            </label>
+          </div>
+
+          <div class="surface note-surface">
+            <div class="note-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3v11" />
+                <path d="m8 10 4 4 4-4" />
+                <path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" />
+              </svg>
+            </div>
+            <div>
+              <h3>Where does the file go?</h3>
+              <p>
+                The browser downloads the file to its normal Downloads folder.
+                Files contain only each word and its translation. Hassala does
+                not access your filesystem, and nothing downloads until you
+                press an export button.
               </p>
             </div>
           </div>
-          <span id="connection" class="pill" data-state="idle">بنفحص الربط…</span>
-        </div>
+        </section>
 
-        <label class="field-label" for="notePath">مسار ملف الحصالة</label>
-        <div class="path-row">
-          <input
-            id="notePath"
-            class="path-input"
-            type="text"
-            dir="ltr"
-            autocomplete="off"
-            spellcheck="false"
-            placeholder="/home/you/Documents/Hassala Words.md"
-            aria-describedby="pathHint"
-          />
-          <button id="pickFile" class="btn" type="button">اختار ملف</button>
-        </div>
-
-        <p id="pathHint" class="hint">
-          اكتب المسار كامل من الروت، أو اختار ملف موجود من أي مكان على جهازك.
-          الملف لازم يكون موجود؛ حصالة مش بتنشئ ملفات ولا بتكتب في أي ملف تاني.
-        </p>
-
-        <div class="actions">
-          <button id="savePath" class="btn primary" type="button">احفظ المسار</button>
-          <button id="openFile" class="btn" type="button">افتح الملف</button>
-          <button id="useDefault" class="btn" type="button">
-            استخدم الملف الافتراضي
-          </button>
-        </div>
-
-        <p id="hassalaStatus" class="status" role="status" aria-live="polite"></p>
-
-        <div class="preview" aria-live="polite">
-          <span>هيتحفظ في</span>
-          <strong id="filePreview" class="mono" dir="ltr">…</strong>
-        </div>
-      </section>
-
-      <section class="card" aria-labelledby="fabTitle">
-        <div class="card-head">
-          <div class="card-title">
-            <span class="card-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="4.2" />
-                <path d="M12 3v3M12 18v3M3 12h3M18 12h3" />
-              </svg>
-            </span>
+        <section
+          id="panel-translator"
+          class="panel"
+          data-panel="translator"
+          aria-labelledby="translatorTitle"
+          hidden
+        >
+          <header class="panel-head">
             <div>
-              <h2 id="fabTitle">الزرار العائم</h2>
-              <p class="card-sub">التحكم في الزرار اللي بيظهر في كل الصفحات.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="switch-row">
-          <label class="switch-copy" for="fabVisible">
-            <strong id="fabLabel">إظهار الزرار العائم</strong>
-            <small>
-              لو خفيته، تقدر ترجّعه بالضغط على أيقونة الإضافة في شريط المتصفح.
-            </small>
-          </label>
-          <label class="switch">
-            <input id="fabVisible" type="checkbox" aria-labelledby="fabLabel" />
-            <span class="track" aria-hidden="true"><span class="thumb"></span></span>
-          </label>
-        </div>
-
-        <p id="fabStatus" class="status" role="status" aria-live="polite"></p>
-      </section>
-
-      <section class="card" aria-labelledby="sitesTitle">
-        <div class="card-head">
-          <div class="card-title">
-            <span class="card-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="8.5" />
-                <path d="m6 18 12-12" />
-              </svg>
-            </span>
-            <div>
-              <h2 id="sitesTitle">تعطيل على مواقع معينة</h2>
-              <p class="card-sub">
-                اختار المواقع اللي مش عايز حصالة تشتغل عليها.
+              <p class="eyebrow">On the page</p>
+              <h2 id="translatorTitle">Translator</h2>
+              <p class="panel-sub">
+                Control the floating button and restore the panel when it ends up
+                somewhere awkward.
               </p>
             </div>
-          </div>
-        </div>
+          </header>
 
-        <label class="field-label" for="siteInput">الدومين أو الموقع</label>
-        <div class="path-row">
-          <input
-            id="siteInput"
-            class="path-input"
-            type="text"
-            dir="ltr"
-            autocomplete="off"
-            spellcheck="false"
-            placeholder="example.com"
-            aria-describedby="siteHint"
-          />
-          <button id="addSite" class="btn primary" type="button">أضف الموقع</button>
-        </div>
-
-        <p id="siteHint" class="hint">
-          لو أضفت example.com، هيتعطّل على example.com وكل النطاقات الفرعية
-          زي www.example.com. تقدر تلغي التعطيل في أي وقت من هنا.
-        </p>
-
-        <ul id="siteList" class="site-list" aria-label="المواقع المتعطلة"></ul>
-        <p id="siteEmpty" class="hint" hidden>مفيش مواقع متعطلة دلوقتي.</p>
-        <p id="siteStatus" class="status" role="status" aria-live="polite"></p>
-
-        <div class="actions">
-          <button id="clearSites" class="btn ghost" type="button">
-            فعّل على كل المواقع
-          </button>
-        </div>
-      </section>
-
-      <section class="card" aria-labelledby="positionTitle">
-        <div class="card-head">
-          <div class="card-title">
-            <span class="card-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 3v18M3 12h18" />
-                <path d="m8 7 4-4 4 4M8 17l4 4 4-4M7 8l-4 4 4 4M17 8l4 4-4 4" />
-              </svg>
-            </span>
-            <div>
-              <h2 id="positionTitle">مكان الصندوق والزرار</h2>
-              <p class="card-sub">
-                اسحب صندوق الترجمة من راسه عشان تحركه، أو رجّع المكان الافتراضي.
-              </p>
+          <div class="surface">
+            <div class="switch-row">
+              <span class="switch-copy">
+                <strong>Show floating button</strong>
+                <small>
+                  If you hide it, bring it back by clicking the Hassala icon in the
+                  browser toolbar.
+                </small>
+              </span>
+              <label class="switch" for="fabVisible">
+                <input id="fabVisible" type="checkbox" />
+                <span class="track" aria-hidden="true"><span class="thumb"></span></span>
+              </label>
             </div>
           </div>
-        </div>
 
-        <div class="actions">
-          <button id="resetPanel" class="btn" type="button">
-            إعادة ضبط مكان الصندوق
-          </button>
-          <button id="resetFab" class="btn ghost" type="button">
-            إعادة ضبط مكان الزرار
-          </button>
-        </div>
-
-        <p id="positionStatus" class="status" role="status" aria-live="polite"></p>
-      </section>
-
-      <footer class="foot">
-        <span>الإصدار <span id="version">2.0.4</span></span>
-        <span class="dot" aria-hidden="true">✦</span>
-        <span>كل حاجة بتتحفظ محليًا على جهازك.</span>
-      </footer>
-    </main>
-
-    <div id="browserModal" class="modal" hidden>
-      <div class="modal-backdrop" data-browser-close></div>
-      <section
-        class="modal-card"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="browserTitle"
-      >
-        <header class="modal-head">
-          <div>
-            <p class="eyebrow">اختيار ملف</p>
-            <h2 id="browserTitle">اختار ملف الحفظ</h2>
+          <div class="surface">
+            <div class="surface-head">
+              <div>
+                <h3>Panel and button position</h3>
+                <p class="surface-sub">
+                  Drag the translation panel by its header. Reset if it is off
+                  screen or in the way.
+                </p>
+              </div>
+            </div>
+            <div class="actions">
+              <button id="resetPanel" class="btn" type="button">
+                Reset panel position
+              </button>
+              <button id="resetFab" class="btn ghost" type="button">
+                Reset button position
+              </button>
+            </div>
           </div>
-          <button
-            id="browserClose"
-            class="modal-close"
-            type="button"
-            title="إغلاق"
-            aria-label="إغلاق"
-          >
-            ×
-          </button>
-        </header>
+        </section>
 
-        <div class="pathbar">
-          <button
-            id="browserUp"
-            class="path-up"
-            type="button"
-            title="الفولدر الأعلى"
-            aria-label="الفولدر الأعلى"
-          >
-            ↑
-          </button>
-          <span id="browserPath" class="path-value mono" dir="ltr">…</span>
-        </div>
+        <section
+          id="panel-sites"
+          class="panel"
+          data-panel="sites"
+          aria-labelledby="sitesTitle"
+          hidden
+        >
+          <header class="panel-head">
+            <div>
+              <p class="eyebrow">Focus</p>
+              <h2 id="sitesTitle">Site rules</h2>
+              <p class="panel-sub">
+                Keep Hassala off sites where you do not want translation or a
+                floating button.
+              </p>
+            </div>
+          </header>
 
-        <label class="hidden-toggle">
-          <input id="browserHidden" type="checkbox" />
-          <span>إظهار المجلدات المخفية</span>
-        </label>
+          <div class="surface">
+            <div class="field">
+              <label class="field-label" for="siteInput">Domain or site</label>
+              <div class="inline-form">
+                <input
+                  id="siteInput"
+                  class="text-input"
+                  type="text"
+                  dir="ltr"
+                  autocomplete="off"
+                  spellcheck="false"
+                  placeholder="example.com"
+                  aria-describedby="siteHint"
+                />
+                <button id="addSite" class="btn primary" type="button">
+                  Add site
+                </button>
+              </div>
+              <p id="siteHint" class="hint">
+                Adding example.com disables Hassala on example.com and its
+                subdomains such as www.example.com. You can re-enable it here at
+                any time.
+              </p>
+            </div>
 
-        <div
-          id="browserList"
-          class="browser-list"
-          role="listbox"
-          aria-label="المجلدات والملفات"
-        ></div>
-        <p id="browserEmpty" class="browser-empty" hidden>مفيش ملفات هنا.</p>
-        <p id="browserStatus" class="status" role="status" aria-live="polite"></p>
+            <ul id="siteList" class="site-list" aria-label="Disabled sites"></ul>
+            <p id="siteEmpty" class="empty-note" hidden>
+              No disabled sites. Hassala is active everywhere.
+            </p>
 
-        <div class="modal-actions">
-          <button id="browserCancel" class="btn" type="button">إلغاء</button>
-        </div>
-      </section>
+            <div class="actions">
+              <button id="clearSites" class="btn ghost" type="button">
+                Enable on all sites
+              </button>
+            </div>
+          </div>
+        </section>
+      </main>
     </div>
 
+    <dialog
+      id="confirmDialog"
+      class="dialog"
+      aria-labelledby="confirmTitle"
+      aria-describedby="confirmBody"
+    >
+      <form method="dialog" class="dialog-card">
+        <h2 id="confirmTitle">Delete this?</h2>
+        <p id="confirmBody"></p>
+        <div class="dialog-actions">
+          <button class="btn ghost" type="button" data-dialog-close>
+            Cancel
+          </button>
+          <button id="confirmOk" class="btn danger" value="confirm">
+            Delete
+          </button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog
+      id="renameDialog"
+      class="dialog"
+      aria-labelledby="renameTitle"
+    >
+      <form id="renameForm" method="dialog" class="dialog-card">
+        <h2 id="renameTitle">Rename folder</h2>
+        <label class="field-label" for="renameInput">Folder name</label>
+        <input
+          id="renameInput"
+          class="text-input"
+          type="text"
+          maxlength="60"
+          autocomplete="off"
+          required
+        />
+        <div class="dialog-actions">
+          <button class="btn ghost" type="button" data-dialog-close>
+            Cancel
+          </button>
+          <button class="btn primary" value="save">Save name</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
     <script src="../content/site-policy.js"></script>
+    <script src="../wordbank.js"></script>
     <script src="options.js"></script>
   </body>
 </html>

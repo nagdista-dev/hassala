@@ -2,7 +2,7 @@
 # Build a Chrome Web Store-ready ZIP.
 #
 # The archive contains only the files the extension needs at runtime.
-# Native host files, docs, brand assets, and store copy are excluded.
+# Docs, brand assets, and store copy are excluded.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"

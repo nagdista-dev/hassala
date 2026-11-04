@@ -1,6 +1,6 @@
 # Hassala Discoverability and Launch Kit
 
-**Last updated:** November 3, 2026
+**Last updated:** November 4, 2026
 
 This document is the practical plan for making Hassala easy to find — in search
 engines, in AI assistant answers, and in the communities where Arabic learners
@@ -13,9 +13,10 @@ repeatable promotion is part of an open-source project.
 
 ## 1. The honest goal
 
-**Goal:** when someone asks for an Arabic ↔ English translator, a Markdown word
-bank, or a way to save words from YouTube, Hassala should be one of the tools
-that search engines and AI assistants can find, understand, and cite.
+**Goal:** when someone asks for an Arabic ↔ English translator, a local word
+bank with folders and export, or a way to save words from YouTube, Hassala
+should be one of the tools that search engines and AI assistants can find,
+understand, and cite.
 
 **What we cannot promise:** nobody can guarantee the first recommendation in
 ChatGPT, Claude, Gemini, Perplexity, or Google. Those systems combine training
@@ -91,7 +92,7 @@ This means the website alone is not enough. The highest-leverage signals are:
 - English README with a one-sentence definition, a quick-facts table, and an
   FAQ.
 - Repository description and 18 topics, including `arabic`, `translator`,
-  `word-bank`, `markdown`, `obsidian`, `youtube-subtitles`, and
+  `word-bank`, `markdown`, `csv`, `obsidian`, `youtube-subtitles`, and
   `language-learning`.
 - Public releases with English notes and checksums.
 - Issue forms, a pull request template, a code of conduct, and a security
@@ -118,13 +119,14 @@ page or to content worth writing later.
 | Intent | Example query | Best page |
 | --- | --- | --- |
 | English: general | `arabic translator chrome extension` | Home |
-| English: saving words | `chrome extension save words to markdown` | Home |
+| English: saving words | `chrome extension save words with folders` | Home |
+| English: export | `export vocabulary to csv markdown` | Home |
 | English: Obsidian | `obsidian vocabulary builder chrome extension` | [Obsidian guide](https://nagdista-dev.github.io/hassala/guides/obsidian-vocabulary-workflow/) |
 | English: YouTube | `translate youtube arabic subtitles extension` | [YouTube guide](https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/) |
 | English: comparison | `best arabic translator extension` | Compare |
-| English: workflow | `how to save translated words to markdown` | [Guide](https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/) |
+| English: workflow | `how to save translated words and export them` | [Guide](https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/) |
 | Arabic: general | `إضافة ترجمة عربي إنجليزي للكروم` | Arabic home |
-| Arabic: saving | `حفظ الكلمات في ملف ماركداون` | Arabic home |
+| Arabic: saving | `حفظ الكلمات وتصديرها من إضافة ترجمة` | Arabic home |
 | Arabic: YouTube | `ترجمة سبتايتل يوتيوب` | [Arabic YouTube guide](https://nagdista-dev.github.io/hassala/ar/guides/translate-youtube-subtitles/) |
 | Arabic: comparison | `افضل إضافة ترجمة للكروم` | [Arabic compare](https://nagdista-dev.github.io/hassala/ar/compare/) |
 
@@ -198,7 +200,7 @@ Before opening a pull request:
 | r/languagelearning | “I built a word bank for Arabic ↔ English” | Read self-promotion rules; participate first |
 | r/ChromeExtensions | Feature overview and demo | Use the showcase format if required |
 | r/ObsidianMD | Markdown word bank workflow | Focus on the workflow, not the install |
-| r/arabic | Arabic-first tool for learners | Post in Arabic; be useful |
+| r/arabic | Arabic ↔ English tool for learners | Post in Arabic; be useful |
 | Arabic Discord/Telegram study groups | Share with permission | Ask admins first |
 | Hacker News (Show HN) | Open-source, no-tracking, local-first | One post; answer questions honestly |
 | X / LinkedIn | Short demo video and the story | Use relevant hashtags sparingly |
@@ -218,56 +220,61 @@ Before opening a pull request:
 
 ### One line (under 100 characters)
 
-> Hassala translates Arabic ↔ English and saves every word to a Markdown word
-> bank.
+> Hassala translates Arabic ↔ English and keeps every word in a local word bank.
 
 ### Short description (132 characters)
 
-> Arabic ↔ English translator for Chrome that saves words to a local Markdown word bank. Interactive YouTube subtitles. No account.
+> Arabic ↔ English translator for Chrome with a private local word bank, folders, and Markdown / TXT / CSV / JSON export. No account.
 
 ### Medium description
 
 > Hassala is a free, open-source Chrome extension for Arabic ↔ English learners.
 > Translate a word, select text on any page, or click a word in a YouTube
-> subtitle. One click saves the word and translation to a Markdown file on your
-> device, with duplicate detection. No account, no tracking, no lock-in. Open
-> source under MIT.
+> subtitle. One click saves the word and translation to a private word bank
+> inside the extension, with folders and duplicate detection. Export selected
+> words or a whole folder as Markdown, TXT, CSV, or JSON whenever you want — with
+> the filename you choose. No account, no tracking, no lock-in. Open source under
+> MIT.
 
 ### Show HN
 
-**Title:** Show HN: Hassala — Arabic ↔ English translator with a local Markdown
-word bank
+**Title:** Show HN: Hassala — Arabic ↔ English translator with a local word bank
 
 **Body:**
 
 > I study English with Arabic notes and kept losing words between a translator
-> tab and my Obsidian vault. Hassala is my attempt to close that gap.
+> tab and my notes. Hassala is my attempt to close that gap.
 >
 > It translates Arabic ↔ English, makes YouTube captions interactive (hover to
-> pause, click a word, drag a phrase), and saves each word + translation to a
-> Markdown file you choose. Duplicates are skipped. The UI is Arabic-first.
+> pause, click a word, drag a phrase), and keeps each word + translation in a
+> private word bank inside the extension. You can organise words into folders and
+> export them as Markdown, TXT, CSV, or JSON with a filename you choose.
+> Duplicates are skipped. The UI is English-first with full Arabic and RTL support.
 >
 > It is a Manifest V3 extension with no build step, no account, no analytics,
-> and no backend. Saving uses a small local Python native host because browsers
-> cannot write arbitrary files. Everything is MIT licensed.
+> and no backend. Words stay in `chrome.storage.local`; nothing is written to
+> disk until you click export, and there is no native host or Python dependency.
+> Everything is MIT licensed.
 >
 > Site: https://nagdista-dev.github.io/hassala/
 > Code: https://github.com/nagdista-dev/hassala
 >
-> I would especially appreciate feedback on the native-host install flow and on
-> the Arabic UI.
+> I would especially appreciate feedback on the folder/export flow and on the
+> English-first UI with Arabic support.
 
 ### Reddit (adjust to each community’s rules)
 
 **Title:** I built a local-first Arabic ↔ English word bank for Chrome
 
 > I kept translating words and losing them, so I built Hassala: a Chrome
-> extension that translates Arabic ↔ English and saves each word to a Markdown
-> file on your device.
+> extension that translates Arabic ↔ English and keeps each word in a private
+> word bank inside the extension.
 >
 > - Works on any page, plus interactive YouTube captions.
-> - Saves to the `.md` file you choose; skips duplicates.
-> - No account, no tracking, no subscription.
+> - Folders, search, and duplicate detection.
+> - Export selected words or a folder as Markdown, TXT, CSV, or JSON — with your
+>   own filename.
+> - No account, no tracking, no subscription, and no automatic file writes.
 > - Open source (MIT).
 >
 > It is still early, and the Chrome Web Store release is not out yet — you can
@@ -282,19 +289,22 @@ word bank
 
 **Description:**
 
-> Hassala translates Arabic ↔ English, saves every word to a Markdown word bank
-> on your device, and turns YouTube subtitles into an interactive vocabulary
-> lesson. Free, open source, no account.
+> Hassala translates Arabic ↔ English, keeps every word in a private local word
+> bank with folders and export, and turns YouTube subtitles into an interactive
+> vocabulary lesson. Free, open source, no account.
 
 **First comment:**
 
 > Hi Product Hunt! I built Hassala because I kept losing the words I looked up.
 > It is a Chrome extension for Arabic ↔ English learners: translate a word or a
-> selection, click once, and it lands in a Markdown file you own. YouTube
-> captions are interactive too — hover to pause, click a word, drag a phrase.
+> selection, click once, and it lands in a word bank inside the extension. You
+> can sort words into folders and export them as Markdown, TXT, CSV, or JSON
+> whenever you want. YouTube captions are interactive too — hover to pause, click
+> a word, drag a phrase.
 >
-> No account, no analytics, no backend. The code is MIT licensed. I would love
-> feedback on the onboarding and the saving flow. Thanks for taking a look!
+> No account, no analytics, no backend, and no automatic file writes. The code is
+> MIT licensed. I would love feedback on the onboarding and the export flow.
+> Thanks for taking a look!
 
 ### Maintainer disclosure line
 
@@ -360,7 +370,7 @@ project’s privacy stance. Use aggregate, privacy-respecting sources instead:
 2. “How can I save translated words to Obsidian?”
 3. “Best extension for translating Arabic YouTube subtitles?”
 4. Arabic: “ما أفضل إضافة ترجمة عربي إنجليزي للكروم?”
-5. Arabic: “إزاي أحفظ الكلمات اللي بترجمها في ملف Markdown?”
+5. Arabic: “إزاي أحفظ الكلمات اللي بترجمها وأصدّرها؟”
 
 Record the answer, the cited URLs, and the date. Do not manipulate the answers;
 use the results to find content gaps.
