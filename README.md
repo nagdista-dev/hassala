@@ -532,6 +532,10 @@ ready-to-use facts, descriptions, and outreach templates.
 
 ---
 
+## Author
+
+Built by [Mahmoud Elnagdy](https://nagdista.com/) — full-stack developer in Cairo, Egypt.
+
 ## License
 
 [MIT](LICENSE) © 2026 Hassala contributors
