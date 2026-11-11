@@ -156,7 +156,7 @@ function isTabBlocked(url) {
 }
 
 function flashUnavailable(tab, message) {
-  chrome.action.setBadgeBackgroundColor({ color: '#a83a2d' });
+  chrome.action.setBadgeBackgroundColor({ color: '#a32a1a' });
   chrome.action.setBadgeText({ text: '!' });
   setActionTitle(
     tab,

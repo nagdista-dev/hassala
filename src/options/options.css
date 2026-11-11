@@ -6,40 +6,67 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Inter";
+  src: url("../fonts/Inter-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("../fonts/SpaceGrotesk-Variable.woff2") format("woff2");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Alexandria";
+  src: url("../fonts/Alexandria-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ---------- Design tokens ---------- */
 
 :root {
-  --bg: #f4ecdf;
-  --bg-soft: #efe4d2;
-  --sidebar: #fbf6ec;
-  --surface: #fffdf8;
-  --surface-2: #faf4e8;
-  --surface-3: #f5ecdb;
-  --text: #2a2118;
-  --text-soft: #4d4135;
-  --muted: #7d6d59;
-  --faint: #9a8b77;
-  --line: #e8dcc7;
-  --line-strong: #d7c5a7;
-  --accent: #0f766e;
-  --accent-strong: #0a5d57;
-  --accent-soft: #e4f1ec;
-  --accent-softer: #f0f8f5;
-  --on-accent: #ffffff;
-  --gold: #a97a28;
-  --gold-soft: #f5e8c9;
-  --gold-strong: #7d5816;
-  --danger: #a83a2d;
-  --danger-strong: #8a2c21;
+  /* Nagdista identity palette — https://nagdista.com/ */
+  --bg: #efeae1;
+  --bg-soft: #e7e0d4;
+  --sidebar: #e7e0d4;
+  --surface: #f7f4ef;
+  --surface-2: #f2ede6;
+  --surface-3: #e7e0d4;
+  --text: #12110f;
+  --text-soft: #2a2722;
+  --muted: #6b665e;
+  --faint: #8f887d;
+  --line: rgba(18, 17, 15, 0.14);
+  --line-strong: rgba(18, 17, 15, 0.28);
+  --accent: #ff4d00;
+  --accent-strong: #c93d00;
+  --accent-soft: #ffe3d6;
+  --accent-softer: #fff3ec;
+  --on-accent: #12110f;
+  --gold: #c93d00;
+  --gold-soft: #ffe3d6;
+  --gold-strong: #8a2c00;
+  --danger: #a32a1a;
+  --danger-strong: #7f1f1f;
   --danger-soft: #f9e7e1;
-  --focus: #0f766e;
-  --shadow-sm: 0 1px 2px rgba(74, 52, 25, 0.06);
-  --shadow: 0 10px 30px rgba(83, 58, 27, 0.08);
-  --shadow-lg: 0 24px 60px rgba(60, 41, 18, 0.18);
+  --focus: #ff4d00;
+  --shadow-sm: 0 1px 2px rgba(18, 17, 15, 0.06);
+  --shadow: 0 10px 30px rgba(18, 17, 15, 0.08);
+  --shadow-lg: 0 24px 60px rgba(18, 17, 15, 0.16);
   --radius-sm: 9px;
   --radius: 14px;
   --radius-lg: 20px;
-  --font: "Baloo Bhaijaan 2", "Noto Sans Arabic", "Segoe UI", Tahoma,
+  --font: "Inter", "Baloo Bhaijaan 2", "Noto Sans Arabic", "Segoe UI", Tahoma,
+    sans-serif;
+  --font-display: "Space Grotesk", "Alexandria", "Baloo Bhaijaan 2", "Segoe UI",
     sans-serif;
   --sidebar-width: 262px;
   --transition: 160ms ease;
@@ -47,30 +74,30 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #111916;
-    --bg-soft: #16211d;
-    --sidebar: #17221f;
-    --surface: #1b2723;
-    --surface-2: #202e29;
-    --surface-3: #253630;
-    --text: #f3ead8;
-    --text-soft: #ded1ba;
-    --muted: #b3a288;
-    --faint: #8f806b;
-    --line: #2e3f38;
-    --line-strong: #41564c;
-    --accent: #2dd4bf;
-    --accent-strong: #5ee8d6;
-    --accent-soft: #173630;
-    --accent-softer: #142a25;
-    --on-accent: #06201c;
-    --gold: #e0b969;
-    --gold-soft: #3a2f1c;
-    --gold-strong: #f2d99f;
+    --bg: #12110f;
+    --bg-soft: #1a1815;
+    --sidebar: #1a1815;
+    --surface: #201d19;
+    --surface-2: #262320;
+    --surface-3: #2d2925;
+    --text: #f7f4ef;
+    --text-soft: #e7e0d4;
+    --muted: #a39c91;
+    --faint: #8a8378;
+    --line: rgba(247, 244, 239, 0.16);
+    --line-strong: rgba(247, 244, 239, 0.3);
+    --accent: #ff4d00;
+    --accent-strong: #ff7a3d;
+    --accent-soft: #3a1c0c;
+    --accent-softer: #2a160a;
+    --on-accent: #12110f;
+    --gold: #ff7a3d;
+    --gold-soft: #3a1c0c;
+    --gold-strong: #ff9a66;
     --danger: #ff9b8a;
     --danger-strong: #ffb3a5;
     --danger-soft: #38211d;
-    --focus: #5ee8d6;
+    --focus: #ff7a3d;
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.28);
     --shadow: 0 12px 34px rgba(0, 0, 0, 0.28);
     --shadow-lg: 0 28px 70px rgba(0, 0, 0, 0.5);
@@ -95,22 +122,22 @@ body {
   background:
     radial-gradient(
       110% 65% at 100% 0%,
-      rgba(15, 118, 110, 0.06) 0%,
+      rgba(255, 77, 0, 0.06) 0%,
       transparent 58%
     ),
     radial-gradient(
       90% 55% at 0% 100%,
-      rgba(169, 122, 40, 0.055) 0%,
+      rgba(231, 224, 212, 0.55) 0%,
       transparent 60%
     ),
     repeating-linear-gradient(
       45deg,
-      rgba(169, 122, 40, 0.025) 0 1px,
+      rgba(18, 17, 15, 0.025) 0 1px,
       transparent 1px 18px
     ),
     repeating-linear-gradient(
       -45deg,
-      rgba(169, 122, 40, 0.025) 0 1px,
+      rgba(18, 17, 15, 0.025) 0 1px,
       transparent 1px 18px
     ),
     var(--bg);
@@ -133,7 +160,7 @@ body::before {
     90deg,
     var(--accent) 0 33%,
     var(--gold) 33% 66%,
-    #b4532a 66% 100%
+    #c93d00 66% 100%
   );
   pointer-events: none;
 }
@@ -275,40 +302,20 @@ a {
 }
 
 .logo {
-  position: relative;
   display: inline-grid;
   flex: none;
   place-items: center;
   width: 42px;
   height: 42px;
-  border: 1px solid var(--line);
-  border-radius: 13px;
-  background: linear-gradient(145deg, var(--surface), var(--surface-2));
-  box-shadow: var(--shadow-sm);
+  border-radius: 12px;
+  filter: drop-shadow(0 4px 8px rgba(85, 55, 25, 0.16));
 }
 
-.logo-glyph {
-  color: var(--accent);
-  font-size: 23px;
-  font-weight: 700;
-  line-height: 1;
-}
-
-.logo-badge {
-  position: absolute;
-  right: -5px;
-  bottom: -5px;
-  display: grid;
-  place-items: center;
-  width: 18px;
-  height: 18px;
-  border: 2px solid var(--sidebar);
-  border-radius: 6px;
-  background: var(--gold);
-  color: #fffdf6;
-  font-size: 9px;
-  font-weight: 800;
-  line-height: 1;
+.logo img {
+  display: block;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
 }
 
 .brand-text {
@@ -598,6 +605,7 @@ a {
 
 .panel-head h2 {
   margin: 0;
+  font-family: var(--font-display);
   font-size: clamp(26px, 2.6vw, 32px);
   font-weight: 700;
   letter-spacing: -0.01em;
@@ -663,6 +671,7 @@ a {
 .surface-head h3,
 .note-surface h3 {
   margin: 0;
+  font-family: var(--font-display);
   font-size: 16.5px;
   font-weight: 700;
 }
@@ -893,13 +902,13 @@ input[type="search"]::-webkit-search-cancel-button {
 .btn.danger {
   border-color: var(--danger);
   background: var(--danger);
-  color: #fffaf7;
+  color: #f7f4ef;
 }
 
 .btn.danger:hover:not(:disabled) {
   border-color: var(--danger-strong);
   background: var(--danger-strong);
-  color: #fffaf7;
+  color: #f7f4ef;
 }
 
 .btn.ghost.danger {
@@ -1261,6 +1270,7 @@ input[type="checkbox"]:disabled {
 
 .section-copy h3 {
   margin: 0;
+  font-family: var(--font-display);
   font-size: 16px;
   font-weight: 700;
 }
@@ -1661,18 +1671,20 @@ input[type="checkbox"]:disabled {
   display: grid;
   place-items: center;
   flex: none;
-  width: 22px;
-  height: 22px;
-  border: 1.5px solid var(--gold);
-  border-radius: 7px;
-  background: linear-gradient(145deg, var(--accent) 0%, var(--accent-strong) 100%);
-  color: var(--on-accent);
-  font-size: 12.5px;
-  font-weight: 700;
-  line-height: 1;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(85, 55, 25, 0.16);
   box-shadow:
     0 0 0 2px var(--surface),
     0 0 0 3px var(--gold-soft);
+}
+
+.dialog-brand-mark img {
+  display: block;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
 }
 
 .dialog-brand-name {
@@ -1690,6 +1702,7 @@ input[type="checkbox"]:disabled {
 }
 
 .dialog-card h2 {
+  font-family: var(--font-display);
   margin: 0;
   font-size: 21px;
   font-weight: 700;
@@ -1789,20 +1802,11 @@ input[type="checkbox"]:disabled {
     padding: 0;
   }
 
-  .logo {
+  .logo,
+  .logo img {
     width: 36px;
     height: 36px;
-    border-radius: 11px;
-  }
-
-  .logo-glyph {
-    font-size: 20px;
-  }
-
-  .logo-badge {
-    width: 16px;
-    height: 16px;
-    font-size: 8px;
+    border-radius: 10px;
   }
 
   .brand-name {

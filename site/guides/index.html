@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="google-site-verification" content="BxGIGgYgIAEDpfUP1RiTUpCBy_e0Reas2aukQHyE3bI">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Guides — Arabic ↔ English Vocabulary Workflows | Hassala</title>
   <meta name="description" content="Practical guides for Arabic ↔ English learners: save translated words to Markdown, and translate YouTube subtitles word by word with Hassala.">
@@ -9,9 +10,10 @@
   <link rel="alternate" hreflang="en" href="https://hassala.nagdista.com/guides/">
   <link rel="alternate" hreflang="ar" href="https://hassala.nagdista.com/ar/guides/">
   <link rel="alternate" hreflang="x-default" href="https://hassala.nagdista.com/guides/">
-  <meta name="theme-color" content="#0f6b63">
+  <meta name="theme-color" content="#ff4d00">
   <meta name="robots" content="index, follow, max-image-preview:large">
-  <meta name="author" content="Hassala contributors">
+  <meta name="author" content="Mahmoud Elnagdy">
+  <link rel="author" href="https://nagdista.com/">
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Hassala">
@@ -39,8 +41,24 @@
     "@context": "https://schema.org",
     "@graph": [
       {
+        "@type": "Person",
+        "@id": "https://nagdista.com/#person",
+        "name": "Mahmoud Elnagdy",
+        "alternateName": ["Mahmoud Alnagdy", "محمود النجدي", "Nagdista"],
+        "jobTitle": "Full-Stack Developer",
+        "url": "https://nagdista.com/",
+        "email": "mailto:nagdista@gmail.com",
+        "knowsLanguage": ["ar", "en"],
+        "sameAs": [
+          "https://github.com/nagdista-dev",
+          "https://x.com/nagdista",
+          "https://www.linkedin.com/in/nagdista"
+        ]
+      },
+      {
         "@type": "CollectionPage",
         "@id": "https://hassala.nagdista.com/guides/#page",
+        "author": { "@id": "https://nagdista.com/#person" },
         "url": "https://hassala.nagdista.com/guides/",
         "name": "Hassala Guides — Arabic ↔ English Vocabulary Workflows",
         "description": "Practical guides for saving translated Arabic and English words to Markdown and translating YouTube subtitles word by word.",
@@ -286,7 +304,7 @@
       </div>
       <div class="footer-bottom">
         <p>© 2026 Hassala contributors. MIT licensed.</p>
-        <p>Not affiliated with Google, YouTube, Obsidian, or Logseq.</p>
+        <p>Built by <a href="https://nagdista.com/">Mahmoud Elnagdy</a>. Not affiliated with Google, YouTube, Obsidian, or Logseq.</p>
       </div>
     </div>
   </footer>

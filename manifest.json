@@ -43,7 +43,11 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "src/fonts/BalooBhaijaan2-Variable.woff2"
+        "src/fonts/BalooBhaijaan2-Variable.woff2",
+        "src/fonts/Inter-Variable.woff2",
+        "src/fonts/SpaceGrotesk-Variable.woff2",
+        "src/fonts/Alexandria-Variable.woff2",
+        "src/icons/mark.svg"
       ],
       "matches": [
         "<all_urls>"
@@ -88,5 +92,6 @@
       "run_at": "document_idle",
       "all_frames": false
     }
-  ]
+  ],
+  "homepage_url": "https://hassala.nagdista.com/"
 }

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="google-site-verification" content="BxGIGgYgIAEDpfUP1RiTUpCBy_e0Reas2aukQHyE3bI">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Hassala — Arabic ↔ English Chrome Translator &amp; Word Bank</title>
   <meta name="description" content="Hassala is a free, open-source Chrome extension that translates Arabic ↔ English, keeps every word in a private local word bank with folders, and makes YouTube subtitles interactive. Export to Markdown, TXT, CSV, or JSON whenever you want. No account, no tracking.">
@@ -9,9 +10,10 @@
   <link rel="alternate" hreflang="en" href="https://hassala.nagdista.com/">
   <link rel="alternate" hreflang="ar" href="https://hassala.nagdista.com/ar/">
   <link rel="alternate" hreflang="x-default" href="https://hassala.nagdista.com/">
-  <meta name="theme-color" content="#0f6b63">
+  <meta name="theme-color" content="#ff4d00">
   <meta name="robots" content="index, follow, max-image-preview:large">
-  <meta name="author" content="Hassala contributors">
+  <meta name="author" content="Mahmoud Elnagdy">
+  <link rel="author" href="https://nagdista.com/">
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Hassala">
@@ -29,9 +31,13 @@
   <meta name="twitter:description" content="Translate Arabic ↔ English, keep every word in a local word bank with folders and export, and make YouTube subtitles interactive. Free and open source.">
   <meta name="twitter:image" content="https://hassala.nagdista.com/assets/social-preview-en.png">
 
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="icon" type="image/png" href="assets/icon128.png">
-  <link rel="apple-touch-icon" href="assets/icon192.png">
+  <link rel="alternate icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
+  <link rel="preload" href="assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/SpaceGrotesk-Variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/BalooBhaijaan2-Variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/style.css">
 
@@ -40,8 +46,24 @@
     "@context": "https://schema.org",
     "@graph": [
       {
+        "@type": "Person",
+        "@id": "https://nagdista.com/#person",
+        "name": "Mahmoud Elnagdy",
+        "alternateName": ["Mahmoud Alnagdy", "محمود النجدي", "Nagdista"],
+        "jobTitle": "Full-Stack Developer",
+        "url": "https://nagdista.com/",
+        "email": "mailto:nagdista@gmail.com",
+        "knowsLanguage": ["ar", "en"],
+        "sameAs": [
+          "https://github.com/nagdista-dev",
+          "https://x.com/nagdista",
+          "https://www.linkedin.com/in/nagdista"
+        ]
+      },
+      {
         "@type": "SoftwareApplication",
         "@id": "https://hassala.nagdista.com/#app",
+        "author": { "@id": "https://nagdista.com/#person" },
         "name": "Hassala",
         "alternateName": ["حصالة", "Hassala Arabic Word Translator"],
         "applicationCategory": "EducationalApplication",

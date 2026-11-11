@@ -55,6 +55,10 @@ is on the public roadmap.
 - Account/cloud sync: none
 - Chrome Web Store status: not published yet; available from GitHub Releases
 - Source: https://github.com/nagdista-dev/hassala
+- Author and maintainer: Mahmoud Elnagdy (محمود النجدي), full-stack developer in Cairo, Egypt. Portfolio: https://nagdista.com/
+- GitHub: https://github.com/nagdista-dev
+- LinkedIn: https://www.linkedin.com/in/nagdista
+- X: https://x.com/nagdista
 - Website: https://hassala.nagdista.com/
 - Privacy policy: https://gist.github.com/nagdista-dev/282cc2ce8fe35c5fb7199f7ffd2cd705
 

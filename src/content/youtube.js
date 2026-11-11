@@ -99,9 +99,9 @@
     }
 
     .yt-word.is-active {
-      background: #b8862f;
+      background: #c93d00;
       color: #fff;
-      box-shadow: 0 0 0 2px #b8862f;
+      box-shadow: 0 0 0 2px #c93d00;
     }
 
     @media (prefers-reduced-motion: reduce) {

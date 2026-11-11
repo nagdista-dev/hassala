@@ -25,6 +25,10 @@
   window[LOADED_FLAG] = true;
 
   const FONT_URL = runtime.getURL('src/fonts/BalooBhaijaan2-Variable.woff2');
+  const INTER_URL = runtime.getURL('src/fonts/Inter-Variable.woff2');
+  const SPACE_URL = runtime.getURL('src/fonts/SpaceGrotesk-Variable.woff2');
+  const ALEX_URL = runtime.getURL('src/fonts/Alexandria-Variable.woff2');
+  const MARK_URL = runtime.getURL('src/icons/mark.svg');
   const bank = globalThis.HassalaWordBank || null;
 
   const ARABIC_RE =
@@ -56,28 +60,53 @@
       font-display: swap;
     }
 
+    @font-face {
+      font-family: "Inter";
+      src: url("${INTER_URL}") format("woff2");
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Space Grotesk";
+      src: url("${SPACE_URL}") format("woff2");
+      font-weight: 300 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Alexandria";
+      src: url("${ALEX_URL}") format("woff2");
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
     :host {
       all: initial;
-      --aet-bg: #f5e9d2;
-      --aet-surface: #fffaf0;
-      --aet-surface-2: #f9f0de;
-      --aet-text: #2c2118;
-      --aet-muted: #7f6b54;
-      --aet-line: #e8d9bf;
-      --aet-line-strong: #d3bb92;
-      --aet-accent: #0f766e;
-      --aet-accent-strong: #0a5d57;
-      --aet-accent-soft: #dff0e8;
-      --aet-accent-text: #0b5f58;
-      --aet-on-accent: #ffffff;
-      --aet-on-gold: #2c2118;
-      --aet-gold: #b8862f;
-      --aet-gold-soft: #f2e2bd;
-      --aet-gold-strong: #8f6420;
-      --aet-terracotta: #b4532a;
-      --aet-danger: #a83a2d;
-      --aet-danger-soft: #f9e5de;
-      --aet-shadow: 0 18px 50px rgba(85, 55, 25, 0.22);
+      /* Nagdista identity palette — https://nagdista.com/ */
+      --aet-bg: #efeae1;
+      --aet-surface: #f7f4ef;
+      --aet-surface-2: #f2ede6;
+      --aet-text: #12110f;
+      --aet-muted: #6b665e;
+      --aet-line: rgba(18, 17, 15, 0.14);
+      --aet-line-strong: rgba(18, 17, 15, 0.28);
+      --aet-accent: #ff4d00;
+      --aet-accent-strong: #c93d00;
+      --aet-accent-soft: #ffe3d6;
+      --aet-accent-text: #c93d00;
+      --aet-on-accent: #12110f;
+      --aet-on-gold: #12110f;
+      --aet-gold: #c93d00;
+      --aet-gold-soft: #ffe3d6;
+      --aet-gold-strong: #8a2c00;
+      --aet-terracotta: #c93d00;
+      --aet-danger: #a32a1a;
+      --aet-danger-soft: #f9e7e1;
+      --aet-shadow: 0 18px 50px rgba(18, 17, 15, 0.2);
       position: fixed;
       inset: 0;
       z-index: 2147483647;
@@ -85,7 +114,8 @@
       pointer-events: none;
       direction: ltr;
       color: var(--aet-text);
-      font-family: "Baloo Bhaijaan 2", "Noto Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+      font-family: "Inter", "Baloo Bhaijaan 2", "Noto Sans Arabic", "Segoe UI",
+        Tahoma, sans-serif;
       font-size: 14px;
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
@@ -93,25 +123,25 @@
 
     @media (prefers-color-scheme: dark) {
       :host {
-        --aet-bg: #121a18;
-        --aet-surface: #1b2724;
-        --aet-surface-2: #22302c;
-        --aet-text: #f5ecd9;
-        --aet-muted: #b8a88e;
-        --aet-line: #33443e;
-        --aet-line-strong: #4b5f56;
-        --aet-accent: #2dd4bf;
-        --aet-accent-strong: #14b8a6;
-        --aet-accent-soft: #17362f;
-        --aet-accent-text: #9af3e6;
-        --aet-on-accent: #07211d;
-        --aet-on-gold: #2c2118;
-        --aet-gold: #e0b969;
-        --aet-gold-soft: #3a2f1c;
-        --aet-gold-strong: #f0d79a;
-        --aet-terracotta: #e58a5e;
+        --aet-bg: #12110f;
+        --aet-surface: #201d19;
+        --aet-surface-2: #262320;
+        --aet-text: #f7f4ef;
+        --aet-muted: #a39c91;
+        --aet-line: rgba(247, 244, 239, 0.16);
+        --aet-line-strong: rgba(247, 244, 239, 0.3);
+        --aet-accent: #ff4d00;
+        --aet-accent-strong: #ff7a3d;
+        --aet-accent-soft: #3a1c0c;
+        --aet-accent-text: #ff9a66;
+        --aet-on-accent: #12110f;
+        --aet-on-gold: #12110f;
+        --aet-gold: #ff7a3d;
+        --aet-gold-soft: #3a1c0c;
+        --aet-gold-strong: #ff9a66;
+        --aet-terracotta: #ff7a3d;
         --aet-danger: #ff9b8a;
-        --aet-danger-soft: #3a211c;
+        --aet-danger-soft: #38211d;
         --aet-shadow: 0 20px 54px rgba(0, 0, 0, 0.55);
       }
     }
@@ -150,7 +180,7 @@
       padding: 7px 12px;
       border: 1.5px solid var(--aet-gold);
       border-radius: 999px;
-      background: linear-gradient(180deg, #14958a 0%, #0f766e 55%, #0a5d57 100%);
+      background: linear-gradient(180deg, #ff7a3d 0%, #ff4d00 55%, #c93d00 100%);
       color: var(--aet-on-accent);
       font: inherit;
       font-size: 13px;
@@ -169,7 +199,7 @@
     }
 
     #selectionTranslate:hover {
-      background: linear-gradient(180deg, #17a89b 0%, #11857c 55%, #0b6962 100%);
+      background: linear-gradient(180deg, #ff9463 0%, #ff6a2b 55%, #e04300 100%);
       transform: translateY(-1px);
       box-shadow:
         0 0 0 3px rgba(255, 250, 240, 0.7),
@@ -228,16 +258,13 @@
       width: 100%;
       height: 100%;
       padding: 0;
-      border: 2px solid var(--aet-gold);
+      border: 0;
       border-radius: 16px;
-      background: radial-gradient(circle at 30% 20%, #17b3a4 0%, #0f766e 48%, #0a5d57 100%);
-      color: #fff;
-      opacity: 0.9;
+      background: transparent;
+      opacity: 0.92;
       box-shadow:
-        0 0 0 3px rgba(255, 250, 240, 0.55),
-        0 0 0 4px rgba(184, 134, 47, 0.35),
-        0 12px 26px rgba(10, 93, 87, 0.38),
-        inset 0 1px 0 rgba(255, 255, 255, 0.26);
+        0 0 0 3px rgba(255, 250, 240, 0.72),
+        0 12px 26px rgba(10, 93, 87, 0.36);
       pointer-events: auto;
       touch-action: none;
       user-select: none;
@@ -252,10 +279,8 @@
       opacity: 1;
       transform: translateY(-1px);
       box-shadow:
-        0 0 0 3px rgba(255, 250, 240, 0.7),
-        0 0 0 5px rgba(184, 134, 47, 0.55),
-        0 16px 32px rgba(10, 93, 87, 0.46),
-        inset 0 1px 0 rgba(255, 255, 255, 0.32);
+        0 0 0 3px rgba(255, 250, 240, 0.92),
+        0 16px 32px rgba(10, 93, 87, 0.44);
     }
 
     #fab:active {
@@ -263,42 +288,10 @@
     }
 
     #fab .fab-logo {
-      color: #fff;
-      font-family: "Baloo Bhaijaan 2", "Noto Sans Arabic", "Segoe UI", Tahoma, sans-serif;
-      font-size: 24px;
-      font-weight: 700;
-      line-height: 1;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.28);
-      transform: translateY(1px);
-    }
-
-    #fab .fab-badge {
-      position: absolute;
-      left: -5px;
-      bottom: -5px;
-      display: grid;
-      place-items: center;
-      width: 18px;
-      height: 18px;
-      border: 2px solid var(--aet-surface);
-      border-radius: 50%;
-      background: var(--aet-terracotta);
-      color: #fff;
-      font-family: "Baloo Bhaijaan 2", "Noto Sans Arabic", "Segoe UI", Tahoma, sans-serif;
-      font-size: 8.5px;
-      font-weight: 700;
-      box-shadow: 0 1px 5px rgba(85, 55, 25, 0.34);
-    }
-
-    #fab .fab-spark {
-      position: absolute;
-      top: -7px;
-      right: -6px;
-      color: var(--aet-gold);
-      font-size: 11px;
-      line-height: 1;
-      text-shadow: 0 1px 2px rgba(85, 55, 25, 0.35);
-      pointer-events: none;
+      display: block;
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
     }
 
     #fabClose {
@@ -314,7 +307,8 @@
       border-radius: 50%;
       background: var(--aet-danger);
       color: #fff;
-      font-family: "Baloo Bhaijaan 2", "Noto Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+      font-family: "Inter", "Baloo Bhaijaan 2", "Noto Sans Arabic", "Segoe UI",
+        Tahoma, sans-serif;
       font-size: 15px;
       font-weight: 700;
       line-height: 1;
@@ -337,7 +331,7 @@
     }
 
     #fabClose:hover {
-      background: #8f2b20;
+      background: #7f1f1f;
     }
 
     /* ---------- Panel ---------- */
@@ -468,7 +462,8 @@
 
     .head-text strong {
       color: var(--aet-text);
-      font-family: "Baloo Bhaijaan 2", "Noto Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+      font-family: "Inter", "Baloo Bhaijaan 2", "Noto Sans Arabic", "Segoe UI",
+        Tahoma, sans-serif;
       font-size: 15.5px;
       font-weight: 700;
       line-height: 1.35;
@@ -488,18 +483,15 @@
       flex: none;
       width: 30px;
       height: 30px;
-      border: 2px solid var(--aet-gold);
-      border-radius: 10px;
-      background: linear-gradient(145deg, var(--aet-accent) 0%, var(--aet-accent-strong) 100%);
-      color: var(--aet-on-accent);
-      font-family: "Baloo Bhaijaan 2", "Noto Sans Arabic", "Segoe UI", Tahoma, sans-serif;
-      font-size: 17px;
-      font-weight: 700;
-      line-height: 1;
-      box-shadow:
-        0 0 0 2px var(--aet-surface),
-        0 0 0 3px var(--aet-gold-soft);
-      transform: translateY(1px);
+      border-radius: 9px;
+      filter: drop-shadow(0 3px 6px rgba(85, 55, 25, 0.2));
+    }
+
+    .mini-logo img {
+      display: block;
+      width: 30px;
+      height: 30px;
+      border-radius: 9px;
     }
 
     .icon {
@@ -585,10 +577,10 @@
       justify-content: center;
       gap: 6px;
       padding: 4px 12px;
-      border: 1px solid rgba(184, 134, 47, 0.55);
+      border: 1px solid rgba(201, 61, 0, 0.45);
       border-radius: 999px;
-      background: linear-gradient(180deg, #f8ebcd 0%, #ecd3a0 100%);
-      color: #5a3c12;
+      background: linear-gradient(180deg, #ffe3d6 0%, #ffd2bd 100%);
+      color: #c93d00;
       font-size: 11px;
       font-weight: 700;
       line-height: 1.6;
@@ -735,7 +727,8 @@
         linear-gradient(180deg, rgba(255, 255, 255, 0.5), transparent 60%),
         var(--aet-surface-2);
       color: var(--aet-text);
-      font-family: "Baloo Bhaijaan 2", "Noto Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+      font-family: "Inter", "Baloo Bhaijaan 2", "Noto Sans Arabic", "Segoe UI",
+        Tahoma, sans-serif;
       font-size: 23px;
       font-weight: 700;
       line-height: 1.55;
@@ -745,7 +738,8 @@
     }
 
     .result[data-state="ready"][lang="en"] {
-      font-family: "Baloo Bhaijaan 2", "Noto Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+      font-family: "Inter", "Baloo Bhaijaan 2", "Noto Sans Arabic", "Segoe UI",
+        Tahoma, sans-serif;
     }
 
     .result[data-state="ready"]::after {
@@ -1105,8 +1099,8 @@
       }
 
       .direction {
-        border-color: #5a4724;
-        background: linear-gradient(180deg, #3a2f1c 0%, #2c2416 100%);
+        border-color: rgba(247, 244, 239, 0.24);
+        background: linear-gradient(180deg, #3a1c0c 0%, #2a160a 100%);
         color: var(--aet-gold-strong);
         box-shadow:
           inset 0 1px 0 rgba(255, 255, 255, 0.06),
@@ -1178,9 +1172,7 @@
 
     <div id="fabWrap" style="visibility:hidden">
       <button id="fab" type="button" title="Hassala — keep every word" aria-label="Open Hassala">
-        <span class="fab-spark" aria-hidden="true">✦</span>
-        <span class="fab-logo">ع</span>
-        <span class="fab-badge">A</span>
+        <img class="fab-logo" src="${MARK_URL}" alt="" width="46" height="46" draggable="false" />
       </button>
       <button id="fabClose" type="button" title="Hide floating button — restore it from the extension icon" aria-label="Hide floating button">×</button>
     </div>
@@ -1188,7 +1180,7 @@
     <section id="panel" dir="ltr" hidden>
       <header class="head" id="panelHead">
         <div class="head-title">
-          <span class="mini-logo">ع</span>
+          <span class="mini-logo"><img src="${MARK_URL}" alt="" width="30" height="30" /></span>
           <span class="head-text">
             <strong>Hassala</strong>
             <small>Keep every word ✦</small>

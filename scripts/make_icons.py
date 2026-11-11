@@ -24,18 +24,18 @@ ASSETS_DIR = os.path.join(ROOT, "assets")
 
 DESIGN = 1024
 
-CREAM = (255, 249, 236, 255)
-CREAM_DARK = (246, 230, 200, 255)
-CREAM_SHADE = (233, 210, 170, 255)
-GOLD_LIGHT = (248, 215, 132, 255)
-GOLD_DARK = (201, 148, 52, 255)
-GOLD_RIM = (172, 122, 38, 255)
-ENGRAVE = (116, 72, 16, 255)
-TEAL_TOP = (20, 138, 126)
-TEAL_BOTTOM = (9, 88, 80)
-TEAL = (15, 118, 110, 255)
-TEAL_DARK = (9, 74, 68, 255)
-TERRA = (180, 83, 42, 255)
+# Nagdista identity palette — https://nagdista.com/
+PAPER = (247, 244, 239, 255)
+PAPER_2 = (239, 234, 225, 255)
+PAPER_3 = (231, 224, 212, 255)
+INK = (18, 17, 15, 255)
+INK_2 = (42, 39, 34, 255)
+MUTED = (107, 102, 94, 255)
+ACCENT = (255, 77, 0, 255)
+ACCENT_TOP = (255, 77, 0)
+ACCENT_BOTTOM = (224, 67, 0)
+ACCENT_STRONG = (201, 61, 0, 255)
+ACCENT_SOFT = (255, 227, 214, 255)
 
 FONT_CANDIDATES = {
     "kufi": [
@@ -46,7 +46,34 @@ FONT_CANDIDATES = {
         "/usr/share/fonts/truetype/baloo-bhaijaan-2/BalooBhaijaan2-ExtraBold.ttf",
         "/usr/share/fonts/truetype/baloo-bhaijaan-2/BalooBhaijaan2-Bold.ttf",
     ],
+    "space-grotesk": [
+        os.path.expanduser(
+            "~/Documents/nagdista-identity/assets/fonts/SpaceGrotesk-Variable.ttf"
+        ),
+    ],
+    "inter": [
+        os.path.expanduser(
+            "~/Documents/nagdista-identity/assets/fonts/Inter-Variable.ttf"
+        ),
+    ],
 }
+
+
+def find_display_font(
+    kind: str, size: int, variation: str | None = None
+) -> ImageFont.FreeTypeFont:
+    """Load one of the Nagdista identity variable fonts at a weight."""
+    for path in FONT_CANDIDATES.get(kind, []):
+        if not os.path.isfile(path):
+            continue
+        font = ImageFont.truetype(path, size)
+        if variation:
+            try:
+                font.set_variation_by_name(variation)
+            except (OSError, ValueError):
+                pass
+        return font
+    raise SystemExit(f"Identity font not found for {kind!r}")
 
 
 def find_font(kind: str, size: int) -> ImageFont.FreeTypeFont:
@@ -140,7 +167,7 @@ def draw_icon(size: int) -> Image.Image:
         return value * u
 
     # Rounded teal tile.
-    tile = vertical_gradient(render, TEAL_TOP, TEAL_BOTTOM).convert("RGBA")
+    tile = vertical_gradient(render, ACCENT_TOP, ACCENT_BOTTOM).convert("RGBA")
     tile.putalpha(rounded_mask(render, int(s(220))))
 
     # Soft light from the top-left.
@@ -208,26 +235,26 @@ def draw_icon(size: int) -> Image.Image:
         canvas.alpha_composite(layer)
 
     # Word cards rising out of the box.
-    draw_card(448, 445, 150, 210, -9, TEAL, CREAM, "ح", 120, CREAM)
-    draw_card(586, 433, 150, 210, 7, TERRA, CREAM_SHADE, "A", 105, CREAM)
+    draw_card(448, 445, 150, 210, -9, INK, PAPER_3, "ح", 120, PAPER)
+    draw_card(586, 433, 150, 210, 7, PAPER, PAPER_3, "A", 105, INK)
 
     # Box body in front of the card bottoms.
     body, body_pos = gradient_rounded_rect(
-        render, (s(300), s(520), s(724), s(840)), s(72), CREAM, CREAM_DARK
+        render, (s(300), s(520), s(724), s(840)), s(72), PAPER, PAPER_2
     )
     canvas.alpha_composite(body, body_pos)
     draw = ImageDraw.Draw(canvas)
 
     # Box rim.
     draw.rounded_rectangle(
-        (s(300), s(520), s(724), s(582)), radius=s(34), fill=CREAM_DARK
+        (s(300), s(520), s(724), s(582)), radius=s(34), fill=PAPER_2
     )
 
     # Brand badge on the front of the box.
     draw.rounded_rectangle(
-        (s(402), s(692), s(622), s(768)), radius=s(30), fill=TEAL
+        (s(402), s(692), s(622), s(768)), radius=s(30), fill=INK
     )
-    star(draw, s(512), s(730), s(25), CREAM)
+    star(draw, s(512), s(730), s(25), ACCENT)
 
     # A small sparkle keeps the brand's magic.
     star(draw, s(792), s(236), s(34), (255, 249, 236, 225))
@@ -247,7 +274,7 @@ def draw_toolbar_icon(size: int) -> Image.Image:
     def s(value: float) -> float:
         return value * u
 
-    tile = vertical_gradient(render, TEAL_TOP, TEAL_BOTTOM).convert("RGBA")
+    tile = vertical_gradient(render, ACCENT_TOP, ACCENT_BOTTOM).convert("RGBA")
     tile.putalpha(rounded_mask(render, int(s(220))))
 
     canvas = Image.new("RGBA", (render, render), (0, 0, 0, 0))
@@ -261,7 +288,7 @@ def draw_toolbar_icon(size: int) -> Image.Image:
         (s(512), s(520)),
         "ح",
         font=find_font("display", max(10, int(s(letter_size)))),
-        fill=CREAM,
+        fill=PAPER,
         anchor="mm",
         direction="rtl",
         language="ar",
@@ -277,9 +304,49 @@ def draw_toolbar_icon(size: int) -> Image.Image:
     return result
 
 
+def draw_social_preview_en() -> Image.Image:
+    """English Open Graph card in the Nagdista identity: paper, ink, one accent."""
+    width, height = 1280, 640
+    bg = vertical_gradient(height, (247, 244, 239), (231, 224, 212)).resize(
+        (width, height), Image.Resampling.BILINEAR
+    ).convert("RGBA")
+
+    shadow = Image.new("RGBA", (width, height), (0, 0, 0, 0))
+    ImageDraw.Draw(shadow).rounded_rectangle(
+        (152, 168, 488, 504), radius=84, fill=(0, 0, 0, 58)
+    )
+    shadow = shadow.filter(ImageFilter.GaussianBlur(26))
+    bg = Image.alpha_composite(bg, shadow)
+
+    icon = draw_icon(360)
+    bg.alpha_composite(icon, (140, 140))
+
+    draw = ImageDraw.Draw(bg)
+    eyebrow = find_display_font("space-grotesk", 30, "Medium")
+    title = find_display_font("space-grotesk", 118, "Bold")
+    lead = find_display_font("space-grotesk", 40, "Regular")
+    tiny = find_display_font("space-grotesk", 26, "Medium")
+
+    right = 1180
+    draw.text((right, 92), "ARABIC \u2194 ENGLISH WORD BANK", font=eyebrow,
+              fill=ACCENT_STRONG, anchor="rt")
+    draw.text((right, 150), "Hassala", font=title, fill=INK, anchor="rt")
+    draw.text((right, 300), "Every word you translate,", font=lead,
+              fill=INK, anchor="rt")
+    draw.text((right, 352), "kept on your own device.", font=lead,
+              fill=INK, anchor="rt")
+    draw.line((right - 460, 434, right, 434), fill=(231, 224, 212, 255), width=3)
+    draw.text((right, 458), "Free and open source \u00b7 Chrome, Brave, Edge",
+              font=tiny, fill=MUTED, anchor="rt")
+    draw.text((right, 500), "hassala.nagdista.com", font=tiny,
+              fill=ACCENT_STRONG, anchor="rt")
+
+    return bg.convert("RGB")
+
+
 def draw_social_preview() -> Image.Image:
     width, height = 1280, 640
-    bg = vertical_gradient(height, (245, 233, 210), (234, 212, 171)).resize(
+    bg = vertical_gradient(height, (247, 244, 239), (231, 224, 212)).resize(
         (width, height), Image.Resampling.BILINEAR
     ).convert("RGBA")
 
@@ -306,14 +373,14 @@ def draw_social_preview() -> Image.Image:
         (right, 88),
         "ARABIC WORD BANK",
         font=eyebrow,
-        fill=(184, 134, 47, 255),
+        fill=(201, 61, 0, 255),
         anchor="rt",
     )
     draw.text(
         (right, 132),
         "حصالة",
         font=kufi,
-        fill=(15, 118, 110, 255),
+        fill=(18, 17, 15, 255),
         anchor="rt",
         direction="rtl",
         language="ar",
@@ -322,7 +389,7 @@ def draw_social_preview() -> Image.Image:
         (right, 386),
         "كلماتك مش هتتوه… هتتحوش.",
         font=display,
-        fill=(44, 33, 24, 255),
+        fill=(18, 17, 15, 255),
         anchor="rt",
         direction="rtl",
         language="ar",
@@ -331,17 +398,17 @@ def draw_social_preview() -> Image.Image:
         (right, 466),
         "مترجم وحافظ الكلمات",
         font=small,
-        fill=(127, 107, 84, 255),
+        fill=(107, 102, 94, 255),
         anchor="rt",
         direction="rtl",
         language="ar",
     )
-    draw.line((right - 420, 526, right, 526), fill=(211, 187, 146, 255), width=3)
+    draw.line((right - 420, 526, right, 526), fill=(231, 224, 212, 255), width=3)
     draw.text(
         (right, 552),
         "بنك كلماتك على جهازك",
         font=tiny,
-        fill=(15, 118, 110, 255),
+        fill=(18, 17, 15, 255),
         anchor="rt",
         direction="rtl",
         language="ar",
@@ -350,9 +417,19 @@ def draw_social_preview() -> Image.Image:
     return bg.convert("RGB")
 
 
+def draw_maskable(size: int) -> Image.Image:
+    """Full-bleed square icon for Android maskable and Apple touch targets."""
+    canvas = vertical_gradient(size, ACCENT_TOP, ACCENT_BOTTOM).convert("RGBA")
+    art = draw_icon(int(size * 0.78))
+    canvas.alpha_composite(art, (int(size * 0.11), int(size * 0.11)))
+    return canvas
+
+
 def main() -> int:
     os.makedirs(ICONS_DIR, exist_ok=True)
     os.makedirs(ASSETS_DIR, exist_ok=True)
+    site_assets = os.path.join(ROOT, "site", "assets")
+    os.makedirs(site_assets, exist_ok=True)
 
     draw_icon(DESIGN).save(os.path.join(ASSETS_DIR, "icon-1024.png"))
 
@@ -365,14 +442,48 @@ def main() -> int:
         )
 
     draw_social_preview().save(os.path.join(ASSETS_DIR, "social-preview.png"))
+    draw_social_preview_en().save(
+        os.path.join(ASSETS_DIR, "social-preview-en.png")
+    )
+
+    # Site assets: the same artwork, exported at the sizes the site needs.
+    draw_icon(128).save(os.path.join(site_assets, "icon128.png"))
+    draw_icon(192).save(os.path.join(site_assets, "icon192.png"))
+    draw_icon(512).save(os.path.join(site_assets, "icon512.png"))
+    draw_maskable(512).save(
+        os.path.join(site_assets, "icon-maskable-512.png")
+    )
+    draw_maskable(180).convert("RGB").save(
+        os.path.join(ROOT, "site", "apple-touch-icon.png")
+    )
+    draw_icon(48).save(
+        os.path.join(ROOT, "site", "favicon.ico"),
+        format="ICO",
+        sizes=[(16, 16), (32, 32), (48, 48)],
+    )
+    shutil.copyfile(
+        os.path.join(ROOT, "assets", "brand", "hassala-mark.svg"),
+        os.path.join(ROOT, "site", "favicon.svg"),
+    )
+    shutil.copyfile(
+        os.path.join(ASSETS_DIR, "social-preview-en.png"),
+        os.path.join(site_assets, "social-preview-en.png"),
+    )
+    shutil.copyfile(
+        os.path.join(ASSETS_DIR, "social-preview.png"),
+        os.path.join(site_assets, "social-preview-ar.png"),
+    )
 
     print("Generated:")
-    for name in ("icon-1024.png", "social-preview.png"):
+    for name in ("icon-1024.png", "social-preview.png", "social-preview-en.png"):
         print(f"  assets/{name}")
     for size in (16, 32, 48, 128):
         print(f"  icons/icon{size}.png")
     for size in (16, 32):
         print(f"  icons/toolbar{size}.png")
+    print("  site/assets/icon{128,192,512}.png, site/assets/icon-maskable-512.png")
+    print("  site/apple-touch-icon.png, site/favicon.ico, site/favicon.svg")
+    print("  site/assets/social-preview-{en,ar}.png")
     return 0
 
 

@@ -23,6 +23,10 @@
 - Network: text is sent to Google Translate endpoints and MyMemory (fallback) only when the user requests a translation. Pronunciation uses Google TTS.
 - Chrome Web Store: not published yet. The extension is available from GitHub Releases.
 - Source code: https://github.com/nagdista-dev/hassala
+- Author and maintainer: Mahmoud Elnagdy (محمود النجدي), full-stack developer in Cairo, Egypt. Portfolio: https://nagdista.com/
+- GitHub: https://github.com/nagdista-dev
+- LinkedIn: https://www.linkedin.com/in/nagdista
+- X: https://x.com/nagdista
 - Website: https://hassala.nagdista.com/
 - Privacy policy: https://gist.github.com/nagdista-dev/282cc2ce8fe35c5fb7199f7ffd2cd705
 - Security policy: https://github.com/nagdista-dev/hassala/security/policy

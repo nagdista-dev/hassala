@@ -129,6 +129,7 @@ Sizes: 1280×800 or 640×400.
 ## Links
 
 - **Website:** https://hassala.nagdista.com/
+- **Developer:** Mahmoud Elnagdy — https://nagdista.com/
 - **Source code:** https://github.com/nagdista-dev/hassala
 - **Privacy policy:**
   https://gist.github.com/nagdista-dev/282cc2ce8fe35c5fb7199f7ffd2cd705
