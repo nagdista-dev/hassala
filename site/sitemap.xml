@@ -2,111 +2,111 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://nagdista-dev.github.io/hassala/</loc>
+    <loc>https://hassala.nagdista.com/</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://nagdista-dev.github.io/hassala/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://nagdista-dev.github.io/hassala/ar/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://nagdista-dev.github.io/hassala/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hassala.nagdista.com/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hassala.nagdista.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hassala.nagdista.com/"/>
   </url>
   <url>
-    <loc>https://nagdista-dev.github.io/hassala/ar/</loc>
+    <loc>https://hassala.nagdista.com/ar/</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://nagdista-dev.github.io/hassala/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://nagdista-dev.github.io/hassala/ar/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://nagdista-dev.github.io/hassala/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hassala.nagdista.com/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hassala.nagdista.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hassala.nagdista.com/"/>
   </url>
   <url>
-    <loc>https://nagdista-dev.github.io/hassala/compare/</loc>
+    <loc>https://hassala.nagdista.com/compare/</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://nagdista-dev.github.io/hassala/compare/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://nagdista-dev.github.io/hassala/ar/compare/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://nagdista-dev.github.io/hassala/compare/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hassala.nagdista.com/compare/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hassala.nagdista.com/ar/compare/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hassala.nagdista.com/compare/"/>
   </url>
   <url>
-    <loc>https://nagdista-dev.github.io/hassala/ar/compare/</loc>
+    <loc>https://hassala.nagdista.com/ar/compare/</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://nagdista-dev.github.io/hassala/compare/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://nagdista-dev.github.io/hassala/ar/compare/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://nagdista-dev.github.io/hassala/compare/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hassala.nagdista.com/compare/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hassala.nagdista.com/ar/compare/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hassala.nagdista.com/compare/"/>
   </url>
   <url>
-    <loc>https://nagdista-dev.github.io/hassala/guides/</loc>
+    <loc>https://hassala.nagdista.com/guides/</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://nagdista-dev.github.io/hassala/guides/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://nagdista-dev.github.io/hassala/ar/guides/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://nagdista-dev.github.io/hassala/guides/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hassala.nagdista.com/guides/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hassala.nagdista.com/ar/guides/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hassala.nagdista.com/guides/"/>
   </url>
   <url>
-    <loc>https://nagdista-dev.github.io/hassala/ar/guides/</loc>
+    <loc>https://hassala.nagdista.com/ar/guides/</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://nagdista-dev.github.io/hassala/guides/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://nagdista-dev.github.io/hassala/ar/guides/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://nagdista-dev.github.io/hassala/guides/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hassala.nagdista.com/guides/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hassala.nagdista.com/ar/guides/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hassala.nagdista.com/guides/"/>
   </url>
   <url>
-    <loc>https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/</loc>
+    <loc>https://hassala.nagdista.com/guides/save-words-to-markdown/</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://nagdista-dev.github.io/hassala/ar/guides/save-words-to-markdown/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hassala.nagdista.com/guides/save-words-to-markdown/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hassala.nagdista.com/ar/guides/save-words-to-markdown/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hassala.nagdista.com/guides/save-words-to-markdown/"/>
   </url>
   <url>
-    <loc>https://nagdista-dev.github.io/hassala/ar/guides/save-words-to-markdown/</loc>
+    <loc>https://hassala.nagdista.com/ar/guides/save-words-to-markdown/</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://nagdista-dev.github.io/hassala/ar/guides/save-words-to-markdown/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hassala.nagdista.com/guides/save-words-to-markdown/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hassala.nagdista.com/ar/guides/save-words-to-markdown/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hassala.nagdista.com/guides/save-words-to-markdown/"/>
   </url>
   <url>
-    <loc>https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/</loc>
+    <loc>https://hassala.nagdista.com/guides/translate-youtube-subtitles/</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://nagdista-dev.github.io/hassala/ar/guides/translate-youtube-subtitles/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hassala.nagdista.com/guides/translate-youtube-subtitles/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hassala.nagdista.com/ar/guides/translate-youtube-subtitles/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hassala.nagdista.com/guides/translate-youtube-subtitles/"/>
   </url>
   <url>
-    <loc>https://nagdista-dev.github.io/hassala/ar/guides/translate-youtube-subtitles/</loc>
+    <loc>https://hassala.nagdista.com/ar/guides/translate-youtube-subtitles/</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://nagdista-dev.github.io/hassala/ar/guides/translate-youtube-subtitles/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hassala.nagdista.com/guides/translate-youtube-subtitles/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hassala.nagdista.com/ar/guides/translate-youtube-subtitles/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hassala.nagdista.com/guides/translate-youtube-subtitles/"/>
   </url>
   <url>
-    <loc>https://nagdista-dev.github.io/hassala/guides/obsidian-vocabulary-workflow/</loc>
+    <loc>https://hassala.nagdista.com/guides/obsidian-vocabulary-workflow/</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://nagdista-dev.github.io/hassala/guides/obsidian-vocabulary-workflow/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://nagdista-dev.github.io/hassala/ar/guides/obsidian-vocabulary-workflow/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://nagdista-dev.github.io/hassala/guides/obsidian-vocabulary-workflow/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hassala.nagdista.com/guides/obsidian-vocabulary-workflow/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hassala.nagdista.com/ar/guides/obsidian-vocabulary-workflow/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hassala.nagdista.com/guides/obsidian-vocabulary-workflow/"/>
   </url>
   <url>
-    <loc>https://nagdista-dev.github.io/hassala/ar/guides/obsidian-vocabulary-workflow/</loc>
+    <loc>https://hassala.nagdista.com/ar/guides/obsidian-vocabulary-workflow/</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://nagdista-dev.github.io/hassala/guides/obsidian-vocabulary-workflow/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://nagdista-dev.github.io/hassala/ar/guides/obsidian-vocabulary-workflow/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://nagdista-dev.github.io/hassala/guides/obsidian-vocabulary-workflow/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hassala.nagdista.com/guides/obsidian-vocabulary-workflow/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hassala.nagdista.com/ar/guides/obsidian-vocabulary-workflow/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hassala.nagdista.com/guides/obsidian-vocabulary-workflow/"/>
   </url>
 </urlset>

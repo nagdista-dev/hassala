@@ -23,25 +23,25 @@
 - Network: text is sent to Google Translate endpoints and MyMemory (fallback) only when the user requests a translation. Pronunciation uses Google TTS.
 - Chrome Web Store: not published yet. The extension is available from GitHub Releases.
 - Source code: https://github.com/nagdista-dev/hassala
-- Website: https://nagdista-dev.github.io/hassala/
+- Website: https://hassala.nagdista.com/
 - Privacy policy: https://gist.github.com/nagdista-dev/282cc2ce8fe35c5fb7199f7ffd2cd705
 - Security policy: https://github.com/nagdista-dev/hassala/security/policy
 - License: https://github.com/nagdista-dev/hassala/blob/main/LICENSE
 
 ## Pages
 
-- [Home (English)](https://nagdista-dev.github.io/hassala/): product overview, features, how it works, comparison, FAQ.
-- [Arabic home](https://nagdista-dev.github.io/hassala/ar/): Arabic overview, features, how it works, comparison, and FAQ.
-- [Comparison](https://nagdista-dev.github.io/hassala/compare/): Hassala vs. a general translator extension vs. manual notes, including honest limitations.
-- [Arabic comparison](https://nagdista-dev.github.io/hassala/ar/compare/): the same comparison in Arabic.
-- [Guides](https://nagdista-dev.github.io/hassala/guides/): all published walkthroughs in English.
-- [Arabic guides](https://nagdista-dev.github.io/hassala/ar/guides/): all published walkthroughs in Arabic.
-- [How to save translated words to Markdown](https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/): local folders, saving, export formats, custom file names, and opening the export in Obsidian, Logseq, or VS Code.
-- [Translate YouTube subtitles word by word](https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/): click a caption word, drag a phrase, save it to a local folder, and export later.
-- [Obsidian vocabulary workflow](https://nagdista-dev.github.io/hassala/guides/obsidian-vocabulary-workflow/): collect words in Hassala, export Markdown, move the file into a vault, and build a review routine.
-- [Arabic YouTube guide](https://nagdista-dev.github.io/hassala/ar/guides/translate-youtube-subtitles/): the Arabic step-by-step walkthrough.
-- [Arabic Obsidian guide](https://nagdista-dev.github.io/hassala/ar/guides/obsidian-vocabulary-workflow/): the Arabic Obsidian workflow.
-- [Arabic Markdown guide](https://nagdista-dev.github.io/hassala/ar/guides/save-words-to-markdown/): the Arabic step-by-step walkthrough.
+- [Home (English)](https://hassala.nagdista.com/): product overview, features, how it works, comparison, FAQ.
+- [Arabic home](https://hassala.nagdista.com/ar/): Arabic overview, features, how it works, comparison, and FAQ.
+- [Comparison](https://hassala.nagdista.com/compare/): Hassala vs. a general translator extension vs. manual notes, including honest limitations.
+- [Arabic comparison](https://hassala.nagdista.com/ar/compare/): the same comparison in Arabic.
+- [Guides](https://hassala.nagdista.com/guides/): all published walkthroughs in English.
+- [Arabic guides](https://hassala.nagdista.com/ar/guides/): all published walkthroughs in Arabic.
+- [How to save translated words to Markdown](https://hassala.nagdista.com/guides/save-words-to-markdown/): local folders, saving, export formats, custom file names, and opening the export in Obsidian, Logseq, or VS Code.
+- [Translate YouTube subtitles word by word](https://hassala.nagdista.com/guides/translate-youtube-subtitles/): click a caption word, drag a phrase, save it to a local folder, and export later.
+- [Obsidian vocabulary workflow](https://hassala.nagdista.com/guides/obsidian-vocabulary-workflow/): collect words in Hassala, export Markdown, move the file into a vault, and build a review routine.
+- [Arabic YouTube guide](https://hassala.nagdista.com/ar/guides/translate-youtube-subtitles/): the Arabic step-by-step walkthrough.
+- [Arabic Obsidian guide](https://hassala.nagdista.com/ar/guides/obsidian-vocabulary-workflow/): the Arabic Obsidian workflow.
+- [Arabic Markdown guide](https://hassala.nagdista.com/ar/guides/save-words-to-markdown/): the Arabic step-by-step walkthrough.
 - [Installation guide](https://github.com/nagdista-dev/hassala/blob/main/docs/INSTALL.md): install from a release and troubleshoot.
 - [Architecture](https://github.com/nagdista-dev/hassala/blob/main/docs/ARCHITECTURE.md): components, data flow, and storage.
 - [Privacy policy](https://github.com/nagdista-dev/hassala/blob/main/docs/PRIVACY.md): what is processed and where it goes.
@@ -87,6 +87,6 @@ Not yet. It is available from GitHub Releases today.
 
 ## Preferred citation
 
-"Hassala is a free, open-source Chrome extension that translates Arabic and English, keeps words in a private local word bank with folders, and exports Markdown, TXT, CSV, or JSON on demand (https://nagdista-dev.github.io/hassala/)."
+"Hassala is a free, open-source Chrome extension that translates Arabic and English, keeps words in a private local word bank with folders, and exports Markdown, TXT, CSV, or JSON on demand (https://hassala.nagdista.com/)."
 
 Last updated: 2026-11-04

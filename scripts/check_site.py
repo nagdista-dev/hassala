@@ -13,7 +13,7 @@ from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parent.parent
 SITE = ROOT / "site"
-BASE_URL = "https://nagdista-dev.github.io/hassala/"
+BASE_URL = "https://hassala.nagdista.com/"
 FAILURES: list[str] = []
 
 
@@ -195,12 +195,10 @@ def main() -> int:
             for location in locations:
                 if not location:
                     continue
-                relative = urlparse(location).path.replace("/hassala/", "", 1)
-                target = SITE / relative
-                if relative in ("", "/"):
-                    target = SITE / "index.html"
-                elif location.endswith("/"):
-                    target = SITE / relative / "index.html"
+                # The site lives at the root of its domain, so the URL path is
+                # the folder path inside site/ ("" -> index.html).
+                relative = urlparse(location).path.strip("/")
+                target = SITE / relative / "index.html" if relative else SITE / "index.html"
                 if not target.is_file():
                     fail(f"sitemap URL does not map to a file: {location} -> {target}")
             for canonical, path in canonical_urls.items():

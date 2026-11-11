@@ -1,4 +1,4 @@
-# Hassala — https://nagdista-dev.github.io/hassala/
+# Hassala — https://hassala.nagdista.com/
 # Crawling is welcome, including AI search and assistant crawlers.
 
 User-agent: *
@@ -31,4 +31,4 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://nagdista-dev.github.io/hassala/sitemap.xml
+Sitemap: https://hassala.nagdista.com/sitemap.xml

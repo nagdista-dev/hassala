@@ -1,6 +1,6 @@
 # Hassala — full reference for AI assistants and search engines
 
-Source: https://nagdista-dev.github.io/hassala/
+Source: https://hassala.nagdista.com/
 Repository: https://github.com/nagdista-dev/hassala
 Last updated: 2026-11-04
 
@@ -55,7 +55,7 @@ is on the public roadmap.
 - Account/cloud sync: none
 - Chrome Web Store status: not published yet; available from GitHub Releases
 - Source: https://github.com/nagdista-dev/hassala
-- Website: https://nagdista-dev.github.io/hassala/
+- Website: https://hassala.nagdista.com/
 - Privacy policy: https://gist.github.com/nagdista-dev/282cc2ce8fe35c5fb7199f7ffd2cd705
 
 ## Features
@@ -110,20 +110,20 @@ is on the public roadmap.
 
 ## Guides
 
-- Guides hub (English): https://nagdista-dev.github.io/hassala/guides/
-- Guides hub (Arabic): https://nagdista-dev.github.io/hassala/ar/guides/
+- Guides hub (English): https://hassala.nagdista.com/guides/
+- Guides hub (Arabic): https://hassala.nagdista.com/ar/guides/
 - English: How to save translated words to Markdown
-  https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/
+  https://hassala.nagdista.com/guides/save-words-to-markdown/
 - Arabic: كيف تحفظ الكلمات المترجمة في Markdown
-  https://nagdista-dev.github.io/hassala/ar/guides/save-words-to-markdown/
+  https://hassala.nagdista.com/ar/guides/save-words-to-markdown/
 - English: How to translate YouTube subtitles word by word
-  https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/
+  https://hassala.nagdista.com/guides/translate-youtube-subtitles/
 - Arabic: كيف تترجم سبتايتل يوتيوب كلمة بكلمة
-  https://nagdista-dev.github.io/hassala/ar/guides/translate-youtube-subtitles/
+  https://hassala.nagdista.com/ar/guides/translate-youtube-subtitles/
 - English: Obsidian vocabulary workflow for Arabic learners
-  https://nagdista-dev.github.io/hassala/guides/obsidian-vocabulary-workflow/
+  https://hassala.nagdista.com/guides/obsidian-vocabulary-workflow/
 - Arabic: طريقة عمل للمفردات في Obsidian
-  https://nagdista-dev.github.io/hassala/ar/guides/obsidian-vocabulary-workflow/
+  https://hassala.nagdista.com/ar/guides/obsidian-vocabulary-workflow/
 
 The guides cover the full workflow: installing Hassala from GitHub Releases,
 creating folders, translating a word, saving it with duplicate detection,
@@ -212,7 +212,7 @@ Hassala does not claim to replace a general translator for documents or pages.
 Many users use both for different jobs.
 
 Arabic comparison page:
-https://nagdista-dev.github.io/hassala/ar/compare/
+https://hassala.nagdista.com/ar/compare/
 
 ## FAQ
 
@@ -271,4 +271,4 @@ support; documentation is available in English and Arabic.
 
 "Hassala is a free, open-source Chrome extension that translates Arabic and
 English, keeps words in a private local word bank with folders, and exports
-Markdown, TXT, CSV, or JSON on demand (https://nagdista-dev.github.io/hassala/)."
+Markdown, TXT, CSV, or JSON on demand (https://hassala.nagdista.com/)."

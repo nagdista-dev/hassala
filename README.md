@@ -9,7 +9,7 @@
   <img alt="Version" src="https://img.shields.io/badge/version-2.0.4-0f766e" />
   <a href="https://github.com/nagdista-dev/hassala/actions/workflows/check.yml"><img alt="Check" src="https://github.com/nagdista-dev/hassala/actions/workflows/check.yml/badge.svg" /></a>
   <a href="https://github.com/nagdista-dev/hassala/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/nagdista-dev/hassala?style=flat" /></a>
-  <a href="https://nagdista-dev.github.io/hassala/"><img alt="Website" src="https://img.shields.io/badge/website-live-0f766e" /></a>
+  <a href="https://hassala.nagdista.com/"><img alt="Website" src="https://img.shields.io/badge/website-live-0f766e" /></a>
 </p>
 
 ---
@@ -41,19 +41,19 @@ filesystem on its own, and it does not need a native host, Python, or any
 external installer. When you want a copy, you choose the words, the format, and
 the filename, and the browser downloads the file normally.
 
-**Website:** [nagdista-dev.github.io/hassala](https://nagdista-dev.github.io/hassala/)
+**Website:** [hassala.nagdista.com](https://hassala.nagdista.com/)
 — English and Arabic, with comparison pages and an
-[`llms.txt`](https://nagdista-dev.github.io/hassala/llms.txt) reference for AI
+[`llms.txt`](https://hassala.nagdista.com/llms.txt) reference for AI
 assistants.
 
 **Guides:**
 
-- [How to save translated words and export them](https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/)
-  ([Arabic](https://nagdista-dev.github.io/hassala/ar/guides/save-words-to-markdown/))
-- [Translating YouTube subtitles word by word](https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/)
-  ([Arabic](https://nagdista-dev.github.io/hassala/ar/guides/translate-youtube-subtitles/))
-- [Obsidian vocabulary workflow](https://nagdista-dev.github.io/hassala/guides/obsidian-vocabulary-workflow/)
-  ([Arabic](https://nagdista-dev.github.io/hassala/ar/guides/obsidian-vocabulary-workflow/))
+- [How to save translated words and export them](https://hassala.nagdista.com/guides/save-words-to-markdown/)
+  ([Arabic](https://hassala.nagdista.com/ar/guides/save-words-to-markdown/))
+- [Translating YouTube subtitles word by word](https://hassala.nagdista.com/guides/translate-youtube-subtitles/)
+  ([Arabic](https://hassala.nagdista.com/ar/guides/translate-youtube-subtitles/))
+- [Obsidian vocabulary workflow](https://hassala.nagdista.com/guides/obsidian-vocabulary-workflow/)
+  ([Arabic](https://hassala.nagdista.com/ar/guides/obsidian-vocabulary-workflow/))
 
 | Quick fact | Detail |
 | --- | --- |
@@ -522,7 +522,7 @@ useful path. For anything private, email is always welcome.
 Hassala grows through honest recommendations. If it saves you time:
 
 - **Star the repository** so more Arabic learners can find it.
-- **Share the website:** <https://nagdista-dev.github.io/hassala/>.
+- **Share the website:** <https://hassala.nagdista.com/>.
 - **Write about your workflow** — a blog post, a note, or a short video.
 - **Suggest it in a relevant community or awesome list**, following that
   community's rules.

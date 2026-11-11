@@ -122,7 +122,7 @@ JSON وقت ما تحب.
 
 ## روابط
 
-- **الموقع:** https://nagdista-dev.github.io/hassala/ar/
+- **الموقع:** https://hassala.nagdista.com/ar/
 - **الكود المصدري:** https://github.com/nagdista-dev/hassala
 - **سياسة الخصوصية:**
   https://gist.github.com/nagdista-dev/282cc2ce8fe35c5fb7199f7ffd2cd705

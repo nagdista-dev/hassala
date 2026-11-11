@@ -66,18 +66,18 @@ This means the website alone is not enough. The highest-leverage signals are:
 
 ### Website (GitHub Pages)
 
-- English landing page: <https://nagdista-dev.github.io/hassala/>
-- Arabic landing page: <https://nagdista-dev.github.io/hassala/ar/>
-- Comparison page: <https://nagdista-dev.github.io/hassala/compare/>
-- Arabic comparison page: <https://nagdista-dev.github.io/hassala/ar/compare/>
-- English guide: <https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/>
-- Arabic guide: <https://nagdista-dev.github.io/hassala/ar/guides/save-words-to-markdown/>
-- English guides hub: <https://nagdista-dev.github.io/hassala/guides/>
-- Arabic guides hub: <https://nagdista-dev.github.io/hassala/ar/guides/>
-- English YouTube guide: <https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/>
-- Arabic YouTube guide: <https://nagdista-dev.github.io/hassala/ar/guides/translate-youtube-subtitles/>
-- English Obsidian guide: <https://nagdista-dev.github.io/hassala/guides/obsidian-vocabulary-workflow/>
-- Arabic Obsidian guide: <https://nagdista-dev.github.io/hassala/ar/guides/obsidian-vocabulary-workflow/>
+- English landing page: <https://hassala.nagdista.com/>
+- Arabic landing page: <https://hassala.nagdista.com/ar/>
+- Comparison page: <https://hassala.nagdista.com/compare/>
+- Arabic comparison page: <https://hassala.nagdista.com/ar/compare/>
+- English guide: <https://hassala.nagdista.com/guides/save-words-to-markdown/>
+- Arabic guide: <https://hassala.nagdista.com/ar/guides/save-words-to-markdown/>
+- English guides hub: <https://hassala.nagdista.com/guides/>
+- Arabic guides hub: <https://hassala.nagdista.com/ar/guides/>
+- English YouTube guide: <https://hassala.nagdista.com/guides/translate-youtube-subtitles/>
+- Arabic YouTube guide: <https://hassala.nagdista.com/ar/guides/translate-youtube-subtitles/>
+- English Obsidian guide: <https://hassala.nagdista.com/guides/obsidian-vocabulary-workflow/>
+- Arabic Obsidian guide: <https://hassala.nagdista.com/ar/guides/obsidian-vocabulary-workflow/>
 - `llms.txt` and `llms-full.txt` for AI crawlers.
 - `sitemap.xml`, `robots.txt`, canonical URLs, and `hreflang` for English and
   Arabic.
@@ -121,14 +121,14 @@ page or to content worth writing later.
 | English: general | `arabic translator chrome extension` | Home |
 | English: saving words | `chrome extension save words with folders` | Home |
 | English: export | `export vocabulary to csv markdown` | Home |
-| English: Obsidian | `obsidian vocabulary builder chrome extension` | [Obsidian guide](https://nagdista-dev.github.io/hassala/guides/obsidian-vocabulary-workflow/) |
-| English: YouTube | `translate youtube arabic subtitles extension` | [YouTube guide](https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/) |
+| English: Obsidian | `obsidian vocabulary builder chrome extension` | [Obsidian guide](https://hassala.nagdista.com/guides/obsidian-vocabulary-workflow/) |
+| English: YouTube | `translate youtube arabic subtitles extension` | [YouTube guide](https://hassala.nagdista.com/guides/translate-youtube-subtitles/) |
 | English: comparison | `best arabic translator extension` | Compare |
-| English: workflow | `how to save translated words and export them` | [Guide](https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/) |
+| English: workflow | `how to save translated words and export them` | [Guide](https://hassala.nagdista.com/guides/save-words-to-markdown/) |
 | Arabic: general | `إضافة ترجمة عربي إنجليزي للكروم` | Arabic home |
 | Arabic: saving | `حفظ الكلمات وتصديرها من إضافة ترجمة` | Arabic home |
-| Arabic: YouTube | `ترجمة سبتايتل يوتيوب` | [Arabic YouTube guide](https://nagdista-dev.github.io/hassala/ar/guides/translate-youtube-subtitles/) |
-| Arabic: comparison | `افضل إضافة ترجمة للكروم` | [Arabic compare](https://nagdista-dev.github.io/hassala/ar/compare/) |
+| Arabic: YouTube | `ترجمة سبتايتل يوتيوب` | [Arabic YouTube guide](https://hassala.nagdista.com/ar/guides/translate-youtube-subtitles/) |
+| Arabic: comparison | `افضل إضافة ترجمة للكروم` | [Arabic compare](https://hassala.nagdista.com/ar/compare/) |
 
 ### Content gaps worth filling next
 
@@ -141,15 +141,15 @@ good.
 
 ### Published guides
 
-- [How to save translated words to Markdown](https://nagdista-dev.github.io/hassala/guides/save-words-to-markdown/)
+- [How to save translated words to Markdown](https://hassala.nagdista.com/guides/save-words-to-markdown/)
   — English, with an Arabic counterpart at
-  [the Arabic guide](https://nagdista-dev.github.io/hassala/ar/guides/save-words-to-markdown/).
-- [How to translate YouTube subtitles word by word](https://nagdista-dev.github.io/hassala/guides/translate-youtube-subtitles/)
+  [the Arabic guide](https://hassala.nagdista.com/ar/guides/save-words-to-markdown/).
+- [How to translate YouTube subtitles word by word](https://hassala.nagdista.com/guides/translate-youtube-subtitles/)
   — English, with an Arabic counterpart at
-  [the Arabic YouTube guide](https://nagdista-dev.github.io/hassala/ar/guides/translate-youtube-subtitles/).
-- [Obsidian vocabulary workflow for Arabic learners](https://nagdista-dev.github.io/hassala/guides/obsidian-vocabulary-workflow/)
+  [the Arabic YouTube guide](https://hassala.nagdista.com/ar/guides/translate-youtube-subtitles/).
+- [Obsidian vocabulary workflow for Arabic learners](https://hassala.nagdista.com/guides/obsidian-vocabulary-workflow/)
   — English, with an Arabic counterpart at
-  [the Arabic Obsidian guide](https://nagdista-dev.github.io/hassala/ar/guides/obsidian-vocabulary-workflow/).
+  [the Arabic Obsidian guide](https://hassala.nagdista.com/ar/guides/obsidian-vocabulary-workflow/).
 
 ---
 
@@ -256,7 +256,7 @@ Before opening a pull request:
 > disk until you click export, and there is no native host or Python dependency.
 > Everything is MIT licensed.
 >
-> Site: https://nagdista-dev.github.io/hassala/
+> Site: https://hassala.nagdista.com/
 > Code: https://github.com/nagdista-dev/hassala
 >
 > I would especially appreciate feedback on the folder/export flow and on the
@@ -281,7 +281,7 @@ Before opening a pull request:
 > install it from GitHub Releases. I am the maintainer, so I am happy to answer
 > questions or hear what would make it more useful for your study routine.
 >
-> Site: https://nagdista-dev.github.io/hassala/
+> Site: https://hassala.nagdista.com/
 
 ### Product Hunt
 
