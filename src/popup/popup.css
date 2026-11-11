@@ -57,31 +57,6 @@
   color-scheme: light;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #12110f;
-    --surface: #201d19;
-    --surface-2: #262320;
-    --text: #f7f4ef;
-    --muted: #a39c91;
-    --line: rgba(247, 244, 239, 0.16);
-    --line-strong: rgba(247, 244, 239, 0.3);
-    --accent: #ff4d00;
-    --accent-strong: #ff7a3d;
-    --accent-soft: #3a1c0c;
-    --accent-text: #ff9a66;
-    --on-accent: #12110f;
-    --on-gold: #12110f;
-    --gold: #ff7a3d;
-    --gold-soft: #3a1c0c;
-    --gold-strong: #ff9a66;
-    --terracotta: #ff7a3d;
-    --danger: #ff9b8a;
-    --danger-soft: #38211d;
-    --shadow: 0 14px 30px rgba(0, 0, 0, 0.38);
-    color-scheme: dark;
-  }
-}
 
 * {
   box-sizing: border-box;
@@ -151,6 +126,7 @@ body {
       transparent 1px 16px
     ),
     var(--bg);
+  background-attachment: fixed;
   color: var(--text);
   font-family: "Inter", "Baloo Bhaijaan 2", "Noto Sans Arabic", "Segoe UI",
     Tahoma, sans-serif;
@@ -158,32 +134,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-@media (prefers-color-scheme: dark) {
-  body {
-    background:
-      radial-gradient(
-        120% 80% at 100% 0%,
-        rgba(224, 185, 105, 0.07) 0%,
-        transparent 55%
-      ),
-      radial-gradient(
-        95% 70% at 0% 100%,
-        rgba(45, 212, 191, 0.05) 0%,
-        transparent 52%
-      ),
-      repeating-linear-gradient(
-        45deg,
-        rgba(224, 185, 105, 0.025) 0 1px,
-        transparent 1px 16px
-      ),
-      repeating-linear-gradient(
-        -45deg,
-        rgba(224, 185, 105, 0.025) 0 1px,
-        transparent 1px 16px
-      ),
-      var(--bg);
-  }
-}
 
 body::before {
   content: "";
@@ -411,20 +361,6 @@ textarea:focus-visible {
   transform: scaleX(-1);
 }
 
-@media (prefers-color-scheme: dark) {
-  .direction {
-    border-color: rgba(247, 244, 239, 0.24);
-    background: linear-gradient(180deg, #3a1c0c 0%, #2a160a 100%);
-    color: var(--gold-strong);
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.06),
-      0 2px 5px rgba(0, 0, 0, 0.2);
-  }
-
-  .direction-arrow {
-    color: var(--gold);
-  }
-}
 
 /* ---------- Input ---------- */
 
@@ -554,13 +490,6 @@ textarea::placeholder {
     transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  .result-card {
-    background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 55%),
-      var(--surface);
-  }
-}
 
 .result-card::before {
   content: "✦";

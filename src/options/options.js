@@ -121,6 +121,36 @@ function removeStorage(keys) {
 
 /* ---------- Feedback and dialogs ---------- */
 
+function sendMessage(payload, timeoutMs = 12000) {
+  return new Promise((resolve) => {
+    if (typeof chrome === 'undefined' || !chrome.runtime?.sendMessage) {
+      resolve({ ok: false, code: 'failed' });
+      return;
+    }
+
+    let settled = false;
+    const finish = (response) => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      resolve(response);
+    };
+    const timer = setTimeout(() => finish({ ok: false, code: 'timeout' }), timeoutMs);
+
+    try {
+      chrome.runtime.sendMessage(payload, (response) => {
+        if (chrome.runtime.lastError) {
+          finish({ ok: false, code: 'failed' });
+        } else {
+          finish(response);
+        }
+      });
+    } catch {
+      finish({ ok: false, code: 'failed' });
+    }
+  });
+}
+
 function showToast(text, kind = 'info', holdMs = 6500) {
   clearTimeout(toastTimer);
   if (!text) {
@@ -608,6 +638,102 @@ function renderWords() {
   updateSelectionState();
 }
 
+/* ---------- Pronunciation ---------- */
+
+const SPEAKER_ICON = `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                d="M5 10v4h3l4 3V7l-4 3H5Z"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M15.5 9.2a4 4 0 0 1 0 5.6"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+              />
+              <path
+                d="M18 6.8a7.5 7.5 0 0 1 0 10.4"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+              />
+            </svg>`;
+
+function speakLanguage(text) {
+  return /[\u0600-\u06FF]/.test(text) ? 'ar' : 'en';
+}
+
+let speakingButton = null;
+
+function createSpeakButton(text, label) {
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'word-speak';
+  button.title = label;
+  button.setAttribute('aria-label', `${label}: ${text}`);
+  button.innerHTML = SPEAKER_ICON;
+  button.addEventListener('click', (event) => {
+    event.stopPropagation();
+    speakWord(button, text);
+  });
+  return button;
+}
+
+async function speakWord(button, text) {
+  const clean = String(text || '').trim();
+  if (!clean) return;
+
+  if (speakingButton === button) {
+    stopSpeaking();
+    return;
+  }
+  stopSpeaking();
+
+  speakingButton = button;
+  button.classList.add('is-speaking');
+
+  const response = await sendMessage({
+    type: 'tts',
+    text: clean,
+    lang: speakLanguage(clean),
+  });
+
+  if (!response || !response.ok) {
+    button.classList.add('is-error');
+    setTimeout(() => {
+      button.classList.remove('is-error');
+      button.classList.remove('is-speaking');
+      if (speakingButton === button) speakingButton = null;
+    }, 1800);
+    showToast('Pronunciation is unavailable right now.', 'error');
+    return;
+  }
+
+  setTimeout(() => {
+    button.classList.remove('is-speaking');
+    if (speakingButton === button) speakingButton = null;
+  }, 1200);
+}
+
+function stopSpeaking() {
+  if (!speakingButton) return;
+  const button = speakingButton;
+  speakingButton = null;
+  button.classList.remove('is-speaking');
+  sendMessage({ type: 'stopTts' });
+}
+
+chrome.runtime.onMessage.addListener((message) => {
+  if (!message || message.type !== 'ttsState') return false;
+  if (!message.playing && speakingButton) {
+    speakingButton.classList.remove('is-speaking');
+    speakingButton = null;
+  }
+  return false;
+});
+
 function makeWordRow(entry, folders) {
   const row = document.createElement('div');
   row.className = 'word-row';
@@ -661,7 +787,13 @@ function makeWordRow(entry, folders) {
   setTextDirection(target, entry.translation);
   target.textContent = entry.translation;
 
-  text.append(source, arrow, target);
+  text.append(
+    source,
+    createSpeakButton(entry.word, 'Pronounce the word'),
+    arrow,
+    target,
+    createSpeakButton(entry.translation, 'Pronounce the translation'),
+  );
 
   const meta = document.createElement('div');
   meta.className = 'word-meta';
